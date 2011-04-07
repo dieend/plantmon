@@ -61,7 +61,7 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
     public void run(){
         
         while (true) {
-            System.out.println("run - CobaOpeh");
+            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e){
@@ -73,16 +73,12 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
         
     }
     public void gameUpdate() {
-        System.out.println("gameUpdate-CobaOpeh");
         Point2D pos = player.getCreature().position();
-        System.out.format("%d %d ciiiiiiiiiih\n",(int)pos.X()/80, (int)pos.Y()/80);
-        map.pop((int)pos.X()/80, (int)pos.Y()/80);
         player.update();
-        map.push(pos.X(), pos.Y(), player);
     }
 
     public void updated(Graphics g){
-        System.out.println("updated - CobaOpeh");
+
         g2d.setColor(Color.WHITE);
         g2d.drawImage(background.getImage(), 0, 0,SCREENWIDTH-1,SCREENHEIGHT-1, this);
         for (int i=0; i<8; i++){
@@ -122,6 +118,7 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
 
      }
    public void mouseClicked(MouseEvent e){
+       final MouseEvent tmp = e;
         System.out.println("mouseClicked");
         int fx = e.getX();
         int fy = e.getY();
@@ -134,9 +131,7 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
                 selectsomething = false;
                 if (map.getTop(gx, gy) != null ) {
                     if (map.getTop(gx, gy) instanceof Selectable) {
-                        // will be a Selectable object
                         selected = (Selectable) map.getTop(gx, gy);
-                        // if (selected instanceof Actionable)
                         selectsomething = true;
                     }
                 } else selectsomething = false;
@@ -150,10 +145,11 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
                         actionated = new Point2D(fx,fy);
                     }
                     
-                    // it should be menu = selected.setPopMenu(actionated)
+                    //get menu from selected
                     popup = actionated.getMenu(selected);
-                    popup.show(e.getComponent(),
-                           e.getX(), e.getY());
+                    if (popup != null) {
+                        popup.show(tmp.getComponent(),tmp.getX(), tmp.getY());
+                    }
                 }
                 break;
             default: break;

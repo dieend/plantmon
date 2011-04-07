@@ -6,6 +6,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import plantmon.entity.movingObject.Player;
 import plantmon.system.Actionable;
+import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
 
 /*********************************************************
@@ -13,6 +14,7 @@ import plantmon.system.Selectable;
 **********************************************************/
 public class Point2D extends Object implements Actionable {
     private double x, y;
+    Object lock = new Object();
     //int constructor
     public Point2D(int x, int y) {
         setX(x);
@@ -44,17 +46,29 @@ public class Point2D extends Object implements Actionable {
             JPopupMenu menu = new JPopupMenu();
             JMenuItem item;
             item = new JMenuItem("move");
-            item.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    int gx = (int)Point2D.this.X();
-                    int gy = (int)Point2D.this.Y();
-                    player.getCreature().setVelocity(gx,gy);
-                }
-            });
+            item.addActionListener(new Move(selected));
             menu.add(item);
             menu.pack();
             return menu;
         }
         return null;
     }
+    class Move extends RunnableListener {
+        public Move(Selectable selected){
+            super(selected);
+        }
+        public void run() {
+            Player player = (Player) selected;
+            int gx = (int)Point2D.this.X();
+            int gy = (int)Point2D.this.Y();
+            Object lock = new Object();
+            player.move(gx, gy, lock);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){}
+            }
+        }
+    }
+
 }

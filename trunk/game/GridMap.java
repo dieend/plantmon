@@ -34,7 +34,7 @@ public class GridMap {
             }
         }
     }
-    public Object getTop(int x,int y){
+    public synchronized Object getTop(int x,int y){
 //        x /= 80
 //        y /= 80;
         if (map[x][y].size()!=0) {
@@ -42,29 +42,34 @@ public class GridMap {
             return result;
         } else return null;
     }
-    public void push(int x, int y, Object o){
+    public synchronized void push(int x, int y, Object o){
         x /= 80;
         y /= 80;
-        System.out.println("Pushing Something");
         map[x][y].add(o);
     }
-    public void push(double x, double y, Object o){
-        System.out.format("%f %f\n",x,y);
+    public synchronized void push(double x, double y, Object o){
         x /= 80;
         y /= 80;
-        System.out.format("%f %f\n",x,y);
         int ix = (int) x; int iy = (int) y;
-        System.out.format("%d %d\n",ix,iy);
         map[ix][iy].add(o);
     }
-    public void pop(int x, int y){
+    public synchronized void gpush(int x, int y, Object o){
+        map[x][y].add(o);
+    }
+    public synchronized void pop(int x, int y){
         x /= 80;
         y /= 80;
         if (map[x][y].size()!=0) {
             map[x][y].remove(map[x][y].size()-1);
         }
     }
-    public void pop(double  x, double y){
+    public synchronized void gpop(int x, int y){
+        if (map[x][y].size()!=0) {
+            map[x][y].remove(map[x][y].size()-1);
+        }
+    }
+
+    public synchronized void pop(double  x, double y){
         x /= 80;
         y /= 80;
         int ix=(int) x, iy = (int) y;

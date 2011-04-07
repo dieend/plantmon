@@ -13,7 +13,7 @@ public class Sprite extends Object {
     protected Point2D vel;
     protected double rotRate;
     protected int currentState;
-    private Point2D finalPosition;
+    protected Point2D finalPosition;
     
     //constructor
     Sprite(JPanel a, Graphics2D g2d) {
