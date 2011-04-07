@@ -10,7 +10,7 @@ import plantmon.entity.*;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 
-public class Player extends MovingObject implements Actionable,
+public class Player extends MovingObject implements Actionable, 
                                                     Selectable{
     //bisa ngapain aja?
     public Player(GridMap map, JPanel panel, Graphics2D g2d){
@@ -32,4 +32,8 @@ public class Player extends MovingObject implements Actionable,
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(3);
     }
+    public void move(int gx,int gy,Object lock){
+        addAction(lock,new Point2D(gx,gy));
+    }
+    
 }
