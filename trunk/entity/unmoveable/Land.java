@@ -8,6 +8,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import plantmon.entity.Inventory;
+import plantmon.entity.Item;
 import plantmon.entity.Unmoveable;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
@@ -46,7 +47,6 @@ public class Land extends Unmoveable implements Actionable{
             } else {
                 JMenu item3;
                 item3 = new JMenu("put");
-                item3.addActionListener(new Put(selected));
                 Inventory inventory = player.getFarmItem();
                 JMenuItem subItem;
                 for (int i = 0; i < inventory.getSize(); i++) {
@@ -87,8 +87,10 @@ public class Land extends Unmoveable implements Actionable{
     }
 
     class Put extends RunnableListener {
+        Item temp;
         public Put(Selectable selected,Item item){
             super(selected);
+            temp = item;
         }
         public void run() {
             Player player = (Player) selected;
@@ -101,7 +103,7 @@ public class Land extends Unmoveable implements Actionable{
                     lock.wait();
                 } catch (InterruptedException e){}
             }
-            player.put(item);
+            player.put(temp);
         }
     }
 
@@ -120,7 +122,7 @@ public class Land extends Unmoveable implements Actionable{
                     lock.wait();
                 } catch (InterruptedException e){}
             }
-            player.plow();
+            status = PLOWED;
         }
     }
 
@@ -139,7 +141,7 @@ public class Land extends Unmoveable implements Actionable{
                     lock.wait();
                 } catch (InterruptedException e){}
             }
-            player.water();
+            status = WATERED;
         }
     }
 }
