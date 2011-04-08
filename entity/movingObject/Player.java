@@ -35,5 +35,13 @@ public class Player extends MovingObject implements Actionable,
     public void move(int gx,int gy,Object lock){
         addAction(lock,new Point2D(gx,gy));
     }
+
+    public Inventory getFarmItem() {
+        return null;
+    }
+
+    public void put(Item item) {
+
+    }
     
 }
