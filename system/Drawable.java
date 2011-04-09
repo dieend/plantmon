@@ -10,6 +10,7 @@ package plantmon.system;
  * @author asus
  */
 public interface Drawable {
+    ///<summary> kdaladflkalfdfask </summary>
     public void draw();
     public void update();
 }

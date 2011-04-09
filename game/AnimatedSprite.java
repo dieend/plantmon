@@ -1,8 +1,8 @@
 package plantmon.game;
 
-/*****************************************************
-* AnimatedSprite class
-*****************************************************/
+/**
+ * Kelas untuk membuat gambar animasi
+ */
 import java.awt.*;
 import java.awt.image.*;
 import java.io.IOException;
@@ -23,7 +23,11 @@ public class AnimatedSprite extends Sprite {
     private int width;
     private int height;
     protected JPanel panel;
-
+    /**
+     * Konstruktor gambar animasi.
+     * @param applet tempat menggambar animasi
+     * @param g2d buffer animasi
+     */
     public AnimatedSprite(JPanel applet, Graphics2D g2d) {
         super(applet, g2d);
         panel = applet;
@@ -36,7 +40,14 @@ public class AnimatedSprite extends Sprite {
         frHeight = 0;
         cols = 0;
     }
-    
+    /**
+     * Meload data file gambar yang akan digunakan sebagai animasi
+     * @param filename lokasi gambar, harus bertipe .png
+     * @param columns jumlah kolom frame gambar animasi
+     * @param rows jumlah baris frame gambar animasi
+     * @param width lebar 1 frame(dalam pixel)
+     * @param height tinggi 1 frame(dalam pixel)
+     */
     public void load(String filename, int columns, int rows,int width, int height)
     {
         //load the tiled animation bitmap
@@ -52,23 +63,90 @@ public class AnimatedSprite extends Sprite {
         this.width = width;
         this.height = height;
     }
-    public JPanel panel() {return panel;}
+    /**
+     *
+     * @return tempat menggambar yang digunakan animasi ini
+     */
+    @Override public JPanel panel() {return panel;}
+    /**
+     *
+     * @return nomor frame saat ini
+     */
     public int currentFrame() { return currFrame; }
+    /**
+     * mengeset frame saat ini dengan frame yang baru
+     * @param nomor frame yang baru
+     */
     public void setCurrentFrame(int frame) { currFrame = frame; }public int frameWidth() { return frWidth; }
+    /**
+     * mengeset lebar frame saat ini dengan width
+     * @param width
+     */
     public void setFrameWidth(int width) { frWidth = width; }
+    /**
+     *
+     * @return tinggi frame
+     */
     public int frameHeight() { return frHeight; }
+    /**
+     * mengeset tinggi frame saat ini dengan height
+     * @return
+     */
     public void setFrameHeight(int height) { frHeight = height; }
+    /**
+     *
+     * @return total frame yang ada
+     */
     public int totalFrames() { return totFrames; }
+    /**
+     * mengeset total frame
+     * @param total
+     */
     public void setTotalFrames(int total) { totFrames = total; }
+    /**
+     *
+     * @return arah animasi
+     */
     public int animationDirection() { return animDir; }
+    /**
+     * mengeset arah animasi
+     * @param dir arah animasi
+     */
     public void setAnimationDirection(int dir) { animDir = dir; }
+    /**
+     * frame counter digunakan untuk menunda pindah frame, apabila
+     * frame counter > frame delay, maka akan pindah frame
+     * @return frame counter
+     */
     public int frameCount() { return frCount; }
+    /**
+     * mengeset frame counter
+     * @param count
+     */
     public void setFrameCount(int count) { frCount = count; }
+    /**
+     *
+     * @return delay yang digunakan untuk frame
+     */
     public int frameDelay() { return frDelay; }
+    /**
+     * mengeset frame delay
+     * @param delay
+     */
     public void setFrameDelay(int delay) { frDelay = delay; }
+    /**
+     *
+     * @return jumlah kolom
+     */
     public int columns() { return cols; }
+    /**
+     * mengeset jumlah kolom
+     * @param num jumlah kolom
+     */
     public void setColumns(int num) { cols = num; }
-    
+    /**
+     * mengupdate animasi
+     */
     public void updateAnimation() {
         frCount++;
         if (frameCount() > frameDelay()) {
@@ -83,7 +161,9 @@ public class AnimatedSprite extends Sprite {
             }
         }
     }
-
+    /**
+     * menggambar animasi ke buffer
+     */
     @Override public void draw() {
         //calculate the current frame’s X and Y position
         System.out.print("I'm drawing animated\n");

@@ -13,21 +13,39 @@ import plantmon.system.Drawable;
  * @author asus
  */
 public class GridMap {
+    /**
+     * Peta yang menggambarkan keadaan area. Merupakan array of stack 2 dimensi
+     */
     ArrayList<Object>[][] map;
+    /**
+     * jumlah kolom
+     */
     int column;
+    /**
+     * jumlah baris
+     */
     int row;
+    /**
+     * Konstruktor default, akan menginisiasi area dengan ukuran 8x8
+     */
     public GridMap(){
         map = new ArrayList[100][100];
         column = 8;
         row = 8;
         init();
     }
+    /**
+     * Konstruktor dengan ukuran 8x8
+     * @param x
+     * @param y
+     */
     public GridMap(int x, int y) {
         map = new ArrayList[x][y];
         row = x;
         column = y;
         init();
     }
+
     private void init() {
         for (int i=0; i<row; i++){
             for (int j=0;j<column;j++){
@@ -35,6 +53,13 @@ public class GridMap {
             }
         }
     }
+    /**
+     * Mengembalikan object yang berada di stack paling atas dari stack di
+     * posisi (x,y). x,y merupakan posisi grid aktual, bukan posisi pixel
+     * @param x
+     * @param y
+     * @return
+     */
     public Object getTop(int x,int y){
 //        x /= 80
 //        y /= 80;
@@ -45,6 +70,13 @@ public class GridMap {
             } else return null;
         }
     }
+    /**
+     * push sebuah Object o ke dalam stack yang ada di posisi x,y. x,y merupakan
+     * posisi pixel dari Object o.
+     * @param x
+     * @param y
+     * @param o
+     */
     public void push(int x, int y, Object o){
         x /= 80;
         y /= 80;
@@ -52,6 +84,13 @@ public class GridMap {
             map[x][y].add(o);
         }
     }
+    /**
+     * push sebuah Object o ke dalam stack yang ada di posisi x,y. x,y merupakan
+     * posisi pixel dari Object o.
+     * @param x
+     * @param y
+     * @param o
+     */
     public void push(double x, double y, Object o){
         x /= 80;
         y /= 80;
@@ -60,11 +99,24 @@ public class GridMap {
             map[ix][iy].add(o);
         }
     }
+    /**
+     * push sebuah Object o ke dalam stack yang ada di posisi gx,gy. 
+     * gx,gy merupakan posisi grid aktual, bukan posisi pixel
+     * @param x
+     * @param y
+     * @param o
+     */
     public void gpush(int x, int y, Object o){
         synchronized(map[x][y]){
             map[x][y].add(o);
         }
     }
+    /**
+     * pop sebuah Object o dari stack yang ada di posisi x,y. x,y merupakan
+     * posisi pixel dari Object o.
+     * @param x
+     * @param y
+     */
     public void pop(int x, int y){
         x /= 80;
         y /= 80;
@@ -74,6 +126,12 @@ public class GridMap {
             }
         }
     }
+    /**
+     * pop sebuah Object o dari stack yang ada di posisi x,y.
+     * x,y merupakan posisi grid aktual, bukan posisi pixel
+     * @param x
+     * @param y
+     */
     public void gpop(int x, int y){
         synchronized(map[x][y]){
             if (map[x][y].size()!=0) {
@@ -81,7 +139,12 @@ public class GridMap {
             }
         }
     }
-
+    /**
+     * pop sebuah Object o dari stack yang ada di posisi x,y. x,y merupakan
+     * posisi pixel dari Object o.
+     * @param x
+     * @param y
+     */
     public void pop(double  x, double y){
         x /= 80;
         y /= 80;
@@ -92,6 +155,10 @@ public class GridMap {
             }
         }
     }
+    /**
+     * menggambar seluruh objek yang ada didalam map, mulai digambar dari tumpukan
+     * terbawah, sehingga akan tergambar seluruh objek yang ada.
+     */
     public void draw(){
         int highest=1; // k is highest stack
         for (int k=0; k<highest; k++){
