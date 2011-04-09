@@ -1,14 +1,12 @@
 package plantmon.entity.item;
 
-import plantmon.entity.Item;
-
-
 public class FarmItem extends Item {
     int efekBuah;//efek dari buah yang dimakan player
     int costSellBibit;
     int typeTanaman;
     int typeBuah;
     boolean bibit;
+
     public int getTipeBuah(){
         return typeBuah;
     }
@@ -36,21 +34,22 @@ public class FarmItem extends Item {
     public void setBibit(boolean e){
         bibit=e;
     }
-    public static FarmItem makeBibit(String name){
-        FarmItem item=new FarmItem();
-        item.setNama(name);
-        if(name.equals("kentang"))          {item.setIDitem(0);item.setTypeTanaman(1);item.setTypeBuah(13);item.setEfekBuah(1);item.setCostBuy(150);item.setCostSell(720);item.setCostSellBibit(75);item.setBibit(true);}
-        else if(name.equals("lobak"))	{item.setIDitem(1);item.setTypeTanaman(2);item.setTypeBuah(14);item.setEfekBuah(2);item.setCostBuy(120);item.setCostSell(540);item.setCostSellBibit(60);item.setBibit(true);}
-        else if(name.equals("timun"))	{item.setIDitem(2);item.setTypeTanaman(3);item.setTypeBuah(15);item.setEfekBuah(1);item.setCostBuy(200);item.setCostSell(900);item.setCostSellBibit(100);item.setBibit(true);}
-        else if(name.equals("kubis"))	{item.setIDitem(3);item.setTypeTanaman(4);item.setTypeBuah(16);item.setEfekBuah(4);item.setCostBuy(500);item.setCostSell(2250);item.setCostSellBibit(250);item.setBibit(true);}
-        else if(name.equals("jagung"))	{item.setIDitem(4);item.setTypeTanaman(5);item.setTypeBuah(17);item.setEfekBuah(1);item.setCostBuy(300);item.setCostSell(900);item.setCostSellBibit(150);item.setBibit(true);}
-        else if(name.equals("tomat"))	{item.setIDitem(5);item.setTypeTanaman(6);item.setTypeBuah(18);item.setEfekBuah(1);item.setCostBuy(200);item.setCostSell(540);item.setCostSellBibit(100);item.setBibit(true);}
-        else if(name.equals("bawang"))	{item.setIDitem(6);item.setTypeTanaman(7);item.setTypeBuah(19);item.setEfekBuah(2);item.setCostBuy(150);item.setCostSell(720);item.setCostSellBibit(75);item.setBibit(true);}
-        else if(name.equals("nanas"))	{item.setIDitem(7);item.setTypeTanaman(8);item.setTypeBuah(20);item.setEfekBuah(4);item.setCostBuy(1000);item.setCostSell(4500);item.setCostSellBibit(500);item.setBibit(true);}
-        else if(name.equals("wortel"))	{item.setIDitem(8);item.setTypeTanaman(9);item.setTypeBuah(21);item.setEfekBuah(1);item.setCostBuy(300);item.setCostSell(1080);item.setCostSellBibit(150);item.setBibit(true);}
-        else if(name.equals("terong"))	{item.setIDitem(9);item.setTypeTanaman(10);item.setTypeBuah(22);item.setEfekBuah(4);item.setCostBuy(120);item.setCostSell(720);item.setCostSellBibit(60);item.setBibit(true);}
-        else if(name.equals("ubi"))         {item.setIDitem(10);item.setTypeTanaman(11);item.setTypeBuah(23);item.setEfekBuah(2);item.setCostBuy(300);item.setCostSell(1080);item.setCostSellBibit(150);item.setBibit(true);}
-        else if(name.equals("paprika"))	{item.setIDitem(11);item.setTypeTanaman(12);item.setTypeBuah(24);item.setEfekBuah(4);item.setCostBuy(150);item.setCostSell(360);item.setCostSellBibit(75);item.setBibit(true);}
+
+    public Item Item(String name) {
+        Item item = new Item();
+        FarmItem farmitem = new FarmItem();
+        if(name.equals("kentang"))      {item.setIDitem(0);farmitem.setTypeTanaman(1);farmitem.setTypeBuah(13);farmitem.setEfekBuah(1);item.setCostBuy(150);item.setCostSell(720);farmitem.setCostSellBibit(75);farmitem.setBibit(true);}
+        else if(name.equals("lobak"))	{item.setIDitem(1);farmitem.setTypeTanaman(2);farmitem.setTypeBuah(14);farmitem.setEfekBuah(2);item.setCostBuy(120);item.setCostSell(540);farmitem.setCostSellBibit(60);farmitem.setBibit(true);}
+        else if(name.equals("timun"))	{item.setIDitem(2);farmitem.setTypeTanaman(3);farmitem.setTypeBuah(15);farmitem.setEfekBuah(1);item.setCostBuy(200);item.setCostSell(900);farmitem.setCostSellBibit(100);farmitem.setBibit(true);}
+        else if(name.equals("kubis"))	{item.setIDitem(3);farmitem.setTypeTanaman(4);farmitem.setTypeBuah(16);farmitem.setEfekBuah(4);item.setCostBuy(500);item.setCostSell(2250);farmitem.setCostSellBibit(250);farmitem.setBibit(true);}
+        else if(name.equals("jagung"))	{item.setIDitem(4);farmitem.setTypeTanaman(5);farmitem.setTypeBuah(17);farmitem.setEfekBuah(1);item.setCostBuy(300);item.setCostSell(900);farmitem.setCostSellBibit(150);farmitem.setBibit(true);}
+        else if(name.equals("tomat"))	{item.setIDitem(5);farmitem.setTypeTanaman(6);farmitem.setTypeBuah(18);farmitem.setEfekBuah(1);item.setCostBuy(200);item.setCostSell(540);farmitem.setCostSellBibit(100);farmitem.setBibit(true);}
+        else if(name.equals("bawang"))	{item.setIDitem(6);farmitem.setTypeTanaman(7);farmitem.setTypeBuah(19);farmitem.setEfekBuah(2);item.setCostBuy(150);item.setCostSell(720);farmitem.setCostSellBibit(75);farmitem.setBibit(true);}
+        else if(name.equals("nanas"))	{item.setIDitem(7);farmitem.setTypeTanaman(8);farmitem.setTypeBuah(20);farmitem.setEfekBuah(4);item.setCostBuy(1000);item.setCostSell(4500);farmitem.setCostSellBibit(500);farmitem.setBibit(true);}
+        else if(name.equals("wortel"))	{item.setIDitem(8);farmitem.setTypeTanaman(9);farmitem.setTypeBuah(21);farmitem.setEfekBuah(1);item.setCostBuy(300);item.setCostSell(1080);farmitem.setCostSellBibit(150);farmitem.setBibit(true);}
+        else if(name.equals("terong"))	{item.setIDitem(9);farmitem.setTypeTanaman(10);farmitem.setTypeBuah(22);farmitem.setEfekBuah(4);item.setCostBuy(120);item.setCostSell(720);farmitem.setCostSellBibit(60);farmitem.setBibit(true);}
+        else if(name.equals("ubi"))     {item.setIDitem(10);farmitem.setTypeTanaman(11);farmitem.setTypeBuah(23);farmitem.setEfekBuah(2);item.setCostBuy(300);item.setCostSell(1080);farmitem.setCostSellBibit(150);farmitem.setBibit(true);}
+        else if(name.equals("paprika"))	{item.setIDitem(11);farmitem.setTypeTanaman(12);farmitem.setTypeBuah(24);farmitem.setEfekBuah(4);item.setCostBuy(150);item.setCostSell(360);farmitem.setCostSellBibit(75);farmitem.setBibit(true);}
         else {item = null;}
         return item;
     }
