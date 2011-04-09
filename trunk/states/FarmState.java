@@ -78,14 +78,21 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
         
     }
     public void gameUpdate() {
-        Point2D pos = player.getCreature().position();
-        player.update();
+//        Point2D pos = player.getCreature().position();
+//        for (int i=0; i<8;i++){
+//            for (int j=0; j<8; j++){
+//                if (map.getTop(i, j) instanceof Drawable){
+//                    ((Drawable)map.getTop(i, j)).update();
+//                }
+//            }
+//        }
     }
 
     public void updated(Graphics g){
 
         g2d.setColor(Color.WHITE);
         g2d.drawImage(background.getImage(), 0, 0,SCREENWIDTH-1,SCREENHEIGHT-1, this);
+//        map.update();
         map.draw();
         if (selectsomething) {
             selected.drawBounds();
