@@ -50,7 +50,9 @@ public class Plant extends Unmoveable implements Actionable,
     public void drawBounds(){
         entity.drawBounds(Color.GREEN);
     }
-
+    public int getFase(){
+        return fase;
+    }
     public String getInfo(){
         return null;
     }

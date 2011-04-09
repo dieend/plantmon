@@ -1,7 +1,5 @@
 package plantmon.game;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import plantmon.entity.movingObject.Player;
