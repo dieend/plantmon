@@ -2,34 +2,74 @@ package plantmon.entity;
 
 import java.util.ArrayList;
 import plantmon.entity.item.FarmItem;
+import plantmon.entity.item.FoodItem;
 
 public class Inventory{
-    int size;
-    int isi;
+    /**
+     * jumlah inventory terisi
+     */
+    private int isi;
+    /**
+     * kapasitas maksimum dari inventory
+     */
+    private int capacity;
+    /**
+     * container item
+     */
     ArrayList<Item>  item;
-    
-    public Inventory(int max) {
-        item = new ArrayList<Item>(max);
-        size = 0;
+    /**
+     * konstruktor inventory dengan ukuran dinamis dan ~tidak terbatas
+     */
+    public Inventory(){
+        item = new ArrayList<Item>();
+        isi = 0;
+        capacity = 9999;
     }
+    /**
+     * konstruktor inventory dengan ukuran maksimum capacity
+     * @param capacity
+     */
+    public Inventory(int capacity) {
+        item = new ArrayList<Item>(capacity);
+        isi = 0;
+        this.capacity = capacity;
+    }
+    /**
+     *
+     * @return banyak item yang ada diinventory
+     */
     public int getSize () {
-        return size;
+        return isi;
     }
-
+    /**
+     * 
+     * @return kapasitas maksimum inventory
+     */
+    public int getCapacity(){
+        return capacity;
+    }
+    /**
+     *
+     * @param i
+     * @return item yang berada di indeks ke i
+     */
     public Item getItem(int i) {
-        Item result = item.get(i);
+        Item result = null;
+        try {
+            result = item.get(i);
+        } catch(ArrayIndexOutOfBoundsException e){}
         return result;
     }
     public void add(Item it){
-        if (size<item.size()){
-            item.add(size, it);
-            size++;
+        if (isi<capacity){
+            item.add(it);
+            isi++;
         } else {
             throw new IndexOutOfBoundsException("Inventory Penuh!");
         }
     }
     public Inventory getFarmItem(){
-        Inventory farm = new Inventory(item.size());
+        Inventory farm = new Inventory();
         for (Item i:item){
             if (i instanceof FarmItem){
                 farm.add(i);
@@ -38,4 +78,14 @@ public class Inventory{
         return farm;
     }
 
+
+    public Inventory getFoodItem(){
+        Inventory food = new Inventory();
+        for (Item i:item){
+            if (i instanceof FoodItem){
+                food.add(i);
+            }
+        }
+        return food;
+    }
 }
