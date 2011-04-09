@@ -4,8 +4,6 @@ package plantmon.game;
 * Sprite class
 **********************************************************/
 import java.awt.*;
-import java.applet.*;
-import java.math.*;
 import javax.swing.JPanel;
 public class Sprite extends Object {
     private ImageEntity entity;
@@ -119,7 +117,7 @@ public class Sprite extends Object {
     public boolean collidesWith(Point2D point) {
     return (getBounds().contains(point.X(), point.Y()));
     }
-    public JPanel applet() { return entity.applet; }
+    public JPanel panel() { return entity.panel; }
     public Graphics2D graphics() { return entity.g2d; }
     public Image image() { return entity.image; }
     public void setImage(Image image) { entity.setImage(image); }

@@ -6,6 +6,7 @@
 package plantmon.game;
 
 import java.util.ArrayList;
+import plantmon.system.Drawable;
 
 /**
  *
@@ -75,6 +76,21 @@ public class GridMap {
         int ix=(int) x, iy = (int) y;
         if (map[ix][iy].size()!=0) {
             map[ix][iy].remove(map[ix][iy].size()-1);
+        }
+    }
+    public void draw(){
+        int highest=1; // k is highest stack
+        for (int k=0; k<highest; k++){
+            for (int i=0; i<row; i++){
+                for (int j=0; j<column; j++){
+                    if (k<map[i][j].size()){
+                        if (highest < map[i][j].size()) highest = map[i][j].size();
+                        if (map[i][j].get(k) instanceof Drawable){
+                            ((Drawable)map[i][j].get(k)).draw();
+                        }
+                    }
+                }
+            }
         }
     }
 }

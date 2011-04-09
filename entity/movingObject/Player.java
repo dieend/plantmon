@@ -12,9 +12,12 @@ import plantmon.game.Point2D;
 
 public class Player extends MovingObject implements Actionable, 
                                                     Selectable{
-    //bisa ngapain aja?
-    public Player(GridMap map, JPanel panel, Graphics2D g2d){
+
+    Inventory inventory;
+    //bisa ngapain aja
+    public Player(GridMap map, JPanel panel, Graphics2D g2d, int maxItemSlot){
         super(map,panel,g2d);
+        inventory = new Inventory(maxItemSlot);
     }
     @Override public void drawBounds() {
         creature.drawBounds(Color.GREEN);
@@ -27,7 +30,7 @@ public class Player extends MovingObject implements Actionable,
     }
     @Override protected void init() {
         //inisiasi semua variable disini.
-        creature.load("picture/anim0.png", 4,1,32,32);
+        load("picture/anim", 4,1,32,32);
         creature.setPosition(new Point2D(80,80));
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(3);
@@ -35,13 +38,8 @@ public class Player extends MovingObject implements Actionable,
     public void move(int gx,int gy,Object lock){
         addAction(lock,new Point2D(gx,gy));
     }
-
-    public Inventory getFarmItem() {
-        return null;
-    }
-
-    public void put(Item item) {
-
+    public Inventory getFarmItem(){
+        return inventory.getFarmItem();
     }
     
 }

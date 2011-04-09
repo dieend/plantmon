@@ -10,6 +10,7 @@ import java.awt.image.*;
 import java.net.URL;
 import javax.swing.JPanel;
 import plantmon.entity.movingObject.Player;
+import plantmon.entity.unmoveable.Land;
 import plantmon.game.GridMap;
 import plantmon.game.ImageEntity;
 import plantmon.game.Point2D;
@@ -52,9 +53,13 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
         background.load("picture/bg2.png");
-        player = new Player(map, this, g2d);
+        for (int i=0; i<8;i++){
+            for (int j=0; j<8; j++){
+                map.gpush(i, j, new Land(map, this, g2d,i,j));
+            }
+        }
+        player = new Player(map, this, g2d, 10);// maxslot = 10
         Point2D pos = player.getCreature().position();
-        System.out.printf("%f %f\n",pos.X(),pos.Y());
         map.push(pos.X(), pos.Y(), player);
         addMouseListener(this);
     }
@@ -81,16 +86,7 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
 
         g2d.setColor(Color.WHITE);
         g2d.drawImage(background.getImage(), 0, 0,SCREENWIDTH-1,SCREENHEIGHT-1, this);
-        for (int i=0; i<8; i++){
-            for (int j=0; j<8; j++){
-                if (map.getTop(i, j) instanceof Drawable) { // it should be instance of drawable
-                    // it should be selectable.draw
-                    ((Drawable) map.getTop(i, j)).draw();
-//                //}else {// if (map.getTop(i, j) instanceof Object){
-//                    System.out.format("It is something at %d %d\n",i,j);
-                }
-            }
-        }
+        map.draw();
         if (selectsomething) {
             selected.drawBounds();
         }
