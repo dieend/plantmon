@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import plantmon.game.AnimatedSprite;
 import plantmon.game.GridMap;
+import plantmon.game.Point2D;
 import plantmon.system.Drawable;
 
 /**
@@ -25,7 +26,10 @@ public abstract class Unmoveable implements Drawable{
     public void draw(){
         entity.draw();
     }
+    public JPanel panel() {return entity.panel();}
+    public Graphics2D graphics() {return entity.graphics();}
     public AnimatedSprite getEntity()   {return entity;}
+    public Point2D getPosition() {return entity.position();}
     public abstract void init();
     public void update(){
         entity.updateAnimation();

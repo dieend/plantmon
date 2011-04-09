@@ -10,12 +10,12 @@ import javax.swing.JPanel;
 public class ImageEntity extends BaseGameEntity {
 //variables
     protected Image image;
-    protected JPanel applet;
+    protected JPanel panel;
     protected AffineTransform at;
     protected Graphics2D g2d;
     //default constructor
     public ImageEntity(JPanel a) {
-        applet = a;
+        panel = a;
         setImage(null);
         setAlive(true);
     }
@@ -23,19 +23,19 @@ public class ImageEntity extends BaseGameEntity {
 
     public void setImage(Image image) {
         this.image = image;
-        double x = applet.getSize().width/2 - width()/2;
-        double y = applet.getSize().height/2 - height()/2;
+        double x = panel.getSize().width/2 - width()/2;
+        double y = panel.getSize().height/2 - height()/2;
         at = AffineTransform.getTranslateInstance(x, y);
     }
     public int width() {
         if (image != null)
-            return image.getWidth(applet);
+            return image.getWidth(panel);
         else
             return 0;
     }
     public int height() {
         if (image != null)
-            return image.getHeight(applet);
+            return image.getHeight(panel);
         else
             return 0;
     }
@@ -52,9 +52,9 @@ public class ImageEntity extends BaseGameEntity {
         try {
             image = ImageIO.read(this.getClass().getResource(filename));
         } catch(IOException e){}
-        while(getImage().getWidth(applet) <= 0);
-        double x = applet.getSize().width/2 - width()/2;
-        double y = applet.getSize().height/2 - height()/2;
+        while(getImage().getWidth(panel) <= 0);
+        double x = panel.getSize().width/2 - width()/2;
+        double y = panel.getSize().height/2 - height()/2;
         at = AffineTransform.getTranslateInstance(x, y);
     }
     public void transform() {
@@ -64,7 +64,7 @@ public class ImageEntity extends BaseGameEntity {
         at.translate(-width()/2, -height()/2);
     }
     public void draw() {
-        g2d.drawImage(getImage(), at, applet);
+        g2d.drawImage(getImage(), at, panel);
     }
     //bounding rectangle
     public Rectangle getBounds() {

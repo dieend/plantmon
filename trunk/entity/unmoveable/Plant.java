@@ -5,13 +5,12 @@ import java.awt.Graphics2D;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import plantmon.entity.Item;
 import plantmon.entity.Unmoveable;
 import plantmon.entity.movingObject.Player;
-import plantmon.entity.unmoveable.Land.Move;
-import plantmon.entity.unmoveable.Land.Plow;
-import plantmon.entity.unmoveable.Land.Water;
 import plantmon.game.GridMap;
 import plantmon.system.Actionable;
+import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
 
 public class Plant extends Unmoveable implements Actionable,
@@ -37,12 +36,17 @@ public class Plant extends Unmoveable implements Actionable,
     int	titikPanen;
     int	umur;
     boolean panenBerulang;
-
+    // konstruktor default
     public Plant(GridMap map, JPanel panel, Graphics2D g2d){
         super(map, panel, g2d);
         init();
     }
 
+    //konstruktor dari item.
+    public Plant(GridMap map, JPanel panel, Graphics2D g2d, Item item){
+        super(map, panel, g2d);
+        init();
+    }
     public void drawBounds(){
         entity.drawBounds(Color.GREEN);
     }
@@ -54,15 +58,14 @@ public class Plant extends Unmoveable implements Actionable,
         if (selected instanceof Player){
             final Player player = (Player) selected;
             JPopupMenu menu = new JPopupMenu();
-            menu.add(item);
             if ((fase == BIBITNOSIRAM) || (fase == BIBITSIRAM) || (fase == BIBITMATI)) {
                 JMenuItem itemplant2;
                 itemplant2 = new JMenuItem("plow");
                 itemplant2.addActionListener(new Plow(selected));
                 menu.add(itemplant2);
+
                 JMenuItem itemplant3;
                 if (fase == BIBITNOSIRAM){
-                    JMenuItem itemplant3;
                     itemplant3 = new JMenuItem("water");
                     itemplant3.addActionListener(new Water(selected));
                     menu.add(itemplant3);
@@ -92,7 +95,56 @@ public class Plant extends Unmoveable implements Actionable,
         return null;
     }
 
-    public void init(){
+    // TODO ONTA: Buat apa yang terjadi setiap melakukan Aksi terhadap
+    //            dirinya sendiri. Contohnya lihat di water
 
+    class Water extends RunnableListener {
+        Water(Selectable selected){
+            super(selected);
+        }
+        public void run() {
+            // membuat player berjalan ke posisi tumbuhan
+            Player player = (Player) selected;
+            // gx dan gy adalah posisi tumbuhan saat ini
+            int gx = (int)Plant.this.getPosition().X();
+            int gy = (int)Plant.this.getPosition().Y();
+            Object lock = new Object();
+            player.move(gx, gy, lock);
+            synchronized(lock){
+                try {
+                    lock.wait(); // tunggu player sampai ke posisi tumbuhan
+                } catch (InterruptedException e){}
+            }
+            // setelah player sampai, siram tanaman.
+            if (fase<7){
+                fase = fase+1;
+            }
+        }
+    }
+    class Harvest extends RunnableListener {
+        Harvest(Selectable selected){
+            super(selected);
+        }
+        public void run() {
+
+        }
+    }
+    class Plow extends RunnableListener {
+        Plow(Selectable selected){
+            super(selected);
+        }
+        public void run() {
+
+        }
+    }
+    class Slash extends RunnableListener {
+        Slash(Selectable selected){
+            super(selected);
+        }
+        public void run() {
+
+        }
+    }
+    public void init(){
     }
 }

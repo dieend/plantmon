@@ -22,10 +22,11 @@ public class AnimatedSprite extends Sprite {
     private int cols;
     private int width;
     private int height;
-    
+    protected JPanel panel;
 
     public AnimatedSprite(JPanel applet, Graphics2D g2d) {
         super(applet, g2d);
+        panel = applet;
         currFrame = 0;
         totFrames = 0;
         animDir = 1;
@@ -39,9 +40,11 @@ public class AnimatedSprite extends Sprite {
     public void load(String filename, int columns, int rows,int width, int height)
     {
         //load the tiled animation bitmap
+        System.out.print("animated should be changed");
         try {
+            System.out.print("animated is changed");
             animimage = ImageIO.read(this.getClass().getResource(filename));
-        } catch(IOException e) {}
+        } catch(IOException e) {e.printStackTrace(); }
         setColumns(columns);
         setTotalFrames(columns * rows);
         setFrameWidth(width);
@@ -49,6 +52,7 @@ public class AnimatedSprite extends Sprite {
         this.width = width;
         this.height = height;
     }
+    public JPanel panel() {return panel;}
     public int currentFrame() { return currFrame; }
     public void setCurrentFrame(int frame) { currFrame = frame; }public int frameWidth() { return frWidth; }
     public void setFrameWidth(int width) { frWidth = width; }
@@ -64,31 +68,6 @@ public class AnimatedSprite extends Sprite {
     public void setFrameDelay(int delay) { frDelay = delay; }
     public int columns() { return cols; }
     public void setColumns(int num) { cols = num; }
-    public void setVelocity(int gx, int gy) {
-        gx = (gx/80)*80+10;
-        gy = (gy/80)*80+10;
-        double vx = 1.5* Math.sin(Math.atan2(gx-this.position().X(),
-                    gy-this.position().Y()));
-        double vy = 1.5* Math.cos(Math.atan2(gx-this.position().X(),
-                    gy-this.position().Y()));
-        try {
-            if ((Math.abs(vy/vx)>1.0) && vy>0) {
-                setFaceAngle(0);
-                setImage(ImageIO.read(this.getClass().getResource("picture/anim2.png")));
-            } else if ((Math.abs(vy/vx) < 1.0) && vx>0){
-                setFaceAngle(90);
-                setImage(ImageIO.read(this.getClass().getResource("picture/anim3.png")));
-            } else if ((Math.abs(vy/vx) > 1.0) && vy<0){
-                setFaceAngle(180);
-                setImage(ImageIO.read(this.getClass().getResource("picture/anim0.png")));
-            } else if ((Math.abs(vy/vx) < 1.0) && vx<0){
-                setFaceAngle(270);
-                setImage(ImageIO.read(this.getClass().getResource("picture/anim1.png")));
-            }
-        } catch (IOException e) {}
-        super.setVelocity(new Point2D(vx,vy));
-        this.setFinalPosition(gx,gy);
-    }
     
     public void updateAnimation() {
         frCount++;
@@ -107,6 +86,7 @@ public class AnimatedSprite extends Sprite {
 
     @Override public void draw() {
         //calculate the current frame’s X and Y position
+        System.out.print("I'm drawing animated\n");
         tempImage = new BufferedImage(width, height,BufferedImage.TYPE_INT_ARGB);
         tempSurface = tempImage.createGraphics();
         int frameX = (currentFrame() % columns()) * frameWidth();
@@ -114,7 +94,7 @@ public class AnimatedSprite extends Sprite {
         //copy the frame onto the temp image
         tempSurface.drawImage(animimage, 0, 0, frameWidth()-1,
                 frameHeight()-1, frameX, frameY, frameX+frameWidth(),
-                frameY+frameHeight(), applet());
+                frameY+frameHeight(), panel());
         //pass the temp image on to the parent class and draw it
         //frame image is passed to parent class for drawing
         

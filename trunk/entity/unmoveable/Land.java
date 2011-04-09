@@ -1,8 +1,6 @@
 package plantmon.entity.unmoveable;
 
 import java.awt.Graphics2D;
-import java.awt.event.ActionListener;
-import java.awt.geom.Point2D;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -12,6 +10,7 @@ import plantmon.entity.Item;
 import plantmon.entity.Unmoveable;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
+import plantmon.game.Point2D;
 import plantmon.system.Actionable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
@@ -24,12 +23,19 @@ public class Land extends Unmoveable implements Actionable{
     final public static int WATERED = 2;
     
     int status;
-    public Land(GridMap map, JPanel panel, Graphics2D g2d){
+    @Override public void draw(){
+        super.draw();
+    }
+    public Land(GridMap map, JPanel panel, Graphics2D g2d,int gridX,int gridY){
         super(map, panel, g2d);
+        entity.setPosition(new Point2D(gridX*80, gridY*80));
         init();
+        
     }
     public void init(){
-        status = Land.NORMAL;
+        status = NORMAL;
+        entity.load("picture/land.png", 2, 1, 80, 80);
+        entity.setFrameDelay(5);
     }
     public JPopupMenu getMenu(Selectable selected){
         if (selected instanceof Player){
@@ -74,8 +80,8 @@ public class Land extends Unmoveable implements Actionable{
         }
         public void run() {
             Player player = (Player) selected;
-            int gx = (int)Point2D.this.X();
-            int gy = (int)Point2D.this.Y();
+            int gx = (int)Land.this.getPosition().X();
+            int gy = (int)Land.this.getPosition().Y();
             Object lock = new Object();
             player.move(gx, gy, lock);
             synchronized(lock){
@@ -94,8 +100,8 @@ public class Land extends Unmoveable implements Actionable{
         }
         public void run() {
             Player player = (Player) selected;
-            int gx = (int)Point2D.this.X();
-            int gy = (int)Point2D.this.Y();
+            int gx = (int)Land.this.getPosition().X();
+            int gy = (int)Land.this.getPosition().Y();
             Object lock = new Object();
             player.move(gx, gy, lock);
             synchronized(lock){
@@ -103,7 +109,9 @@ public class Land extends Unmoveable implements Actionable{
                     lock.wait();
                 } catch (InterruptedException e){}
             }
-            player.put(temp);
+            // buat plant baru berdasarkan item
+            Plant plant = new Plant(map, panel(),graphics() ,temp);
+            map.push(gx, gy, plant);
         }
     }
 
@@ -113,8 +121,8 @@ public class Land extends Unmoveable implements Actionable{
         }
         public void run() {
             Player player = (Player) selected;
-            int gx = (int)Point2D.this.X();
-            int gy = (int)Point2D.this.Y();
+            int gx = (int)Land.this.getPosition().X();
+            int gy = (int)Land.this.getPosition().Y();
             Object lock = new Object();
             player.move(gx, gy, lock);
             synchronized(lock){
@@ -132,8 +140,8 @@ public class Land extends Unmoveable implements Actionable{
         }
         public void run() {
             Player player = (Player) selected;
-            int gx = (int)Point2D.this.X();
-            int gy = (int)Point2D.this.Y();
+            int gx = (int)Land.this.getPosition().X();
+            int gy = (int)Land.this.getPosition().Y();
             Object lock = new Object();
             player.move(gx, gy, lock);
             synchronized(lock){
