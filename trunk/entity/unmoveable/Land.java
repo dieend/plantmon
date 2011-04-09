@@ -26,11 +26,11 @@ public class Land extends Unmoveable implements Actionable{
     @Override public void draw(){
         super.draw();
     }
+
     public Land(GridMap map, JPanel panel, Graphics2D g2d,int gridX,int gridY){
         super(map, panel, g2d);
         entity.setPosition(new Point2D(gridX*80, gridY*80));
         init();
-        
     }
     public void init(){
         status = NORMAL;
@@ -55,10 +55,15 @@ public class Land extends Unmoveable implements Actionable{
                 item3 = new JMenu("put");
                 Inventory inventory = player.getFarmItem();
                 JMenuItem subItem;
+                if (inventory.getSize()==0) {
+                    subItem = new JMenuItem("no crop item");
+                    subItem.setEnabled(false);
+                    item3.add(subItem);
+                }
                 for (int i = 0; i < inventory.getSize(); i++) {
                     subItem = new JMenuItem(inventory.getItem(i).getName());
                     subItem.addActionListener(new Put(selected,inventory.getItem(i)));
-                    menu.add(subItem);
+                    item3.add(subItem);
                 }
                 menu.add(item3);
                 if (status == PLOWED) {
