@@ -1,13 +1,17 @@
 package plantmon.states;
 
 
+import java.awt.event.ActionEvent;
 import javax.swing.JPopupMenu;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.*;
 import java.awt.image.*;
 import java.net.URL;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Land;
@@ -15,16 +19,18 @@ import plantmon.game.GridMap;
 import plantmon.game.ImageEntity;
 import plantmon.game.Point2D;
 import plantmon.system.Actionable;
-import plantmon.system.Drawable;
 import plantmon.system.Selectable;
 
 
-public class FarmState extends JPanel implements Runnable,MouseListener {
+public class FarmState extends JPanel implements Runnable,MouseListener,MouseMotionListener {
     Thread gameloop;
     GridMap map;
     JPopupMenu popup;
-    static int SCREENHEIGHT = 480;
-    static int SCREENWIDTH = 640;
+    JButton text = new JButton("mungkin percakapan disini?");
+    public static int SCREENHEIGHT = 1024;
+    public static int SCREENWIDTH = 768;
+    public int startx;
+    public int starty;
     Graphics2D g2d;
     ImageEntity background;
     BufferedImage backbuffer;
@@ -33,9 +39,26 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
     Selectable selected;
     Actionable actionated;
     boolean selectsomething;
+    int clickx,clicky,defx,defy;
+    boolean dragged;
     public FarmState(){
-        super();
+        super(new GridLayout(5, 1));
         init();
+        add(new Component() {});
+        add(new Component() {});
+        add(new Component() {});
+        add(new Component() {});
+        //test.setVisible(true);
+        text.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                //text.setVisible(false);
+//                startx += 50;
+//                starty += 50;
+            }
+        });
+        add(text);
+        addMouseMotionListener(this);
     }
     private URL getURL(String filename) {
         URL url = null;
@@ -47,14 +70,15 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
     }
 
     public void init() {
-        System.out.println("Farm INIT");
-        map = new GridMap();
-        backbuffer = new BufferedImage(SCREENWIDTH, SCREENHEIGHT, BufferedImage.TYPE_INT_ARGB);
+        startx=0; starty=0;
+        int x = 10; int y = 10;
+        map = new GridMap(x,y);
+        backbuffer = new BufferedImage(x*80, y*80, BufferedImage.TYPE_INT_ARGB);
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
         background.load("picture/bg2.png");
-        for (int i=0; i<8;i++){
-            for (int j=0; j<8; j++){
+        for (int i=0; i<map.getRow();i++){
+            for (int j=0; j<map.getColumn(); j++){
                 map.gpush(i, j, new Land(map, this, g2d,i,j));
             }
         }
@@ -66,7 +90,7 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
     public void run(){
         
         while (true) {
-            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
+//            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e){
@@ -92,8 +116,7 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
 
         g2d.setColor(Color.WHITE);
         g2d.drawImage(background.getImage(), 0, 0,SCREENWIDTH-1,SCREENHEIGHT-1, this);
-//        map.update();
-        map.draw();
+        map.draw(startx,starty);
         if (selectsomething) {
             selected.drawBounds();
         }
@@ -104,9 +127,9 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
         g2d.drawString("Animation: " + player.getCreature().currentFrame(), 5, 40);
     }
     @Override public void paintComponent(Graphics g) {
-        System.out.println("paintComponent - CobaOpeh");
+//        System.out.println("paintComponent - CobaOpeh");
         updated(g);
-        g.drawImage(backbuffer, 0, 0, this);
+        g.drawImage(backbuffer,startx, starty, this);
     }
     public void mouseExited(MouseEvent e){
 
@@ -115,19 +138,26 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
 
     }
     public void mouseReleased(MouseEvent e){
-
+        updateDiff(e);
+        clickx = 0;
+        clicky = 0;
+        dragged = false;
     }
     public void mousePressed(MouseEvent e){
-
+        clickx = e.getX();
+        clicky = e.getY();
+        defx = startx;
+        defy = starty;
+        dragged = true;
      }
    public void mouseClicked(MouseEvent e){
        final MouseEvent tmp = e;
-        System.out.println("mouseClicked");
-        int fx = e.getX();
-        int fy = e.getY();
+//        System.out.println("mouseClicked");
+        int fx = e.getX()-startx;
+        int fy = e.getY()-starty;
         int gx = fx/80;
         int gy = fy/80;
-        System.out.printf("%d(%d) %d(%d) | %d(%f) %d(%f)",gx/80,gx, gy/80,gy,(int)player.position().X()/80,player.position().X(),(int)player.position().Y()/80,player.position().Y());
+//        System.out.printf("%d(%d) %d(%d) | %d(%f) %d(%f)",gx/80,gx, gy/80,gy,(int)player.position().X()/80,player.position().X(),(int)player.position().Y()/80,player.position().Y());
         int clicked = e.getButton();
         switch(clicked){    
             case MouseEvent.BUTTON1:
@@ -157,6 +187,32 @@ public class FarmState extends JPanel implements Runnable,MouseListener {
                 break;
             default: break;
         }
+    }
+
+        public void mouseDragged(MouseEvent e) {
+            updateDiff(e);
+        }
+
+        
+
+        void updateDiff(MouseEvent e) {
+            if (dragged){
+                int x = e.getX();
+                int y = e.getY();
+                int ULx =10,ULy=10, LRx=-10+FarmState.SCREENWIDTH-map.getRow()*80,
+                        LRy = FarmState.SCREENHEIGHT-map.getColumn()*80;
+                int newx = defx +((x-clickx));
+                int newy = defy +((y-clicky));
+//                System.out.println("oooo" + newx+" "+ULx+" "+LRx);
+                if ((ULx >= newx && newx >=LRx)&&(ULy >= newy && newy >=LRy)){
+                    startx =newx;
+                    starty =newy;
+                }
+            }
+        }
+
+    public void mouseMoved(MouseEvent e) {
+//        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
    

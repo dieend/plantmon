@@ -22,7 +22,14 @@ public class AnimatedSprite extends Sprite {
     private int cols;
     private int width;
     private int height;
+    protected String imageName;
     protected JPanel panel;
+    /**
+     * imageName nama gambar beranimasi. harus bertipe png dan tidak memakai extensi.
+     */
+    public void setImageName(String name){
+        imageName = name;
+    }
     /**
      * Konstruktor gambar animasi.
      * @param applet tempat menggambar animasi
@@ -51,9 +58,9 @@ public class AnimatedSprite extends Sprite {
     public void load(String filename, int columns, int rows,int width, int height)
     {
         //load the tiled animation bitmap
-        System.out.print("animated should be changed");
+//        System.out.print("animated should be changed");
         try {
-            System.out.print("animated is changed");
+//            System.out.print("animated is changed");
             animimage = ImageIO.read(this.getClass().getResource(filename));
         } catch(IOException e) {e.printStackTrace(); }
         setColumns(columns);
@@ -148,6 +155,23 @@ public class AnimatedSprite extends Sprite {
      * mengupdate animasi
      */
     public void updateAnimation() {
+        if ((Math.abs(velocity().Y()/velocity().X())>1.0) && velocity().Y()>0) {
+//            System.out.println("Hadap bawah");
+//                setFaceAngle(0);
+            load(imageName+"0.png",4,1,32,32);
+        } else if ((Math.abs(velocity().Y()/velocity().X())<1.0) && velocity().X()>0){
+//            System.out.println("Hadap kanan");
+//                setFaceAngle(90);
+            load(imageName+"3.png",4,1,32,32);
+        } else if ((Math.abs(velocity().Y()/velocity().X())>1.0) && velocity().Y()<0){
+//                setFaceAngle(180);
+//            System.out.println("Hadap atas");
+            load(imageName+"2.png",4,1,32,32);
+        } else if ((Math.abs(velocity().Y()/velocity().X())<1.0) && velocity().X()<0){
+//                setFaceAngle(270);
+//            System.out.println("Hadap ke kiri");
+            load(imageName+"1.png",4,1,32,32);
+        }
         frCount++;
         if (frameCount() > frameDelay()) {
             setFrameCount(0);
@@ -166,7 +190,7 @@ public class AnimatedSprite extends Sprite {
      */
     @Override public void draw() {
         //calculate the current frame’s X and Y position
-        System.out.print("I'm drawing animated\n");
+//        System.out.print("I'm drawing animated\n");
         tempImage = new BufferedImage(width, height,BufferedImage.TYPE_INT_ARGB);
         tempSurface = tempImage.createGraphics();
         int frameX = (currentFrame() % columns()) * frameWidth();
@@ -182,6 +206,30 @@ public class AnimatedSprite extends Sprite {
         super.setImage(tempImage);
         super.transform();
         super.draw();
+    }
+    public void setArah(Point2D dest){
+        double vx = 1.5* Math.sin(Math.atan2(dest.X()-this.position().X(),
+                    dest.Y()-this.position().Y()));
+        double vy = 1.5* Math.cos(Math.atan2(dest.X()-this.position().X(),
+                dest.Y()-this.position().Y()));
+        if ((Math.abs(vy/vx)>1.0) && vy>0) {
+//            System.out.println("Hadap bawah");
+//                setFaceAngle(0);
+            load(imageName+"0.png",4,1,32,32);
+        } else if ((Math.abs(vy/vx)<1.0) && vx>0){
+//            System.out.println("Hadap kanan");
+//                setFaceAngle(90);
+            load(imageName+"3.png",4,1,32,32);
+        } else if ((Math.abs(vy/vx)>1.0) && vy<0){
+//                setFaceAngle(180);
+//            System.out.println("Hadap atas");
+            load(imageName+"2.png",4,1,32,32);
+        } else if ((Math.abs(vy/vx)<1.0) && vx<0){
+//                setFaceAngle(270);
+//            System.out.println("Hadap ke kiri");
+            load(imageName+"1.png",4,1,32,32);
+        }
+
     }
 }
 

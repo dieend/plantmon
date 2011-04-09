@@ -12,7 +12,11 @@ public class Sprite extends Object {
     protected double rotRate;
     protected int currentState;
     protected Point2D finalPosition;
-    
+
+    public Point2D finalPosition(){
+        return finalPosition;
+    }
+
     //constructor
     Sprite(JPanel a, Graphics2D g2d) {
         entity = new ImageEntity(a);
@@ -60,6 +64,12 @@ public class Sprite extends Object {
         if ((Math.abs((double)pos.X()-finalPosition.X())  <= 1) &&
             (Math.abs((double)pos.Y()-finalPosition.Y())  <= 1)) {
             setVelocity(new Point2D(0,0));
+        } else {
+            double vx = 1.5* Math.sin(Math.atan2(finalPosition.X()-this.position().X(),
+                    finalPosition.Y()-this.position().Y()));
+            double vy = 1.5* Math.cos(Math.atan2(finalPosition.X()-this.position().X(),
+                    finalPosition.Y()-this.position().Y()));
+            setVelocity(new Point2D(vx, vy));
         }
     }
     /**
@@ -233,8 +243,8 @@ public class Sprite extends Object {
     public void setImage(Image image) { entity.setImage(image); }
     /**
      * set the final position
-     * @param gx
-     * @param gy
+     * @param gx position in pixel
+     * @param gy position in pixel
      */
     public void setFinalPosition(int gx,int gy){
         finalPosition = new Point2D(gx,gy);
