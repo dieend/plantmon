@@ -34,7 +34,7 @@ public class Land extends Unmoveable implements Actionable{
     }
     public void init(){
         status = NORMAL;
-        entity.load("picture/land.png", 2, 1, 80, 80);
+        entity.load("picture/land.png", 1, 1, 80, 80);
         entity.setFrameDelay(5);
     }
     public JPopupMenu getMenu(Selectable selected){
@@ -131,6 +131,7 @@ public class Land extends Unmoveable implements Actionable{
                 } catch (InterruptedException e){}
             }
             status = PLOWED;
+            entity.load("picture/plow.png", 1, 1, 80, 80);
         }
     }
 
@@ -150,6 +151,7 @@ public class Land extends Unmoveable implements Actionable{
                 } catch (InterruptedException e){}
             }
             status = WATERED;
+            entity.load("picture/water.png", 1, 1, 80, 80);
         }
     }
 }

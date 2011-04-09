@@ -35,47 +35,61 @@ public class GridMap {
             }
         }
     }
-    public synchronized Object getTop(int x,int y){
+    public Object getTop(int x,int y){
 //        x /= 80
 //        y /= 80;
-        if (map[x][y].size()!=0) {
-            Object result =  map[x][y].get(map[x][y].size()-1);
-            return result;
-        } else return null;
+        synchronized(map[x][y]){
+            if (map[x][y].size()!=0) {
+                Object result =  map[x][y].get(map[x][y].size()-1);
+                return result;
+            } else return null;
+        }
     }
-    public synchronized void push(int x, int y, Object o){
+    public void push(int x, int y, Object o){
         x /= 80;
         y /= 80;
-        map[x][y].add(o);
+        synchronized(map[x][y]){
+            map[x][y].add(o);
+        }
     }
-    public synchronized void push(double x, double y, Object o){
+    public void push(double x, double y, Object o){
         x /= 80;
         y /= 80;
         int ix = (int) x; int iy = (int) y;
-        map[ix][iy].add(o);
-    }
-    public synchronized void gpush(int x, int y, Object o){
-        map[x][y].add(o);
-    }
-    public synchronized void pop(int x, int y){
-        x /= 80;
-        y /= 80;
-        if (map[x][y].size()!=0) {
-            map[x][y].remove(map[x][y].size()-1);
+        synchronized(map[ix][iy]){
+            map[ix][iy].add(o);
         }
     }
-    public synchronized void gpop(int x, int y){
-        if (map[x][y].size()!=0) {
-            map[x][y].remove(map[x][y].size()-1);
+    public void gpush(int x, int y, Object o){
+        synchronized(map[x][y]){
+            map[x][y].add(o);
+        }
+    }
+    public void pop(int x, int y){
+        x /= 80;
+        y /= 80;
+        synchronized(map[x][y]){
+            if (map[x][y].size()!=0) {
+                map[x][y].remove(map[x][y].size()-1);
+            }
+        }
+    }
+    public void gpop(int x, int y){
+        synchronized(map[x][y]){
+            if (map[x][y].size()!=0) {
+                map[x][y].remove(map[x][y].size()-1);
+            }
         }
     }
 
-    public synchronized void pop(double  x, double y){
+    public void pop(double  x, double y){
         x /= 80;
         y /= 80;
         int ix=(int) x, iy = (int) y;
-        if (map[ix][iy].size()!=0) {
-            map[ix][iy].remove(map[ix][iy].size()-1);
+        synchronized(map[ix][iy]){
+            if (map[ix][iy].size()!=0) {
+                map[ix][iy].remove(map[ix][iy].size()-1);
+            }
         }
     }
     public void draw(){
@@ -83,10 +97,15 @@ public class GridMap {
         for (int k=0; k<highest; k++){
             for (int i=0; i<row; i++){
                 for (int j=0; j<column; j++){
-                    if (k<map[i][j].size()){
-                        if (highest < map[i][j].size()) highest = map[i][j].size();
-                        if (map[i][j].get(k) instanceof Drawable){
-                            ((Drawable)map[i][j].get(k)).draw();
+                    synchronized(map[i][j]){
+                        if (k<map[i][j].size()){
+                            if (highest < map[i][j].size()) highest = map[i][j].size();
+                            if (map[i][j].get(k) instanceof Drawable){
+                                ((Drawable)map[i][j].get(k)).update();
+                                if (k<map[i][j].size())
+                                    ((Drawable)map[i][j].get(k)).draw();
+                                System.out.print(i+""+j);
+                            }
                         }
                     }
                 }
