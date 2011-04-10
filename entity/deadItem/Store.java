@@ -53,15 +53,15 @@ public class Store implements Actionable {
             lock.add(i,false);
         }
 
-        lock.add(1,true);
-        lock.add(2,true);
-        lock.add(12,true);
-        lock.add(14,true);
-        lock.add(15,true);
-        lock.add(16,true);
-        lock.add(17,true);
-        lock.add(20,true);
-        lock.add(25,true);
+        lock.set(1,true);
+        lock.set(2,true);
+        lock.set(12,true);
+        lock.set(14,true);
+        lock.set(15,true);
+        lock.set(16,true);
+        lock.set(17,true);
+        lock.set(20,true);
+        lock.set(25,true);
     }
 
     public JPopupMenu getMenu(Selectable selected) {
