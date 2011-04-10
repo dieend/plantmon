@@ -46,6 +46,7 @@ public class ArmorItem extends Item {
         if (IDitem == Robe) {
             costBuy = 100;
             name = "Robe";
+            deskripsi = "DEF +1";
             defStatus = 1;
             atkStatus = 0;
             intStatus = 0;
@@ -54,6 +55,7 @@ public class ArmorItem extends Item {
         } else if (IDitem == Tunic) {
             costBuy = 200;
             name = "Tunic";
+            deskripsi = "DEF +2";
             defStatus = 2;
             atkStatus = 0;
             intStatus = 0;
@@ -62,6 +64,7 @@ public class ArmorItem extends Item {
         } else if (IDitem == LeatherCoat) {
             costBuy = 700;
             name = "Leather Coat";
+            deskripsi = "DEF +4";
             defStatus = 4;
             atkStatus = 0;
             intStatus = 0;
@@ -70,6 +73,7 @@ public class ArmorItem extends Item {
         } else if (IDitem == BrassArmor) {
             costBuy = 1000;
             name = "Brass Armor";
+            deskripsi = "DEF +5";
             defStatus = 5;
             atkStatus = 0;
             intStatus = 0;
@@ -78,6 +82,7 @@ public class ArmorItem extends Item {
         } else if (IDitem == Bandanna) {
             costBuy = 50;
             name = "Bandanna";
+            deskripsi = "DEF +1";
             defStatus = 1;
             atkStatus = 0;
             intStatus = 0;
@@ -86,6 +91,7 @@ public class ArmorItem extends Item {
         } else if (IDitem == HeadBand) {
             costBuy = 300;
             name = "HeadBand";
+            deskripsi = "DEF +2";
             defStatus = 2;
             atkStatus = 0;
             intStatus = 0;
@@ -94,6 +100,7 @@ public class ArmorItem extends Item {
         } else if (IDitem == PointedHat) {
             costBuy = 1200;
             name = "Pointed Hat";
+            deskripsi = "DEF +5";
             defStatus = 5;
             atkStatus = 0;
             intStatus = 0;
@@ -102,6 +109,7 @@ public class ArmorItem extends Item {
         } else if (IDitem == WoodenShield) {
             costBuy = 300;
             name = "Wooden Shield";
+            deskripsi = "DEF +2";
             defStatus = 2;
             atkStatus = 0;
             intStatus = 0;
@@ -110,6 +118,7 @@ public class ArmorItem extends Item {
         } else if (IDitem == WoodenShoes) {
             costBuy = 100;
             name = "Wooden Shoes";
+            deskripsi = "DEF +1";
             defStatus = 1;
             atkStatus = 0;
             intStatus = 0;
@@ -118,6 +127,7 @@ public class ArmorItem extends Item {
         } else if (IDitem == Leggings) {
             costBuy = 200;
             name = "Leggings";
+            deskripsi = "DEF +2";
             defStatus = 2;
             atkStatus = 0;
             intStatus = 0;
@@ -126,6 +136,7 @@ public class ArmorItem extends Item {
         } else if (IDitem == Gloves) {
             costBuy = 300;
             name = "Gloves";
+            deskripsi = "DEF +2";
             defStatus = 2;
             atkStatus = 0;
             intStatus = 0;
@@ -134,6 +145,7 @@ public class ArmorItem extends Item {
         } else if (IDitem == Cape) {
             costBuy = 400;
             name = "Cape";
+            deskripsi = "DEF +2";
             defStatus = 2;
             atkStatus = 0;
             intStatus = 0;
@@ -142,6 +154,7 @@ public class ArmorItem extends Item {
         } else if (IDitem == Circlet) {
             costBuy = 600;
             name = "Circlet";
+            deskripsi = "DEF +3";
             defStatus = 3;
             atkStatus = 0;
             intStatus = 0;

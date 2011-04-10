@@ -1,14 +1,9 @@
 package plantmon.entity.item;
 
-<<<<<<< .mine
-import plantmon.entity.Item;
-
-=======
 import javax.swing.JPanel;
 import plantmon.entity.Item;
 import plantmon.game.ImageEntity;
 
->>>>>>> .r20
 public class FarmItem extends Item {
     int efek;//efek dari buah yang dimakan player
     int season;
@@ -42,61 +37,73 @@ public class FarmItem extends Item {
         IDItem = IDitem;
         if (IDitem == Kentang) {
             name = "Kentang";
+            deskripsi = "bibit Kentang";
             costBuy = 150;
             efek = 1;
             gambar.load(null);
         } else if (IDitem == Lobak) {
             name = "Lobak";
+            deskripsi = "bibit Lobak";
             costBuy = 120;
             efek = 2;
             gambar.load(null);
         } else if (IDitem == Timun) {
             name = "Timun";
+            deskripsi = "bibit Timun";
             costBuy = 200;
             efek = 1;
             gambar.load(null);
         } else if (IDitem == Kubis) {
             name = "Kubis";
+            deskripsi = "bibit Kubis";
             costBuy = 500;
             efek = 4;
             gambar.load(null);
         } else if (IDitem == Nanas) {
             name = "Nanas";
+            deskripsi = "bibit Nanas";
             costBuy = 1000;
             efek = 4;
             gambar.load(null);
         } else if (IDitem == Jagung) {
             name = "Jagung";
+            deskripsi = "bibit Jagung";
             costBuy = 300;
             efek = 1;
             gambar.load(null);
         } else if (IDitem == Tomat) {
             name = "Tomat";
+            deskripsi = "bibit Tomat";
             costBuy = 200;
             efek = 1;
             gambar.load(null);
         } else if (IDitem == Bawang) {
             name = "Bawang";
+            deskripsi = "bibit Bawang";
             costBuy = 150;
             efek = 2;
             gambar.load(null);
         } else if (IDitem == Wortel) {
             name = "Wortel";
+            deskripsi = "bibit Wortel";
             costBuy = 300;
             efek = 1;
             gambar.load(null);
         } else if (IDitem == Terong) {
             name = "Terong";
+            deskripsi = "bibit Terong";
             costBuy = 120;
             efek = 4;
             gambar.load(null);
         } else if (IDitem == Ubi) {
             name = "Ubi";
+            deskripsi = "bibit Ubi";
             costBuy = 300;
             efek = 1;
             gambar.load(null);
         } else if (IDitem == Paprika) {
             name = "Paprika";
+            deskripsi = "bibit Paprika";
             costBuy = 150;
             efek = 4;
             gambar.load(null);
