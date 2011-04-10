@@ -1,24 +1,30 @@
 package plantmon.entity.deadItem;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import plantmon.entity.Item;
+import plantmon.entity.Unmoveable;
 import plantmon.entity.item.ArmorItem;
 import plantmon.entity.item.FarmItem;
 import plantmon.entity.item.WarItem;
 import plantmon.entity.movingObject.Player;
+import plantmon.game.GridMap;
+import plantmon.game.Point2D;
 import plantmon.system.Actionable;
+import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
 
-public class Store implements Actionable {
+public class Store extends Unmoveable implements Actionable {
     ArrayList<Item> item = new ArrayList<Item>();
     ArrayList<Boolean> lock = new ArrayList<Boolean>();
 
-    public Store (JPanel panel) {
-        System.out.print("lalala");
+    public Store (GridMap map, JPanel panel, Graphics2D g2d) {
+        super(map,panel,g2d);
+        init();
         item.add(0, new FarmItem(0,panel));
         item.add(1, new FarmItem(1,panel));
         item.add(2, new FarmItem(2,panel));
@@ -85,6 +91,7 @@ public class Store implements Actionable {
                    if (lock.get(i) == true) {
                     JMenuItem subSubMenu;
                     subSubMenu = new JMenuItem(item.get(i).getName());
+                    subSubMenu.addActionListener(new Buy(selected,item.get(i)));
                     subMenuFarm.add(subSubMenu);
                     }
                 } else if (item.get(i) instanceof WarItem) {
@@ -101,7 +108,6 @@ public class Store implements Actionable {
                     }
                 }
             }
-
             ite.add(subMenuFarm);
             ite.add(subMenuWar);
             ite.add(subMenuArmor);
@@ -110,7 +116,40 @@ public class Store implements Actionable {
             menu.pack();
             return menu;
         }
+
+        
         return null;
+    }
+
+    class Buy extends RunnableListener {
+        Item temp;
+        public Buy(Selectable selected,Item it){
+            super(selected);
+            temp = it;
+        }
+        public void run() {
+            Player player = (Player) selected;
+            int gx = (int)Store.this.getPosition().X();
+            int gy = (int)Store.this.getPosition().Y();
+            Object lock = new Object();
+            player.move(gx, gy, lock);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){
+                    return;
+                }
+            }
+            player.setInventory(temp,1);
+        }
+    }
+    
+    @Override
+    public void init() {
+        entity.load("picture/land.png", 1, 1, 80, 80);
+        entity.setFrameDelay(5);
+        entity.setPosition(new Point2D(300,300));
+        entity.setFinalPosition(300, 300);
     }
 
 }

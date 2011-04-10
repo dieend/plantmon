@@ -8,7 +8,7 @@ import plantmon.entity.item.FarmItem;
 import plantmon.entity.item.WarItem;
 import plantmon.entity.item.FoodItem;
 
-public class Inventory{
+public class Inventory {
     int size;
     ArrayList<Item> item;
     ArrayList<Integer> jumlahitem;
@@ -24,6 +24,8 @@ public class Inventory{
     public Inventory() {
         item = new ArrayList<Item>();
         jumlahitem = new ArrayList<Integer>();
+        size = 0;
+        muatan = 0;
     }
 
     public Item getSlot(int noslot){
@@ -46,19 +48,30 @@ public class Inventory{
         int i=size;
         boolean found=false;
             while(i>=0 && !found){
-                if(item.get(i) != null){
-                    if(item.get(i).getIDitem() == it.getIDitem()){//pengecekan pada Array item apakah isinya sama
-                        muatan = muatan + jumlah;
-                        jumlahitem.set(i, muatan);
-                        found = true;
+                if (i != 0) {
+                    if(item.get(i) != null) {
+                        if(item.get(i).getIDitem() == it.getIDitem()){//pengecekan pada Array item apakah isinya sama
+                            muatan = muatan + jumlah;
+                            jumlahitem.set(i, muatan);
+                            found = true;
+                            }
+                        else{
+                            i--;
                         }
-                    else{
-                        i--;
                     }
-                }
-                else{
-                    item.set(i, it);
-                    jumlahitem.set(i, jumlah);
+                    else{
+                        item.add(i, it);
+                        jumlahitem.add(i, jumlah);
+                        size++;
+                        muatan++;
+                        found = true;
+                    }
+                } else {
+                    item.add(i, it);
+                    jumlahitem.add(i, jumlah);
+                    size++;
+                    muatan++;
+                    found = true;
                 }
             }
     }
@@ -80,7 +93,7 @@ public class Inventory{
     
     
     public Inventory getFarmItem(){
-        Inventory farm = new Inventory(item.size());
+        Inventory farm = new Inventory();
         for (int i = 0; i < item.size(); i++){
             if (item.get(i) instanceof FarmItem){
                 farm.add(item.get(i),jumlahitem.get(i));
