@@ -36,6 +36,7 @@ public class Player extends MovingObject implements Actionable,
         //inisiasi semua variable disini.
         
         load("picture/anim", 4,1,32,32);
+        creature.setImageName("picture/anim");
         creature.setPosition(new Point2D(80,80));
         creature.setFinalPosition(80, 80);
         creature.setVelocity(new Point2D(0,0));
