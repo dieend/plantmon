@@ -1,6 +1,10 @@
 package plantmon.entity;
 
+<<<<<<< .mine
+package plantmon.entity;
+=======
 import plantmon.game.ImageEntity;
+>>>>>>> .r20
 
 public class Item{
     protected String name;
