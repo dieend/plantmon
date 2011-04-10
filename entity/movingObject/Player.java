@@ -21,7 +21,7 @@ public class Player extends MovingObject implements Actionable,
     //bisa ngapain aja
     public Player(GridMap map, FarmState panel, Graphics2D g2d, int maxItemSlot){
         super(map,panel,g2d);
-        inventory = new Inventory(maxItemSlot);
+        inventory = new Inventory();
     }
     @Override public void drawBounds() {
         creature.drawBounds(Color.GREEN);
@@ -47,6 +47,10 @@ public class Player extends MovingObject implements Actionable,
     }
     public Inventory getFarmItem(){
         return inventory.getFarmItem();
+    }
+
+    public void setInventory (Item i,int Jumlah) {
+        inventory.add(i, Jumlah);
     }
     
     public static void main(String[] args)
