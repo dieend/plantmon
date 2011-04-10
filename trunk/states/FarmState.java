@@ -8,11 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.*;
 import java.awt.image.*;
 import java.net.URL;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Land;
 import plantmon.game.GridMap;
@@ -22,28 +20,28 @@ import plantmon.system.Actionable;
 import plantmon.system.Selectable;
 
 
-public class FarmState extends JPanel implements Runnable,MouseListener,MouseMotionListener {
+public class FarmState extends ParentState implements Runnable,MouseListener,MouseMotionListener {
     Thread gameloop;
     GridMap map;
     JPopupMenu popup;
     JButton text = new JButton("mungkin percakapan disini?");
-    public static int SCREENHEIGHT = 1024;
-    public static int SCREENWIDTH = 768;
+    public static int SCREENHEIGHT = 480;
+    public static int SCREENWIDTH = 640;
     public int startx;
     public int starty;
-    Graphics2D g2d;
-    ImageEntity background;
-    BufferedImage backbuffer;
-    AffineTransform at;
+    int gridRow, gridColumn;
+    
+
     Player player;
     Selectable selected;
     Actionable actionated;
     boolean selectsomething;
     int clickx,clicky,defx,defy;
     boolean dragged;
-    public FarmState(){
-        super(new GridLayout(5, 1));
+    public FarmState(int gridRow, int gridColumn,String bg){
+        super(gridRow, gridColumn, bg);
         init();
+        setLayout(new GridLayout(5, 1));
         add(new Component() {});
         add(new Component() {});
         add(new Component() {});
@@ -200,7 +198,7 @@ public class FarmState extends JPanel implements Runnable,MouseListener,MouseMot
                 int x = e.getX();
                 int y = e.getY();
                 int ULx =10,ULy=10, LRx=-10+FarmState.SCREENWIDTH-map.getRow()*80,
-                        LRy = FarmState.SCREENHEIGHT-map.getColumn()*80;
+                        LRy = FarmState.SCREENHEIGHT-(map.getColumn()*80+100);
                 int newx = defx +((x-clickx));
                 int newy = defy +((y-clicky));
 //                System.out.println("oooo" + newx+" "+ULx+" "+LRx);
