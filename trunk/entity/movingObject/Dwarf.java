@@ -17,14 +17,20 @@ public class Dwarf extends MovingObject implements Actionable,
                                                     Selectable,
                                                     Runnable{
     //status dwarf, 0 untuk sleep, 1 untuk wake_up
+    int moneyharvest;
     private static Point2D defpos;
     private int status = 0;
     private final int sleep=0;
     private final int wake_up=1;
     private String name;
+
+    //type dwarf, 1 untuk water,0 untuk 
     private int type;
+    public static final int water=1;
+    public static final int harvest=2;
+    public static final int slash=3;
     
-    public Dwarf(GridMap map, JPanel panel, Graphics2D g2d,int t){
+    public Dwarf(GridMap map, JPanel panel, Graphics2D g2d,int t,int money){
         super(map,panel,g2d);
         type=t;
         if (t==1)
@@ -37,6 +43,7 @@ public class Dwarf extends MovingObject implements Actionable,
         {
             name="freedom";
             defpos = new Point2D(80,240);
+            moneyharvest=money;
         }
         else if (t==3)
         {
@@ -60,6 +67,11 @@ public class Dwarf extends MovingObject implements Actionable,
     }
     @Override public void run(){
         
+        while (status==wake_up)
+        {
+            route=getRoute(0, 0, type);
+            
+        }
     }
 
     ActionListener setstatus()
