@@ -1,6 +1,5 @@
 package plantmon.states;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -16,9 +15,8 @@ public class ParentState extends JPanel{
     AffineTransform at;
     BufferedImage backbuffer;
     ImageEntity background;
-    public ParentState(int gridRow, int gridColumn, String backgroundFile){
+    public ParentState(int gridRow, int gridColumn){
         background = new ImageEntity(this);
-        background.load(backgroundFile);
         backbuffer = new BufferedImage(gridRow*80, gridColumn*80, BufferedImage.TYPE_INT_ARGB);
         g2d = backbuffer.createGraphics();
     }
