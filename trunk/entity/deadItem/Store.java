@@ -1,6 +1,7 @@
 package plantmon.entity.deadItem;
 
 import java.util.ArrayList;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -13,10 +14,11 @@ import plantmon.system.Actionable;
 import plantmon.system.Selectable;
 
 public class Store implements Actionable {
-    ArrayList<Item> item;
-    ArrayList<Boolean> lock;
+    ArrayList<Item> item = new ArrayList<Item>();
+    ArrayList<Boolean> lock = new ArrayList<Boolean>();
 
     public Store (JPanel panel) {
+        System.out.print("lalala");
         item.add(0, new FarmItem(0,panel));
         item.add(1, new FarmItem(1,panel));
         item.add(2, new FarmItem(2,panel));
@@ -47,7 +49,6 @@ public class Store implements Actionable {
         item.add(27, new ArmorItem(80,panel));
         item.add(28, new ArmorItem(81,panel));
         item.add(29, new ArmorItem(82,panel));
-
         for (int i = 0; i <= 29; i++) {
             lock.add(i,false);
         }
@@ -67,17 +68,17 @@ public class Store implements Actionable {
         if (selected instanceof Player){
             final Player player = (Player) selected;
             JPopupMenu menu = new JPopupMenu();
-            JMenuItem ite;
-            ite = new JMenuItem("buy");
+            JMenu ite;
+            ite = new JMenu("buy");
             
-            JMenuItem subMenuFarm;
-            subMenuFarm = new JMenuItem("Farm Item");
+            JMenu subMenuFarm;
+            subMenuFarm = new JMenu("Farm Item");
 
-            JMenuItem subMenuWar;
-            subMenuWar = new JMenuItem("War Item");
+            JMenu subMenuWar;
+            subMenuWar = new JMenu("War Item");
 
-            JMenuItem subMenuArmor;
-            subMenuArmor = new JMenuItem("Armor Item");
+            JMenu subMenuArmor;
+            subMenuArmor = new JMenu("Armor Item");
 
             for (int i = 0; i <=29; i++) {
                 if (item.get(i) instanceof FarmItem) {
