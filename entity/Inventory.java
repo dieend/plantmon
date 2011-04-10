@@ -2,15 +2,15 @@ package plantmon.entity;
 /**
  * Masih salah, harusnya ada jumlah item di tiap slot... saya lupa -.-"
  */
-import java.lang.Integer;
 import java.util.ArrayList;
+import plantmon.entity.item.ArmorItem;
 import plantmon.entity.item.FarmItem;
 import plantmon.entity.item.WarItem;
 import plantmon.entity.item.FoodItem;
 
 public class Inventory{
     int size;
-    ArrayList<Item>  item;
+    ArrayList<Item> item;
     ArrayList<Integer> jumlahitem;
     int muatan;
     
@@ -20,7 +20,8 @@ public class Inventory{
         size = 0;//merupakan ukuran dari Array item
         muatan = 0;//merupakan ukuran dari Array jumlah item
     }
-    public Inventory(){
+
+    public Inventory() {
         item = new ArrayList<Item>();
         jumlahitem = new ArrayList<Integer>();
     }
@@ -41,7 +42,7 @@ public class Inventory{
         return result;
     }
 
-    public void add(Item it, int jumlah){
+    public void add(Item it, int jumlah) {
         int i=size;
         boolean found=false;
             while(i>=0 && !found){
@@ -78,44 +79,43 @@ public class Inventory{
 
     
     
-//    public Inventory getFarmItem(){
-//        Inventory farm = new Inventory(item.size());
-//        for (Item i:item){
-//            if (i instanceof FarmItem){
-//                farm.add(i);
-//            }
-//        }
-//        return farm;
-//    }
-//
-//    public Inventory getWarItem(){
-//        Inventory war = new Inventory(item.size());
-//        for(Item i:item){
-//            if (i instanceof WarItem){
-//                war.add(i);
-//            }
-//        }
-//        return war;
-//    }
-//
-//    public Inventory getFoodItem(){
-//        Inventory food = new Inventory(item.size());
-//        for(Item i:item){
-//            if(i instanceof FoodItem){
-//                food.add(i);
-//            }
-//        }
-//        return food;
-//    }
-//
-//    public Inventory getArmorItem(){
-//        Inventory armor = new Inventory(item.size());
-//        for(Item i:item){
-//            if(i instanceof ArmorItem){
-//                armor.add(i);
-//            }
-//        }
-//        return armor;
-//    }
+    public Inventory getFarmItem(){
+        Inventory farm = new Inventory(item.size());
+        for (int i = 0; i < item.size(); i++){
+            if (item.get(i) instanceof FarmItem){
+                farm.add(item.get(i),jumlahitem.get(i));
+            }
+        }
+        return farm;
+    }
 
+    public Inventory getWarItem(){
+        Inventory war = new Inventory(item.size());
+        for(int i = 0; i < item.size(); i++){
+            if (item.get(i) instanceof WarItem){
+                war.add(item.get(i),jumlahitem.get(i));
+            }
+        }
+        return war;
+    }
+
+    public Inventory getFoodItem(){
+        Inventory food = new Inventory(item.size());
+        for(int i = 0; i < item.size(); i++){
+            if(item.get(i) instanceof FoodItem){
+                food.add(item.get(i),jumlahitem.get(i));
+            }
+        }
+        return food;
+    }
+
+    public Inventory getArmorItem(){
+        Inventory armor = new Inventory(item.size());
+        for(int i = 0; i < item.size(); i++){
+            if(item.get(i) instanceof ArmorItem){
+                armor.add(item.get(i),jumlahitem.get(i));
+            }
+        }
+        return armor;
+    }
 }

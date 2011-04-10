@@ -26,20 +26,6 @@ public class ArmorItem extends Item {
     final public static int Hand = 4;
     final public static int Pant = 5;
 
-    final public static int Bandanna = 0;
-    final public static int HeadBand = 1;
-    final public static int PointedHat = 2;
-    final public static int Robe = 3;
-    final public static int Tunic = 4;
-    final public static int LeatherCoat = 5;
-    final public static int BrassArmor = 6;
-    final public static int WoodenShield = 7;
-    final public static int WoodenShoes = 8;
-    final public static int Leggings = 9;
-    final public static int Gloves = 10;
-    final public static int Cape = 11;
-    final public static int Circlet = 12;
-
     public ArmorItem(int IDitem,JPanel panel) {
         gambar = new ImageEntity(panel);
         IDItem = IDitem;

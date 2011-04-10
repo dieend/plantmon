@@ -8,19 +8,6 @@ public class FarmItem extends Item {
     int efek;//efek dari buah yang dimakan player
     int season;
 
-    final public static int Kentang = 0;
-    final public static int Lobak = 1;
-    final public static int Timun = 2;
-    final public static int Kubis = 3;
-    final public static int Jagung = 4;
-    final public static int Tomat = 5;
-    final public static int Bawang = 6;
-    final public static int Nanas = 7;
-    final public static int Wortel = 8;
-    final public static int Terong = 9;
-    final public static int Ubi = 10;
-    final public static int Paprika = 11;
-
     final public static int Spring = 0;
     final public static int Summer = 1;
     final public static int Fall = 2;
@@ -35,73 +22,73 @@ public class FarmItem extends Item {
     public FarmItem(int IDitem, JPanel panel) {
         gambar = new ImageEntity(panel);
         IDItem = IDitem;
-        if (IDitem == Kentang) {
+        if (IDitem == BiKentang) {
             name = "Kentang";
             deskripsi = "bibit Kentang";
             costBuy = 150;
             efek = 1;
             gambar.load(null);
-        } else if (IDitem == Lobak) {
+        } else if (IDitem == BiLobak) {
             name = "Lobak";
             deskripsi = "bibit Lobak";
             costBuy = 120;
             efek = 2;
             gambar.load(null);
-        } else if (IDitem == Timun) {
+        } else if (IDitem == BiTimun) {
             name = "Timun";
             deskripsi = "bibit Timun";
             costBuy = 200;
             efek = 1;
             gambar.load(null);
-        } else if (IDitem == Kubis) {
+        } else if (IDitem == BiKubis) {
             name = "Kubis";
             deskripsi = "bibit Kubis";
             costBuy = 500;
             efek = 4;
             gambar.load(null);
-        } else if (IDitem == Nanas) {
+        } else if (IDitem == BiNanas) {
             name = "Nanas";
             deskripsi = "bibit Nanas";
             costBuy = 1000;
             efek = 4;
             gambar.load(null);
-        } else if (IDitem == Jagung) {
+        } else if (IDitem == BiJagung) {
             name = "Jagung";
             deskripsi = "bibit Jagung";
             costBuy = 300;
             efek = 1;
             gambar.load(null);
-        } else if (IDitem == Tomat) {
+        } else if (IDitem == BiTomat) {
             name = "Tomat";
             deskripsi = "bibit Tomat";
             costBuy = 200;
             efek = 1;
             gambar.load(null);
-        } else if (IDitem == Bawang) {
+        } else if (IDitem == BiBawang) {
             name = "Bawang";
             deskripsi = "bibit Bawang";
             costBuy = 150;
             efek = 2;
             gambar.load(null);
-        } else if (IDitem == Wortel) {
+        } else if (IDitem == BiWortel) {
             name = "Wortel";
             deskripsi = "bibit Wortel";
             costBuy = 300;
             efek = 1;
             gambar.load(null);
-        } else if (IDitem == Terong) {
+        } else if (IDitem == BiTerong) {
             name = "Terong";
             deskripsi = "bibit Terong";
             costBuy = 120;
             efek = 4;
             gambar.load(null);
-        } else if (IDitem == Ubi) {
+        } else if (IDitem == BiUbi) {
             name = "Ubi";
             deskripsi = "bibit Ubi";
             costBuy = 300;
             efek = 1;
             gambar.load(null);
-        } else if (IDitem == Paprika) {
+        } else if (IDitem == BiPaprika) {
             name = "Paprika";
             deskripsi = "bibit Paprika";
             costBuy = 150;
