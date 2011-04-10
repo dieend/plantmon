@@ -40,7 +40,7 @@ public class Item {
     final public static int HolyWater = 51;
     final public static int Antitoxin = 52;
     final public static int EyeDrop = 53;
-    final public static int HotWater = 53;
+    final public static int HotWater = 54;
 
     final public static int Bandanna = 70;
     final public static int HeadBand = 71;
