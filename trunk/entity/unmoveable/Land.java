@@ -92,8 +92,11 @@ public class Land extends Unmoveable implements Actionable{
             synchronized(lock){
                 try {
                     lock.wait();
-                } catch (InterruptedException e){}
+                } catch (InterruptedException e){
+                    return;
+                }
             }
+            player.getCreature().setFinalPosition(gx+10, gy+10);
         }
     }
 
@@ -112,7 +115,9 @@ public class Land extends Unmoveable implements Actionable{
             synchronized(lock){
                 try {
                     lock.wait();
-                } catch (InterruptedException e){}
+                } catch (InterruptedException e){
+                    return;
+                }
             }
             // buat plant baru berdasarkan item
             Plant plant = new Plant(map, panel(),graphics() ,temp);
@@ -133,7 +138,9 @@ public class Land extends Unmoveable implements Actionable{
             synchronized(lock){
                 try {
                     lock.wait();
-                } catch (InterruptedException e){}
+                } catch (InterruptedException e){
+                    return;
+                }
             }
             status = PLOWED;
             entity.load("picture/plow.png", 1, 1, 80, 80);
@@ -153,7 +160,9 @@ public class Land extends Unmoveable implements Actionable{
             synchronized(lock){
                 try {
                     lock.wait();
-                } catch (InterruptedException e){}
+                } catch (InterruptedException e){
+                    return;
+                }
             }
             status = WATERED;
             entity.load("picture/water.png", 1, 1, 80, 80);

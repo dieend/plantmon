@@ -145,7 +145,8 @@ public abstract class MovingObject implements Drawable{
         }
     }
 
-    public  ArrayList<Point2D> getRoute(int x,int y,int caller){
+    public  ArrayList<Point2D> getRoute(int x,int y,int caller) {
+        try {
         final int land=0;
         final int block=1;
         final int destiny=2;
@@ -348,7 +349,7 @@ public abstract class MovingObject implements Drawable{
         //System.out.println("TEWAS");
         ArrayList<Point2D> retroute = new ArrayList<Point2D>();
         Point2D cPoint;
-
+        
         if (TrueBRoute.size()>=1)
         {
 
@@ -424,6 +425,7 @@ public abstract class MovingObject implements Drawable{
             System.out.println(rettrue.get(i).IntX() + "," + rettrue.get(i).IntY() );
         }*/
         return rettrue;
+        } catch(IndexOutOfBoundsException e){ return null;}
     }
     /*
     public static void main(String[] args)

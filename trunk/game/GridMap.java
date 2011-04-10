@@ -166,7 +166,7 @@ public class GridMap {
         x*=-1; y*=-1;
         x/=80; y/=80;
         int highest=1; // k is highest stack
-        System.out.println(x+" "+(2+x+FarmState.SCREENHEIGHT/80)+" "+y+" "+(2+y+FarmState.SCREENWIDTH/80));
+//        System.out.println(x+" "+(2+x+FarmState.SCREENHEIGHT/80)+" "+y+" "+(2+y+FarmState.SCREENWIDTH/80));
         for (int k=0; k<highest; k++){
             for (int i=x; i<2+x+FarmState.SCREENHEIGHT/80; i++) if (i<getRow()){
                 for (int j=y; j<2+y+FarmState.SCREENWIDTH/80; j++) if (j<getColumn()){

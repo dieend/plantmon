@@ -16,6 +16,7 @@ public class Player extends MovingObject implements Actionable,
                                                     Selectable{
 
     Inventory inventory;
+    Integer money;
     //bisa ngapain aja
     public Player(GridMap map, FarmState panel, Graphics2D g2d, int maxItemSlot){
         super(map,panel,g2d);
@@ -39,9 +40,6 @@ public class Player extends MovingObject implements Actionable,
         creature.setFrameDelay(3);
     }
     public void move(int gx,int gy,Object lock){
-        for (int i=0; i<route.size();i++){
-            System.out.println(route.get(i).IntX()+" "+route.get(i).IntY());
-        }
         addAction(lock,new Point2D(gx,gy));
     }
     public Inventory getFarmItem(){
