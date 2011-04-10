@@ -14,27 +14,27 @@ public class WarItem extends Item{
             name = "Water";
             costBuy = 100;
             HPStatus = 100;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == HolyWater) {
             name = "Holy Water";
             costBuy = 500;
             HPStatus = 500;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == Antitoxin) {
             name = "Antitoxin";
             costBuy = 200;
             HPStatus = 0;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == EyeDrop) {
             name = "Eye Drop";
             costBuy = 250;
             HPStatus = 0;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == HotWater) {
             name = "Hot Water";
             costBuy = 250;
             HPStatus = 0;
-            gambar.load(null);
+            //gambar.load(null);
         }
         costSell = costSell / 2;
     }

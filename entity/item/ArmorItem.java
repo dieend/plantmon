@@ -37,7 +37,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Body;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == Tunic) {
             costBuy = 200;
             name = "Tunic";
@@ -46,7 +46,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Body;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == LeatherCoat) {
             costBuy = 700;
             name = "Leather Coat";
@@ -55,7 +55,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Body;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == BrassArmor) {
             costBuy = 1000;
             name = "Brass Armor";
@@ -64,7 +64,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Body;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == Bandanna) {
             costBuy = 50;
             name = "Bandanna";
@@ -73,7 +73,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Head;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == HeadBand) {
             costBuy = 300;
             name = "HeadBand";
@@ -82,7 +82,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Head;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == PointedHat) {
             costBuy = 1200;
             name = "Pointed Hat";
@@ -91,7 +91,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Head;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == WoodenShield) {
             costBuy = 300;
             name = "Wooden Shield";
@@ -100,7 +100,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Shield;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == WoodenShoes) {
             costBuy = 100;
             name = "Wooden Shoes";
@@ -109,7 +109,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Foot;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == Leggings) {
             costBuy = 200;
             name = "Leggings";
@@ -118,7 +118,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Pant;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == Gloves) {
             costBuy = 300;
             name = "Gloves";
@@ -127,7 +127,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Hand;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == Cape) {
             costBuy = 400;
             name = "Cape";
@@ -136,7 +136,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Head;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == Circlet) {
             costBuy = 600;
             name = "Circlet";
@@ -145,7 +145,7 @@ public class ArmorItem extends Item {
             atkStatus = 0;
             intStatus = 0;
             position = Head;
-            gambar.load(null);
+            //gambar.load(null);
         }
         costSell = costBuy / 2;
     }

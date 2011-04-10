@@ -27,73 +27,73 @@ public class FarmItem extends Item {
             deskripsi = "bibit Kentang";
             costBuy = 150;
             efek = 1;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == BiLobak) {
             name = "Lobak";
             deskripsi = "bibit Lobak";
             costBuy = 120;
             efek = 2;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == BiTimun) {
             name = "Timun";
             deskripsi = "bibit Timun";
             costBuy = 200;
             efek = 1;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == BiKubis) {
             name = "Kubis";
             deskripsi = "bibit Kubis";
             costBuy = 500;
             efek = 4;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == BiNanas) {
             name = "Nanas";
             deskripsi = "bibit Nanas";
             costBuy = 1000;
             efek = 4;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == BiJagung) {
             name = "Jagung";
             deskripsi = "bibit Jagung";
             costBuy = 300;
             efek = 1;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == BiTomat) {
             name = "Tomat";
             deskripsi = "bibit Tomat";
             costBuy = 200;
             efek = 1;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == BiBawang) {
             name = "Bawang";
             deskripsi = "bibit Bawang";
             costBuy = 150;
             efek = 2;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == BiWortel) {
             name = "Wortel";
             deskripsi = "bibit Wortel";
             costBuy = 300;
             efek = 1;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == BiTerong) {
             name = "Terong";
             deskripsi = "bibit Terong";
             costBuy = 120;
             efek = 4;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == BiUbi) {
             name = "Ubi";
             deskripsi = "bibit Ubi";
             costBuy = 300;
             efek = 1;
-            gambar.load(null);
+            //gambar.load(null);
         } else if (IDitem == BiPaprika) {
             name = "Paprika";
             deskripsi = "bibit Paprika";
             costBuy = 150;
             efek = 4;
-            gambar.load(null);
+            //gambar.load(null);
         }
         costSell = costBuy / 2;
     }
