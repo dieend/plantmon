@@ -13,15 +13,32 @@ import plantmon.game.Point2D;
 public class Dwarf extends MovingObject implements Actionable,
                                                     Selectable,
                                                     Runnable{
+
+    private int type;
+    private String name;
     //bisa di wake, di sleep
-    public Dwarf(GridMap map, JPanel panel, Graphics2D g2d){
+    public Dwarf(GridMap map, JPanel panel, Graphics2D g2d,int t){
         super(map,panel,g2d);
+        type=t;
+        if (type==1)
+        {
+            name="justice";
+        }
+        else if (type==2)
+        {
+            name="freedom";
+        }
+        else if (type==3)
+        {
+            name="destiny";
+        }
+        
     }
     @Override public void drawBounds() {
         creature.drawBounds(Color.GREEN);
     }
     @Override public String getInfo() {
-        return null;
+        return name;
     }
     @Override protected void init() {
         //inisiasi semua variable disini.
