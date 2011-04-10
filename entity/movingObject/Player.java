@@ -48,7 +48,9 @@ public class Player extends MovingObject implements Actionable,
     public Inventory getFarmItem(){
         return inventory.getFarmItem();
     }
-
+    public Inventory getInventory() {
+        return inventory;
+    }
     public void setInventory (Item i,int Jumlah) {
         inventory.add(i, Jumlah);
     }

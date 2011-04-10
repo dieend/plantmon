@@ -81,7 +81,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
         player = new Player(map, this, g2d, 10);// maxslot = 10
         Point2D pos = player.getCreature().position();
         map.push(pos.X(), pos.Y(), player);
-        Store st = new Store(this);
+        Store st = new Store(map, this, g2d);
         map.push(300, 300, st);
         
         addMouseListener(this);
