@@ -22,7 +22,7 @@ public class Plant extends Unmoveable implements Actionable,
     final public static int REMAJASIRAM     = 3;
     final public static int DEWASANOSIRAM   = 4;
     final public static int DEWASASIRAM     = 5;
-    final public static int BIBITMATI       = 7;
+    final public static int BIBITMATI       = 6;
     final public static int TANAMANMATI     = 7;
 
     int posisi;
@@ -118,9 +118,7 @@ public class Plant extends Unmoveable implements Actionable,
                 } catch (InterruptedException e){}
             }
             // setelah player sampai, siram tanaman.
-            if (fase<7){
-                fase = fase+1;
-            }
+            fase = fase + 1;
         }
     }
     class Harvest extends RunnableListener {
@@ -128,6 +126,25 @@ public class Plant extends Unmoveable implements Actionable,
             super(selected);
         }
         public void run() {
+        // membuat player berjalan ke posisi tumbuhan
+            Player player = (Player) selected;
+            // gx dan gy adalah posisi tumbuhan saat ini
+            int gx = (int)Plant.this.getPosition().X();
+            int gy = (int)Plant.this.getPosition().Y();
+            Object lock = new Object();
+            player.move(gx, gy, lock);
+            synchronized(lock){
+                try {
+                    lock.wait(); // tunggu player sampai ke posisi tumbuhan
+                } catch (InterruptedException e){}
+            }
+            // setelah player sampai, siram tanaman.
+            if (panenBerulang) {
+                fase = REMAJANOSIRAM;
+            }
+            else {
+                fase = TANAMANMATI;
+            }
 
         }
     }
@@ -136,7 +153,20 @@ public class Plant extends Unmoveable implements Actionable,
             super(selected);
         }
         public void run() {
-
+            // membuat player berjalan ke posisi tumbuhan
+            Player player = (Player) selected;
+            // gx dan gy adalah posisi tumbuhan saat ini
+            int gx = (int)Plant.this.getPosition().X();
+            int gy = (int)Plant.this.getPosition().Y();
+            Object lock = new Object();
+            player.move(gx, gy, lock);
+            synchronized(lock){
+                try {
+                    lock.wait(); // tunggu player sampai ke posisi tumbuhan
+                } catch (InterruptedException e){}
+            }
+            // setelah player sampai, siram tanaman.
+            map.pop(gx, gy);
         }
     }
     class Slash extends RunnableListener {
@@ -144,7 +174,20 @@ public class Plant extends Unmoveable implements Actionable,
             super(selected);
         }
         public void run() {
-
+        // membuat player berjalan ke posisi tumbuhan
+            Player player = (Player) selected;
+            // gx dan gy adalah posisi tumbuhan saat ini
+            int gx = (int)Plant.this.getPosition().X();
+            int gy = (int)Plant.this.getPosition().Y();
+            Object lock = new Object();
+            player.move(gx, gy, lock);
+            synchronized(lock){
+                try {
+                    lock.wait(); // tunggu player sampai ke posisi tumbuhan
+                } catch (InterruptedException e){}
+            }
+            // setelah player sampai, siram tanaman.
+            map.pop(gx, gy);
         }
     }
     public void init(){
