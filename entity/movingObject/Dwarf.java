@@ -31,14 +31,17 @@ public class Dwarf extends MovingObject implements Actionable,
         {
             name="justice";
             //set default position
+            defpos = new Point2D(80,160);
         }
         else if (t==2)
         {
             name="freedom";
+            defpos = new Point2D(80,240);
         }
         else if (t==3)
         {
             name="destiny";
+            defpos = new Point2D(80,320);
         }
     }
     @Override public void drawBounds() {
@@ -49,12 +52,9 @@ public class Dwarf extends MovingObject implements Actionable,
     }
     @Override protected void init() {
         //inisiasi semua variable disini.
-        if (type==1)
-        {
-            creature.load("");
-        }
-        creature.load("picture/anim0.png", 4,1,32,32);
+        creature.load("picture/dwarf"+type,4,1,32,32);
         creature.setPosition(defpos);
+        creature.setFinalPosition(80, 80);
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(3);
     }
