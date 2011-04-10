@@ -1,9 +1,14 @@
 package plantmon.entity.item;
 
+<<<<<<< .mine
+import plantmon.entity.Item;
+
+=======
 import javax.swing.JPanel;
 import plantmon.entity.Item;
 import plantmon.game.ImageEntity;
 
+>>>>>>> .r20
 public class FarmItem extends Item {
     int efek;//efek dari buah yang dimakan player
     int season;
