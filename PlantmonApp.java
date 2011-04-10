@@ -22,7 +22,7 @@ public class PlantmonApp {
     public void init() {
         System.out.println("startup");
         // mengeset state = FarmState
-        p = new FarmState(10,10,"picture/bg2.png");
+        p = new FarmState(10,10);
         p.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         p.setPreferredSize(new Dimension(640, 480));
         mainFrame = new JFrame();

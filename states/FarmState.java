@@ -29,17 +29,14 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
     public static int SCREENWIDTH = 640;
     public int startx;
     public int starty;
-    int gridRow, gridColumn;
-    
-
     Player player;
     Selectable selected;
     Actionable actionated;
     boolean selectsomething;
     int clickx,clicky,defx,defy;
     boolean dragged;
-    public FarmState(int gridRow, int gridColumn,String bg){
-        super(gridRow, gridColumn, bg);
+    public FarmState(int gridRow, int gridColumn){
+        super(gridRow, gridColumn);
         init();
         setLayout(new GridLayout(5, 1));
         add(new Component() {});
