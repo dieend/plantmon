@@ -1,10 +1,13 @@
 package plantmon.entity;
 
+import plantmon.game.ImageEntity;
+
 public class Item{
-    String name;
-    int costBuy;
-    int costSell;
-    int IDitem;
+    protected String name;
+    protected int costBuy;
+    protected int costSell;
+    protected int IDItem;
+    protected ImageEntity gambar;
 
     public String getName(){
         return name;
@@ -16,7 +19,7 @@ public class Item{
         return costSell;
     }
     public int getIDitem(){
-        return IDitem;
+        return IDItem;
     }
     public void setName(String e){
         name = e;
@@ -28,6 +31,6 @@ public class Item{
         costSell=e;
     }
     public void setIDitem(int e){
-        IDitem=e;
+        IDItem=e;
     }
 }
