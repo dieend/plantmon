@@ -120,8 +120,15 @@ public class Land extends Unmoveable implements Actionable{
                 }
             }
             // buat plant baru berdasarkan item
-            Plant plant = new Plant(map, panel(),graphics());
-            map.push(gx, gy, plant);
+
+            if (temp.getName() == "Lobak") {
+                Lobak lobak = new Lobak(map, panel(),graphics(),gx,gy,status);
+                map.push(gx, gy, lobak);
+            } else if (temp.getName() == "Timun") {
+                Timun timun = new Timun(map, panel(),graphics(),gx,gy,status);
+                map.push(gx, gy, timun);
+            }
+            player.getInventory().delete(temp, 1);
         }
     }
 

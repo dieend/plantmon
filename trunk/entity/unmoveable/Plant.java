@@ -5,10 +5,10 @@ import java.awt.Graphics2D;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import plantmon.entity.Item;
 import plantmon.entity.Unmoveable;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
+import plantmon.game.Point2D;
 import plantmon.system.Actionable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
@@ -37,9 +37,11 @@ public class Plant extends Unmoveable implements Actionable,
     boolean panenBerulang;
     // konstruktor default
     //konstruktor dari item.
-    public Plant(GridMap map, JPanel panel, Graphics2D g2d){
+    public Plant(GridMap map, JPanel panel, Graphics2D g2d,int gx,int gy){
         super(map, panel, g2d);
         init();
+        entity.setPosition(new Point2D(gx,gy));
+        entity.setFinalPosition(gx, gy);
     }
     public void drawBounds(){
         entity.drawBounds(Color.GREEN);
@@ -61,7 +63,7 @@ public class Plant extends Unmoveable implements Actionable,
                 menu.add(itemplant2);
 
                 JMenuItem itemplant3;
-                if (fase == BIBITNOSIRAM){
+                if (fase == BIBITNOSIRAM) {
                     itemplant3 = new JMenuItem("water");
                     itemplant3.addActionListener(new Water(selected));
                     menu.add(itemplant3);
@@ -185,5 +187,7 @@ public class Plant extends Unmoveable implements Actionable,
         }
     }
     public void init(){
+        entity.load("picture/land.png", 1, 1, 80, 80);
+        entity.setFrameDelay(5);
     }
 }

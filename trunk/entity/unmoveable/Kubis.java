@@ -5,9 +5,9 @@ import javax.swing.JPanel;
 import plantmon.game.GridMap;
 
 public class Kubis extends Plant{
-    public Kubis(GridMap map, JPanel panel, Graphics2D g2d) {
-        super(map,panel,g2d);
-        fase = 1;
+    public Kubis(GridMap map, JPanel panel, Graphics2D g2d,int gx, int gy,int status) {
+        super(map,panel,g2d,gx,gy);
+        fase = status - 1;
         typeTanaman = 4;
         season = 0;
         happyMeter = 0;

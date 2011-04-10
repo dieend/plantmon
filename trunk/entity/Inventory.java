@@ -45,47 +45,45 @@ public class Inventory {
     }
 
     public void add(Item it, int jumlah) {
-        int i=size;
+        int i = 0;
         boolean found=false;
-            while(i>=0 && !found){
-                if (i != 0) {
-                    if(item.get(i) != null) {
-                        if(item.get(i).getIDitem() == it.getIDitem()){//pengecekan pada Array item apakah isinya sama
-                            muatan = muatan + jumlah;
-                            jumlahitem.set(i, muatan);
-                            found = true;
-                            }
-                        else{
-                            i--;
-                        }
-                    }
-                    else{
-                        item.add(i, it);
-                        jumlahitem.add(i, jumlah);
-                        size++;
-                        muatan++;
-                        found = true;
-                    }
-                } else {
-                    item.add(i, it);
-                    jumlahitem.add(i, jumlah);
-                    size++;
-                    muatan++;
-                    found = true;
-                }
+        int temp;
+        
+        while(i<size && !found) {
+            if(item.get(i).getIDitem() == it.getIDitem()) {//pengecekan pada Array item apakah isinya sama
+                temp = jumlahitem.get(i) + jumlah;
+                jumlahitem.set(i, temp);
+                found = true;
+            } else {
+                i++;
             }
+        }
+        if (!found) {
+            item.add(i,it);
+            jumlahitem.add(i,jumlah);
+            size++;
+            muatan++;
+        }
     }
     
     public void delete(Item it, int jumlah){
-        int i = size;
+        int i = 0;
+        int temp;
         boolean found = false;
-        if (item.get(i) != null) {
-            if (jumlahitem.get(i) > jumlah) {
-                muatan = muatan-jumlah;
-            }
-            else if (jumlahitem.get(i) == jumlah) {
-                    muatan = 0;
-                    item.set(i, it);
+        while (i <= size && !found) {
+            if(item.get(i) == it) {
+                if (jumlahitem.get(i) > jumlah) {
+                    temp = jumlahitem.get(i) - jumlah;
+                    jumlahitem.set(i, temp);
+                } else if (jumlahitem.get(i) <= jumlah) {
+                    item.remove(i);
+                    jumlahitem.remove(i);
+                    size--;
+                    muatan--;
+                }
+                found = true;
+            } else {
+                i++;
             }
         }
     }
