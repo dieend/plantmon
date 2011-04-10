@@ -6,12 +6,6 @@ import plantmon.game.ImageEntity;
 
 public class WarItem extends Item{
     int HPStatus;
-
-    final public static int Water = 0;
-    final public static int HolyWater = 1;
-    final public static int Antitoxin = 2;
-    final public static int EyeDrop = 3;
-    final public static int HotWater = 3;
 	
     public WarItem(int IDitem, JPanel panel) {
         gambar = new ImageEntity(panel);

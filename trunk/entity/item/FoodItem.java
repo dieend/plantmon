@@ -7,19 +7,6 @@ import plantmon.game.ImageEntity;
 public class FoodItem extends Item {
     int efek;//efek dari buah yang dimakan player
 
-    final public static int Kentang = 0;
-    final public static int Lobak = 1;
-    final public static int Timun = 2;
-    final public static int Kubis = 3;
-    final public static int Jagung = 4;
-    final public static int Tomat = 5;
-    final public static int Bawang = 6;
-    final public static int Nanas = 7;
-    final public static int Wortel = 8;
-    final public static int Terong = 9;
-    final public static int Ubi = 10;
-    final public static int Paprika = 11;
-
     public int getEfek(){
         return efek;
     }
@@ -30,62 +17,62 @@ public class FoodItem extends Item {
     public FoodItem(int IDitem, JPanel panel) {
         gambar = new ImageEntity(panel);
         IDItem = IDitem;
-        if (IDitem == Kentang) {
+        if (IDitem == BuKentang) {
             name = "Kentang";
             costSell = 720;
             efek = 2;
             gambar.load(null);
-        } else if (IDitem == Lobak) {
+        } else if (IDitem == BuLobak) {
             name = "Lobak";
             costSell = 540;
             efek = 0;
             gambar.load(null);
-        } else if (IDitem == Timun) {
+        } else if (IDitem == BuTimun) {
             name = "Timun";
             costSell = 900;
             efek = 1;
             gambar.load(null);
-        } else if (IDitem == Kubis) {
+        } else if (IDitem == BuKubis) {
             name = "Kubis";
             costSell = 2250;
             efek = 3;
             gambar.load(null);
-        } else if (IDitem == Nanas) {
+        } else if (IDitem == BuNanas) {
             name = "Nanas";
             costSell = 4500;
             efek = 3;
             gambar.load(null);
-        } else if (IDitem == Jagung) {
+        } else if (IDitem == BuJagung) {
             name = "Jagung";
             costSell = 900;
             efek = 0;
             gambar.load(null);
-        } else if (IDitem == Tomat) {
+        } else if (IDitem == BuTomat) {
             name = "Tomat";
             costSell = 540;
             efek = 0;
             gambar.load(null);
-        } else if (IDitem == Bawang) {
+        } else if (IDitem == BuBawang) {
             name = "Bawang";
             costSell = 720;
             efek = 2;
             gambar.load(null);
-        } else if (IDitem == Wortel) {
+        } else if (IDitem == BuWortel) {
             name = "Wortel";
             costSell = 1080;
             efek = 0;
             gambar.load(null);
-        } else if (IDitem == Terong) {
+        } else if (IDitem == BuTerong) {
             name = "Terong";
             costSell = 720;
             efek = 4;
             gambar.load(null);
-        } else if (IDitem == Ubi) {
+        } else if (IDitem == BuUbi) {
             name = "Ubi";
             costSell = 1080;
             efek = 0;
             gambar.load(null);
-        } else if (IDitem == Paprika) {
+        } else if (IDitem == BuPaprika) {
             name = "Paprika";
             costSell = 360;
             efek = 4;
