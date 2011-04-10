@@ -15,6 +15,7 @@ import plantmon.states.FarmState;
 public class Player extends MovingObject implements Actionable, 
                                                     Selectable{
 
+    
     Inventory inventory;
     Integer money;
     //bisa ngapain aja
@@ -33,6 +34,7 @@ public class Player extends MovingObject implements Actionable,
     }
     @Override protected void init() {
         //inisiasi semua variable disini.
+        
         load("picture/anim", 4,1,32,32);
         creature.setPosition(new Point2D(80,80));
         creature.setFinalPosition(80, 80);
@@ -44,5 +46,10 @@ public class Player extends MovingObject implements Actionable,
     }
     public Inventory getFarmItem(){
         return inventory.getFarmItem();
+    }
+    
+    public static void main(String[] args)
+    {
+       
     }
 }

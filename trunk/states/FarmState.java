@@ -151,7 +151,7 @@ public class FarmState extends JPanel implements Runnable,MouseListener,MouseMot
         dragged = true;
      }
    public void mouseClicked(MouseEvent e){
-       final MouseEvent tmp = e;
+        final MouseEvent tmp = e;
 //        System.out.println("mouseClicked");
         int fx = e.getX()-startx;
         int fy = e.getY()-starty;
