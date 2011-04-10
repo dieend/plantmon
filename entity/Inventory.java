@@ -118,4 +118,8 @@ public class Inventory{
         }
         return armor;
     }
+
+    public int getSize() {
+        return size;
+    }
 }
