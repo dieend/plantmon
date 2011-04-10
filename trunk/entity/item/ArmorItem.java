@@ -27,7 +27,7 @@ public class ArmorItem extends Item {
     final public static int Pant = 5;
 
     public ArmorItem(int IDitem,JPanel panel) {
-        gambar = new ImageEntity(panel);
+        //gambar = new ImageEntity(panel);
         IDItem = IDitem;
         if (IDitem == Robe) {
             costBuy = 100;

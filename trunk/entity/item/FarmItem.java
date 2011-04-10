@@ -20,7 +20,7 @@ public class FarmItem extends Item {
     }
   
     public FarmItem(int IDitem, JPanel panel) {
-        gambar = new ImageEntity(panel);
+        //gambar = new ImageEntity(panel);
         IDItem = IDitem;
         if (IDitem == BiKentang) {
             name = "Kentang";

@@ -8,7 +8,7 @@ public class WarItem extends Item{
     int HPStatus;
 	
     public WarItem(int IDitem, JPanel panel) {
-        gambar = new ImageEntity(panel);
+        //gambar = new ImageEntity(panel);
         IDItem = IDitem;
         if (IDitem == Water) {
             name = "Water";
