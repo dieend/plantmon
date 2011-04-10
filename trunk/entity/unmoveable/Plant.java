@@ -29,7 +29,6 @@ public class Plant extends Unmoveable implements Actionable,
     int fase;
 
     int	typeTanaman;
-    int	cost;
     int season;
     int	happyMeter;
     int	titikDewasa;
@@ -37,13 +36,8 @@ public class Plant extends Unmoveable implements Actionable,
     int	umur;
     boolean panenBerulang;
     // konstruktor default
-    public Plant(GridMap map, JPanel panel, Graphics2D g2d){
-        super(map, panel, g2d);
-        init();
-    }
-
     //konstruktor dari item.
-    public Plant(GridMap map, JPanel panel, Graphics2D g2d, Item item){
+    public Plant(GridMap map, JPanel panel, Graphics2D g2d){
         super(map, panel, g2d);
         init();
     }
