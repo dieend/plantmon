@@ -11,6 +11,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.*;
 import java.net.URL;
 import javax.swing.JButton;
+import plantmon.entity.deadItem.Store;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Land;
 import plantmon.game.GridMap;
@@ -80,6 +81,9 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
         player = new Player(map, this, g2d, 10);// maxslot = 10
         Point2D pos = player.getCreature().position();
         map.push(pos.X(), pos.Y(), player);
+        Store st = new Store(this);
+        map.push(300, 300, st);
+        
         addMouseListener(this);
     }
     public void run(){
