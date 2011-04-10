@@ -120,7 +120,7 @@ public class Land extends Unmoveable implements Actionable{
                 }
             }
             // buat plant baru berdasarkan item
-            Plant plant = new Plant(map, panel(),graphics() ,temp);
+            Plant plant = new Plant(map, panel(),graphics());
             map.push(gx, gy, plant);
         }
     }
