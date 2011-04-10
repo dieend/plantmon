@@ -1,17 +1,14 @@
 package plantmon.entity;
 
-<<<<<<< .mine
-package plantmon.entity;
-=======
 import plantmon.game.ImageEntity;
->>>>>>> .r20
 
-public class Item{
+public class Item {
     protected String name;
     protected int costBuy;
     protected int costSell;
     protected int IDItem;
     protected ImageEntity gambar;
+    protected String deskripsi;
 
     public String getName(){
         return name;
@@ -36,5 +33,11 @@ public class Item{
     }
     public void setIDitem(int e){
         IDItem=e;
+    }
+    public String getDeskripsi() {
+        return deskripsi;
+    }
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
     }
 }
