@@ -5,7 +5,6 @@
 package plantmon;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import plantmon.states.ParentState;
 import plantmon.states.StateManager;
 
@@ -24,8 +23,8 @@ public class PlantmonApp {
         mainFrame.setSize(640, 480);
         mainFrame.setResizable(false);
         //mainFrame.add(p, BorderLayout.CENTER);
-        //JPanel panel = new JPanel();
-        //mainFrame.add(panel);
+//        JPanel panel = new JPanel();
+//        mainFrame.add(panel);
         //mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
