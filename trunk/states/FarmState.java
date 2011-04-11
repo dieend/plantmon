@@ -10,8 +10,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.*;
 import java.net.URL;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import plantmon.entity.deadItem.Store;
+import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Land;
 import plantmon.game.GridMap;
@@ -25,7 +27,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
     Thread gameloop;
     GridMap map;
     JPopupMenu popup;
-    JButton text = new JButton("mungkin percakapan disini?");
+    JButton text;
     public static int SCREENHEIGHT = 480;
     public static int SCREENWIDTH = 640;
     public int startx;
@@ -38,15 +40,18 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
     boolean dragged;
     public FarmState(int gridRow, int gridColumn){
         super(gridRow, gridColumn);
+        ID = FARMSTATE;
         init();
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        setPreferredSize(new Dimension(640, 480));
         setLayout(new GridLayout(5, 1));
+        text = new JButton("mungkin percakapan disini?");
         add(new Component() {});
         add(new Component() {});
         add(new Component() {});
         add(new Component() {});
         //test.setVisible(true);
         text.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 //text.setVisible(false);
 //                startx += 50;
@@ -55,6 +60,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
         });
         add(text);
         addMouseMotionListener(this);
+        ((Thread) new Thread(this)).start();
     }
     private URL getURL(String filename) {
         URL url = null;
@@ -78,12 +84,18 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
                 map.gpush(i, j, new Land(map, this, g2d,i,j));
             }
         }
-        player = new Player(map, this, g2d, 10);// maxslot = 10
+        Integer money = new Integer(0);
+        player = new Player(map, this, g2d, 10,money);// maxslot = 10
         Point2D pos = player.getCreature().position();
         map.push(pos.X(), pos.Y(), player);
         Store st = new Store(map, this, g2d);
         map.push(300, 300, st);
-        
+        Dwarf dw = new Dwarf(map, this, g2d, 2, money);
+        map.push(dw.position().IntX(), dw.position().IntY(), dw);
+        dw = new Dwarf(map, this, g2d, 1, money);
+        map.push(dw.position().IntX(), dw.position().IntY(), dw);
+        dw = new Dwarf(map, this, g2d, 3, money);
+        map.push(dw.position().IntX(), dw.position().IntY(), dw);
         addMouseListener(this);
     }
     public void run(){
@@ -210,8 +222,6 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
             }
         }
 
-    public void mouseMoved(MouseEvent e) {
-//        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void mouseMoved(MouseEvent e) {}
 }
    

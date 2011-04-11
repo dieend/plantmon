@@ -4,38 +4,35 @@
 
 package plantmon;
 
-import plantmon.states.FarmState;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import plantmon.states.ParentState;
+import plantmon.states.StateManager;
 
 
 /**
  * The main class of the application.
  */
 public class PlantmonApp {
-    JFrame mainFrame;
-    public Thread gameloop;
-    public FarmState p;
+    //public FarmState p;
     public void init() {
         System.out.println("startup");
         // mengeset state = FarmState
-        p = new FarmState(10,10);
-        p.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        p.setPreferredSize(new Dimension(640, 480));
-        mainFrame = new JFrame();
+        //p = new FarmState(10,10);
+        //mainFrame = new JFrame();
+        JFrame mainFrame = new JFrame();
+        mainFrame.setSize(640, 480);
         mainFrame.setResizable(false);
-        mainFrame.getContentPane().add(p, BorderLayout.CENTER);
-        mainFrame.pack();
+        //mainFrame.add(p, BorderLayout.CENTER);
+        //JPanel panel = new JPanel();
+        //mainFrame.add(panel);
+        //mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
+        StateManager.instance().setFrame(mainFrame);
     }
     public void start() {
-        gameloop = new Thread(p);
-        gameloop.start();
     }
 
     public static void main(String[] args) {
@@ -43,6 +40,6 @@ public class PlantmonApp {
         app.init();
         app.start();
         System.out.println("lalala");
-        
+        StateManager.instance().goTo(ParentState.FRONTSTATE);
     }
 }

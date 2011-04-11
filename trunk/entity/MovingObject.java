@@ -21,7 +21,7 @@ public abstract class MovingObject implements Drawable{
     public MovingObject(GridMap map, JPanel panel, Graphics2D g2d){
         this.map = map;
         creature = new AnimatedSprite(panel, g2d);
-        init();
+    //    init();
     }
     /**
      *Mati lu
