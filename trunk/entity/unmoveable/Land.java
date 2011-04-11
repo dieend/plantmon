@@ -5,6 +5,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import plantmon.entity.Canceller;
 import plantmon.entity.Inventory;
 import plantmon.entity.Item;
 import plantmon.entity.Unmoveable;
@@ -12,6 +13,7 @@ import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.system.Actionable;
+import plantmon.system.Cancellable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
 
@@ -88,7 +90,8 @@ public class Land extends Unmoveable implements Actionable{
             int gx = (int)Land.this.getPosition().X();
             int gy = (int)Land.this.getPosition().Y();
             Object lock = new Object();
-            player.move(gx, gy, lock);
+            Boolean[] cancel = new Boolean[1];
+            player.move(gx, gy, lock,cancel);
             synchronized(lock){
                 try {
                     lock.wait();
@@ -111,7 +114,8 @@ public class Land extends Unmoveable implements Actionable{
             int gx = (int)Land.this.getPosition().X();
             int gy = (int)Land.this.getPosition().Y();
             Object lock = new Object();
-            player.move(gx, gy, lock);
+            Boolean[] cancel = new Boolean[1];
+            player.move(gx, gy, lock,cancel);
             synchronized(lock){
                 try {
                     lock.wait();
@@ -121,10 +125,10 @@ public class Land extends Unmoveable implements Actionable{
             }
             // buat plant baru berdasarkan item
 
-            if (temp.getName() == "Lobak") {
+            if (temp.getName().equals("Lobak")) {
                 Lobak lobak = new Lobak(map, panel(),graphics(),gx,gy,status);
                 map.push(gx, gy, lobak);
-            } else if (temp.getName() == "Timun") {
+            } else if (temp.getName().equals("Timun")) {
                 Timun timun = new Timun(map, panel(),graphics(),gx,gy,status);
                 map.push(gx, gy, timun);
             }
@@ -140,17 +144,29 @@ public class Land extends Unmoveable implements Actionable{
             Player player = (Player) selected;
             int gx = (int)Land.this.getPosition().X();
             int gy = (int)Land.this.getPosition().Y();
+            //Object lock = new String("plow");
             Object lock = new Object();
-            player.move(gx, gy, lock);
+            System.out.println(lock.hashCode());
+
+            Boolean[] cancel = new Boolean[1];
+            player.move(gx, gy, lock,cancel);
             synchronized(lock){
                 try {
                     lock.wait();
+//                    Thread.sleep(1000);
+                    //lock = "plow";
+//                    lock.notify();
                 } catch (InterruptedException e){
                     return;
                 }
             }
-            status = PLOWED;
-            entity.load("picture/plow.png", 1, 1, 80, 80);
+            
+            if (!cancel[0]){
+                status = PLOWED;
+                entity.load("picture/plow.png", 1, 1, 80, 80);
+                map.pop(gx, gy);
+            }
+            
         }
     }
 
@@ -163,7 +179,8 @@ public class Land extends Unmoveable implements Actionable{
             int gx = (int)Land.this.getPosition().X();
             int gy = (int)Land.this.getPosition().Y();
             Object lock = new Object();
-            player.move(gx, gy, lock);
+            Boolean[] cancel = new Boolean[1];
+            player.move(gx, gy, lock,cancel);
             synchronized(lock){
                 try {
                     lock.wait();

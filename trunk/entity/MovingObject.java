@@ -3,6 +3,7 @@ package plantmon.entity;
 import java.awt.Graphics2D;
 import plantmon.game.Point2D;
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import javax.swing.JPanel;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
@@ -13,14 +14,16 @@ import plantmon.system.Drawable;
 public abstract class MovingObject implements Drawable{
     final public static int PLAYER = 0;
     protected ArrayList<Object> lock = new ArrayList<Object>();
-    protected ArrayList<Point2D> destination = new ArrayList<Point2D>();
+    protected IdentityHashMap<Object,Point2D> destination = new IdentityHashMap<Object,Point2D>();
     protected GridMap map;
     protected AnimatedSprite creature;
     protected ArrayList<Point2D> route = new ArrayList<Point2D>();
     protected boolean inAction;
+    protected int numAction;
     public MovingObject(GridMap map, JPanel panel, Graphics2D g2d){
         this.map = map;
         creature = new AnimatedSprite(panel, g2d);
+        numAction = 0;
     //    init();
     }
     /**
@@ -34,11 +37,6 @@ public abstract class MovingObject implements Drawable{
      */
     
     
-    public Point2D getNextDest(){
-        //TODO
-        
-        return null;
-    }
     public void load(String filename, int columns, int rows,int width, int height){
         creature.setImageName(filename);
         filename = filename+"0.png";
@@ -68,55 +66,59 @@ public abstract class MovingObject implements Drawable{
     }
     protected synchronized void addAction(Object lock,Point2D dest){
         this.lock.add(lock);
+        numAction++;
         int x = (int)dest.X()/80 * 80 + 10;
         int y = (int)dest.Y()/80 * 80 + 10;
-        this.destination.add(new Point2D(x, y));
+        destination.put(lock, new Point2D(x, y));
 
     }
     protected abstract void init();
     public void updateAction(){
         if (inAction){
+            route = getRoute(destination.get(lock.get(0)).IntX(), destination.get(lock.get(0)).IntY(), PLAYER);
             if (route.size()>1){
-            Point2D dest = route.get(0);
-            if (!(map.getTop(dest.IntX(),dest.IntY()) instanceof Land) &&
-                !(map.getTop(dest.IntX(),dest.IntY()).equals(this))){
-                route = getRoute(destination.get(0).IntX(), destination.get(0).IntY(), PLAYER);
-                dest = route.get(0);
-            }
-            int gx = dest.IntX()*80+10;
-            int gy = dest.IntY()*80+10;
-            creature.setFinalPosition(gx, gy);
-            if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
-                (Math.abs(creature.position().Y()-creature.finalPosition().Y())  <= 1)) {
-                route.remove(0);
-            }
+                Point2D dest;//;
+    //            if (!(map.getTop(dest.IntX(),dest.IntY()) instanceof Land) &&
+    //                !(map.getTop(dest.IntX(),dest.IntY()).equals(this))){
+                    dest = route.get(0);
+    //            }
+                int gx = dest.IntX()*80+10;
+                int gy = dest.IntY()*80+10;
+                creature.setFinalPosition(gx, gy);
+                if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
+                    (Math.abs(creature.position().Y()-creature.finalPosition().Y())  <= 1)) {
+                    route.remove(0);
+                }
             }
             if (route.size()==1){
-                int gx = route.get(0).IntX()*80+10;
-                int gy = route.get(0).IntY()*80+10;
-                creature.setArah(new Point2D(gx,gy));
-                inAction = false;
-                if (lock.size()>0){
-                    synchronized (lock.get(0)) {
-                        Point2D dest = destination.get(0);
-//                        if (Math.abs(creature.position().X()-dest.X())<10 &&
-//                            Math.abs(creature.position().Y()-dest.Y())<10) {
-//                        try {
-//                            Thread.sleep(500);
-//                        } catch(InterruptedException e){}
-                        lock.get(0).notify();
-                        lock.remove(0);
-                        destination.remove(0);
+                if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
+                    (Math.abs(creature.position().Y()-creature.finalPosition().Y())  <= 1)) {
+
+                    int gx = route.get(0).IntX()*80+10;
+                    int gy = route.get(0).IntY()*80+10;
+                    System.out.println(gx+" "+gy);
+                    creature.setArah(new Point2D(gx,gy));
+                    inAction = false;
+                    if (lock.size()>0){
+                        synchronized (lock.get(0)) {
+//                            Point2D dest = destination.get(lock.get(0));
+                            lock.get(0).notify();
+//                          animate(lock);
+                            destination.remove(lock.get(0));
+                            lock.remove(0);
+                            numAction--;
+                            
+                        }
                     }
                 }
             }
         } else{//if not in action
-            if (destination.size()>0){
-                int gx = destination.get(0).IntX();
-                int gy = destination.get(0).IntY();
+            if (lock.size()>0){
+                lock.get(0);
+                int gx = destination.get(lock.get(0)).IntX();
+                int gy = destination.get(lock.get(0)).IntY();
                 gx = (gx/80)*80+10;
                 gy = (gy/80)*80+10;
-                route = getRoute(gx,gy, MovingObject.PLAYER);
                 inAction = true;
             }
         }

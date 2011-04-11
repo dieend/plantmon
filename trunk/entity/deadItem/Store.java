@@ -134,7 +134,8 @@ public class Store extends Unmoveable implements Actionable {
             int gx = (int)Store.this.getPosition().X();
             int gy = (int)Store.this.getPosition().Y();
             Object lock = new Object();
-            player.move(gx, gy, lock);
+            Boolean[] cancel = new Boolean[1];
+            player.move(gx, gy, lock,cancel);
             synchronized(lock){
                 try {
                     lock.wait();

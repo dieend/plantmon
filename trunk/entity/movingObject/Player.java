@@ -12,8 +12,9 @@ import plantmon.entity.*;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.states.FarmState;
+import plantmon.system.Cancellable;
 
-public final class Player extends MovingObject implements Actionable,
+public class Player extends MovingObject implements Actionable, Cancellable,
                                                     Selectable{
 
     
@@ -117,8 +118,11 @@ public final class Player extends MovingObject implements Actionable,
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(3);
     }
-    public void move(int gx,int gy,Object lock){
+    public void move(int gx,int gy,Object lock,Boolean[] cancel){
         addAction(lock,new Point2D(gx,gy));
+        Canceller ca = new Canceller(creature.panel(),creature.graphics(),
+                                    gx, gy, cancel,lock,(Cancellable)this,numAction-1);
+        map.push(gx, gy, ca);
     }
     public Inventory getFarmItem(){
         return inventory.getFarmItem();
@@ -129,9 +133,14 @@ public final class Player extends MovingObject implements Actionable,
     public void setInventory (Item i,int Jumlah) {
         inventory.add(i, Jumlah);
     }
-    
-    public static void main(String[] args)
-    {
-       
+    @Override
+    public void cancel(Object lock){
+        map.pop(destination.get(lock).X(), destination.get(lock).Y());
+        System.out.println(destination.size());
+        destination.remove(lock);
+        this.lock.remove(lock);
+        this.numAction--;
+        creature.setFinalPosition(this.position().IntX(),this.position().IntY());
+        inAction = false;
     }
 }
