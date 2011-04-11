@@ -21,7 +21,7 @@ public class PlantmonApp {
         //mainFrame = new JFrame();
         JFrame mainFrame = new JFrame();
         mainFrame.setSize(640, 480);
-        mainFrame.setResizable(false);
+//        mainFrame.setResizable(false);
         //mainFrame.add(p, BorderLayout.CENTER);
 //        JPanel panel = new JPanel();
 //        mainFrame.add(panel);

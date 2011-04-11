@@ -60,9 +60,8 @@ public class AnimatedSprite extends Sprite {
         //load the tiled animation bitmap
 //        System.out.print("animated should be changed");
         try {
-//            System.out.print("animated is changed");
             animimage = ImageIO.read(this.getClass().getResource(filename));
-        } catch(IOException e) {e.printStackTrace(); }
+        } catch(IOException e) {}
         setColumns(columns);
         setTotalFrames(columns * rows);
         setFrameWidth(width);
@@ -208,26 +207,27 @@ public class AnimatedSprite extends Sprite {
         super.draw();
     }
     public void setArah(Point2D dest){
-        double vx = 1.5* Math.sin(Math.atan2(dest.X()-this.position().X(),
+        System.out.println(dest.X()+" "+dest.Y()+" "+position().X()+" "+position().Y());
+        double vx = Math.sin(Math.atan2(dest.X()-this.position().X(),
                     dest.Y()-this.position().Y()));
-        double vy = 1.5* Math.cos(Math.atan2(dest.X()-this.position().X(),
+        double vy = Math.cos(Math.atan2(dest.X()-this.position().X(),
                 dest.Y()-this.position().Y()));
+        System.out.println(vx + " " + vy + " " + (vy/vx));
         if ((Math.abs(vy/vx)>1.0) && vy>0) {
-//            System.out.println("Hadap bawah");
 //                setFaceAngle(0);
-            load(imageName+"0.png",4,1,32,32);
+            load(imageName+"0.png",cols,totFrames/cols,width,height);
         } else if ((Math.abs(vy/vx)<1.0) && vx>0){
 //            System.out.println("Hadap kanan");
 //                setFaceAngle(90);
-            load(imageName+"3.png",4,1,32,32);
+            load(imageName+"3.png",cols,totFrames/cols,width,height);
         } else if ((Math.abs(vy/vx)>1.0) && vy<0){
 //                setFaceAngle(180);
 //            System.out.println("Hadap atas");
-            load(imageName+"2.png",4,1,32,32);
+            load(imageName+"2.png",cols,totFrames/cols,width,height);
         } else if ((Math.abs(vy/vx)<1.0) && vx<0){
 //                setFaceAngle(270);
 //            System.out.println("Hadap ke kiri");
-            load(imageName+"1.png",4,1,32,32);
+            load(imageName+"1.png",cols,totFrames/cols,width,height);
         }
 
     }

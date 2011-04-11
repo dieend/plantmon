@@ -114,7 +114,8 @@ public class Point2D extends Object implements Actionable {
             int gx = (int)Point2D.this.X();
             int gy = (int)Point2D.this.Y();
             Object lock = new Object();
-            player.move(gx, gy, lock);
+            Boolean[] cancel = new Boolean[1];
+            player.move(gx, gy, lock,cancel);
             synchronized(lock){
                 try {
                     lock.wait();

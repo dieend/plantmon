@@ -172,7 +172,6 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
         int clicked = e.getButton();
         switch(clicked){    
             case MouseEvent.BUTTON1:
-                selectsomething = false;
                 if (map.getTop(gx, gy) != null ) {
                     if (map.getTop(gx, gy) instanceof Selectable) {
                         selected = (Selectable) map.getTop(gx, gy);
@@ -181,6 +180,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
                         System.out.print("fjhfhgf");
                         popup = ((Canceller)map.getTop(gx,gy)).getMenu();
                         popup.show(tmp.getComponent(),tmp.getX(), tmp.getY());
+                        selectsomething = false;
                     }
                 } else selectsomething = false;
                 break;

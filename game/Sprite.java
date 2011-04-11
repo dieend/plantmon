@@ -153,7 +153,7 @@ public class Sprite extends Object {
      * set face angle indicates which direction sprite is facing
      */
     public void setFaceAngle(float angle) {
-    entity.setFaceAngle((double) angle);
+        entity.setFaceAngle((double) angle);
     }
     /*
      * set face angle indicates which direction sprite is facing
