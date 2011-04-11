@@ -29,11 +29,11 @@ public class Inventory {
     }
 
     public Item getSlot(int noslot){
-	return (item.get(size));
+	return (item.get(noslot));
     }
 
     int getJumlah(int noslot){
-        return (jumlahitem.get(muatan));
+        return (jumlahitem.get(noslot));
     }
     
     public synchronized Item getItem(int i) {
@@ -132,5 +132,13 @@ public class Inventory {
 
     public synchronized int getSize() {
         return size;
+    }
+
+    public boolean isEmpty() {
+        if (size == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
