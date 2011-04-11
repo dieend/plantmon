@@ -3,6 +3,8 @@ package plantmon.entity.movingObject;
 import java.awt.Color;
 import java.awt.Graphics2D;
 //import javax.swing.FarmState;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import plantmon.system.Actionable;
 import plantmon.system.Selectable;
@@ -11,7 +13,7 @@ import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.states.FarmState;
 
-public class Player extends MovingObject implements Actionable, 
+public final class Player extends MovingObject implements Actionable,
                                                     Selectable{
 
     
@@ -31,6 +33,78 @@ public class Player extends MovingObject implements Actionable,
         return "player";
     }
     @Override public JPopupMenu getMenu(Selectable selected){
+        if (selected instanceof Player){
+            final Player player = (Player) selected;
+            JPopupMenu menu = new JPopupMenu();
+            JMenu ite;
+            ite = new JMenu("inventory");
+
+            JMenu subMenuFarm;
+            subMenuFarm = new JMenu("Farm Item");
+
+            JMenu subMenuFood;
+            subMenuFood = new JMenu("Food Item");
+
+            JMenu subMenuWar;
+            subMenuWar = new JMenu("War Item");
+
+            JMenu subMenuArmor;
+            subMenuArmor = new JMenu("Armor Item");
+
+            if (!inventory.getFarmItem().isEmpty()) {
+                for (int i = 0; i <inventory.getFarmItem().getSize(); i++) {
+                    JMenuItem subSubFarm = new JMenuItem(inventory.getFarmItem().getSlot(i).getName());
+                    subMenuFarm.add(subSubFarm);
+                }
+            } else {
+                JMenuItem subSubFarm2 = new JMenuItem("no Farm Item");
+                subSubFarm2.setEnabled(false);
+                subMenuFarm.add(subSubFarm2);
+            }
+            
+            if (!inventory.getFoodItem().isEmpty()) {
+                for (int i = 0; i <inventory.getFoodItem().getSize(); i++) {
+                    JMenuItem subSubFood = new JMenuItem(inventory.getFoodItem().getSlot(i).getName());
+                    subMenuFood.add(subSubFood);
+                }
+            } else {
+                JMenuItem subSubFood2 = new JMenuItem("no Food Item");
+                subSubFood2.setEnabled(false);
+                subMenuFood.add(subSubFood2);
+            }
+
+            if (!inventory.getWarItem().isEmpty()) {
+                for (int i = 0; i <inventory.getWarItem().getSize(); i++) {
+                    JMenuItem subSubWar = new JMenuItem(inventory.getWarItem().getSlot(i).getName());
+                    subMenuWar.add(subSubWar);
+                }
+            } else {
+                JMenuItem subSubWar2 = new JMenuItem("no War Item");
+                subSubWar2.setEnabled(false);
+                subMenuWar.add(subSubWar2);
+            }
+            
+            if (!inventory.getArmorItem().isEmpty()) {
+                for (int i = 0; i <inventory.getArmorItem().getSize(); i++) {
+                    JMenuItem subSubArmor = new JMenuItem(inventory.getArmorItem().getSlot(i).getName());
+                    subMenuArmor.add(subSubArmor);
+                }
+            } else {
+                JMenuItem subSubArmor2 = new JMenuItem("no Armor Item");
+                subSubArmor2.setEnabled(false);
+                subMenuArmor.add(subSubArmor2);
+            }
+
+            ite.add(subMenuFarm);
+            ite.add(subMenuFood);
+            ite.add(subMenuWar);
+            ite.add(subMenuArmor);
+
+            menu.add(ite);
+
+            menu.pack();
+            return menu;
+        }
         return null;
     }
     @Override protected void init() {

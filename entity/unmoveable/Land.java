@@ -55,7 +55,7 @@ public class Land extends Unmoveable implements Actionable{
                 item3 = new JMenu("put");
                 Inventory inventory = player.getFarmItem();
                 JMenuItem subItem;
-                if (inventory.getSize()==0) {
+                if (inventory.isEmpty()) {
                     subItem = new JMenuItem("no crop item");
                     subItem.setEnabled(false);
                     item3.add(subItem);

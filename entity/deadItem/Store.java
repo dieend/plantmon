@@ -98,12 +98,14 @@ public class Store extends Unmoveable implements Actionable {
                    if (lock.get(i) == true) {
                     JMenuItem subSubMenu;
                     subSubMenu = new JMenuItem(item.get(i).getName());
+                    subSubMenu.addActionListener(new Buy(selected,item.get(i)));
                     subMenuWar.add(subSubMenu);
                     }
                 } else if (item.get(i) instanceof ArmorItem) {
                    if (lock.get(i) == true) {
                     JMenuItem subSubMenu;
                     subSubMenu = new JMenuItem(item.get(i).getName());
+                    subSubMenu.addActionListener(new Buy(selected,item.get(i)));
                     subMenuArmor.add(subSubMenu);
                     }
                 }
