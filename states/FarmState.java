@@ -1,17 +1,17 @@
 package plantmon.states;
 
 
-import java.awt.event.ActionEvent;
 import javax.swing.JPopupMenu;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.*;
 import java.net.URL;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import plantmon.entity.Canceller;
 import plantmon.entity.deadItem.Store;
 import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.movingObject.Player;
@@ -27,7 +27,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
     Thread gameloop;
     GridMap map;
     JPopupMenu popup;
-    JButton text;
+    JTextArea text;
     public static int SCREENHEIGHT = 480;
     public static int SCREENWIDTH = 640;
     public int startx;
@@ -38,28 +38,28 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
     boolean selectsomething;
     int clickx,clicky,defx,defy;
     boolean dragged;
+    boolean active;
     public FarmState(int gridRow, int gridColumn){
         super(gridRow, gridColumn);
         ID = FARMSTATE;
         init();
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
-        setLayout(new GridLayout(5, 1));
-        text = new JButton("mungkin percakapan disini?");
-        add(new Component() {});
-        add(new Component() {});
-        add(new Component() {});
-        add(new Component() {});
+        setLayout(null);
+        text = new JTextArea();
+        text.setBounds(0, 350, 600, 100);
+        JScrollPane pane = new JScrollPane(text);
+        pane.setBounds(0, 350, 600, 100);
+//        add(new Component() {});
+//        add(new Component() {});
+//        add(new Component() {});
+//        add(new Component() {});
         //test.setVisible(true);
-        text.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //text.setVisible(false);
-//                startx += 50;
-//                starty += 50;
-            }
-        });
-        add(text);
+        text.setEditable(false);
+        add(pane);
+        //add(pane);
         addMouseMotionListener(this);
+        active = true;
         ((Thread) new Thread(this)).start();
     }
     private URL getURL(String filename) {
@@ -100,7 +100,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
     }
     public void run(){
         
-        while (true) {
+        while (active) {
 //            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
             try {
                 Thread.sleep(20);
@@ -123,7 +123,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
 //        }
     }
 
-    public void updated(Graphics g){
+    public void updated(){
 
         g2d.setColor(Color.WHITE);
         g2d.drawImage(background.getImage(), 0, 0,SCREENWIDTH-1,SCREENHEIGHT-1, this);
@@ -139,7 +139,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
     }
     @Override public void paintComponent(Graphics g) {
 //        System.out.println("paintComponent - CobaOpeh");
-        updated(g);
+        updated();
         g.drawImage(backbuffer,startx, starty, this);
     }
     public void mouseExited(MouseEvent e){
@@ -177,6 +177,10 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
                     if (map.getTop(gx, gy) instanceof Selectable) {
                         selected = (Selectable) map.getTop(gx, gy);
                         selectsomething = true;
+                    } else if (map.getTop(gx, gy) instanceof Canceller){
+                        System.out.print("fjhfhgf");
+                        popup = ((Canceller)map.getTop(gx,gy)).getMenu();
+                        popup.show(tmp.getComponent(),tmp.getX(), tmp.getY());
                     }
                 } else selectsomething = false;
                 break;
@@ -211,7 +215,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
                 int x = e.getX();
                 int y = e.getY();
                 int ULx =10,ULy=10, LRx=-10+FarmState.SCREENWIDTH-map.getRow()*80,
-                        LRy = FarmState.SCREENHEIGHT-(map.getColumn()*80+100);
+                        LRy = FarmState.SCREENHEIGHT-(map.getColumn()*80+150);
                 int newx = defx +((x-clickx));
                 int newy = defy +((y-clicky));
 //                System.out.println("oooo" + newx+" "+ULx+" "+LRx);
