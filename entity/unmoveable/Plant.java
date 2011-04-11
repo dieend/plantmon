@@ -107,7 +107,8 @@ public class Plant extends Unmoveable implements Actionable,
             int gx = (int)Plant.this.getPosition().X();
             int gy = (int)Plant.this.getPosition().Y();
             Object lock = new Object();
-            player.move(gx, gy, lock);
+            Boolean[] cancel = new Boolean[1];
+            player.move(gx, gy, lock,cancel);
             synchronized(lock){
                 try {
                     lock.wait(); // tunggu player sampai ke posisi tumbuhan
@@ -128,7 +129,8 @@ public class Plant extends Unmoveable implements Actionable,
             int gx = (int)Plant.this.getPosition().X();
             int gy = (int)Plant.this.getPosition().Y();
             Object lock = new Object();
-            player.move(gx, gy, lock);
+            Boolean[] cancel = new Boolean[1];
+            player.move(gx, gy, lock,cancel);
             synchronized(lock){
                 try {
                     lock.wait(); // tunggu player sampai ke posisi tumbuhan
@@ -155,7 +157,8 @@ public class Plant extends Unmoveable implements Actionable,
             int gx = (int)Plant.this.getPosition().X();
             int gy = (int)Plant.this.getPosition().Y();
             Object lock = new Object();
-            player.move(gx, gy, lock);
+            Boolean[] cancel = new Boolean[1];
+            player.move(gx, gy, lock,cancel);
             synchronized(lock){
                 try {
                     lock.wait(); // tunggu player sampai ke posisi tumbuhan
@@ -176,7 +179,8 @@ public class Plant extends Unmoveable implements Actionable,
             int gx = (int)Plant.this.getPosition().X();
             int gy = (int)Plant.this.getPosition().Y();
             Object lock = new Object();
-            player.move(gx, gy, lock);
+            Boolean[] cancel = new Boolean[1];
+            player.move(gx, gy, lock,cancel);
             synchronized(lock){
                 try {
                     lock.wait(); // tunggu player sampai ke posisi tumbuhan
