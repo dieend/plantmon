@@ -36,7 +36,7 @@ public class Inventory {
         return (jumlahitem.get(muatan));
     }
     
-    public Item getItem(int i) {
+    public synchronized Item getItem(int i) {
         Item result = null;
         try {
             result = item.get(i);
@@ -44,7 +44,7 @@ public class Inventory {
         return result;
     }
 
-    public void add(Item it, int jumlah) {
+    public synchronized void add(Item it, int jumlah) {
         int i = 0;
         boolean found=false;
         int temp;
@@ -66,7 +66,7 @@ public class Inventory {
         }
     }
     
-    public void delete(Item it, int jumlah){
+    public synchronized void delete(Item it, int jumlah){
         int i = 0;
         int temp;
         boolean found = false;
@@ -90,7 +90,7 @@ public class Inventory {
 
     
     
-    public Inventory getFarmItem(){
+    public synchronized Inventory getFarmItem(){
         Inventory farm = new Inventory();
         for (int i = 0; i < item.size(); i++){
             if (item.get(i) instanceof FarmItem){
@@ -100,7 +100,7 @@ public class Inventory {
         return farm;
     }
 
-    public Inventory getWarItem(){
+    public synchronized Inventory getWarItem(){
         Inventory war = new Inventory(item.size());
         for(int i = 0; i < item.size(); i++){
             if (item.get(i) instanceof WarItem){
@@ -110,7 +110,7 @@ public class Inventory {
         return war;
     }
 
-    public Inventory getFoodItem(){
+    public synchronized Inventory getFoodItem(){
         Inventory food = new Inventory(item.size());
         for(int i = 0; i < item.size(); i++){
             if(item.get(i) instanceof FoodItem){
@@ -120,7 +120,7 @@ public class Inventory {
         return food;
     }
 
-    public Inventory getArmorItem(){
+    public synchronized Inventory getArmorItem(){
         Inventory armor = new Inventory(item.size());
         for(int i = 0; i < item.size(); i++){
             if(item.get(i) instanceof ArmorItem){
@@ -130,7 +130,7 @@ public class Inventory {
         return armor;
     }
 
-    public int getSize() {
+    public synchronized int getSize() {
         return size;
     }
 }
