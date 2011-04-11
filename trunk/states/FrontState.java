@@ -16,6 +16,7 @@ public class FrontState extends ParentState{
             }
         });
         add(newGame);
-        System.out.print("udah buat frontstate");
+        updateUI();
+        //repaint();
     }
 }

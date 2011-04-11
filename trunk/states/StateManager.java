@@ -1,5 +1,6 @@
 package plantmon.states;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
@@ -30,17 +31,26 @@ public class StateManager {
                 where = i;
             }
         }
+        
+//        System.out.print(com[0].getName());
+//        System.out.println(" jumlah componnet frame = "+com.length);
         if (!found){
             states.add(StateFactory.createState(IDstate));
             where=states.size()-1;
             frame.add(states.get(where));
         }
-        if (currentState != -1){
+        if (currentState >= 0 && currentState< states.size()){
             states.get(currentState).setVisible(false);
+        } else {
+            System.out.println("fail");
         }
-        System.out.print(currentState);
         currentState = where;
         states.get(currentState).setVisible(true);
-        System.out.println(states.get(currentState).getName());
+        states.get(currentState).updateUI();
+//        states.get(currentState).repaint();
+//        Component[] com = frame.getContentPane().getComponents();
+//        for (Component i:com){
+//            i.repaint();
+//        }
     }
 }
