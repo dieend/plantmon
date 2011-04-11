@@ -3,7 +3,6 @@ package plantmon.entity.movingObject;
 import java.awt.Color;
 import java.awt.Graphics2D;
 //import javax.swing.FarmState;
-import java.util.ArrayList;
 import javax.swing.JPopupMenu;
 import plantmon.system.Actionable;
 import plantmon.system.Selectable;
@@ -19,9 +18,11 @@ public class Player extends MovingObject implements Actionable,
     Inventory inventory;
     Integer money;
     //bisa ngapain aja
-    public Player(GridMap map, FarmState panel, Graphics2D g2d, int maxItemSlot){
+    public Player(GridMap map, FarmState panel, Graphics2D g2d, int maxItemSlot,Integer money){
         super(map,panel,g2d);
         inventory = new Inventory();
+        this.money = money;
+        init();
     }
     @Override public void drawBounds() {
         creature.drawBounds(Color.GREEN);

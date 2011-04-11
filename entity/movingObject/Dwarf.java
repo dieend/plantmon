@@ -17,7 +17,7 @@ public class Dwarf extends MovingObject implements Actionable,
                                                     Selectable,
                                                     Runnable{
     //status dwarf, 0 untuk sleep, 1 untuk wake_up
-    int moneyharvest;
+    Integer moneyharvest;
     private static Point2D defpos;
     private int status = 0;
     private final int sleep=0;
@@ -30,8 +30,9 @@ public class Dwarf extends MovingObject implements Actionable,
     public static final int harvest=2;
     public static final int slash=3;
     
-    public Dwarf(GridMap map, JPanel panel, Graphics2D g2d,int t,int money){
+    public Dwarf(GridMap map, JPanel panel, Graphics2D g2d,int t,Integer money){
         super(map,panel,g2d);
+        System.out.println(t);
         type=t;
         if (t==1)
         {
@@ -50,6 +51,8 @@ public class Dwarf extends MovingObject implements Actionable,
             name="destiny";
             defpos = new Point2D(80,320);
         }
+        System.out.println("picture/dwarf"+type+"0");
+        init();
     }
     @Override public void drawBounds() {
         creature.drawBounds(Color.GREEN);
@@ -59,9 +62,11 @@ public class Dwarf extends MovingObject implements Actionable,
     }
     @Override protected void init() {
         //inisiasi semua variable disini.
-        creature.load("picture/dwarf"+type,4,1,32,32);
+        System.out.println("picture/dwarf"+type+"0");
+        creature.load("picture/dwarf"+type+"0.png",4,1,32,32);
+        creature.setImageName("picture/dwarf"+type);
         creature.setPosition(defpos);
-        creature.setFinalPosition(80, 80);
+        creature.setFinalPosition(defpos.IntX(),defpos.IntY());
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(3);
     }
@@ -87,8 +92,6 @@ public class Dwarf extends MovingObject implements Actionable,
                 {
                     status=wake_up;
                 }
-                else
-                    throw new UnsupportedOperationException("Not supported yet.");
             }
         };
         return sl;
