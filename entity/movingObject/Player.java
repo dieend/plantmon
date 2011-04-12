@@ -143,4 +143,12 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         creature.setFinalPosition(this.position().IntX(),this.position().IntY());
         inAction = false;
     }
+
+    public void setMoney(int uang) {
+        money = uang;
+    }
+
+    public int getMoney() {
+        return money;
+    }
 }
