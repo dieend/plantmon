@@ -208,9 +208,11 @@ public class Store extends Unmoveable implements Actionable {
             if (!cancel[0]){
                 map.pop(gx, gy);
                 int money = player.getMoney();
-                money = money - x * temp.getCostBuy();
-                player.setMoney(money);
-                player.setInventory(temp,x);
+                if (money >= x*temp.getCostBuy()) {
+                    money = money - x * temp.getCostBuy();
+                    player.setMoney(money);
+                    player.setInventory(temp,x);
+                }
                 if (temp instanceof WarItem){
                     System.out.print("waritem");
                 } else if (temp instanceof FarmItem){
