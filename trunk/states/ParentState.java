@@ -10,14 +10,16 @@ import plantmon.game.ImageEntity;
  *
  * @author asus
  */
-public class ParentState extends JPanel{
+public class ParentState extends JPanel implements Runnable{
     Graphics2D g2d;
     AffineTransform at;
     BufferedImage backbuffer;
     ImageEntity background;
+    protected boolean active;
     int ID;
     public static final int FARMSTATE = 0;
     public static final int FRONTSTATE = 1;
+    public static final int INVENTORY = 2;
     public ParentState(){
     }
 
@@ -32,5 +34,8 @@ public class ParentState extends JPanel{
     protected void setname(String name){
         this.setName(name);
     }
-
+    public void run(){}
+    public void turnOff(){
+        active = false;
+    }
 }
