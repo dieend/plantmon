@@ -5,6 +5,7 @@
 package plantmon;
 
 import javax.swing.JFrame;
+import org.jdesktop.application.SingleFrameApplication;
 import plantmon.states.ParentState;
 import plantmon.states.StateManager;
 
@@ -12,14 +13,14 @@ import plantmon.states.StateManager;
 /**
  * The main class of the application.
  */
-public class PlantmonApp {
+public class PlantmonApp extends SingleFrameApplication{
     //public FarmState p;
     public void init() {
         System.out.println("startup");
         // mengeset state = FarmState
         //p = new FarmState(10,10);
         //mainFrame = new JFrame();
-        JFrame mainFrame = new JFrame();
+        JFrame mainFrame = new JFrame("Plantmon");
         mainFrame.setSize(640, 480);
 //        mainFrame.setResizable(false);
         //mainFrame.add(p, BorderLayout.CENTER);
@@ -31,14 +32,18 @@ public class PlantmonApp {
         mainFrame.setVisible(true);
         StateManager.instance().setFrame(mainFrame);
     }
-    public void start() {
-    }
+    
 
     public static void main(String[] args) {
-        PlantmonApp app = new PlantmonApp();
-        app.init();
-        app.start();
-        System.out.println("lalala");
-        StateManager.instance().goTo(ParentState.FRONTSTATE);
+//        PlantmonApp app = new PlantmonApp();
+        //app.init();
+        PlantmonApp.launch(PlantmonApp.class,args);
+    }
+
+    @Override
+    protected void startup() {
+        init();
+        Object[] args = new Object[0];
+        StateManager.instance().goTo(ParentState.FRONTSTATE,args);
     }
 }

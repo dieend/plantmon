@@ -5,15 +5,14 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import plantmon.entity.Canceller;
 import plantmon.entity.Inventory;
 import plantmon.entity.Item;
 import plantmon.entity.Unmoveable;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.states.FarmState;
 import plantmon.system.Actionable;
-import plantmon.system.Cancellable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
 
@@ -137,6 +136,7 @@ public class Land extends Unmoveable implements Actionable{
                     map.push(gx, gy, timun);
                 }
                 player.getInventory().delete(temp, 1);
+                FarmState.text.append("put "+temp.getName()+" at ("+(gx/80)+","+(gy/80)+")\n");
             }
         }
     }
@@ -170,6 +170,7 @@ public class Land extends Unmoveable implements Actionable{
                 map.pop(gx, gy);
                 status = PLOWED;
                 entity.load("picture/plow.png", 1, 1, 80, 80);
+                FarmState.text.append("plowing at ("+(gx/80)+","+(gy/80)+")\n");
             }
             
         }
@@ -197,6 +198,7 @@ public class Land extends Unmoveable implements Actionable{
                 map.pop(gx, gy);
                 status = WATERED;
                 entity.load("picture/water.png", 1, 1, 80, 80);
+                FarmState.text.append("watering at ("+(gx/80)+","+(gy/80)+")\n");
             }
         }
     }

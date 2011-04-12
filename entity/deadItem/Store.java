@@ -14,12 +14,13 @@ import plantmon.entity.Item;
 import plantmon.entity.Unmoveable;
 import plantmon.entity.item.ArmorItem;
 import plantmon.entity.item.FarmItem;
+import plantmon.entity.item.FoodItem;
 import plantmon.entity.item.WarItem;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.states.FarmState;
 import plantmon.system.Actionable;
-import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
 
 public class Store extends Unmoveable implements Actionable {
@@ -154,7 +155,7 @@ public class Store extends Unmoveable implements Actionable {
             text.setBounds(45,0,25, 20);
             text.setText(""+x);
             text.setEditable(false);
-            text.setHorizontalAlignment(text.CENTER);
+            text.setHorizontalAlignment(JTextField.CENTER);
             buttonbes = new JButton(">");
             buttonbes.setLayout(null);
             buttonbes.setBounds(70,0,45,20);
@@ -175,7 +176,6 @@ public class Store extends Unmoveable implements Actionable {
             if (e.getSource() == buttonbes) {
                 if (x != 99) {
                     x += 1;
-                    System.out.println(x);
                 }
                 text.setText(""+x);
             } else if (e.getSource() == buttonkec) {
@@ -190,27 +190,37 @@ public class Store extends Unmoveable implements Actionable {
         }
 
         public void run() {
-                Player player = (Player) selected;
-                buttonbes.setEnabled(false);
-                buttonkec.setEnabled(false);
-                int gx = (int)Store.this.getPosition().X();
-                int gy = (int)Store.this.getPosition().Y();
-                Object lock = new Object();
-                Boolean[] cancel = new Boolean[1];
-                player.move(gx, gy, lock,cancel);
-                synchronized(lock){
-                    try {
-                        lock.wait();
-                    } catch (InterruptedException e){
-                        return;
-                    }
+            Player player = (Player) selected;
+            buttonbes.setEnabled(false);
+            buttonkec.setEnabled(false);
+            int gx = (int)Store.this.getPosition().X();
+            int gy = (int)Store.this.getPosition().Y();
+            Object lock = new Object();
+            Boolean[] cancel = new Boolean[1];
+            player.move(gx, gy, lock,cancel);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){
+                    return;
                 }
-                if (!cancel[0]){
+            }
+            if (!cancel[0]){
                 map.pop(gx, gy);
                 int money = player.getMoney();
-		money = money - x * temp.getCostBuy();
-            	player.setMoney(money);
+                money = money - x * temp.getCostBuy();
+                player.setMoney(money);
                 player.setInventory(temp,x);
+                if (temp instanceof WarItem){
+                    System.out.print("waritem");
+                } else if (temp instanceof FarmItem){
+                    System.out.print("farmitem");
+                } else if (temp instanceof FoodItem){
+                    System.out.print("fooditem");
+                } else if (temp instanceof ArmorItem){
+                    System.out.print("armoritem");
+                }
+                FarmState.text.append("Bought "+x+" "+temp.getName()+"(s)\n");
             }
         }
     }

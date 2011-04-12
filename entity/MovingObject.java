@@ -26,15 +26,7 @@ public abstract class MovingObject implements Drawable{
         numAction = 0;
     //    init();
     }
-    /**
-     *Mati lu
-     *
-     * @param x absis tujuan PLAYER
-     * @param y ordinat tujuan PLAYER
-     * @param caller, code pemanggil, 0 untuk player, 1 untuk dwarf water,
-     * 2 untuk dwarf harvest, 3 untuk dwarf slash
-     * @return
-     */
+
     
     
     public void load(String filename, int columns, int rows,int width, int height){
@@ -146,7 +138,15 @@ public abstract class MovingObject implements Drawable{
             System.out.println(p.get(i).IntX() + "," + p.get(i).IntY());
         }
     }
-
+    /**
+     *Mati lu
+     *
+     * @param x absis tujuan PLAYER
+     * @param y ordinat tujuan PLAYER
+     * @param caller, code pemanggil, 0 untuk player, 1 untuk dwarf water,
+     * 2 untuk dwarf harvest, 3 untuk dwarf slash
+     * @return
+     */
     public  ArrayList<Point2D> getRoute(int x,int y,int caller){
         final int land=0;
         final int block=1;

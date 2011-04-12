@@ -9,6 +9,7 @@ import plantmon.entity.Unmoveable;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.states.FarmState;
 import plantmon.system.Actionable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
@@ -118,6 +119,9 @@ public class Plant extends Unmoveable implements Actionable,
             }
         }
     }
+    /**
+     * TODO: Buat item berdasarkan tanaman yang diharvest
+     */
     class Harvest extends RunnableListener {
         Harvest(Selectable selected){
             super(selected);
@@ -145,9 +149,11 @@ public class Plant extends Unmoveable implements Actionable,
                 else {
                     fase = TANAMANMATI;
                 }
+                FarmState.text.append("harvesting at ("+(gx/80)+","+(gy/80)+")\n");
             }
         }
     }
+
     class Plow extends RunnableListener {
         Plow(Selectable selected){
             super(selected);
@@ -169,6 +175,7 @@ public class Plant extends Unmoveable implements Actionable,
             if (!cancel[0]){
                 map.pop(gx, gy);
                 map.pop(gx, gy);
+                FarmState.text.append("plowing  ("+(gx/80)+","+(gy/80)+")\n");
             }
         }
     }
@@ -193,6 +200,7 @@ public class Plant extends Unmoveable implements Actionable,
             if (!cancel[0]){
                 map.pop(gx, gy);
                 map.pop(gx, gy);
+                FarmState.text.append("slashing at ("+(gx/80)+","+(gy/80)+")\n");
             }
         }
     }

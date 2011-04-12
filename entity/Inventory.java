@@ -28,11 +28,7 @@ public class Inventory {
         muatan = 0;
     }
 
-    public Item getSlot(int noslot){
-	return (item.get(noslot));
-    }
-
-    int getJumlah(int noslot){
+    public int getJumlah(int noslot){
         return (jumlahitem.get(noslot));
     }
     

@@ -9,6 +9,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.*;
 import java.net.URL;
 import javax.swing.BorderFactory;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import plantmon.entity.Canceller;
@@ -27,7 +28,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
     Thread gameloop;
     GridMap map;
     JPopupMenu popup;
-    JTextArea text;
+    public static JTextArea text;
     public static int SCREENHEIGHT = 480;
     public static int SCREENWIDTH = 640;
     public int startx;
@@ -38,7 +39,6 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
     boolean selectsomething;
     int clickx,clicky,defx,defy;
     boolean dragged;
-    boolean active;
     public FarmState(int gridRow, int gridColumn){
         super(gridRow, gridColumn);
         ID = FARMSTATE;
@@ -47,9 +47,9 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
         setPreferredSize(new Dimension(640, 480));
         setLayout(null);
         text = new JTextArea();
-        text.setBounds(0, 350, 600, 100);
+        text.setBounds(0, 350, 650, 100);
         JScrollPane pane = new JScrollPane(text);
-        pane.setBounds(0, 350, 600, 100);
+        pane.setBounds(0, 350, 650, 100);
 //        add(new Component() {});
 //        add(new Component() {});
 //        add(new Component() {});
@@ -60,7 +60,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
         //add(pane);
         addMouseMotionListener(this);
         active = true;
-        ((Thread) new Thread(this)).start();
+        
     }
     private URL getURL(String filename) {
         URL url = null;
@@ -98,8 +98,9 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
         map.push(dw.position().IntX(), dw.position().IntY(), dw);
         addMouseListener(this);
     }
+    @Override
     public void run(){
-        
+        active = true;
         while (active) {
 //            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
             try {
@@ -189,12 +190,15 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
                     // get object from where it's clicked from map
                     if (map.getTop(gx, gy) instanceof Actionable){
                         actionated = (Actionable) map.getTop(gx, gy);
+                        popup = actionated.getMenu(selected);
                     } else {
-                        actionated = new Point2D(fx,fy);
+                        popup = new JPopupMenu();
+                        JMenuItem menu = new JMenuItem("no available action");
+                        menu.setEnabled(false);
+                        popup.add(menu);
                     }
                     
                     //get menu from selected
-                    popup = actionated.getMenu(selected);
                     if (popup != null) {
                         popup.show(tmp.getComponent(),tmp.getX(), tmp.getY());
                     }
