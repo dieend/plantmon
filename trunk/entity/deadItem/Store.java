@@ -1,11 +1,15 @@
 package plantmon.entity.deadItem;
 
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
 import plantmon.entity.Item;
 import plantmon.entity.Unmoveable;
 import plantmon.entity.item.ArmorItem;
@@ -21,6 +25,10 @@ import plantmon.system.Selectable;
 public class Store extends Unmoveable implements Actionable {
     ArrayList<Item> item = new ArrayList<Item>();
     ArrayList<Boolean> lock = new ArrayList<Boolean>();
+    JTextField text;
+    JButton buttonbes;
+    JButton buttonkec;
+    int x;
 
     public Store (GridMap map, JPanel panel, Graphics2D g2d) {
         super(map,panel,g2d);
@@ -76,6 +84,7 @@ public class Store extends Unmoveable implements Actionable {
             JPopupMenu menu = new JPopupMenu();
             JMenu ite;
             ite = new JMenu("buy");
+            x = 0;
             
             JMenu subMenuFarm;
             subMenuFarm = new JMenu("Farm Item");
@@ -89,23 +98,27 @@ public class Store extends Unmoveable implements Actionable {
             for (int i = 0; i <=29; i++) {
                 if (item.get(i) instanceof FarmItem) {
                    if (lock.get(i) == true) {
-                    JMenuItem subSubMenu;
-                    subSubMenu = new JMenuItem(item.get(i).getName());
-                    subSubMenu.addActionListener(new Buy(selected,item.get(i)));
+                    JMenu subSubMenu;
+                    subSubMenu = new JMenu(item.get(i).getName());
+                    subSubMenu.setLayout(null);
+                    InitComponent comp = new InitComponent(selected,i,item.get(i));
+                    subSubMenu.add(comp);
                     subMenuFarm.add(subSubMenu);
                     }
                 } else if (item.get(i) instanceof WarItem) {
                    if (lock.get(i) == true) {
-                    JMenuItem subSubMenu;
-                    subSubMenu = new JMenuItem(item.get(i).getName());
-                    subSubMenu.addActionListener(new Buy(selected,item.get(i)));
+                    JMenu subSubMenu;
+                    subSubMenu = new JMenu(item.get(i).getName());
+                    InitComponent comp = new InitComponent(selected,i,item.get(i));
+                    subSubMenu.add(comp);
                     subMenuWar.add(subSubMenu);
                     }
                 } else if (item.get(i) instanceof ArmorItem) {
                    if (lock.get(i) == true) {
-                    JMenuItem subSubMenu;
-                    subSubMenu = new JMenuItem(item.get(i).getName());
-                    subSubMenu.addActionListener(new Buy(selected,item.get(i)));
+                    JMenu subSubMenu;
+                    subSubMenu = new JMenu(item.get(i).getName());
+                    InitComponent comp = new InitComponent(selected,i,item.get(i));
+                    subSubMenu.add(comp);
                     subMenuArmor.add(subSubMenu);
                     }
                 }
@@ -118,37 +131,127 @@ public class Store extends Unmoveable implements Actionable {
             menu.pack();
             return menu;
         }
-
-        
         return null;
     }
-
-    class Buy extends RunnableListener {
+    
+    class InitComponent extends JMenuItem implements ActionListener,Runnable {
+        int x;
+        JTextField text;
+        JButton buttonbes;
+        JButton buttonkec;
+        JButton buttonBuy;
+        Selectable selected;
         Item temp;
-        public Buy(Selectable selected,Item it){
-            super(selected);
+        
+        public InitComponent (Selectable selected, int i, Item it) {
+            super("                                                        ");
+            x = 0;
+            this.selected = selected;
             temp = it;
+            //Total.setBounds(0,0,100,20);
+            setLayout(null);
+            text = new JTextField();
+            text.setBounds(45,0,25, 20);
+            text.setText(""+x);
+            text.setEditable(false);
+            text.setHorizontalAlignment(text.CENTER);
+            buttonbes = new JButton(">");
+            buttonbes.setLayout(null);
+            buttonbes.setBounds(70,0,45,20);
+            buttonbes.addActionListener(this);
+            buttonkec = new JButton("<");
+            buttonkec.setBounds(0,0,45,20);
+            buttonkec.addActionListener(this);
+            buttonBuy = new JButton("buy");
+            buttonBuy.setBounds(115,0,75,20);
+            buttonBuy.addActionListener(this);
+            add(buttonkec);
+            add(text);
+            add(buttonbes);
+            add(buttonBuy);
         }
-        public void run() {
-            Player player = (Player) selected;
-            int gx = (int)Store.this.getPosition().X();
-            int gy = (int)Store.this.getPosition().Y();
-            Object lock = new Object();
-            Boolean[] cancel = new Boolean[1];
-            player.move(gx, gy, lock,cancel);
-            synchronized(lock){
-                try {
-                    lock.wait();
-                } catch (InterruptedException e){
-                    return;
+
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == buttonbes) {
+                if (x != 99) {
+                    x += 1;
+                    System.out.println(x);
                 }
+                text.setText(""+x);
+            } else if (e.getSource() == buttonkec) {
+                if (x != 0) {
+                    x -= 1;
+                }
+                text.setText(""+x);
+            } else if (e.getSource() == buttonBuy) {
+                Thread T1 = new Thread(this);
+                T1.start();
             }
-            if (!cancel[0]){
+        }
+
+        public void run() {
+                Player player = (Player) selected;
+                buttonbes.setEnabled(false);
+                buttonkec.setEnabled(false);
+                int gx = (int)Store.this.getPosition().X();
+                int gy = (int)Store.this.getPosition().Y();
+                Object lock = new Object();
+                Boolean[] cancel = new Boolean[1];
+                player.move(gx, gy, lock,cancel);
+                synchronized(lock){
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e){
+                        return;
+                    }
+                }
+                if (!cancel[0]){
                 map.pop(gx, gy);
-                player.setInventory(temp,1);
+                int money = player.getMoney();
+		money = money - x * temp.getCostBuy();
+            	player.setMoney(money);
+                player.setInventory(temp,x);
             }
         }
     }
+
+//    class Buy extends RunnableListener {
+//        Item temp;
+//        JButton button1;
+//        JButton button2;
+//        int tem;
+//        public Buy(Selectable selected,Item it,int x, JButton button1, JButton button2){
+//            super(selected);
+//            temp = it;
+//            this.button1 = button1;
+//            this.button2 = button2;
+//            tem = x;
+//        }
+//        public void run() {
+//            Player player = (Player) selected;
+//            button1.setEnabled(false);
+//            button2.setEnabled(false);
+//            int gx = (int)Store.this.getPosition().X();
+//            int gy = (int)Store.this.getPosition().Y();
+//            Object lock = new Object();
+//            Boolean[] cancel = new Boolean[1];
+//            player.move(gx, gy, lock,cancel);
+//            synchronized(lock){
+//                try {
+//                    lock.wait();
+//                } catch (InterruptedException e){
+//                    return;
+//                }
+//            }
+//            if (!cancel[0]){
+//                map.pop(gx, gy);
+//                int money = player.getMoney();
+//		money = money - tem * temp.getCostBuy();
+//            	player.setMoney(money);
+//                player.setInventory(temp,tem);
+//            }
+//        }
+//    }
     
     @Override
     public void init() {
