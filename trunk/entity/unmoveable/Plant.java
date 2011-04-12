@@ -93,9 +93,6 @@ public class Plant extends Unmoveable implements Actionable,
         return null;
     }
 
-    // TODO ONTA: Buat apa yang terjadi setiap melakukan Aksi terhadap
-    //            dirinya sendiri. Contohnya lihat di water
-
     class Water extends RunnableListener {
         Water(Selectable selected){
             super(selected);
@@ -115,7 +112,10 @@ public class Plant extends Unmoveable implements Actionable,
                 } catch (InterruptedException e){}
             }
             // setelah player sampai, siram tanaman.
-            fase = fase + 1;
+            if (!cancel[0]){
+                map.pop(gx, gy);
+                fase = fase + 1;
+            }
         }
     }
     class Harvest extends RunnableListener {
@@ -137,13 +137,15 @@ public class Plant extends Unmoveable implements Actionable,
                 } catch (InterruptedException e){}
             }
             // setelah player sampai, siram tanaman.
-            if (panenBerulang) {
-                fase = REMAJANOSIRAM;
+            if (!cancel[0]){
+                map.pop(gx, gy);
+                if (panenBerulang) {
+                    fase = REMAJANOSIRAM;
+                }
+                else {
+                    fase = TANAMANMATI;
+                }
             }
-            else {
-                fase = TANAMANMATI;
-            }
-
         }
     }
     class Plow extends RunnableListener {
@@ -164,8 +166,10 @@ public class Plant extends Unmoveable implements Actionable,
                     lock.wait(); // tunggu player sampai ke posisi tumbuhan
                 } catch (InterruptedException e){}
             }
-            // setelah player sampai, siram tanaman.
-            map.pop(gx, gy);
+            if (!cancel[0]){
+                map.pop(gx, gy);
+                map.pop(gx, gy);
+            }
         }
     }
     class Slash extends RunnableListener {
@@ -186,12 +190,14 @@ public class Plant extends Unmoveable implements Actionable,
                     lock.wait(); // tunggu player sampai ke posisi tumbuhan
                 } catch (InterruptedException e){}
             }
-            // setelah player sampai, siram tanaman.
-            map.pop(gx, gy);
+            if (!cancel[0]){
+                map.pop(gx, gy);
+                map.pop(gx, gy);
+            }
         }
     }
     public void init(){
-        entity.load("picture/land.png", 1, 1, 80, 80);
+        entity.load("picture/bibit.png", 1, 1, 80, 80);
         entity.setFrameDelay(5);
     }
 }

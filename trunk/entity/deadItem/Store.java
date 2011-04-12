@@ -143,16 +143,19 @@ public class Store extends Unmoveable implements Actionable {
                     return;
                 }
             }
-            player.setInventory(temp,1);
+            if (!cancel[0]){
+                map.pop(gx, gy);
+                player.setInventory(temp,1);
+            }
         }
     }
     
     @Override
     public void init() {
-        entity.load("picture/land.png", 1, 1, 80, 80);
+        entity.load("picture/toko.png", 1, 1, 80, 80);
         entity.setFrameDelay(5);
-        entity.setPosition(new Point2D(300,300));
-        entity.setFinalPosition(300, 300);
+        entity.setPosition(new Point2D(320,320));
+        entity.setFinalPosition(320, 320);
     }
 
 }

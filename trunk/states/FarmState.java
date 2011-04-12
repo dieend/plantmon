@@ -89,7 +89,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
         Point2D pos = player.getCreature().position();
         map.push(pos.X(), pos.Y(), player);
         Store st = new Store(map, this, g2d);
-        map.push(300, 300, st);
+        map.push(st.getEntity().position().IntX(), st.getEntity().position().IntY(), st);
         Dwarf dw = new Dwarf(map, this, g2d, 2, money);
         map.push(dw.position().IntX(), dw.position().IntY(), dw);
         dw = new Dwarf(map, this, g2d, 1, money);

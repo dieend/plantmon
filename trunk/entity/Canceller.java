@@ -1,5 +1,6 @@
 package plantmon.entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,16 +27,18 @@ public class Canceller implements Drawable{
         cancel[0] =false;
         cancelled=who;
         numAction = actionNumber;
+        pict.load("picture/cancel.png", 1, 1, 48, 48);
         init();
     }
     public void init() {
-        pict.load("picture/cancel.png", 1, 1, 48, 48);
     }
     @Override public void update(){}
 
     
     @Override public void draw(){
         pict.draw();
+        pict.graphics().setColor(Color.red);
+        pict.graphics().drawString(""+numAction, pict.position().IntX(),pict.position().IntY());
     }
 
     public JPopupMenu getMenu() {

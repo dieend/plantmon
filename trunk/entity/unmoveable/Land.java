@@ -99,7 +99,10 @@ public class Land extends Unmoveable implements Actionable{
                     return;
                 }
             }
-            player.getCreature().setFinalPosition(gx+10, gy+10);
+            if (!cancel[0]){
+                map.pop(gx, gy);
+                player.getCreature().setFinalPosition(gx+10, gy+10);
+            }
         }
     }
 
@@ -124,15 +127,17 @@ public class Land extends Unmoveable implements Actionable{
                 }
             }
             // buat plant baru berdasarkan item
-
-            if (temp.getName().equals("Lobak")) {
-                Lobak lobak = new Lobak(map, panel(),graphics(),gx,gy,status);
-                map.push(gx, gy, lobak);
-            } else if (temp.getName().equals("Timun")) {
-                Timun timun = new Timun(map, panel(),graphics(),gx,gy,status);
-                map.push(gx, gy, timun);
+            if (!cancel[0]){
+                map.pop(gx, gy);
+                if (temp.getName().equals("Lobak")) {
+                    Lobak lobak = new Lobak(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, lobak);
+                } else if (temp.getName().equals("Timun")) {
+                    Timun timun = new Timun(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, timun);
+                }
+                player.getInventory().delete(temp, 1);
             }
-            player.getInventory().delete(temp, 1);
         }
     }
 
@@ -162,9 +167,9 @@ public class Land extends Unmoveable implements Actionable{
             }
             
             if (!cancel[0]){
+                map.pop(gx, gy);
                 status = PLOWED;
                 entity.load("picture/plow.png", 1, 1, 80, 80);
-                map.pop(gx, gy);
             }
             
         }
@@ -188,8 +193,11 @@ public class Land extends Unmoveable implements Actionable{
                     return;
                 }
             }
-            status = WATERED;
-            entity.load("picture/water.png", 1, 1, 80, 80);
+            if (!cancel[0]){
+                map.pop(gx, gy);
+                status = WATERED;
+                entity.load("picture/water.png", 1, 1, 80, 80);
+            }
         }
     }
 }
