@@ -65,6 +65,7 @@ public class ImageEntity extends BaseGameEntity {
     }
     public void draw() {
         g2d.drawImage(getImage(), at, panel);
+        g2d.setColor(Color.red);
     }
     //bounding rectangle
     public Rectangle getBounds() {
