@@ -84,7 +84,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
                 map.gpush(i, j, new Land(map, this, g2d,i,j));
             }
         }
-        Integer money = new Integer(0);
+        Integer money = new Integer(2000);
         player = new Player(map, this, g2d, 10,money);// maxslot = 10
         Point2D pos = player.getCreature().position();
         map.push(pos.X(), pos.Y(), player);
