@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import plantmon.entity.Canceller;
+import plantmon.entity.Time;
 import plantmon.entity.deadItem.Store;
 import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.movingObject.Player;
@@ -29,11 +30,10 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
     GridMap map;
     JPopupMenu popup;
     public static JTextArea text;
-    public static int SCREENHEIGHT = 480;
-    public static int SCREENWIDTH = 640;
-    public int startx;
-    public int starty;
+    int startx;
+    int starty;
     Player player;
+    JTextArea time;
     Selectable selected;
     Actionable actionated;
     boolean selectsomething;
@@ -43,6 +43,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
         super(gridRow, gridColumn);
         ID = FARMSTATE;
         init();
+        time = new JTextArea();
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
         setLayout(null);
@@ -56,7 +57,12 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
 //        add(new Component() {});
         //test.setVisible(true);
         text.setEditable(false);
+        time.setEditable(false);
+        time.setBounds(0, 0, 200, 50);
+        time.setBackground(Color.ORANGE);
+        time.setForeground(Color.black);
         add(pane);
+        add(time);
         //add(pane);
         addMouseMotionListener(this);
         active = true;
@@ -114,6 +120,9 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
         
     }
     public void gameUpdate() {
+//        System.out.format("I wonder why won't work\n");
+        Time.instance().update();
+        time.setText(Time.instance().getTime());
 //        Point2D pos = player.getCreature().position();
 //        for (int i=0; i<8;i++){
 //            for (int j=0; j<8; j++){
@@ -125,18 +134,14 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
     }
 
     public void updated(){
-
         g2d.setColor(Color.WHITE);
         g2d.drawImage(background.getImage(), 0, 0,SCREENWIDTH-1,SCREENHEIGHT-1, this);
         map.draw(startx,starty);
         if (selectsomething) {
             selected.drawBounds();
         }
-      
+
         g2d.setColor(Color.GRAY);
-        g2d.drawString("Position: " + player.position().X() + "," + player.position().Y(), 5, 10);
-        g2d.drawString("Velocity: " + player.getCreature().velocity().X() + "," + player.getCreature().velocity().Y(), 5, 25);
-        g2d.drawString("Animation: " + player.getCreature().currentFrame(), 5, 40);
     }
     @Override public void paintComponent(Graphics g) {
 //        System.out.println("paintComponent - CobaOpeh");

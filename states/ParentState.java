@@ -11,6 +11,8 @@ import plantmon.game.ImageEntity;
  * @author asus
  */
 public class ParentState extends JPanel implements Runnable{
+    public static int SCREENHEIGHT = 480;
+    public static int SCREENWIDTH = 640;
     Graphics2D g2d;
     AffineTransform at;
     BufferedImage backbuffer;
