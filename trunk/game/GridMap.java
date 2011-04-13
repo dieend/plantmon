@@ -6,7 +6,7 @@
 package plantmon.game;
 
 import java.util.ArrayList;
-import plantmon.states.FarmState;
+import plantmon.states.ParentState;
 import plantmon.system.Drawable;
 
 /**
@@ -168,19 +168,34 @@ public class GridMap {
         int highest=1; // k is highest stack
 //        System.out.println(x+" "+(2+x+FarmState.SCREENHEIGHT/80)+" "+y+" "+(2+y+FarmState.SCREENWIDTH/80));
         for (int k=0; k<highest; k++){
-            for (int i=x; i<2+x+FarmState.SCREENHEIGHT/80; i++) if (i<getRow()){
-                for (int j=y; j<2+y+FarmState.SCREENWIDTH/80; j++) if (j<getColumn()){
-                    synchronized(map[i][j]){
-                        if (k<map[i][j].size()){
-                            if (highest < map[i][j].size()) highest = map[i][j].size();
-                            if (map[i][j].get(k) instanceof Drawable){
-                                ((Drawable)map[i][j].get(k)).update();
-                                if (k<map[i][j].size())
-                                    ((Drawable)map[i][j].get(k)).draw();
+            for (int i=0; i<getRow();i++){
+                for (int j=0; j<getColumn();j++){
+                    if (k<map[i][j].size()){
+                        if (highest < map[i][j].size()) highest = map[i][j].size();
+
+                        if (map[i][j].get(k) instanceof Drawable){
+                            ((Drawable)map[i][j].get(k)).update();
+                            if((x<=i && i<2+x+ParentState.SCREENHEIGHT/80)&&
+                               (y<=j && j<2+y+ParentState.SCREENWIDTH/80)){
+                               if (k<map[i][j].size()) ((Drawable)map[i][j].get(k)).draw();
                             }
                         }
-                    }
                 }
+            }
+
+//            for (int i=x; i<2+x+FarmState.SCREENHEIGHT/80; i++) if (i<getRow()){
+//                for (int j=y; j<2+y+FarmState.SCREENWIDTH/80; j++) if (j<getColumn()){
+//                    synchronized(map[i][j]){
+//                        if (k<map[i][j].size()){
+//                            if (highest < map[i][j].size()) highest = map[i][j].size();
+//                            if (map[i][j].get(k) instanceof Drawable){
+//                                ((Drawable)map[i][j].get(k)).update();
+//                                if (k<map[i][j].size())
+//                                    ((Drawable)map[i][j].get(k)).draw();
+//                            }
+//                        }
+//                    }
+//                }
             }
         }
     }
