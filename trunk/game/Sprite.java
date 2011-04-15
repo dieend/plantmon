@@ -16,7 +16,9 @@ public class Sprite extends Object {
     public Point2D finalPosition(){
         return finalPosition;
     }
-
+    public void setPanel(JPanel panel){
+        entity.setPanel(panel);
+    }
     //constructor
     Sprite(JPanel a, Graphics2D g2d) {
         entity = new ImageEntity(a);

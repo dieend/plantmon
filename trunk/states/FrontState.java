@@ -12,7 +12,7 @@ public class FrontState extends ParentState{
         JButton newGame = new JButton("New Game");
         newGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                StateManager.instance().goTo(ParentState.FARMSTATE,new Object[0]);
+                Game.instance().goTo(ParentState.FARMSTATE,new Object[0]);
             }
         });
         add(newGame);

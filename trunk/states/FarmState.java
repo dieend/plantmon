@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import plantmon.entity.Canceller;
 import plantmon.entity.Time;
+import plantmon.entity.deadItem.Portal;
 import plantmon.entity.deadItem.Store;
 import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.movingObject.Player;
@@ -23,9 +24,10 @@ import plantmon.game.ImageEntity;
 import plantmon.game.Point2D;
 import plantmon.system.Actionable;
 import plantmon.system.Selectable;
+import plantmon.system.Utilities;
 
 
-public class FarmState extends ParentState implements Runnable,MouseListener,MouseMotionListener {
+public class FarmState extends ParentState implements MouseListener,MouseMotionListener {
     Thread gameloop;
     GridMap map;
     JPopupMenu popup;
@@ -35,8 +37,8 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
     Player player;
     JTextArea time;
     Selectable selected;
-    Actionable actionated;
     boolean selectsomething;
+    Actionable actionated;
     int clickx,clicky,defx,defy;
     boolean dragged;
     public FarmState(int gridRow, int gridColumn){
@@ -81,7 +83,7 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
         startx=0; starty=0;
         int x = 10; int y = 10;
         map = new GridMap(x,y);
-        backbuffer = new BufferedImage(x*80, y*80, BufferedImage.TYPE_INT_ARGB);
+        backbuffer = new BufferedImage(x*Utilities.GRIDSIZE, y*Utilities.GRIDSIZE, BufferedImage.TYPE_INT_ARGB);
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
         background.load("picture/bg2.png");
@@ -90,8 +92,12 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
                 map.gpush(i, j, new Land(map, this, g2d,i,j));
             }
         }
+        map.gpush(1, 1, new Portal(map, this, g2d, 1, 1));
         Integer money = new Integer(2000);
-        player = new Player(map, this, g2d, 10,money);// maxslot = 10
+        player = new Player(map, this, g2d);
+        player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE,Utilities.GRIDSIZE));
+        player.getCreature().setFinalPosition(Utilities.GRIDSIZE,Utilities.GRIDSIZE);
+
         Point2D pos = player.getCreature().position();
         map.push(pos.X(), pos.Y(), player);
         Store st = new Store(map, this, g2d);
@@ -172,9 +178,9 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
 //        System.out.println("mouseClicked");
         int fx = e.getX()-startx;
         int fy = e.getY()-starty;
-        int gx = fx/80;
-        int gy = fy/80;
-//        System.out.printf("%d(%d) %d(%d) | %d(%f) %d(%f)",gx/80,gx, gy/80,gy,(int)player.position().X()/80,player.position().X(),(int)player.position().Y()/80,player.position().Y());
+        int gx = fx/Utilities.GRIDSIZE;
+        int gy = fy/Utilities.GRIDSIZE;
+//        System.out.printf("%d(%d) %d(%d) | %d(%f) %d(%f)",gx/Utilities.GRIDSIZE,gx, gy/Utilities.GRIDSIZE,gy,(int)player.position().X()/Utilities.GRIDSIZE,player.position().X(),(int)player.position().Y()/Utilities.GRIDSIZE,player.position().Y());
         int clicked = e.getButton();
         switch(clicked){    
             case MouseEvent.BUTTON1:
@@ -223,8 +229,8 @@ public class FarmState extends ParentState implements Runnable,MouseListener,Mou
             if (dragged){
                 int x = e.getX();
                 int y = e.getY();
-                int ULx =10,ULy=10, LRx=-10+FarmState.SCREENWIDTH-map.getRow()*80,
-                        LRy = FarmState.SCREENHEIGHT-(map.getColumn()*80+150);
+                int ULx =10,ULy=10, LRx=-10+FarmState.SCREENWIDTH-map.getRow()*Utilities.GRIDSIZE,
+                        LRy = FarmState.SCREENHEIGHT-(map.getColumn()*Utilities.GRIDSIZE+150);
                 int newx = defx +((x-clickx));
                 int newy = defy +((y-clicky));
 //                System.out.println("oooo" + newx+" "+ULx+" "+LRx);

@@ -5,30 +5,23 @@ import java.awt.Graphics2D;
 //import javax.swing.FarmState;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import plantmon.system.Actionable;
 import plantmon.system.Selectable;
 import plantmon.entity.*;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
-import plantmon.states.FarmState;
 import plantmon.states.ParentState;
-import plantmon.states.StateManager;
+import plantmon.states.Game;
 import plantmon.system.Cancellable;
 
 public class Player extends MovingObject implements Actionable, Cancellable,
                                                     Selectable{
-
-    
-    Inventory inventory;
-    Integer money;
     //bisa ngapain aja
-    public Player(GridMap map, FarmState panel, Graphics2D g2d, int maxItemSlot,Integer money){
+    public Player(GridMap map, JPanel panel, Graphics2D g2d){
         super(map,panel,g2d);
-        inventory = new Inventory();
-        this.money = money;
         init();
     }
     @Override public void drawBounds() {
@@ -47,7 +40,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
                 public void actionPerformed(ActionEvent e) {
                     Object[] args = new Object[1];
                     args[0] = Player.this;
-                    StateManager.instance().goTo(ParentState.INVENTORY,args);
+                    Game.instance().goTo(ParentState.INVENTORY,args);
                 }
             });
 
@@ -63,8 +56,6 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         
         load("picture/anim", 4,1,32,32);
         creature.setImageName("picture/anim");
-        creature.setPosition(new Point2D(80,80));
-        creature.setFinalPosition(80, 80);
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(3);
     }
@@ -74,15 +65,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
                                     gx, gy, cancel,lock,(Cancellable)this,numAction-1);
         map.push(gx, gy, ca);
     }
-    public Inventory getFarmItem(){
-        return inventory.getFarmItem();
-    }
-    public Inventory getInventory() {
-        return inventory;
-    }
-    public void setInventory (Item i,int Jumlah) {
-        inventory.add(i, Jumlah);
-    }
+    
     @Override
     public void cancel(Object lock){
         map.pop(destination.get(lock).X(), destination.get(lock).Y());
@@ -94,11 +77,4 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         inAction = false;
     }
 
-    public void setMoney(int uang) {
-        money = uang;
-    }
-
-    public int getMoney() {
-        return money;
-    }
 }

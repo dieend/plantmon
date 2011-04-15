@@ -12,6 +12,10 @@ public class StateFactory{
                 break;
             case ParentState.INVENTORY:
                 newState = new InventoryState(args);
+                break;
+            case ParentState.HOME:
+                newState = new HomeState(args);
+                break;
         }
         return newState;
     }

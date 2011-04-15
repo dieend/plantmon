@@ -2,19 +2,28 @@ package plantmon.states;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import plantmon.entity.Inventory;
+import plantmon.entity.Item;
 
-public class StateManager {
+public class Game {
     ArrayList<ParentState> states;
+    Inventory inventory;
+    Integer money;
     int currentState;
-    private static StateManager stateManager;
-    private StateManager(){
+    private static Game stateManager;
+    private Game(){
         states = new ArrayList<ParentState>();
+        inventory = new Inventory(10);
+        money = new Integer(2000);
         currentState = -1;
     }
+    public void destroy(){
+        stateManager = null;
+    }
     public JFrame frame;
-    public static StateManager instance(){
+    public static Game instance(){
         if (stateManager == null){
-            stateManager = new StateManager();
+            stateManager = new Game();
         }
         return stateManager;
     }
@@ -77,5 +86,18 @@ public class StateManager {
         } else {
             System.out.println("gagal return state");
         }
+    }
+    public Inventory getInventory() {
+        return inventory;
+    }
+    public void setInventory (Item i,int Jumlah) {
+        inventory.add(i, Jumlah);
+    }
+    public void setMoney(int uang) {
+        money = uang;
+    }
+
+    public int getMoney() {
+        return money;
     }
 }
