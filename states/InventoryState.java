@@ -61,7 +61,7 @@ public class InventoryState extends ParentState {
 
         jPanel1.setName("jPanel1"); // NOI18N
         jPanel1.setLayout(new java.awt.GridLayout(4, 4));
-        farm = player.getInventory().getFarmItem();
+        farm = Game.instance().getInventory().getFarmItem();
         for (int i=0; i<farm.getSize(); i++){
             jPanel1.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
         }
@@ -70,7 +70,7 @@ public class InventoryState extends ParentState {
 
         jPanel2.setName("jPanel2"); // NOI18N
         jPanel2.setLayout(new java.awt.GridLayout(4, 4));
-        farm = player.getInventory().getFoodItem();
+        farm = Game.instance().getInventory().getFoodItem();
         for (int i=0; i<farm.getSize(); i++){
             jPanel2.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
         }
@@ -78,7 +78,7 @@ public class InventoryState extends ParentState {
 
         jPanel3.setName("jPanel3"); // NOI18N
         jPanel3.setLayout(new java.awt.GridLayout(4, 4));
-        farm = player.getInventory().getWarItem();
+        farm = Game.instance().getInventory().getWarItem();
         for (int i=0; i<farm.getSize(); i++){
             jPanel3.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
         }
@@ -86,7 +86,7 @@ public class InventoryState extends ParentState {
 
         jPanel4.setName("jPanel4"); // NOI18N
         jPanel4.setLayout(new java.awt.GridLayout(4, 4));
-        farm = player.getInventory().getArmorItem();
+        farm = Game.instance().getInventory().getArmorItem();
         for (int i=0; i<farm.getSize(); i++){
             jPanel4.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
         }
@@ -120,7 +120,7 @@ public class InventoryState extends ParentState {
             }
         });
 
-        jLabel2.setText(String.valueOf(player.getMoney()));
+        jLabel2.setText(String.valueOf(Game.instance().getMoney()));
         jLabel2.setName("jLabel2"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -151,7 +151,7 @@ public class InventoryState extends ParentState {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        StateManager.instance().returnTo(FARMSTATE);
+        Game.instance().returnTo(FARMSTATE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

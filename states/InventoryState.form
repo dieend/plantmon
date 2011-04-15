@@ -83,7 +83,7 @@
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="private Inventory farm;"/>
-                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="farm = player.getInventory().getFarmItem();&#xa;for (int i=0; i&lt;farm.getSize(); i++){&#xa;    jPanel1.add(new JLabel(farm.getItem(i).getName()+&quot; &quot;+farm.getJumlah(i)));&#xa;}"/>
+                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="farm = Game.instance().getInventory().getFarmItem();&#xa;for (int i=0; i&lt;farm.getSize(); i++){&#xa;    jPanel1.add(new JLabel(farm.getItem(i).getName()+&quot; &quot;+farm.getJumlah(i)));&#xa;}"/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -103,7 +103,7 @@
                 <Property name="name" type="java.lang.String" value="jPanel2" noResource="true"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="farm = player.getInventory().getFoodItem();&#xa;for (int i=0; i&lt;farm.getSize(); i++){&#xa;    jPanel2.add(new JLabel(farm.getItem(i).getName()+&quot; &quot;+farm.getJumlah(i)));&#xa;}"/>
+                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="farm = Game.instance().getInventory().getFoodItem();&#xa;for (int i=0; i&lt;farm.getSize(); i++){&#xa;    jPanel2.add(new JLabel(farm.getItem(i).getName()+&quot; &quot;+farm.getJumlah(i)));&#xa;}"/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -123,7 +123,7 @@
                 <Property name="name" type="java.lang.String" value="jPanel3" noResource="true"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="farm = player.getInventory().getWarItem();&#xa;for (int i=0; i&lt;farm.getSize(); i++){&#xa;    jPanel3.add(new JLabel(farm.getItem(i).getName()+&quot; &quot;+farm.getJumlah(i)));&#xa;}"/>
+                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="farm = Game.instance().getInventory().getWarItem();&#xa;for (int i=0; i&lt;farm.getSize(); i++){&#xa;    jPanel3.add(new JLabel(farm.getItem(i).getName()+&quot; &quot;+farm.getJumlah(i)));&#xa;}"/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -143,7 +143,7 @@
                 <Property name="name" type="java.lang.String" value="jPanel4" noResource="true"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="farm = player.getInventory().getArmorItem();&#xa;for (int i=0; i&lt;farm.getSize(); i++){&#xa;    jPanel4.add(new JLabel(farm.getItem(i).getName()+&quot; &quot;+farm.getJumlah(i)));&#xa;}"/>
+                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="farm = Game.instance().getInventory().getArmorItem();&#xa;for (int i=0; i&lt;farm.getSize(); i++){&#xa;    jPanel4.add(new JLabel(farm.getItem(i).getName()+&quot; &quot;+farm.getJumlah(i)));&#xa;}"/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -205,7 +205,7 @@
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="String.valueOf(player.getMoney())" type="code"/>
+          <Connection code="String.valueOf(Game.instance().getMoney())" type="code"/>
         </Property>
         <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
       </Properties>

@@ -20,6 +20,7 @@ import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.states.FarmState;
+import plantmon.states.Game;
 import plantmon.system.Actionable;
 import plantmon.system.Selectable;
 
@@ -207,11 +208,11 @@ public class Store extends Unmoveable implements Actionable {
             }
             if (!cancel[0]){
                 map.pop(gx, gy);
-                int money = player.getMoney();
+                int money = Game.instance().getMoney();
                 if (money >= x*temp.getCostBuy()) {
                     money = money - x * temp.getCostBuy();
-                    player.setMoney(money);
-                    player.setInventory(temp,x);
+                    Game.instance().setMoney(money);
+                    Game.instance().setInventory(temp,x);
                 }
                 if (temp instanceof WarItem){
                     System.out.print("waritem");

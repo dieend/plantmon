@@ -24,6 +24,11 @@ public class AnimatedSprite extends Sprite {
     private int height;
     protected String imageName;
     protected JPanel panel;
+    @Override
+    public void setPanel(JPanel panel){
+        super.setPanel(panel);
+        this.panel = panel;
+    }
     /**
      * imageName nama gambar beranimasi. harus bertipe png dan tidak memakai extensi.
      */

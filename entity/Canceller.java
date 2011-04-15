@@ -11,6 +11,7 @@ import plantmon.game.AnimatedSprite;
 import plantmon.game.Point2D;
 import plantmon.system.Cancellable;
 import plantmon.system.Drawable;
+import plantmon.system.Utilities;
 
 public class Canceller implements Drawable{
     Boolean[] cancel;
@@ -22,7 +23,7 @@ public class Canceller implements Drawable{
                     Object lock,Cancellable who, int actionNumber) {
         pict = new AnimatedSprite(panel, g2d);
         this.lock = lock;
-        pict.setPosition(new Point2D(gx+10,gy+10));
+        pict.setPosition(new Point2D(gx+Utilities.GRIDGALAT,gy+Utilities.GRIDGALAT));
         this.cancel = cancel;
         cancel[0] =false;
         cancelled=who;

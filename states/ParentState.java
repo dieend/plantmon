@@ -5,6 +5,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import plantmon.game.ImageEntity;
+import plantmon.system.Utilities;
 
 /**
  *
@@ -22,12 +23,13 @@ public class ParentState extends JPanel implements Runnable{
     public static final int FARMSTATE = 0;
     public static final int FRONTSTATE = 1;
     public static final int INVENTORY = 2;
+    public static final int HOME = 3;
     public ParentState(){
     }
 
     public ParentState(int gridRow, int gridColumn){
         background = new ImageEntity(this);
-        backbuffer = new BufferedImage(gridRow*80, gridColumn*80, BufferedImage.TYPE_INT_ARGB);
+        backbuffer = new BufferedImage(gridRow*Utilities.GRIDSIZE, gridColumn*Utilities.GRIDSIZE, BufferedImage.TYPE_INT_ARGB);
         g2d = backbuffer.createGraphics();
     }
     public int getID(){

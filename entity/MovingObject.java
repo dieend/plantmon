@@ -7,9 +7,11 @@ import java.util.IdentityHashMap;
 import javax.swing.JPanel;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
+import plantmon.entity.unmoveable.Road;
 import plantmon.game.AnimatedSprite;
 import plantmon.game.GridMap;
 import plantmon.system.Drawable;
+import plantmon.system.Utilities;
 
 public abstract class MovingObject implements Drawable{
     final public static int PLAYER = 0;
@@ -26,7 +28,9 @@ public abstract class MovingObject implements Drawable{
         numAction = 0;
     //    init();
     }
-
+    public void setPanel(JPanel panel){
+        creature.setPanel(panel);
+    }
     
     
     public void load(String filename, int columns, int rows,int width, int height){
@@ -40,17 +44,17 @@ public abstract class MovingObject implements Drawable{
     public synchronized void update(){
         updateAction();
         int gx = (int) creature.position().X();
-        gx/=80;
+        gx/=Utilities.GRIDSIZE;
         int gy = (int) creature.position().Y();
-        gy/=80;
+        gy/=Utilities.GRIDSIZE;
         creature.updateAnimation();
         creature.updatePosition();
         creature.transform();
         
         int fx = (int) creature.position().X();
-        fx/=80;
+        fx/=Utilities.GRIDSIZE;
         int fy = (int) creature.position().Y();
-        fy/=80;
+        fy/=Utilities.GRIDSIZE;
         if (!(fx==gx && fy==gy)){
             map.gpop(gx, gy);
             map.gpush(fx,fy,this);
@@ -59,8 +63,8 @@ public abstract class MovingObject implements Drawable{
     protected synchronized void addAction(Object lock,Point2D dest){
         this.lock.add(lock);
         numAction++;
-        int x = (int)dest.X()/80 * 80 + 10;
-        int y = (int)dest.Y()/80 * 80 + 10;
+        int x = (int)dest.X()/Utilities.GRIDSIZE * Utilities.GRIDSIZE + 10;
+        int y = (int)dest.Y()/Utilities.GRIDSIZE * Utilities.GRIDSIZE + 10;
         destination.put(lock, new Point2D(x, y));
 
     }
@@ -74,8 +78,8 @@ public abstract class MovingObject implements Drawable{
     //                !(map.getTop(dest.IntX(),dest.IntY()).equals(this))){
                     dest = route.get(0);
     //            }
-                int gx = dest.IntX()*80+10;
-                int gy = dest.IntY()*80+10;
+                int gx = dest.IntX()*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
+                int gy = dest.IntY()*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
                 creature.setFinalPosition(gx, gy);
                 if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
                     (Math.abs(creature.position().Y()-creature.finalPosition().Y())  <= 1)) {
@@ -86,8 +90,8 @@ public abstract class MovingObject implements Drawable{
                 if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
                     (Math.abs(creature.position().Y()-creature.finalPosition().Y())  <= 1)) {
 
-                    int gx = route.get(0).IntX()*80+10;
-                    int gy = route.get(0).IntY()*80+10;
+                    int gx = route.get(0).IntX()*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
+                    int gy = route.get(0).IntY()*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
                     System.out.println(gx+" "+gy);
                     creature.setArah(new Point2D(gx,gy));
                     inAction = false;
@@ -109,8 +113,8 @@ public abstract class MovingObject implements Drawable{
                 lock.get(0);
                 int gx = destination.get(lock.get(0)).IntX();
                 int gy = destination.get(lock.get(0)).IntY();
-                gx = (gx/80)*80+10;
-                gy = (gy/80)*80+10;
+                gx = (gx/Utilities.GRIDSIZE)*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
+                gy = (gy/Utilities.GRIDSIZE)*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
                 inAction = true;
             }
         }
@@ -152,15 +156,15 @@ public abstract class MovingObject implements Drawable{
         final int block=1;
         final int destiny=2;
         int i,j;
-        x/=80;
-        y/=80;
+        x/=Utilities.GRIDSIZE;
+        y/=Utilities.GRIDSIZE;
         ArrayList<Point2D> TempBRoute = new ArrayList<Point2D>();
         ArrayList<Point2D> TrueBRoute = new ArrayList<Point2D>();
 
         //TempBRoute.add(new Point2D(2, 6));
 
         //TempBRoute.add(creature.position());
-        TempBRoute.add(new Point2D(creature.position().IntX()/80, creature.position().IntY()/80));
+        TempBRoute.add(new Point2D(creature.position().IntX()/Utilities.GRIDSIZE, creature.position().IntY()/Utilities.GRIDSIZE));
 
         //copy dulu arraynya
         int[][] tmap = new int[map.getRow()][map.getColumn()];
@@ -174,7 +178,7 @@ public abstract class MovingObject implements Drawable{
             for(j=0;j<map.getColumn();++j)
             {
                //check Land
-                if (map.getTop(i, j) instanceof Land)
+                if (map.getTop(i, j) instanceof Land || map.getTop(i, j) instanceof Road)
                 {
                     tmap[i][j]= 0;
                 }

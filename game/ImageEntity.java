@@ -73,4 +73,7 @@ public class ImageEntity extends BaseGameEntity {
         r = new Rectangle((int)getX(), (int)getY(), width(), height());
         return r;
     }
+    public void setPanel(JPanel panel){
+        this.panel = panel;
+    }
 }

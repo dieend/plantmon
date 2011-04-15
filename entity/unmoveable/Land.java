@@ -12,9 +12,11 @@ import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.states.FarmState;
+import plantmon.states.Game;
 import plantmon.system.Actionable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
+import plantmon.system.Utilities;
 
 public class Land extends Unmoveable implements Actionable{
     // bisa disiram, dicangkul, diput?
@@ -30,12 +32,12 @@ public class Land extends Unmoveable implements Actionable{
 
     public Land(GridMap map, JPanel panel, Graphics2D g2d,int gridX,int gridY){
         super(map, panel, g2d);
-        entity.setPosition(new Point2D(gridX*80, gridY*80));
+        entity.setPosition(new Point2D(gridX*Utilities.GRIDSIZE, gridY*Utilities.GRIDSIZE));
         init();
     }
     public void init(){
         status = NORMAL;
-        entity.load("picture/land.png", 1, 1, 80, 80);
+        entity.load("picture/land.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         entity.setFrameDelay(5);
     }
     public JPopupMenu getMenu(Selectable selected){
@@ -54,7 +56,7 @@ public class Land extends Unmoveable implements Actionable{
             } else {
                 JMenu item3;
                 item3 = new JMenu("put");
-                Inventory inventory = player.getFarmItem();
+                Inventory inventory = Game.instance().getInventory().getFarmItem();
                 JMenuItem subItem;
                 if (inventory.isEmpty()) {
                     subItem = new JMenuItem("no crop item");
@@ -135,8 +137,8 @@ public class Land extends Unmoveable implements Actionable{
                     Timun timun = new Timun(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, timun);
                 }
-                player.getInventory().delete(temp, 1);
-                FarmState.text.append("put "+temp.getName()+" at ("+(gx/80)+","+(gy/80)+")\n");
+                Game.instance().getInventory().delete(temp, 1);
+                FarmState.text.append("put "+temp.getName()+" at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
         }
     }
@@ -169,8 +171,8 @@ public class Land extends Unmoveable implements Actionable{
             if (!cancel[0]){
                 map.pop(gx, gy);
                 status = PLOWED;
-                entity.load("picture/plow.png", 1, 1, 80, 80);
-                FarmState.text.append("plowing at ("+(gx/80)+","+(gy/80)+")\n");
+                entity.load("picture/plow.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+                FarmState.text.append("plowing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
             
         }
@@ -197,8 +199,8 @@ public class Land extends Unmoveable implements Actionable{
             if (!cancel[0]){
                 map.pop(gx, gy);
                 status = WATERED;
-                entity.load("picture/water.png", 1, 1, 80, 80);
-                FarmState.text.append("watering at ("+(gx/80)+","+(gy/80)+")\n");
+                entity.load("picture/water.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+                FarmState.text.append("watering at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
         }
     }

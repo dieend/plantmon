@@ -7,7 +7,7 @@ package plantmon;
 import javax.swing.JFrame;
 import org.jdesktop.application.SingleFrameApplication;
 import plantmon.states.ParentState;
-import plantmon.states.StateManager;
+import plantmon.states.Game;
 
 
 /**
@@ -30,7 +30,7 @@ public class PlantmonApp extends SingleFrameApplication{
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
-        StateManager.instance().setFrame(mainFrame);
+        Game.instance().setFrame(mainFrame);
     }
     
 
@@ -44,6 +44,6 @@ public class PlantmonApp extends SingleFrameApplication{
     protected void startup() {
         init();
         Object[] args = new Object[0];
-        StateManager.instance().goTo(ParentState.FRONTSTATE,args);
+        Game.instance().goTo(ParentState.FRONTSTATE,args);
     }
 }

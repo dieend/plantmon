@@ -5,8 +5,6 @@
 
 package plantmon.entity;
 
-import sun.security.jca.GetInstance.Instance;
-
 /**
  *
  * @author asus
@@ -42,7 +40,6 @@ public class Time {
     }
     public synchronized void update(){
         counter+=1;
-        System.out.print("update time "+counter);
         if (counter == 100){
             minutes+=10;
             if (minutes == 60){
