@@ -62,13 +62,17 @@ public class Dwarf extends MovingObject implements Actionable,
     }
     @Override protected void init() {
         //inisiasi semua variable disini.
-        System.out.println("picture/dwarf"+type+"0");
-        creature.load("picture/dwarf"+type+"0.png",4,1,32,32);
-        creature.setImageName("picture/dwarf"+type);
         creature.setPosition(defpos);
         creature.setFinalPosition(defpos.IntX(),defpos.IntY());
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(3);
+    }
+    public void reinit(){
+        if (creature.panel()!=null){
+            System.out.print("reinit\n");
+            creature.load("picture/dwarf"+type+"0.png",4,1,32,32);
+            creature.setImageName("picture/dwarf"+type);
+        }
     }
     @Override public void run(){
         

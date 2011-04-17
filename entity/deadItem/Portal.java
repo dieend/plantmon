@@ -13,7 +13,9 @@ import plantmon.entity.Unmoveable;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.states.FarmState;
 import plantmon.states.Game;
+import plantmon.states.HomeState;
 import plantmon.states.ParentState;
 import plantmon.system.Actionable;
 import plantmon.system.RunnableListener;
@@ -26,8 +28,10 @@ import plantmon.system.Utilities;
  */
 public class Portal extends Unmoveable implements Actionable{
     Selectable selected;
+    JPanel panel;
     public Portal(GridMap map, JPanel panel, Graphics2D g2d,int gridX,int gridY){
         super(map, panel, g2d);
+        this.panel = panel;
         entity.setPosition(new Point2D(gridX*Utilities.GRIDSIZE, gridY*Utilities.GRIDSIZE));
         init();
     }
@@ -40,9 +44,19 @@ public class Portal extends Unmoveable implements Actionable{
             final Player player = (Player) selected;
             JPopupMenu menu = new JPopupMenu();
             JMenuItem item;
-            item = new JMenuItem("Teleport Home");
-            item.addActionListener(new Teleport(selected));
-            menu.add(item);           
+            if (panel instanceof FarmState){
+                item = new JMenuItem("Teleport Home");
+                item.addActionListener(new Teleport(selected,ParentState.HOME));
+                menu.add(item);
+                item = new JMenuItem("Teleport Store");
+                item.setEnabled(false);
+                menu.add(item);
+            }
+            if (panel instanceof HomeState){
+                item = new JMenuItem("Teleport Farm");
+                item.addActionListener(new Teleport(selected,ParentState.FARMSTATE));
+                menu.add(item);
+            }
             menu.pack();
             return menu;
         }
@@ -53,8 +67,10 @@ public class Portal extends Unmoveable implements Actionable{
     }
 
     class Teleport extends RunnableListener {
-        public Teleport(Selectable selected){
+        int where;
+        public Teleport(Selectable selected,int where){
             super(selected);
+            this.where = where;
         }
         public void run() {
             Player player = (Player) selected;
@@ -72,7 +88,7 @@ public class Portal extends Unmoveable implements Actionable{
             }
             if (!cancel[0]){
                 map.pop(gx, gy);
-                Game.instance().goTo(ParentState.HOME, new Object[0]);
+                Game.instance().goTo(where, new Object[0]);
             }
         }
     }
