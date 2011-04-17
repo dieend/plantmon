@@ -137,4 +137,12 @@ public class Inventory {
             return false;
         }
     }
+
+//    public boolean isEmpty(Inventory i) {
+//        if (i.getSize() == 0) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 }
