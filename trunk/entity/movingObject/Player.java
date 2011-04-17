@@ -57,7 +57,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         load("picture/anim", 4,1,32,32);
         creature.setImageName("picture/anim");
         creature.setVelocity(new Point2D(0,0));
-        creature.setFrameDelay(3);
+        creature.setFrameDelay(1);
     }
     public void move(int gx,int gy,Object lock,Boolean[] cancel){
         addAction(lock,new Point2D(gx,gy));
