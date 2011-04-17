@@ -5,7 +5,6 @@
 package plantmon;
 
 import javax.swing.JFrame;
-import org.jdesktop.application.SingleFrameApplication;
 import plantmon.states.ParentState;
 import plantmon.states.Game;
 
@@ -13,7 +12,7 @@ import plantmon.states.Game;
 /**
  * The main class of the application.
  */
-public class PlantmonApp extends SingleFrameApplication{
+public class PlantmonApp{
     //public FarmState p;
     public void init() {
         System.out.println("startup");
@@ -35,13 +34,10 @@ public class PlantmonApp extends SingleFrameApplication{
     
 
     public static void main(String[] args) {
-//        PlantmonApp app = new PlantmonApp();
-        //app.init();
-        PlantmonApp.launch(PlantmonApp.class,args);
+        PlantmonApp app = new PlantmonApp();
+        app.start();
     }
-
-    @Override
-    protected void startup() {
+    protected void start() {
         init();
         Object[] args = new Object[0];
         Game.instance().goTo(ParentState.FRONTSTATE,args);
