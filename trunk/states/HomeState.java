@@ -11,9 +11,11 @@ import java.awt.event.MouseListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import plantmon.entity.Canceller;
+import plantmon.entity.deadItem.Portal;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Road;
 import plantmon.game.GridMap;
+import plantmon.game.ImageEntity;
 import plantmon.game.Point2D;
 import plantmon.system.Actionable;
 import plantmon.system.Selectable;
@@ -36,6 +38,9 @@ public class HomeState extends ParentState implements MouseListener{
                 map.gpush( i, j, new Road(map, this, g2d, i, j));
             }
         }
+        background = new ImageEntity(this);
+        background.load("picture/bg2.png");
+        map.gpush(4,4, new Portal(map, this, g2d, 4, 4));
         Player player =  new Player(map, this, g2d);
         player.getCreature().setPosition(new Point2D(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE));
         player.getCreature().setFinalPosition(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE);

@@ -16,7 +16,7 @@ public class ImageEntity extends BaseGameEntity {
     //default constructor
     public ImageEntity(JPanel a) {
         panel = a;
-        setImage(null);
+        //setImage(null);
         setAlive(true);
     }
     public Image getImage() { return image; }
@@ -58,10 +58,12 @@ public class ImageEntity extends BaseGameEntity {
         at = AffineTransform.getTranslateInstance(x, y);
     }
     public void transform() {
-        at.setToIdentity();
-        at.translate((int)getX() + width()/2, (int)getY() + height()/2);
-        at.rotate(Math.toRadians(getFaceAngle()));
-        at.translate(-width()/2, -height()/2);
+        if (at != null) {
+            at.setToIdentity();
+            at.translate((int)getX() + width()/2, (int)getY() + height()/2);
+            at.rotate(Math.toRadians(getFaceAngle()));
+            at.translate(-width()/2, -height()/2);
+        }
     }
     public void draw() {
         g2d.drawImage(getImage(), at, panel);
@@ -75,5 +77,8 @@ public class ImageEntity extends BaseGameEntity {
     }
     public void setPanel(JPanel panel){
         this.panel = panel;
+        double x = panel.getSize().width/2 - width()/2;
+        double y = panel.getSize().height/2 - height()/2;
+        at = AffineTransform.getTranslateInstance(x, y);
     }
 }

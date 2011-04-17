@@ -19,6 +19,12 @@ public class Sprite extends Object {
     public void setPanel(JPanel panel){
         entity.setPanel(panel);
     }
+    public void setGraphics(Graphics2D g2d){
+        entity.setGraphics(g2d);
+    }
+    public void reinit(){
+        entity.setImage(null);
+    }
     //constructor
     Sprite(JPanel a, Graphics2D g2d) {
         entity = new ImageEntity(a);

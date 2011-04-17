@@ -81,6 +81,16 @@ public class Land extends Unmoveable implements Actionable{
         }
         return null;
     }
+
+    public void setStatus(int status){
+        this.status = status;
+        if (status == WATERED)
+            entity.load("picture/water.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        else if (status == PLOWED)
+            entity.load("picture/plow.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        else if (status == NORMAL)
+            entity.load("picture/land.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+    }
     
     class Move extends RunnableListener {
         public Move(Selectable selected){
@@ -133,16 +143,17 @@ public class Land extends Unmoveable implements Actionable{
                 if (temp.getName().equals("Lobak")) {
                     Lobak lobak = new Lobak(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, lobak);
+                    Game.instance().addPlant(lobak);
                 } else if (temp.getName().equals("Timun")) {
                     Timun timun = new Timun(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, timun);
+                    Game.instance().addPlant(timun);
                 }
                 Game.instance().getInventory().delete(temp, 1);
                 FarmState.text.append("put "+temp.getName()+" at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
         }
     }
-
     class Plow extends RunnableListener {
         public Plow(Selectable selected){
             super(selected);
@@ -171,6 +182,7 @@ public class Land extends Unmoveable implements Actionable{
             if (!cancel[0]){
                 map.pop(gx, gy);
                 status = PLOWED;
+                Game.instance().farmstatus()[gx/Utilities.GRIDSIZE][gy/Utilities.GRIDSIZE] = status;
                 entity.load("picture/plow.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
                 FarmState.text.append("plowing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
@@ -199,6 +211,7 @@ public class Land extends Unmoveable implements Actionable{
             if (!cancel[0]){
                 map.pop(gx, gy);
                 status = WATERED;
+                Game.instance().farmstatus()[gx/Utilities.GRIDSIZE][gy/Utilities.GRIDSIZE] = status;
                 entity.load("picture/water.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
                 FarmState.text.append("watering at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }

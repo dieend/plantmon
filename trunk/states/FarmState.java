@@ -19,6 +19,7 @@ import plantmon.entity.deadItem.Store;
 import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Land;
+import plantmon.entity.unmoveable.Plant;
 import plantmon.game.GridMap;
 import plantmon.game.ImageEntity;
 import plantmon.game.Point2D;
@@ -89,25 +90,33 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         background.load("picture/bg2.png");
         for (int i=0; i<map.getRow();i++){
             for (int j=0; j<map.getColumn(); j++){
-                map.gpush(i, j, new Land(map, this, g2d,i,j));
+                Land l = new Land(map, this, g2d,i,j);
+                l.setStatus(Game.instance().farmstatus()[i][j]);
+                map.gpush(i, j, l);
             }
+        }
+        for (Plant p:Game.instance().plants){
+            p.getEntity().setPanel(this);
+            p.getEntity().setGraphics(g2d);
+            p.getEntity().reinit();
+            map.push(p.getPosition().IntX(), p.getPosition().IntY(), p);
         }
         map.gpush(1, 1, new Portal(map, this, g2d, 1, 1));
         Integer money = new Integer(2000);
         player = new Player(map, this, g2d);
         player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE,Utilities.GRIDSIZE));
         player.getCreature().setFinalPosition(Utilities.GRIDSIZE,Utilities.GRIDSIZE);
-
         Point2D pos = player.getCreature().position();
         map.push(pos.X(), pos.Y(), player);
         Store st = new Store(map, this, g2d);
         map.push(st.getEntity().position().IntX(), st.getEntity().position().IntY(), st);
-        Dwarf dw = new Dwarf(map, this, g2d, 2, money);
-        map.push(dw.position().IntX(), dw.position().IntY(), dw);
-        dw = new Dwarf(map, this, g2d, 1, money);
-        map.push(dw.position().IntX(), dw.position().IntY(), dw);
-        dw = new Dwarf(map, this, g2d, 3, money);
-        map.push(dw.position().IntX(), dw.position().IntY(), dw);
+        for(Dwarf d:Game.instance().dwarfs){
+            d.setGraphic(g2d);
+            d.setPanel(this);
+            d.reinit();
+            Point2D dlocation = d.getCreature().position();
+            map.push(dlocation.IntX(),dlocation.IntY(), d);
+        }
         addMouseListener(this);
     }
     @Override

@@ -27,7 +27,13 @@ public class AnimatedSprite extends Sprite {
     @Override
     public void setPanel(JPanel panel){
         super.setPanel(panel);
+        super.reinit();
         this.panel = panel;
+    }
+    @Override
+    public void setGraphics(Graphics2D g2d){
+        super.setGraphics(g2d);
+
     }
     /**
      * imageName nama gambar beranimasi. harus bertipe png dan tidak memakai extensi.
@@ -62,8 +68,6 @@ public class AnimatedSprite extends Sprite {
      */
     public void load(String filename, int columns, int rows,int width, int height)
     {
-        //load the tiled animation bitmap
-//        System.out.print("animated should be changed");
         try {
             animimage = ImageIO.read(this.getClass().getResource(filename));
         } catch(IOException e) {}
