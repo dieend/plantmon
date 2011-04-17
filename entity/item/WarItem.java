@@ -36,6 +36,6 @@ public class WarItem extends Item{
             HPStatus = 0;
             //gambar.load(null);
         }
-        costSell = costSell / 2;
+        costSell = costBuy / 2;
     }
 }
