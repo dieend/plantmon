@@ -50,6 +50,46 @@ public class Plant extends Unmoveable implements Actionable,
     public int getFase(){
         return fase;
     }
+    boolean isWatered() 
+    // mengeluarkan TRUE jika tanaman sudah disiram.
+    {
+            if ((getFase() % 2 == 1) && (getFase() != 7)) {
+                    return true;
+            } else {
+                    return false;
+            }
+    }
+
+    boolean isBibit() 
+    // mengeluarkan TRUE jika tanaman berupa bibit.
+    {
+            if (getFase() == 0 || getFase() == 1)
+                    return true;
+            else
+                    return false;
+    }
+
+    boolean isRemaja() 
+    {
+            if (getFase() == 2 || getFase() == 3)
+                    return true;
+            else
+                    return false;
+    }
+
+    boolean isDewasa() 
+    {
+            if (getFase() == 4 || getFase() == 5)
+                    return true;
+            else
+                    return false;
+    }
+
+    boolean isPanenBerulang() 
+    // mengeluarkan TRUE jika tanaman yang dapat berbuah lagi
+    {
+            return panenBerulang;
+    }
     public String getInfo(){
         return null;
     }
@@ -92,6 +132,22 @@ public class Plant extends Unmoveable implements Actionable,
             return menu;
         }
         return null;
+    }
+
+    private void setFase(int i) {
+        fase = i;
+    }
+
+    private void setHappyMeter(int i) {
+        happyMeter = i;
+    }
+
+    private void setUmur(int i) {
+        umur = i;
+    }
+
+    private void setTitikPanen(int i) {
+        titikPanen = i;
     }
 
     class Water extends RunnableListener {
@@ -203,6 +259,79 @@ public class Plant extends Unmoveable implements Actionable,
                 FarmState.text.append("slashing at ("+(gx/80)+","+(gy/80)+")\n");
             }
         }
+    }
+    void setSiram()
+    // pengubahan fase tanaman ketika disiram
+    // instant change
+    {
+            if (((getFase() != BIBITMATI) || (getFase() != TANAMANMATI)) && (!isWatered()))
+                    setFase(getFase()+1);
+    }
+
+    void setPanen()
+    // pengubahan fase tanaman ketika dipanen
+    // instant change
+    {
+            if (isPanenBerulang()) {
+                    if (getFase() == DEWASASIRAM) {
+                            setFase(REMAJASIRAM);
+                    } else {
+                            setFase(REMAJANOSIRAM);
+                    }
+                    setHappyMeter(titikDewasa);
+                    if (happyMeter + 1 != titikPanen) {
+                            setTitikPanen(titikPanen-1);
+                    }
+            } else {
+                    setFase(6);
+        }
+    }
+    public void grow(int newCurrentSeason)
+// mengubah fase pada pergantian hari
+// not instant change
+{
+	setUmur(umur-1);
+	if (isWatered())
+		setHappyMeter(happyMeter+1);
+	else
+		setHappyMeter(happyMeter-1);
+	if (umur == 0)
+		{
+		if (isBibit())
+			setFase(BIBITMATI);
+		else
+			setFase(TANAMANMATI);
+		}
+	else if (newCurrentSeason != season)
+		{
+		if (isBibit())
+			{
+			setFase(BIBITMATI);
+			setUmur(0);
+			}
+		else
+			{
+			setFase(TANAMANMATI);
+			setUmur(0);
+			}
+		}
+	else
+		{
+		if (isBibit())
+			{
+			if (happyMeter == titikDewasa)
+				setFase(REMAJANOSIRAM);
+			else
+				setFase(BIBITNOSIRAM);
+			}
+		else if (isDewasa())
+			{
+			if (happyMeter == titikPanen)
+				setFase(DEWASANOSIRAM);
+			else
+				setFase(REMAJANOSIRAM);
+			}
+		}
     }
     public void init(){
         entity.load("picture/bibit.png", 1, 1, 80, 80);
