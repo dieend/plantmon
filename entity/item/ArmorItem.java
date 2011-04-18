@@ -284,7 +284,7 @@ public class ArmorItem extends Item {
     public static void main(String[] str){
         JFrame frame=new JFrame();
         BufferedImage bf = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-        ArmorItem a = new ArmorItem(Item.Leggings, new JPanel());
+        ArmorItem a = new ArmorItem(Item.Circlet, new JPanel());
         frame.getContentPane().add(a.get_Info());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 500);
