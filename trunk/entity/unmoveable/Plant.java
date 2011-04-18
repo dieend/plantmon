@@ -51,7 +51,7 @@ public class Plant extends Unmoveable implements Actionable,
     public int getFase(){
         return fase;
     }
-    boolean isWatered() 
+    public boolean isWatered()
     // mengeluarkan TRUE jika tanaman sudah disiram.
     {
             if ((getFase() % 2 == 1) && (getFase() != 7)) {
@@ -61,7 +61,7 @@ public class Plant extends Unmoveable implements Actionable,
             }
     }
 
-    boolean isBibit() 
+    public boolean isBibit()
     // mengeluarkan TRUE jika tanaman berupa bibit.
     {
             if (getFase() == 0 || getFase() == 1)
@@ -70,7 +70,7 @@ public class Plant extends Unmoveable implements Actionable,
                     return false;
     }
 
-    boolean isRemaja() 
+    public boolean isRemaja()
     {
             if (getFase() == 2 || getFase() == 3)
                     return true;
@@ -78,7 +78,7 @@ public class Plant extends Unmoveable implements Actionable,
                     return false;
     }
 
-    boolean isDewasa() 
+    public boolean isDewasa()
     {
             if (getFase() == 4 || getFase() == 5)
                     return true;
@@ -86,7 +86,7 @@ public class Plant extends Unmoveable implements Actionable,
                     return false;
     }
 
-    boolean isPanenBerulang() 
+    public boolean isPanenBerulang()
     // mengeluarkan TRUE jika tanaman yang dapat berbuah lagi
     {
             return panenBerulang;
@@ -152,6 +152,9 @@ public class Plant extends Unmoveable implements Actionable,
         umur = i;
     }
 
+    public int getUmur(){
+    return umur;
+    }
     private void setTitikPanen(int i) {
         titikPanen = i;
     }
