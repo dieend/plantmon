@@ -67,15 +67,14 @@ public class Dwarf extends MovingObject implements Actionable,
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(3);
     }
-    public void reinit(){
+    public void reinit(Graphics2D g2d, JPanel panel){
+        super.reinit(g2d, panel);
         if (creature.panel()!=null){
-            System.out.print("reinit\n");
             creature.load("picture/dwarf"+type+"0.png",4,1,32,32);
             creature.setImageName("picture/dwarf"+type);
         }
     }
     @Override public void run(){
-        
         while (status==wake_up)
         {
             route=getRoute(0, 0, type);

@@ -302,7 +302,7 @@ public class Store extends Unmoveable implements Actionable {
                 } else if (temp instanceof ArmorItem){
                     System.out.print("armoritem");
                 }
-                FarmState.text.append("Bought "+x+" "+temp.getName()+"(s) Rp."+(x*temp.getCostBuy())+"\n");
+                Game.instance().log().append("Bought "+x+" "+temp.getName()+"(s) Rp."+(x*temp.getCostBuy())+"\n");
             }
         }
     }
@@ -395,7 +395,7 @@ public class Store extends Unmoveable implements Actionable {
                 } else if (temp instanceof ArmorItem){
                     System.out.print("armoritem");
                 }
-                FarmState.text.append("Sold "+x+" "+temp.getName()+"(s) Rp."+(x*temp.getCostSell())+"\n");
+                Game.instance().log().append("Sold "+x+" "+temp.getName()+"(s) Rp."+(x*temp.getCostSell())+"\n");
             }
         }
     }

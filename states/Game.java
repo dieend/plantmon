@@ -2,6 +2,8 @@ package plantmon.states;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import plantmon.entity.Inventory;
 import plantmon.entity.Item;
 import plantmon.entity.movingObject.Dwarf;
@@ -16,6 +18,9 @@ public class Game {
     Inventory inventory;
     Integer money;
     ParentState currentState;
+    ParentState pause;
+    JTextArea log;
+    JScrollPane pane;
     private static Game stateManager;
     public int[][] farmstatus() {
         return farmstatus;
@@ -33,6 +38,14 @@ public class Game {
         inventory = new Inventory(10);
         money = new Integer(2000);
         currentState = null;
+        log = new JTextArea();
+        log.setBounds(0, 350, 650, 100);
+        log.setEditable(false);
+        pane = new JScrollPane(log);
+        pane.setBounds(0, 350, 650, 100);
+    }
+    public JTextArea log() {
+        return log;
     }
     public void destroy(){
         stateManager = null;
@@ -69,7 +82,10 @@ public class Game {
 //        if (!found){
 //            states.add(StateFactory.createState(IDstate,args));
 //            where=states.size()-1;
-            if (currentState!=null) frame.remove(currentState);
+            if (currentState!=null) {
+                currentState.turnOff();
+                frame.remove(currentState);
+            }
             currentState = StateFactory.createState(IDstate,args);
             frame.add(currentState);
 //        }
@@ -114,6 +130,19 @@ public class Game {
 //            System.out.println("gagal return state");
 //        }
 //    }
+    public void seek(int IDstate,Object[] args){
+        currentState.setVisible(false);
+        currentState.turnOff();
+        pause = StateFactory.createState(IDstate, args);
+        pause.setVisible(true);
+        frame.add(pause);
+    }
+    public void returnTo(){
+        pause.setVisible(false);
+        frame.remove(pause);
+        currentState.setVisible(true);
+        ((Thread) new Thread(currentState)).start();
+    }
     public Inventory getInventory() {
         return inventory;
     }

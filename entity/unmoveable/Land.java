@@ -150,7 +150,7 @@ public class Land extends Unmoveable implements Actionable{
                     Game.instance().addPlant(timun);
                 }
                 Game.instance().getInventory().delete(temp, 1);
-                FarmState.text.append("put "+temp.getName()+" at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
+                Game.instance().log().append("put "+temp.getName()+" at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
         }
     }
@@ -184,7 +184,7 @@ public class Land extends Unmoveable implements Actionable{
                 status = PLOWED;
                 Game.instance().farmstatus()[gx/Utilities.GRIDSIZE][gy/Utilities.GRIDSIZE] = status;
                 entity.load("picture/plow.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-                FarmState.text.append("plowing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
+                Game.instance().log().append("plowing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
             
         }
@@ -213,7 +213,7 @@ public class Land extends Unmoveable implements Actionable{
                 status = WATERED;
                 Game.instance().farmstatus()[gx/Utilities.GRIDSIZE][gy/Utilities.GRIDSIZE] = status;
                 entity.load("picture/water.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-                FarmState.text.append("watering at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
+                Game.instance().log().append("watering at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
         }
     }

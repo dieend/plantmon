@@ -40,6 +40,6 @@ public class PlantmonApp{
     protected void start() {
         init();
         Object[] args = new Object[0];
-        Game.instance().goTo(ParentState.FRONTSTATE,args);
+        Game.instance().goTo(ParentState.HOME,args);
     }
 }

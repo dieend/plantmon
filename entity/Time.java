@@ -5,6 +5,9 @@
 
 package plantmon.entity;
 
+import plantmon.states.Game;
+import plantmon.states.ParentState;
+
 /**
  *
  * @author asus
@@ -47,6 +50,9 @@ public class Time {
                 minutes = 0;
             }
             counter = 0;
+        }
+        if (hour == 18) {
+            Game.instance().goTo(ParentState.HOME, null);
         }
     }
     private String make2digit(String str){
