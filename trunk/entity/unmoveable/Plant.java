@@ -140,7 +140,7 @@ public class Plant extends Unmoveable implements Actionable,
         if (fase == BIBITSIRAM){
             entity.load("picture/bibitsiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         } else if (fase == BIBITNOSIRAM){
-            entity.load("picture/bibitnosiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+            entity.load("picture/bibit.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         }
     }
 
@@ -237,6 +237,9 @@ public class Plant extends Unmoveable implements Actionable,
             if (!cancel[0]){
                 map.pop(gx, gy);
                 map.pop(gx, gy);
+                if (Plant.this.isWatered()) {
+                    ((Land)map.getTop(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE)).setStatus(Land.WATERED);
+                }
                 Game.instance().log().append("plowing  ("+(gx/80)+","+(gy/80)+")\n");
             }
         }
@@ -262,6 +265,9 @@ public class Plant extends Unmoveable implements Actionable,
             if (!cancel[0]){
                 map.pop(gx, gy);
                 map.pop(gx, gy);
+                if (Plant.this.isWatered()) {
+                    ((Land)map.getTop(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE)).setStatus(Land.WATERED);
+                }
                 Game.instance().log().append("slashing at ("+(gx/80)+","+(gy/80)+")\n");
             }
         }
