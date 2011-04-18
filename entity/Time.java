@@ -13,10 +13,9 @@ import plantmon.states.ParentState;
  * @author asus
  */
 public class Time {
-    public static final int SUMMER = 0;
-    public static final int FALL = 1;
-    public static final int WINTER = 2;
-    public static final int SPRING = 3;
+    public static final int SPRING = 0;
+    public static final int SUMMER = 1;
+    public static final int FALL = 2;
     private static Time time;
     private int season;
     private int year;
@@ -33,7 +32,7 @@ public class Time {
         return time;
     }
     Time(){
-        season = SUMMER;
+        season = SPRING;
         year = 1;
         month = 1;
         day = 1;
@@ -59,6 +58,15 @@ public class Time {
         if (str.length()<2) str= "0"+str;
         return str;
     }
+    public void changeDay(){
+        hour = 6;
+        day+=1;
+        if (day==30){
+            day = 1;
+            season +=1;
+            season%=3;
+        }
+    }
     private String separator(){
         if (counter%50==0){
             blink = !blink;
@@ -72,7 +80,7 @@ public class Time {
     public synchronized String getTime(){
         String ss = (season==SUMMER)?("SUMMER"):
                     (season==FALL)?("FALL"):
-                    (season == WINTER)?("WINTER"):("SPRING");
+                    (season == SPRING)?("SPRING"):"";
         String sy = String.valueOf(year);
         String sm = String.valueOf(month);
         String sd = make2digit(String.valueOf(day));

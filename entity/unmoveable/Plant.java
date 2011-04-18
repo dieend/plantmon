@@ -9,7 +9,6 @@ import plantmon.entity.Unmoveable;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
-import plantmon.states.FarmState;
 import plantmon.states.Game;
 import plantmon.system.Actionable;
 import plantmon.system.RunnableListener;
@@ -291,6 +290,7 @@ public class Plant extends Unmoveable implements Actionable,
 // mengubah fase pada pergantian hari
 // not instant change
 {
+        System.out.print("growing");
 	setUmur(umur-1);
 	if (isWatered())
 		setHappyMeter(happyMeter+1);
@@ -333,6 +333,7 @@ public class Plant extends Unmoveable implements Actionable,
 				setFase(REMAJANOSIRAM);
 			}
 		}
+        System.out.print("fase sekarang"+fase);
     }
     public void init(){
         entity.load("picture/bibit.png", 1, 1, 80, 80);

@@ -6,6 +6,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import plantmon.entity.Inventory;
 import plantmon.entity.Item;
+import plantmon.entity.Time;
 import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
@@ -161,5 +162,12 @@ public class Game {
     }
     public void removePlant(Plant plant){
         plants.remove(plant);
+    }
+    public void changeDay(){
+        for (Plant p:plants){
+            p.grow(Time.instance().getSeason());
+        }
+        Time.instance().changeDay();
+        Game.instance().goTo(ParentState.HOME, null);
     }
 }

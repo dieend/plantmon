@@ -378,6 +378,7 @@ public abstract class MovingObject implements Drawable{
             while (i>=0)
             {
                 //System.out.println(1);
+                if (i<TrueBRoute.size())
                 if (TrueBRoute.get(i).same(cPoint.getUp()))
                 {
                     //System.out.println("up");
@@ -389,6 +390,7 @@ public abstract class MovingObject implements Drawable{
                     TrueBRoute.remove(i);
 
                 }
+                if (i<TrueBRoute.size())
                 if (TrueBRoute.get(i).same(cPoint.getRight()))
                 {
                     //System.out.println("right");
@@ -399,6 +401,7 @@ public abstract class MovingObject implements Drawable{
                     ++j;
                     TrueBRoute.remove(i);
                 }
+                if (i<TrueBRoute.size())
                 if (TrueBRoute.get(i).same(cPoint.getDown()))
                 {
                     //System.out.println("down");
@@ -410,6 +413,7 @@ public abstract class MovingObject implements Drawable{
                     TrueBRoute.remove(i);
 
                 }
+                if (i<TrueBRoute.size())
                 if(TrueBRoute.get(i).same(cPoint.getLeft()))
                 {
                     cPoint.setLeft();
