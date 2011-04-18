@@ -2,21 +2,16 @@ package plantmon.states;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JTextArea;
-import plantmon.entity.Canceller;
 import plantmon.entity.Time;
-import plantmon.entity.deadItem.Bed;
 import plantmon.entity.deadItem.Portal;
-import plantmon.entity.movingObject.Player;
-import plantmon.entity.unmoveable.Road;
 import plantmon.game.GridMap;
 import plantmon.game.ImageEntity;
-import plantmon.game.Point2D;
-import plantmon.system.Actionable;
 import plantmon.system.Selectable;
 import plantmon.system.Utilities;
 
@@ -29,6 +24,7 @@ public class MapState extends ParentState implements MouseListener{
     boolean selectsomething;
     GridMap map;
     JTextArea time;
+    Image a = null;
     public MapState(Object[] args){
         super(6,6);
         time = new JTextArea();
@@ -36,8 +32,14 @@ public class MapState extends ParentState implements MouseListener{
         map = new GridMap(6, 6);
         background = new ImageEntity(this);
         background.load("picture/bg2.png");
-        map.gpush(4,4, new Portal(map, this, g2d, 4, 4));
+        try {
+            a = ImageIO.read(this.getClass().getResource("lahanMap.png"));
+            
+        } catch (IOException e) {
+        }
+
         map.gpush(1,1, new Portal(map, this, g2d, 1, 1));
+        map.gpush(4,4, new Portal(map, this, g2d, 4, 4));
         addMouseListener(this);
         time.setEditable(false);
         time.setBounds(0, 0, 200, 50);
@@ -69,6 +71,7 @@ public class MapState extends ParentState implements MouseListener{
         if (selectsomething) {
             selected.drawBounds();
         }
+        g2d.drawImage(a,80,80,80,80, this);
     }
     @Override public void paintComponent(Graphics g) {
 //        System.out.println("paintComponent - CobaOpeh");
