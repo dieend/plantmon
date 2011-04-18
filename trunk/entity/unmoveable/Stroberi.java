@@ -31,7 +31,7 @@ public class Stroberi extends Plant{
         JPanel panel;
         panel = new JPanel();
         panel.setLayout(null);
-        image1=new ImageIcon(getClass().getResource("stroberi.jpg"));
+        image1=new ImageIcon(getClass().getResource("stroberi.png"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
         label1 = new JLabel(image1);
         label1.setBounds(0,0,100,100);
