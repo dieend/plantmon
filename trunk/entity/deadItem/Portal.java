@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import plantmon.entity.Time;
 import plantmon.entity.Unmoveable;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
@@ -55,6 +56,7 @@ public class Portal extends Unmoveable implements Actionable{
             if (panel instanceof HomeState){
                 item = new JMenuItem("Teleport Farm");
                 item.addActionListener(new Teleport(selected,ParentState.FARMSTATE));
+                if (Time.instance().getHour()>=18) item.setEnabled(false);
                 menu.add(item);
             }
             menu.pack();

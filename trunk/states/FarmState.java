@@ -32,7 +32,6 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
     Thread gameloop;
     GridMap map;
     JPopupMenu popup;
-    public static JTextArea text;
     int startx;
     int starty;
     Player player;
@@ -50,21 +49,17 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
         setLayout(null);
-        text = new JTextArea();
-        text.setBounds(0, 350, 650, 100);
-        JScrollPane pane = new JScrollPane(text);
-        pane.setBounds(0, 350, 650, 100);
+        
 //        add(new Component() {});
 //        add(new Component() {});
 //        add(new Component() {});
 //        add(new Component() {});
         //test.setVisible(true);
-        text.setEditable(false);
         time.setEditable(false);
         time.setBounds(0, 0, 200, 50);
         time.setBackground(Color.ORANGE);
         time.setForeground(Color.black);
-        add(pane);
+        add(Game.instance().pane);
         add(time);
         //add(pane);
         addMouseMotionListener(this);
@@ -111,9 +106,9 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         Store st = new Store(map, this, g2d);
         map.push(st.getEntity().position().IntX(), st.getEntity().position().IntY(), st);
         for(Dwarf d:Game.instance().dwarfs){
-            d.setGraphic(g2d);
-            d.setPanel(this);
-            d.reinit();
+//            d.setGraphic(g2d);
+//            d.setPanel(this);
+            d.reinit(g2d,this);
             Point2D dlocation = d.getCreature().position();
             map.push(dlocation.IntX(),dlocation.IntY(), d);
         }

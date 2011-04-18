@@ -150,7 +150,7 @@ public class InventoryState extends ParentState {
     }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        Game.instance().goTo(FARMSTATE,new Object[0]);
+        Game.instance().returnTo();
     }
 
 

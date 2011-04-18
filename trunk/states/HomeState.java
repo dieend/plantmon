@@ -5,12 +5,15 @@
 
 package plantmon.states;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JTextArea;
 import plantmon.entity.Canceller;
+import plantmon.entity.Time;
 import plantmon.entity.deadItem.Portal;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Road;
@@ -29,8 +32,10 @@ public class HomeState extends ParentState implements MouseListener{
     Selectable selected;
     boolean selectsomething;
     GridMap map;
+    JTextArea time;
     public HomeState(Object[] args){
         super(6,6);
+        time = new JTextArea();
         ID = HOME;
         map = new GridMap(6, 6);
         for (int i=0; i<6; i++){
@@ -46,6 +51,11 @@ public class HomeState extends ParentState implements MouseListener{
         player.getCreature().setFinalPosition(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE);
         map.gpush(5, 5,player);
         addMouseListener(this);
+        time.setEditable(false);
+        time.setBounds(0, 0, 200, 50);
+        time.setBackground(Color.ORANGE);
+        time.setForeground(Color.GRAY);
+        add(time);
     }
         @Override
     public void run(){
@@ -58,8 +68,12 @@ public class HomeState extends ParentState implements MouseListener{
                 e.printStackTrace();
             }
             repaint();
+            gameUpdate();
         }
 
+    }
+    public void gameUpdate() {
+        time.setText(Time.instance().getTime()+"\n(PAUSED) ");
     }
     public void updated(){
         g2d.drawImage(background.getImage(), 0, 0,SCREENWIDTH-1,SCREENHEIGHT-1, this);

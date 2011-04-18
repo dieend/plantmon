@@ -10,6 +10,7 @@ import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.states.FarmState;
+import plantmon.states.Game;
 import plantmon.system.Actionable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
@@ -205,7 +206,7 @@ public class Plant extends Unmoveable implements Actionable,
                 else {
                     fase = TANAMANMATI;
                 }
-                FarmState.text.append("harvesting at ("+(gx/80)+","+(gy/80)+")\n");
+                Game.instance().log().append("harvesting at ("+(gx/80)+","+(gy/80)+")\n");
             }
         }
     }
@@ -231,7 +232,7 @@ public class Plant extends Unmoveable implements Actionable,
             if (!cancel[0]){
                 map.pop(gx, gy);
                 map.pop(gx, gy);
-                FarmState.text.append("plowing  ("+(gx/80)+","+(gy/80)+")\n");
+                Game.instance().log().append("plowing  ("+(gx/80)+","+(gy/80)+")\n");
             }
         }
     }
@@ -256,7 +257,7 @@ public class Plant extends Unmoveable implements Actionable,
             if (!cancel[0]){
                 map.pop(gx, gy);
                 map.pop(gx, gy);
-                FarmState.text.append("slashing at ("+(gx/80)+","+(gy/80)+")\n");
+                Game.instance().log().append("slashing at ("+(gx/80)+","+(gy/80)+")\n");
             }
         }
     }

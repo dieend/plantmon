@@ -40,7 +40,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
                 public void actionPerformed(ActionEvent e) {
                     Object[] args = new Object[1];
                     args[0] = Player.this;
-                    Game.instance().goTo(ParentState.INVENTORY,args);
+                    Game.instance().seek(ParentState.INVENTORY,args);
                 }
             });
 
