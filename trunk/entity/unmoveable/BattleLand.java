@@ -19,6 +19,7 @@ public class BattleLand extends Unmoveable implements Actionable {
     public BattleLand (int x, int y, GridMap map, JPanel panel, Graphics2D g2d) {
         super(map,panel,g2d);
         posisi = new Point2D(x,y);
+        entity.setPosition(posisi);
     }
     
     public Point2D getPosition () {
@@ -27,20 +28,56 @@ public class BattleLand extends Unmoveable implements Actionable {
 
     public JPopupMenu getMenu(Selectable selected) {
         final Pulmosis player = (Pulmosis) selected;
+        int lengthX, lengthY;
+        int i;
+        boolean cek = true;
         JPopupMenu menu = new JPopupMenu();
         JMenuItem ite;
-        ite = new JMenuItem("move");
-        ite.addActionListener(new Move(selected));
-        menu.add(ite);
-
-        if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof Pulmosis) {
-            Pulmosis pul = (Pulmosis) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
-            ite = new JMenuItem("attack");
-            ite.addActionListener(new Attack(selected,pul));
-            menu.add(ite);
+        lengthX = posisi.IntX() / Utilities.GRIDSIZE - player.position().IntX() / Utilities.GRIDSIZE;
+        if (lengthX < 0) {
+            lengthX = -1 * lengthX;
         }
         
-
+        lengthY = posisi.IntY() / Utilities.GRIDSIZE - player.position().IntY() / Utilities.GRIDSIZE;
+        if (lengthY < 0) {
+            lengthY = -1 * lengthY;
+        }
+        i = player.getRange();
+        while (i > 0 && cek) {
+            if (lengthX == i) {
+                if (lengthY <= player.getRange() - i) {
+                    ite = new JMenuItem("move");
+                    ite.addActionListener(new Move(selected));
+                    menu.add(ite);
+                    if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof Pulmosis) {
+                        Pulmosis pul = (Pulmosis) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
+                        ite = new JMenuItem("attack");
+                        ite.addActionListener(new Attack(selected,pul));
+                        menu.add(ite);
+                    }
+                    cek = false;
+                } else {
+                    i--;
+                }
+            } else if (lengthY == i) {
+                if (lengthX <= player.getRange() - i) {
+                    ite = new JMenuItem("move");
+                    ite.addActionListener(new Move(selected));
+                    menu.add(ite);
+                    if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof Pulmosis) {
+                        Pulmosis pul = (Pulmosis) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
+                        ite = new JMenuItem("attack");
+                        ite.addActionListener(new Attack(selected,pul));
+                        menu.add(ite);
+                    }
+                    cek = false;
+                } else {
+                    i--;
+                }
+            } else {
+                i--;
+            }
+        }
         menu.pack();
         return menu;
     }
@@ -70,7 +107,7 @@ public class BattleLand extends Unmoveable implements Actionable {
                 }
             }
             if (!cancel[0]){
-                player.getCreature().setFinalPosition(gx+10, gy+10);
+                player.getCreature().setFinalPosition(gx, gy);
             }
             
         }

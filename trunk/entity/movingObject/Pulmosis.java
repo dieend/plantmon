@@ -21,6 +21,7 @@ public class Pulmosis extends MovingObject implements Cancellable,
     int exp;
     int attacked;
     int dmg;
+    int range;
     double miss;
     public static final int Lobak = 0;
     public static final int Timun = 1;
@@ -29,9 +30,11 @@ public class Pulmosis extends MovingObject implements Cancellable,
         super(map,panel,g2d);
         init();
         if (tipe == Lobak) {
-            level = 1;
-        } else if (tipe == Timun) {
             level = 3;
+            range = 2;
+        } else if (tipe == Timun) {
+            level = 5;
+            range = 3;
         }
         atk = 0;
         attacked = 0;
@@ -45,11 +48,11 @@ public class Pulmosis extends MovingObject implements Cancellable,
         super.draw();
         
          if (attacked > 0) {
-             if (dmg > 0) {
+             if (dmg == -99999) {
+                creature.graphics().drawString("miss", 100, 100);
+             } else {
                 System.out.print("drawing pulmo");
                 creature.graphics().drawString(""+dmg, 100, 100);
-             } else {
-                 creature.graphics().drawString("miss", 100, 100);
              }
             attacked--;
         }
@@ -72,7 +75,7 @@ public class Pulmosis extends MovingObject implements Cancellable,
     }
     public void move(int gx,int gy,Object lock,Boolean[] cancel){
         addAction(lock,new Point2D(gx,gy));
-        cancel[0] = true;
+        cancel[0] = false;
 //        Canceller ca = new Canceller(creature.panel(),creature.graphics(),
 //                                    gx, gy, cancel,lock,(Cancellable)this,numAction-1);
 //        map.push(gx, gy, ca);
@@ -84,12 +87,15 @@ public class Pulmosis extends MovingObject implements Cancellable,
         Random gene = new Random();
         int x = gene.nextInt(100);
         if (x < 94) {
-            minus = (atk/5 * level + gene.nextInt(5) + 1) - pulmo.getDefend();
+            minus = (atk + level + gene.nextInt(5) + 1) - pulmo.getDefend();
             if (minus<=0) {
                  HP = HP - 1;
+                 minus = 1;
             } else {
                 HP = HP - minus;
             }
+        } else {
+            minus = -99999;
         }
         pulmo.setAttacked(100);
         pulmo.setDamage(minus);
@@ -108,6 +114,10 @@ public class Pulmosis extends MovingObject implements Cancellable,
         return HP;
     }
 
+    public int getRange () {
+        return range;
+    }
+
     public int getAttack () {
         return atk;
     }
@@ -121,7 +131,7 @@ public class Pulmosis extends MovingObject implements Cancellable,
     }
 
     public void setHP () {
-        HP = level * atk + def;
+        HP = level + atk * 2 + def;
     }
 
     public void setHP (int HP) {
@@ -129,7 +139,7 @@ public class Pulmosis extends MovingObject implements Cancellable,
     }
 
     public void setAttack () {
-        atk = level * 4;
+        atk = level * 3;
     }
 
     public void setDefend () {
