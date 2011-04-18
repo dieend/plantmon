@@ -24,7 +24,8 @@ public class ParentState extends JPanel implements Runnable{
     public static final int FRONTSTATE = 1;
     public static final int INVENTORY = 2;
     public static final int HOME = 3;
-    public static final int STORE = 4;
+    public static final int BATTLESTATE = 4;
+    public static final int STORE = 5;
     public ParentState(){
     }
 
