@@ -15,7 +15,7 @@ public class Lobak extends Plant{
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;
-    private JLabel label4;
+    
     public Lobak(GridMap map, JPanel panel, Graphics2D g2d,int gx, int gy,int status) {
         super(map,panel,g2d,gx,gy);
         setFase(status - 1);
@@ -28,7 +28,6 @@ public class Lobak extends Plant{
         panenBerulang = false;
     }
      @Override public JPanel get_Info(){
-         System.out.print("get info lobak\n");
         JPanel panel;
         panel = new JPanel();
         panel.setLayout(null);
@@ -43,12 +42,8 @@ public class Lobak extends Plant{
         label3 = new JLabel("Fase : " + this.getFase());
         label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
         label3.setBounds(100,30,150,30);
-//        label4 = new JLabel("Info : " + this.getInfo());
-//        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
-//        label4.setBounds(5,300,100,100);
         panel.add(label2);
         panel.add(label3);
-//        panel.add(label4);
         return panel;
     }
     public static void main(String[] str){
