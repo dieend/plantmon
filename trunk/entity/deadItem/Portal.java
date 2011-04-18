@@ -50,7 +50,7 @@ public class Portal extends Unmoveable implements Actionable{
                 item.addActionListener(new Teleport(selected,ParentState.HOME));
                 menu.add(item);
                 item = new JMenuItem("Teleport Store");
-                item.setEnabled(false);
+                item.addActionListener(new Teleport(selected,ParentState.STORE));
                 menu.add(item);
             }
             if (panel instanceof HomeState){
