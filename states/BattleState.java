@@ -196,7 +196,7 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
                 if (selectsomething){
                     // get object from where it's clicked from map
                     //actionated = (Actionable) map.getTop(gx, gy);
-                    actionated = new BattleLand(fx,fy,map,this,g2d);
+                    actionated = new BattleLand(gx * Utilities.GRIDSIZE + Utilities.GRIDGALAT,gy * Utilities.GRIDSIZE + Utilities.GRIDGALAT,map,this,g2d);
                     popup = actionated.getMenu(selected);
                     //get menu from selected
                     if (popup != null) {

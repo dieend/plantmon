@@ -11,7 +11,6 @@ import plantmon.entity.Unmoveable;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
-import plantmon.states.FarmState;
 import plantmon.states.Game;
 import plantmon.system.Actionable;
 import plantmon.system.RunnableListener;
