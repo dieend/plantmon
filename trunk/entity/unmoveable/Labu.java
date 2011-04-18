@@ -7,7 +7,7 @@ import plantmon.game.GridMap;
 public class Labu extends Plant{
     public Labu(GridMap map, JPanel panel, Graphics2D g2d,int gx, int gy,int status) {
         super(map,panel,g2d,gx,gy);
-        fase = status - 1;
+        setFase(status - 1);
         typeTanaman = 14;
         season = 2;
         happyMeter = 0;
