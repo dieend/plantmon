@@ -77,6 +77,16 @@ public class FoodItem extends Item {
             costSell = 360;
             efek = 4;
             //gambar.load(null);
+        } else if (IDitem == BuStroberi) {
+            name = "Stroberi";
+            costSell = 450;
+            efek = 1;
+            //gambar.load(null);
+        } else if (IDitem == BuLabu) {
+            name = "Labu";
+            costSell = 2250;
+            efek = 3;
+            //gambar.load(null);
         }
     }
 }

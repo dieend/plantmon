@@ -94,6 +94,18 @@ public class FarmItem extends Item {
             costBuy = 150;
             efek = 4;
             //gambar.load(null);
+        } else if (IDitem == BiStroberi) {
+            name = "Stroberi";
+            deskripsi = "bibit Stroberi";
+            costBuy = 150;
+            efek = 4;
+            //gambar.load(null);
+        } else if (IDitem == BiLabu) {
+            name = "Labu";
+            deskripsi = "bibit Labu";
+            costBuy = 500;
+            efek = 4;
+            //gambar.load(null);
         }
         costSell = costBuy / 2;
     }

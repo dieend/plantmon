@@ -22,6 +22,8 @@ public class Item {
     final public static int BiTerong = 9;
     final public static int BiUbi = 10;
     final public static int BiPaprika = 11;
+    final public static int BiStroberi = 12;
+    final public static int BiLabu = 13;
 
     final public static int BuKentang = 20;
     final public static int BuLobak = 21;
@@ -35,6 +37,8 @@ public class Item {
     final public static int BuTerong = 29;
     final public static int BuUbi = 30;
     final public static int BuPaprika = 31;
+    final public static int BuStroberi = 32;
+    final public static int BuLabu = 33;
 
     final public static int Water = 50;
     final public static int HolyWater = 51;
