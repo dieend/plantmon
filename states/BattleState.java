@@ -85,12 +85,10 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
         background = new ImageEntity(this);
         background.load("picture/bg2.png");
        
-        map.gpush(1, 1, new Portal(map, this, g2d, 1, 1));
-        Integer money = new Integer(2000);
-        Pulmosis player = new Pulmosis(map, this, g2d,1);
+        Pulmosis player = new Pulmosis(map, this, g2d,1,false);
         player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT));
         player.getCreature().setFinalPosition(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT);
-        Pulmosis player2 = new Pulmosis(map, this, g2d,0);
+        Pulmosis player2 = new Pulmosis(map, this, g2d,0,true);
         player2.getCreature().setPosition(new Point2D(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
         player2.getCreature().setFinalPosition(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
         for (int i=0; i<map.getRow();i++){
@@ -99,10 +97,11 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
             }
         }
         Point2D pos = player.getCreature().position();
-       
+        //map.gpush(1, 1, new Pulmosis(map,this,g2d,1,false));
         map.push(pos.X(), pos.Y(), player);
         pos = player2.getCreature().position();
-         map.push(pos.X(), pos.Y(), player2);
+        //map.gpush(2, 2, new Pulmosis(map,this,g2d,0,true));
+        map.push(pos.X(), pos.Y(), player2);
         addMouseListener(this);
     }
     @Override
@@ -122,8 +121,28 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
     }
     public void gameUpdate() {
 //        System.out.format("I wonder why won't work\n");
+        boolean found = true;
+        int i = 0;
+        int j = 0;
         Time.instance().update();
         time.setText(Time.instance().getTime());
+        for (i = 0;i < 10 && found; i++) {
+            for (j = 0; j < 10 && found;j++) {
+                if (map.getTop(i,j) instanceof Pulmosis) {
+                    Pulmosis pul = (Pulmosis) map.getTop(i,j);
+                    System.out.println("adada");
+                    if (pul.getStatusEnemy()) {
+                        found = false;
+                        break;
+                    }
+                } else if (map.getTop(i,j) instanceof Land) {
+                    System.out.println("APAAN SIH"+i+j);
+                }
+            }
+        }
+        if (found) {
+            Game.instance().goTo(ParentState.MAPSTATE,new Object[0]);
+        }
 //        Point2D pos = player.getCreature().position();
 //        for (int i=0; i<8;i++){
 //            for (int j=0; j<8; j++){

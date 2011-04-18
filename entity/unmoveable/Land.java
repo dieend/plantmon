@@ -111,7 +111,7 @@ public class Land extends Unmoveable implements Actionable{
             }
             if (!cancel[0]){
                 map.pop(gx, gy);
-                player.getCreature().setFinalPosition(gx+10, gy+10);
+                player.getCreature().setFinalPosition(gx+5, gy+5);
             }
         }
     }
