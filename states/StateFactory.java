@@ -16,6 +16,9 @@ public class StateFactory{
             case ParentState.HOME:
                 newState = new HomeState(args);
                 break;
+            case ParentState.STORE:
+                newState = new StoreState(args);
+                break;
         }
         return newState;
     }

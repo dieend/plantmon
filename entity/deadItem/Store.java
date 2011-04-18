@@ -20,10 +20,10 @@ import plantmon.entity.item.WarItem;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
-import plantmon.states.FarmState;
 import plantmon.states.Game;
 import plantmon.system.Actionable;
 import plantmon.system.Selectable;
+import plantmon.system.Utilities;
 
 public class Store extends Unmoveable implements Actionable {
     ArrayList<Item> item = new ArrayList<Item>();
@@ -32,10 +32,13 @@ public class Store extends Unmoveable implements Actionable {
     JButton buttonbes;
     JButton buttonkec;
     int x;
+    int type;
 
-    public Store (GridMap map, JPanel panel, Graphics2D g2d) {
+    public Store (GridMap map, JPanel panel, Graphics2D g2d, int typetoko) {
         super(map,panel,g2d);
         init();
+        if (typetoko==1) {
+        type = typetoko;
         item.add(0, new FarmItem(0,panel));
         item.add(1, new FarmItem(1,panel));
         item.add(2, new FarmItem(2,panel));
@@ -48,37 +51,47 @@ public class Store extends Unmoveable implements Actionable {
         item.add(9, new FarmItem(9,panel));
         item.add(10, new FarmItem(10,panel));
         item.add(11, new FarmItem(11,panel));
-        item.add(12, new WarItem(50,panel));
-        item.add(13, new WarItem(51,panel));
-        item.add(14, new WarItem(52,panel));
-        item.add(15, new WarItem(53,panel));
-        item.add(16, new WarItem(54,panel));
-        item.add(17, new ArmorItem(70,panel));
-        item.add(18, new ArmorItem(71,panel));
-        item.add(19, new ArmorItem(72,panel));
-        item.add(20, new ArmorItem(73,panel));
-        item.add(21, new ArmorItem(74,panel));
-        item.add(22, new ArmorItem(75,panel));
-        item.add(23, new ArmorItem(76,panel));
-        item.add(24, new ArmorItem(77,panel));
-        item.add(25, new ArmorItem(78,panel));
-        item.add(26, new ArmorItem(79,panel));
-        item.add(27, new ArmorItem(80,panel));
-        item.add(28, new ArmorItem(81,panel));
-        item.add(29, new ArmorItem(82,panel));
-        for (int i = 0; i <= 29; i++) {
+        for (int i = 0; i <= 11; i++) {
             lock.add(i,false);
         }
-
         lock.set(1,true);
         lock.set(2,true);
-        lock.set(12,true);
-        lock.set(14,true);
-        lock.set(15,true);
-        lock.set(16,true);
-        lock.set(17,true);
-        lock.set(20,true);
-        lock.set(25,true);
+        } else if (typetoko==2) {
+        type = typetoko;
+        item.add(0, new WarItem(50,panel));
+        item.add(1, new WarItem(51,panel));
+        item.add(2, new WarItem(52,panel));
+        item.add(3, new WarItem(53,panel));
+        item.add(4, new WarItem(54,panel));
+        for (int i = 0; i <= 4; i++) {
+            lock.add(i,false);
+        }
+        lock.set(0,true);
+        lock.set(2,true);
+        lock.set(3,true);
+        lock.set(4,true);
+        } else if (typetoko==3) {
+        type = typetoko;
+        item.add(0, new ArmorItem(70,panel));
+        item.add(1, new ArmorItem(71,panel));
+        item.add(2, new ArmorItem(72,panel));
+        item.add(3, new ArmorItem(73,panel));
+        item.add(4, new ArmorItem(74,panel));
+        item.add(5, new ArmorItem(75,panel));
+        item.add(6, new ArmorItem(76,panel));
+        item.add(7, new ArmorItem(77,panel));
+        item.add(8, new ArmorItem(78,panel));
+        item.add(9, new ArmorItem(79,panel));
+        item.add(10, new ArmorItem(80,panel));
+        item.add(11, new ArmorItem(81,panel));
+        item.add(12, new ArmorItem(82,panel));
+        for (int i = 0; i <= 12; i++) {
+            lock.add(i,false);
+        }
+        lock.set(0,true);
+        lock.set(3,true);
+        lock.set(8,true);
+        }
     }
 
     public JPopupMenu getMenu(Selectable selected) {
@@ -98,7 +111,7 @@ public class Store extends Unmoveable implements Actionable {
             JMenu subMenuArmor;
             subMenuArmor = new JMenu("Armor Item");
 
-            for (int i = 0; i <=29; i++) {
+            for (int i = 0; i <item.size(); i++) {
                 if (item.get(i) instanceof FarmItem) {
                    if (lock.get(i) == true) {
                     JMenu subSubMenu;
@@ -126,9 +139,13 @@ public class Store extends Unmoveable implements Actionable {
                     }
                 }
             }
-            ite.add(subMenuFarm);
-            ite.add(subMenuWar);
-            ite.add(subMenuArmor);
+            if (Store.this.type == 1) {
+                ite.add(subMenuFarm);
+            } else if (Store.this.type == 2) {
+                ite.add(subMenuWar);
+            } else if (Store.this.type == 3) {
+                ite.add(subMenuArmor);
+            }
 
             JMenu it = new JMenu("sell");
 
@@ -404,8 +421,8 @@ public class Store extends Unmoveable implements Actionable {
     public void init() {
         entity.load("picture/toko.png", 1, 1, 80, 80);
         entity.setFrameDelay(5);
-        entity.setPosition(new Point2D(320,320));
-        entity.setFinalPosition(320, 320);
+
+        
     }
 
 }
