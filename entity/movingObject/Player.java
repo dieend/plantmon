@@ -27,8 +27,8 @@ public class Player extends MovingObject implements Actionable, Cancellable,
     @Override public void drawBounds() {
         creature.drawBounds(Color.GREEN);
     }
-    @Override public String getInfo() {
-        return "player";
+    @Override public JPanel get_Info() {
+        return null;
     }
     @Override public JPopupMenu getMenu(Selectable selected){
         if (selected instanceof Player){

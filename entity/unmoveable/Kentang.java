@@ -39,12 +39,12 @@ public class Kentang extends Plant{
         label2.setBounds(5,210,200,200);
         label3 = new JLabel("Fase : " + this.getFase());
         label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label4 = new JLabel("Info : " + this.getInfo());
-        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label4.setBounds(5,300,100,100);
+//        label4 = new JLabel("Info : " + this.getInfo());
+//        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+//        label4.setBounds(5,300,100,100);
         panel.add(label2);
         panel.add(label3);
-        panel.add(label4);
+//        panel.add(label4);
         return panel;
     }
     public static void main(String[] str){

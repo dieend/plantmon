@@ -2,6 +2,7 @@ package plantmon.states;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import plantmon.entity.Inventory;
@@ -20,6 +21,7 @@ public class Game {
     Integer money;
     ParentState currentState;
     ParentState pause;
+    JPanel dialogBox;
     JTextArea log;
     JScrollPane pane;
     private static Game stateManager;
@@ -34,6 +36,7 @@ public class Game {
                 farmstatus[i][j] = Land.NORMAL;
             }
         }
+        dialogBox = null;
         plants = new ArrayList<Plant>();
         dwarfs = new ArrayList<Dwarf>();
         inventory = new Inventory(10);
@@ -169,5 +172,32 @@ public class Game {
         }
         Time.instance().changeDay();
         Game.instance().goTo(ParentState.HOME, null);
+    }
+    public JPanel dialogBox(){
+        if (dialogBox != null)
+            return dialogBox;
+        else return new JPanel(null);
+    }
+    public void setDialogBox(JPanel dialog, JPanel where){
+        if (dialogBox!=null){
+            dialogBox.getParent().remove(dialogBox);
+        }
+        dialogBox = dialog;
+        if (dialog != null){
+            dialogBox.setBounds(0, 350, 650, 100);
+            where.add(dialogBox);
+        }
+    }
+    public void dialogOn(){
+        if (dialogBox !=null){
+            dialogBox.setVisible(true);
+            dialogBox.updateUI();
+        }
+    }
+    public void dialogOff(){
+        if (dialogBox != null) {
+            dialogBox.setVisible(false);
+            dialogBox.updateUI();
+        }
     }
 }

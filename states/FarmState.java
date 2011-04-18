@@ -10,12 +10,10 @@ import java.awt.image.*;
 import java.net.URL;
 import javax.swing.BorderFactory;
 import javax.swing.JMenuItem;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import plantmon.entity.Canceller;
 import plantmon.entity.Time;
 import plantmon.entity.deadItem.Portal;
-import plantmon.entity.deadItem.Store;
 import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Land;
@@ -59,7 +57,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         time.setBounds(0, 0, 200, 50);
         time.setBackground(Color.ORANGE);
         time.setForeground(Color.black);
-        add(Game.instance().pane);
+        add(Game.instance().dialogBox());
         add(time);
         //add(pane);
         addMouseMotionListener(this);
@@ -116,7 +114,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
     public void run(){
         active = true;
         while (active) {
-//            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
+            //System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e){
@@ -189,14 +187,18 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
                 if (map.getTop(gx, gy) != null ) {
                     if (map.getTop(gx, gy) instanceof Selectable) {
                         selected = (Selectable) map.getTop(gx, gy);
+                        Game.instance().setDialogBox(selected.get_Info(),this);
+                        Game.instance().dialogOn();
                         selectsomething = true;
                     } else if (map.getTop(gx, gy) instanceof Canceller){
                         System.out.print("fjhfhgf");
                         popup = ((Canceller)map.getTop(gx,gy)).getMenu();
                         popup.show(tmp.getComponent(),tmp.getX(), tmp.getY());
-                        selectsomething = false;
                     }
-                } else selectsomething = false;
+                } else {
+                    selectsomething = false;
+                    Game.instance().dialogOff();
+                }
                 break;
             case MouseEvent.BUTTON3:
                 if (selectsomething){

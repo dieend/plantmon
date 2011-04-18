@@ -5,11 +5,13 @@
 
 package plantmon.system;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author asus
  */
 public interface Selectable {
     public void drawBounds();
-    public String getInfo();
+    public JPanel get_Info();
 }
