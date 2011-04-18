@@ -13,6 +13,7 @@ import plantmon.states.Game;
 import plantmon.system.Actionable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
+import plantmon.system.Utilities;
 
 public class Plant extends Unmoveable implements Actionable,
                                                 Selectable{
@@ -134,8 +135,13 @@ public class Plant extends Unmoveable implements Actionable,
         return null;
     }
 
-    private void setFase(int i) {
+    public void setFase(int i) {
         fase = i;
+        if (fase == BIBITSIRAM){
+            entity.load("picture/bibitsiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        } else if (fase == BIBITNOSIRAM){
+            entity.load("picture/bibitnosiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        }
     }
 
     private void setHappyMeter(int i) {
@@ -171,7 +177,7 @@ public class Plant extends Unmoveable implements Actionable,
             // setelah player sampai, siram tanaman.
             if (!cancel[0]){
                 map.pop(gx, gy);
-                fase = fase + 1;
+                setFase(fase + 1);
             }
         }
     }
@@ -336,7 +342,6 @@ public class Plant extends Unmoveable implements Actionable,
         System.out.print("fase sekarang"+fase);
     }
     public void init(){
-        entity.load("picture/bibit.png", 1, 1, 80, 80);
         entity.setFrameDelay(5);
     }
 }
