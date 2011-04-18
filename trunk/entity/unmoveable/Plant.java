@@ -91,7 +91,7 @@ public class Plant extends Unmoveable implements Actionable,
     {
             return panenBerulang;
     }
-    public String getInfo(){
+    public JPanel get_Info(){
         return null;
     }
     public JPopupMenu getMenu(Selectable selected){

@@ -57,8 +57,8 @@ public class Dwarf extends MovingObject implements Actionable,
     @Override public void drawBounds() {
         creature.drawBounds(Color.GREEN);
     }
-    @Override public String getInfo() {
-        return name;
+    @Override public JPanel get_Info() {
+        return null;
     }
     @Override protected void init() {
         //inisiasi semua variable disini.

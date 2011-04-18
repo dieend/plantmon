@@ -63,8 +63,8 @@ public class Pulmosis extends MovingObject implements Cancellable,
         creature.drawBounds(Color.RED);
        
     }
-    @Override public String getInfo() {
-        return "player";
+    @Override public JPanel get_Info() {
+        return null;
     }
     @Override protected void init() {
         //inisiasi semua variable disini.
