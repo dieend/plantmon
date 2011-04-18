@@ -9,6 +9,7 @@ import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.system.Cancellable;
 import plantmon.system.Selectable;
+import plantmon.system.Utilities;
 
 
 public class Pulmosis extends MovingObject implements Cancellable,
@@ -75,7 +76,11 @@ public class Pulmosis extends MovingObject implements Cancellable,
     }
     public void move(int gx,int gy,Object lock,Boolean[] cancel){
         addAction(lock,new Point2D(gx,gy));
-        cancel[0] = false;
+        if (map.getTop(gx / Utilities.GRIDSIZE, gy / Utilities.GRIDSIZE) instanceof Pulmosis) {
+            cancel[0] = true;
+        } else {
+            cancel[0] = false;
+        }
 //        Canceller ca = new Canceller(creature.panel(),creature.graphics(),
 //                                    gx, gy, cancel,lock,(Cancellable)this,numAction-1);
 //        map.push(gx, gy, ca);

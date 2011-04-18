@@ -88,11 +88,11 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
         map.gpush(1, 1, new Portal(map, this, g2d, 1, 1));
         Integer money = new Integer(2000);
         Pulmosis player = new Pulmosis(map, this, g2d,1);
-        player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE,Utilities.GRIDSIZE));
-        player.getCreature().setFinalPosition(Utilities.GRIDSIZE,Utilities.GRIDSIZE);
+        player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT));
+        player.getCreature().setFinalPosition(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT);
         Pulmosis player2 = new Pulmosis(map, this, g2d,0);
-        player2.getCreature().setPosition(new Point2D(2*Utilities.GRIDSIZE,2*Utilities.GRIDSIZE));
-        player2.getCreature().setFinalPosition(2*Utilities.GRIDSIZE,2*Utilities.GRIDSIZE);
+        player2.getCreature().setPosition(new Point2D(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
+        player2.getCreature().setFinalPosition(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
         for (int i=0; i<map.getRow();i++){
             for (int j=0; j<map.getColumn(); j++){
                 map.gpush(i, j, new Land(map, this, g2d,i,j));

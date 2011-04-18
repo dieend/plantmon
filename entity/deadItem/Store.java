@@ -51,7 +51,9 @@ public class Store extends Unmoveable implements Actionable {
         item.add(9, new FarmItem(9,panel));
         item.add(10, new FarmItem(10,panel));
         item.add(11, new FarmItem(11,panel));
-        for (int i = 0; i <= 11; i++) {
+        item.add(12, new FarmItem(12,panel));
+        item.add(13, new FarmItem(13,panel));
+        for (int i = 0; i <= 13; i++) {
             lock.add(i,false);
         }
         lock.set(1,true);
@@ -95,58 +97,40 @@ public class Store extends Unmoveable implements Actionable {
     }
 
     public JPopupMenu getMenu(Selectable selected) {
-        if (selected instanceof Player){
+        if (selected instanceof Player) {
             final Player player = (Player) selected;
             JPopupMenu menu = new JPopupMenu();
             JMenu ite;
             ite = new JMenu("buy");
             x = 0;
-            
-            JMenu subMenuFarm;
-            subMenuFarm = new JMenu("Farm Item");
-
-            JMenu subMenuWar;
-            subMenuWar = new JMenu("War Item");
-
-            JMenu subMenuArmor;
-            subMenuArmor = new JMenu("Armor Item");
+            JMenu subSubMenu;
 
             for (int i = 0; i <item.size(); i++) {
                 if (item.get(i) instanceof FarmItem) {
                    if (lock.get(i) == true) {
-                    JMenu subSubMenu;
                     subSubMenu = new JMenu(item.get(i).getName()+" (Rp "+item.get(i).getCostBuy()+")");
                     subSubMenu.setLayout(null);
                     InitComponentBuy comp = new InitComponentBuy(selected,i,item.get(i),menu);
                     subSubMenu.add(comp);
-                    subMenuFarm.add(subSubMenu);
+                    ite.add(subSubMenu);
                     }
                 } else if (item.get(i) instanceof WarItem) {
                    if (lock.get(i) == true) {
-                    JMenu subSubMenu;
                     subSubMenu = new JMenu(item.get(i).getName()+" (Rp."+item.get(i).getCostBuy()+")");
                     InitComponentBuy comp = new InitComponentBuy(selected,i,item.get(i),menu);
                     subSubMenu.add(comp);
-                    subMenuWar.add(subSubMenu);
+                    ite.add(subSubMenu);
                     }
                 } else if (item.get(i) instanceof ArmorItem) {
                    if (lock.get(i) == true) {
-                    JMenu subSubMenu;
                     subSubMenu = new JMenu(item.get(i).getName()+" (Rp."+item.get(i).getCostBuy()+")");
                     InitComponentBuy comp = new InitComponentBuy(selected,i,item.get(i),menu);
                     subSubMenu.add(comp);
-                    subMenuArmor.add(subSubMenu);
+                    ite.add(subSubMenu);
                     }
                 }
             }
-            if (Store.this.type == 1) {
-                ite.add(subMenuFarm);
-            } else if (Store.this.type == 2) {
-                ite.add(subMenuWar);
-            } else if (Store.this.type == 3) {
-                ite.add(subMenuArmor);
-            }
-
+            
             JMenu it = new JMenu("sell");
 
             Inventory inventoryFarm = Game.instance().getInventory().getFarmItem();
@@ -155,7 +139,6 @@ public class Store extends Unmoveable implements Actionable {
                 JMenu subSellFarm;
                 subSellFarm = new JMenu("Farm Item");
                 for (int i = 0; i < inventoryFarm.getSize(); i++) {
-                    JMenu subSubMenu;
                     subSubMenu = new JMenu(inventoryFarm.getItem(i).getName()+" (Rp."+inventoryFarm.getItem(i).getCostSell()+")");
                     subSubMenu.setLayout(null);
                     InitComponentSell comp = new InitComponentSell(selected,i,inventoryFarm.getItem(i),menu);
@@ -171,7 +154,6 @@ public class Store extends Unmoveable implements Actionable {
                 JMenu subSellFood;
                 subSellFood = new JMenu("Food Item");
                 for (int i = 0; i < inventoryFood.getSize(); i++) {
-                    JMenu subSubMenu;
                     subSubMenu = new JMenu(inventoryFood.getItem(i).getName()+" (Rp."+inventoryFood.getItem(i).getCostSell()+")");
                     subSubMenu.setLayout(null);
                     InitComponentSell comp = new InitComponentSell(selected,i,inventoryFood.getItem(i),menu);
@@ -187,7 +169,6 @@ public class Store extends Unmoveable implements Actionable {
                 JMenu subSellWar;
                 subSellWar = new JMenu("War Item");
                 for (int i = 0; i < inventoryWar.getSize(); i++) {
-                    JMenu subSubMenu;
                     subSubMenu = new JMenu(inventoryWar.getItem(i).getName()+" (Rp."+inventoryWar.getItem(i).getCostSell()+")");
                     subSubMenu.setLayout(null);
                     InitComponentSell comp = new InitComponentSell(selected,i,inventoryWar.getItem(i),menu);
@@ -203,7 +184,6 @@ public class Store extends Unmoveable implements Actionable {
                 JMenu subSellArmor;
                 subSellArmor = new JMenu("Armor Item");
                 for (int i = 0; i < inventoryArmor.getSize(); i++) {
-                    JMenu subSubMenu;
                     subSubMenu = new JMenu(inventoryArmor.getItem(i).getName()+" (Rp."+inventoryArmor.getItem(i).getCostSell()+")");
                     subSubMenu.setLayout(null);
                     InitComponentSell comp = new InitComponentSell(selected,i,inventoryArmor.getItem(i),menu);
