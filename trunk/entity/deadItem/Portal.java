@@ -18,6 +18,7 @@ import plantmon.states.FarmState;
 import plantmon.states.Game;
 import plantmon.states.HomeState;
 import plantmon.states.ParentState;
+import plantmon.states.StoreState;
 import plantmon.system.Actionable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
@@ -54,6 +55,12 @@ public class Portal extends Unmoveable implements Actionable{
                 menu.add(item);
             }
             if (panel instanceof HomeState){
+                item = new JMenuItem("Teleport Farm");
+                item.addActionListener(new Teleport(selected,ParentState.FARMSTATE));
+                if (Time.instance().getHour()>=18) item.setEnabled(false);
+                menu.add(item);
+            }
+            if (panel instanceof StoreState){
                 item = new JMenuItem("Teleport Farm");
                 item.addActionListener(new Teleport(selected,ParentState.FARMSTATE));
                 if (Time.instance().getHour()>=18) item.setEnabled(false);

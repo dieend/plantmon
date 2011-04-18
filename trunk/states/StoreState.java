@@ -58,6 +58,7 @@ public class StoreState extends ParentState implements MouseListener{
         time.setBackground(Color.ORANGE);
         time.setForeground(Color.GRAY);
         add(time);
+        map.gpush(2, 2, new Portal(map, this, g2d, 2, 2));
         Store stitem = new Store(map, this, g2d, 1);
         stitem.getEntity().setPosition(new Point2D(5*Utilities.GRIDSIZE, 1*Utilities.GRIDSIZE));
         stitem.getEntity().setFinalPosition(5*Utilities.GRIDSIZE, 1*Utilities.GRIDSIZE);
