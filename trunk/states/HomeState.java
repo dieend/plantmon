@@ -14,6 +14,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import plantmon.entity.Canceller;
 import plantmon.entity.Time;
+import plantmon.entity.deadItem.Bed;
 import plantmon.entity.deadItem.Portal;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Road;
@@ -50,6 +51,7 @@ public class HomeState extends ParentState implements MouseListener{
         player.getCreature().setPosition(new Point2D(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE));
         player.getCreature().setFinalPosition(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE);
         map.gpush(5, 5,player);
+        map.gpush(2, 2, new Bed(map, this, g2d, 2, 2));
         addMouseListener(this);
         time.setEditable(false);
         time.setBounds(0, 0, 200, 50);
