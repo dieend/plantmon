@@ -17,7 +17,7 @@ public class Tomat extends Plant{
     private JLabel label4;
     public Tomat(GridMap map, JPanel panel, Graphics2D g2d,int gx, int gy,int status) {
         super(map,panel,g2d,gx,gy);
-        fase = status - 1;
+        setFase(status - 1);
         typeTanaman = 7;
         season = 1;
         happyMeter = 0;
