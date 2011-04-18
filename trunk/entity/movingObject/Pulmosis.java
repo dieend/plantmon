@@ -23,11 +23,12 @@ public class Pulmosis extends MovingObject implements Cancellable,
     int attacked;
     int dmg;
     int range;
+    boolean enemy;
     double miss;
     public static final int Lobak = 0;
     public static final int Timun = 1;
     
-    public Pulmosis(GridMap map, JPanel panel, Graphics2D g2d, int tipe) {
+    public Pulmosis(GridMap map, JPanel panel, Graphics2D g2d, int tipe, boolean en) {
         super(map,panel,g2d);
         init();
         if (tipe == Lobak) {
@@ -40,6 +41,7 @@ public class Pulmosis extends MovingObject implements Cancellable,
         atk = 0;
         attacked = 0;
         miss = 0.05;
+        enemy = en;
         setDefend();
         setAgi();
         setAttack();
@@ -180,6 +182,10 @@ public class Pulmosis extends MovingObject implements Cancellable,
             }
         }
         exp = exp % 30;
+    }
+
+    public boolean getStatusEnemy () {
+        return enemy;
     }
 
     @Override

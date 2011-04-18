@@ -22,6 +22,9 @@ public class StateFactory{
             case ParentState.STORE:
                 newState = new StoreState(args);
                 break;
+            case ParentState.MAPSTATE:
+                newState = new MapState(args);
+                break;
         }
         return newState;
     }

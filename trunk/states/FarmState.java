@@ -97,8 +97,8 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         map.gpush(1, 1, new Portal(map, this, g2d, 1, 1));
         Integer money = new Integer(2000);
         player = new Player(map, this, g2d);
-        player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE,Utilities.GRIDSIZE));
-        player.getCreature().setFinalPosition(Utilities.GRIDSIZE,Utilities.GRIDSIZE);
+        player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT));
+        player.getCreature().setFinalPosition(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT);
         Point2D pos = player.getCreature().position();
         map.push(pos.X(), pos.Y(), player);
         for(Dwarf d:Game.instance().dwarfs){
