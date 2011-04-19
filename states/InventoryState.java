@@ -72,6 +72,7 @@ public class InventoryState extends ParentState {
         farm = Game.instance().getInventory().getFoodItem();
         for (int i=0; i<farm.getSize(); i++){
             jPanel2.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
+            
         }
         jTabbedPane1.addTab("Food Item", jPanel2); // NOI18N
 
@@ -87,7 +88,8 @@ public class InventoryState extends ParentState {
         jPanel4.setLayout(new java.awt.GridLayout(4, 4));
         farm = Game.instance().getInventory().getArmorItem();
         for (int i=0; i<farm.getSize(); i++){
-            jPanel4.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
+//            jPanel4.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
+            jPanel4.add(farm.getItem(i).get_Info());
         }
         jTabbedPane1.addTab("Armor", jPanel4); // NOI18N
 
