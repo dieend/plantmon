@@ -5,7 +5,9 @@ import java.awt.Graphics2D;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import plantmon.entity.Item;
 import plantmon.entity.Unmoveable;
+import plantmon.entity.item.FoodItem;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
@@ -141,6 +143,18 @@ public class Plant extends Unmoveable implements Actionable,
             entity.load("picture/bibitsiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         } else if (fase == BIBITNOSIRAM){
             entity.load("picture/bibit.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        } else if (fase == DEWASANOSIRAM){
+            entity.load("picture/dewasa.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        } else if (fase == DEWASASIRAM){
+            entity.load("picture/dewasasiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        } else if (fase == REMAJANOSIRAM){
+            entity.load("picture/remaja.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        } else if (fase == REMAJASIRAM){
+            entity.load("picture/remajasiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        } else if (fase == BIBITMATI){
+            entity.load("picture/bibitmati.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        } else if (fase == TANAMANMATI){
+            entity.load("picture/tanamanmati.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         }
     }
 
@@ -208,13 +222,8 @@ public class Plant extends Unmoveable implements Actionable,
             // setelah player sampai, siram tanaman.
             if (!cancel[0]){
                 map.pop(gx, gy);
-                if (panenBerulang) {
-                    fase = REMAJANOSIRAM;
-                }
-                else {
-                    fase = TANAMANMATI;
-                }
-                Game.instance().log().append("harvesting at ("+(gx/80)+","+(gy/80)+")\n");
+                setPanen();
+                Game.instance().log().append("harvesting at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
         }
     }
@@ -240,10 +249,12 @@ public class Plant extends Unmoveable implements Actionable,
             if (!cancel[0]){
                 map.pop(gx, gy);
                 map.pop(gx, gy);
+
                 if (Plant.this.isWatered()) {
                     ((Land)map.getTop(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE)).setStatus(Land.WATERED);
                 }
-                Game.instance().log().append("plowing  ("+(gx/80)+","+(gy/80)+")\n");
+                Game.instance().removePlant(Plant.this);
+                Game.instance().log().append("plowing  ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
         }
     }
@@ -271,7 +282,8 @@ public class Plant extends Unmoveable implements Actionable,
                 if (Plant.this.isWatered()) {
                     ((Land)map.getTop(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE)).setStatus(Land.WATERED);
                 }
-                Game.instance().log().append("slashing at ("+(gx/80)+","+(gy/80)+")\n");
+                Game.instance().removePlant(Plant.this);
+                Game.instance().log().append("slashing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
         }
     }
@@ -298,56 +310,64 @@ public class Plant extends Unmoveable implements Actionable,
                             setTitikPanen(titikPanen-1);
                     }
             } else {
-                    setFase(6);
+                    setFase(TANAMANMATI);
         }
     }
     public void grow(int newCurrentSeason)
 // mengubah fase pada pergantian hari
 // not instant change
 {
-        System.out.print("growing");
-	setUmur(umur-1);
-	if (isWatered())
-		setHappyMeter(happyMeter+1);
-	else
-		setHappyMeter(happyMeter-1);
-	if (umur == 0)
-		{
-		if (isBibit())
-			setFase(BIBITMATI);
-		else
-			setFase(TANAMANMATI);
-		}
-	else if (newCurrentSeason != season)
-		{
-		if (isBibit())
-			{
-			setFase(BIBITMATI);
-			setUmur(0);
-			}
-		else
-			{
-			setFase(TANAMANMATI);
-			setUmur(0);
-			}
-		}
-	else
-		{
-		if (isBibit())
-			{
-			if (happyMeter == titikDewasa)
-				setFase(REMAJANOSIRAM);
-			else
-				setFase(BIBITNOSIRAM);
-			}
-		else if (isDewasa())
-			{
-			if (happyMeter == titikPanen)
-				setFase(DEWASANOSIRAM);
-			else
-				setFase(REMAJANOSIRAM);
-			}
-		}
+        if (umur>=0){
+            setUmur(umur-1);
+            if (isWatered())
+                    setHappyMeter(happyMeter+1);
+            else
+                    setHappyMeter(happyMeter-1);
+            if (umur == 0)
+                    {
+                    if (isBibit())
+                            setFase(BIBITMATI);
+                    else
+                            setFase(TANAMANMATI);
+                    }
+            else if (newCurrentSeason != season)
+                    {
+                    if (isBibit())
+                            {
+                            setFase(BIBITMATI);
+                            setUmur(0);
+                            }
+                    else
+                            {
+                            setFase(TANAMANMATI);
+                            setUmur(0);
+                            }
+                    }
+            else
+                    {
+                    if (isBibit())
+                            {
+                            if (happyMeter == titikDewasa)
+                                    setFase(REMAJANOSIRAM);
+                            else
+                                    setFase(BIBITNOSIRAM);
+                            }
+//                    else if (isDewasa())
+//                            {
+//                            if (happyMeter == titikPanen)
+//                                    setFase(DEWASANOSIRAM);
+//                            else
+//                                    setFase(REMAJANOSIRAM);
+//                            }
+                    else if (isRemaja())
+                            {
+                            if (happyMeter == titikPanen)
+                                    setFase(DEWASANOSIRAM);
+                            else
+                                    setFase(REMAJANOSIRAM);
+                            }
+                    }
+        }
         System.out.print("fase sekarang"+fase);
     }
     public void init(){

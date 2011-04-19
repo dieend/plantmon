@@ -60,10 +60,15 @@ public class Time {
     }
     public void changeDay(){
         hour = 6;
+        minutes = 0;
+        counter = 0;
         day+=1;
         if (day==30){
             day = 1;
             season +=1;
+            if (season == 3){
+                year += 1;
+            }
             season%=3;
         }
     }

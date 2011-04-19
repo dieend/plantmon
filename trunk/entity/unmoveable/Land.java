@@ -18,7 +18,6 @@ import plantmon.system.Selectable;
 import plantmon.system.Utilities;
 
 public class Land extends Unmoveable implements Actionable{
-    // bisa disiram, dicangkul, diput?
 
     final public static int NORMAL = 0;
     final public static int PLOWED = 1;
@@ -26,7 +25,8 @@ public class Land extends Unmoveable implements Actionable{
     
     int status;
     @Override public void draw(){
-        super.draw();
+        if (status != NORMAL)
+            super.draw();
     }
 
     public Land(GridMap map, JPanel panel, Graphics2D g2d,int gridX,int gridY){
@@ -36,7 +36,7 @@ public class Land extends Unmoveable implements Actionable{
     }
     public void init(){
         status = NORMAL;
-        entity.load("picture/land.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        //entity.load("picture/land.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         entity.setFrameDelay(5);
     }
     public JPopupMenu getMenu(Selectable selected){
@@ -209,10 +209,8 @@ public class Land extends Unmoveable implements Actionable{
             }
             if (!cancel[0]){
                 map.pop(gx, gy);
-                status = WATERED;
+                setStatus(WATERED);
                 Game.instance().farmstatus()[gx/Utilities.GRIDSIZE][gy/Utilities.GRIDSIZE] = status;
-                entity.load("picture/water.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-                Game.instance().log().append("watering at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
         }
     }

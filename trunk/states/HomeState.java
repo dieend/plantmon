@@ -6,9 +6,12 @@
 package plantmon.states;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import javax.swing.BorderFactory;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
@@ -34,29 +37,46 @@ public class HomeState extends ParentState implements MouseListener{
     boolean selectsomething;
     GridMap map;
     JTextArea time;
+    Player player;
+        int startx;
+    int starty;
+    int clickx,clicky,defx,defy;
+    boolean dragged;
+
     public HomeState(Object[] args){
-        super(6,6);
-        time = new JTextArea();
+        super(13,10);
+        int x = 13, y = 10;
         ID = HOME;
-        map = new GridMap(6, 6);
-        for (int i=0; i<6; i++){
-            for (int j=0 ;j<6; j++){
+        map = new GridMap(x, y);
+        startx = 0;
+        starty = 0;
+        backbuffer = new BufferedImage(640,480, BufferedImage.TYPE_INT_ARGB);
+        g2d = backbuffer.createGraphics();
+        background = new ImageEntity(this);
+        background.load("picture/Rumah.png");
+        for (int i=3; i<10; i++){
+            for (int j=2 ;j<9; j++){
                 map.gpush( i, j, new Road(map, this, g2d, i, j));
             }
         }
-        background = new ImageEntity(this);
-        background.load("picture/bg2.png");
-        map.gpush(4,4, new Portal(map, this, g2d, 4, 4));
-        Player player =  new Player(map, this, g2d);
+        map.gpush(8,8, new Portal(map, this, g2d, 8, 8));
+        player =  new Player(map, this, g2d);
         player.getCreature().setPosition(new Point2D(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE));
         player.getCreature().setFinalPosition(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE);
         map.gpush(5, 5,player);
-        map.gpush(2, 2, new Bed(map, this, g2d, 2, 2));
+        map.gpush(10, 2, new Bed(map, this, g2d, 10, 2));
         addMouseListener(this);
+        
+        time = new JTextArea();
         time.setEditable(false);
         time.setBounds(0, 0, 200, 50);
         time.setBackground(Color.ORANGE);
         time.setForeground(Color.GRAY);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        setPreferredSize(new Dimension(640, 480));
+        setLayout(null);
+        selected = player;
+        selectsomething = true;
         add(time);
     }
         @Override
@@ -71,6 +91,7 @@ public class HomeState extends ParentState implements MouseListener{
             }
             repaint();
             gameUpdate();
+            System.out.print(""+player.position().IntX()/Utilities.GRIDSIZE+""+player.position().IntY()/Utilities.GRIDSIZE+"\n");
         }
 
     }
@@ -78,7 +99,7 @@ public class HomeState extends ParentState implements MouseListener{
         time.setText(Time.instance().getTime()+"\n(PAUSED) ");
     }
     public void updated(){
-        g2d.drawImage(background.getImage(), 0, 0,SCREENWIDTH-1,SCREENHEIGHT-1, this);
+        g2d.drawImage(background.getImage(), 0, 0, this);
         map.draw(0,0);
         if (selectsomething) {
             selected.drawBounds();
@@ -136,8 +157,45 @@ public class HomeState extends ParentState implements MouseListener{
             default: break;
         }
     }
-    public void mousePressed(MouseEvent e) {}
-    public void mouseReleased(MouseEvent e) {}
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
+
+        public void mouseDragged(MouseEvent e) {
+            updateDiff(e);
+        }
+
+
+
+        void updateDiff(MouseEvent e) {
+            if (dragged){
+                int x = e.getX();
+                int y = e.getY();
+                int ULx =10,ULy=10, LRx=-10+FarmState.SCREENWIDTH-map.getRow()*Utilities.GRIDSIZE,
+                        LRy = FarmState.SCREENHEIGHT-(map.getColumn()*Utilities.GRIDSIZE+150);
+                int newx = defx +((x-clickx));
+                int newy = defy +((y-clicky));
+                System.out.println("oooo" + newx+" "+ULx+" "+LRx);
+                if ((ULx >= newx && newx >=LRx)&&(ULy >= newy && newy >=LRy)){
+                    startx =newx;
+                    starty =newy;
+                }
+            }
+        }
+            public void mouseExited(MouseEvent e){
+
+    }
+    public void mouseEntered(MouseEvent e){
+
+    }
+    public void mouseReleased(MouseEvent e){
+        updateDiff(e);
+        clickx = 0;
+        clicky = 0;
+        dragged = false;
+    }
+    public void mousePressed(MouseEvent e){
+        clickx = e.getX();
+        clicky = e.getY();
+        defx = startx;
+        defy = starty;
+        dragged = true;
+     }
 }

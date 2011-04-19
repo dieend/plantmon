@@ -13,7 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import plantmon.entity.Canceller;
 import plantmon.entity.Time;
-import plantmon.entity.deadItem.Portal;
 import plantmon.entity.movingObject.Pulmosis;
 import plantmon.entity.unmoveable.BattleLand;
 import plantmon.entity.unmoveable.Land;
@@ -40,7 +39,7 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
     boolean dragged;
     public BattleState(int gridRow, int gridColumn){
         super(gridRow, gridColumn);
-        ID = FARMSTATE;
+        ID = BATTLESTATE;
         init();
         time = new JTextArea();
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -76,7 +75,7 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
         return url;
     }
 
-    public void init() {
+    protected void init() {
         startx=0; starty=0;
         int x = 10; int y = 10;
         map = new GridMap(x,y);
@@ -85,10 +84,10 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
         background = new ImageEntity(this);
         background.load("picture/bg2.png");
        
-        Pulmosis player = new Pulmosis(map, this, g2d,1,false);
+        Pulmosis player = new Pulmosis(map,this, g2d,1,false);
         player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT));
         player.getCreature().setFinalPosition(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT);
-        Pulmosis player2 = new Pulmosis(map, this, g2d,0,true);
+        Pulmosis player2 = new Pulmosis(map,this, g2d,0,true);
         player2.getCreature().setPosition(new Point2D(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
         player2.getCreature().setFinalPosition(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
         for (int i=0; i<map.getRow();i++){
@@ -255,6 +254,6 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
         frame.setSize(640, 480);
         frame.setVisible(true);
         Game.instance().setFrame(frame);
-        Game.instance().goTo(BATTLESTATE, args);
+        Game.instance().goTo(ParentState.BATTLESTATE, args);
     }
 }

@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -35,20 +36,25 @@ public class StoreState extends ParentState implements MouseListener{
     boolean selectsomething;
     GridMap map;
     JTextArea time;
+    Player player;
     public StoreState(Object[] args){
-        super(6,6);
+        super(13,10);
         time = new JTextArea();
         ID = HOME;
-        map = new GridMap(6, 6);
-        for (int i=0; i<6; i++){
-            for (int j=0 ;j<6; j++){
+        int x = 13;
+        int y = 10;
+        map = new GridMap(x, y);
+        for (int i=3; i<11; i++){
+            for (int j=4 ;j<9; j++){
                 map.gpush( i, j, new Road(map, this, g2d, i, j));
             }
         }
+        backbuffer = new BufferedImage(640, 480, BufferedImage.TYPE_INT_ARGB);
+        g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
-        background.load("picture/bg2.png");
+        background.load("picture/market.png");
         map.gpush(4,4, new Portal(map, this, g2d, 4, 4));
-        Player player =  new Player(map, this, g2d);
+        player =  new Player(map, this, g2d);
         player.getCreature().setPosition(new Point2D(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE));
         player.getCreature().setFinalPosition(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE);
         map.gpush(5, 5,player);
@@ -58,25 +64,28 @@ public class StoreState extends ParentState implements MouseListener{
         time.setBackground(Color.ORANGE);
         time.setForeground(Color.GRAY);
         add(time);
-        map.gpush(2, 2, new Portal(map, this, g2d, 2, 2));
+        map.gpush(4, 8, new Portal(map, this, g2d, 4, 8));
         Store stitem = new Store(map, this, g2d, 1);
-        stitem.getEntity().setPosition(new Point2D(5*Utilities.GRIDSIZE, 1*Utilities.GRIDSIZE));
-        stitem.getEntity().setFinalPosition(5*Utilities.GRIDSIZE, 1*Utilities.GRIDSIZE);
+        stitem.getEntity().setPosition(new Point2D(3*Utilities.GRIDSIZE, 3*Utilities.GRIDSIZE));
+        stitem.getEntity().setFinalPosition(3*Utilities.GRIDSIZE, 3*Utilities.GRIDSIZE);
         map.push(stitem.getEntity().position().IntX(), stitem.getEntity().position().IntY(), stitem);
         Store stwaritem = new Store(map, this, g2d, 2);
-        stwaritem.getEntity().setPosition(new Point2D(5*Utilities.GRIDSIZE, 2*Utilities.GRIDSIZE));
-        stwaritem.getEntity().setFinalPosition(5*Utilities.GRIDSIZE, 1*Utilities.GRIDSIZE);
+        stwaritem.getEntity().setPosition(new Point2D(6*Utilities.GRIDSIZE,3*Utilities.GRIDSIZE));
+        stwaritem.getEntity().setFinalPosition(9    *Utilities.GRIDSIZE, 3*Utilities.GRIDSIZE);
         map.push(stwaritem.getEntity().position().IntX(), stwaritem.getEntity().position().IntY(), stwaritem);
         Store starmoritem = new Store(map, this, g2d, 3);
-        starmoritem.getEntity().setPosition(new Point2D(5*Utilities.GRIDSIZE, 3*Utilities.GRIDSIZE));
-        starmoritem.getEntity().setFinalPosition(5*Utilities.GRIDSIZE, 1*Utilities.GRIDSIZE);
+        starmoritem.getEntity().setPosition(new Point2D(9*Utilities.GRIDSIZE, 3*Utilities.GRIDSIZE));
+        starmoritem.getEntity().setFinalPosition(9*Utilities.GRIDSIZE, 3*Utilities.GRIDSIZE);
         map.push(starmoritem.getEntity().position().IntX(), starmoritem.getEntity().position().IntY(), starmoritem);
+        selected = player;
+        selectsomething = true;
     }
         @Override
     public void run(){
         active = true;
         while (active) {
 //            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
+            System.out.print(""+player.position().IntX()/Utilities.GRIDSIZE+" "+player.position().IntY()/Utilities.GRIDSIZE+"\n");
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e){

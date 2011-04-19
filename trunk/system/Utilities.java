@@ -11,7 +11,7 @@ package plantmon.system;
  */
 public class Utilities {
     private static Utilities util = null;
-    public static final int GRIDSIZE = 80;
+    public static final int GRIDSIZE = 48;
     public static final int GRIDGALAT = 5;
     private Utilities (){
     }

@@ -8,6 +8,7 @@ package plantmon.game;
 import java.util.ArrayList;
 import plantmon.states.ParentState;
 import plantmon.system.Drawable;
+import plantmon.system.Utilities;
 
 /**
  *
@@ -81,8 +82,8 @@ public class GridMap {
      * @param o
      */
     public void push(int x, int y, Object o){
-        x /= 80;
-        y /= 80;
+        x /= Utilities.GRIDSIZE;
+        y /= Utilities.GRIDSIZE;
         synchronized(map[x][y]){
             map[x][y].add(o);
         }
@@ -95,8 +96,8 @@ public class GridMap {
      * @param o
      */
     public void push(double x, double y, Object o){
-        x /= 80;
-        y /= 80;
+        x /= Utilities.GRIDSIZE;
+        y /= Utilities.GRIDSIZE;
         int ix = (int) x; int iy = (int) y;
         synchronized(map[ix][iy]){
             map[ix][iy].add(o);
@@ -121,8 +122,8 @@ public class GridMap {
      * @param y
      */
     public void pop(int x, int y){
-        x /= 80;
-        y /= 80;
+        x /= Utilities.GRIDSIZE;
+        y /= Utilities.GRIDSIZE;
         synchronized(map[x][y]){
             if (map[x][y].size()!=0) {
                 map[x][y].remove(map[x][y].size()-1);
@@ -149,8 +150,8 @@ public class GridMap {
      * @param y
      */
     public void pop(double  x, double y){
-        x /= 80;
-        y /= 80;
+        x /= Utilities.GRIDSIZE;
+        y /= Utilities.GRIDSIZE;
         int ix=(int) x, iy = (int) y;
         synchronized(map[ix][iy]){
             if (map[ix][iy].size()!=0) {
@@ -164,7 +165,7 @@ public class GridMap {
      */
     public void draw(int x,int y){
         x*=-1; y*=-1;
-        x/=80; y/=80;
+        x/=Utilities.GRIDSIZE; y/=Utilities.GRIDSIZE;
         int highest=1; // k is highest stack
 //        System.out.println(x+" "+(2+x+FarmState.SCREENHEIGHT/80)+" "+y+" "+(2+y+FarmState.SCREENWIDTH/80));
         for (int k=0; k<highest; k++){
@@ -175,8 +176,8 @@ public class GridMap {
 
                         if (map[i][j].get(k) instanceof Drawable){
                             ((Drawable)map[i][j].get(k)).update();
-                            if((x<=i && i<2+x+ParentState.SCREENHEIGHT/80)&&
-                               (y<=j && j<2+y+ParentState.SCREENWIDTH/80)){
+                            if((x<=i && i<48+x+ParentState.SCREENHEIGHT/Utilities.GRIDSIZE)&&
+                               (y<=j && j<48+y+ParentState.SCREENWIDTH/Utilities.GRIDSIZE)){
                                if (k<map[i][j].size()) ((Drawable)map[i][j].get(k)).draw();
                             }
                         }
