@@ -89,5 +89,12 @@ public class FoodItem extends Item {
             //gambar.load(null);
         }
     }
+    public void draw() {
+//        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void update() {
+//        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
 

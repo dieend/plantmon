@@ -23,14 +23,6 @@ public class ArmorItem extends Item {
     private int defStatus;
     private int intStatus;
     private int position;
-    private ImageIcon image1;
-    private JLabel label1;
-    private JLabel label2;
-    private JLabel label3;
-    private JLabel label4;
-    private JLabel label5;
-    private JLabel label6;
-    private JLabel label7;
 
     final public static int Head = 0;
     final public static int Body = 1;
@@ -194,93 +186,6 @@ public class ArmorItem extends Item {
     public void setPosition(int position) {
         this.position = position;
     }
-
-    public JPanel get_Info(){
-        JPanel panel;
-        panel = new JPanel();
-        panel.setLayout(null);
-        if(this.getName().equals("Robe")){
-        image1=new ImageIcon(getClass().getResource("robe.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-        if(this.getName().equals("Tunic")){
-        image1=new ImageIcon(getClass().getResource("tunic.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-        if(this.getName().equals("Leather Coat")){
-        image1=new ImageIcon(getClass().getResource("leather coat.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-        if(this.getName().equals("Brass Armor")){
-        image1=new ImageIcon(getClass().getResource("brass armor.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-        if(this.getName().equals("Bandanna")){
-        image1=new ImageIcon(getClass().getResource("bandanna.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-        if(this.getName().equals("HeadBand")){
-        image1=new ImageIcon(getClass().getResource("headband.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-        if(this.getName().equals("Pointed Hat")){
-        image1=new ImageIcon(getClass().getResource("pointed.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-        if(this.getName().equals("Wooden Shield")){
-        image1=new ImageIcon(getClass().getResource("wooden shield.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-        if(this.getName().equals("Wooden Shoes")){
-        image1=new ImageIcon(getClass().getResource("wooden shoes.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-        if(this.getName().equals("Leggings")){
-        image1=new ImageIcon(getClass().getResource("leggings.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-        if(this.getName().equals("Gloves")){
-        image1=new ImageIcon(getClass().getResource("gloves.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-        if(this.getName().equals("Cape")){
-        image1=new ImageIcon(getClass().getResource("cape.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-        if(this.getName().equals("Circlet")){
-        image1=new ImageIcon(getClass().getResource("circlet.jpg"));
-        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
-        }
-
-        label1 = new JLabel(image1);
-        label1.setBounds(0,0,100,100);
-        panel.add(label1);
-        label2 = new JLabel("Nama : " + this.getName());
-        label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label2.setBounds(120,0,150,30);
-        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
-        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label3.setBounds(120,20,150,30);
-        label4 = new JLabel("Harga Jual : " + this.getCostSell());
-        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label4.setBounds(120,40,150,30);
-        label5 = new JLabel("Attack Status: " + this.getAtkStatus());
-        label5.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label5.setBounds(250,20,150,30);
-        label6 = new JLabel("Deffense Status: " + this.getDefStatus());
-        label6.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label6.setBounds(250,0,150,30);
-        label7 = new JLabel("Int Status: " + this.getIntStatus());
-        label7.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label7.setBounds(120,60,150,30);
-        panel.add(label2);
-        panel.add(label3);
-        panel.add(label4);
-        panel.add(label5);
-        panel.add(label6);
-        panel.add(label7);
-        return panel;
-    }
     public static void main(String[] str){
         JFrame frame=new JFrame();
         BufferedImage bf = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -290,4 +195,6 @@ public class ArmorItem extends Item {
         frame.setSize(400, 500);
         frame.setVisible(true);
     }
+
+    
 }

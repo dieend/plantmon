@@ -109,4 +109,11 @@ public class FarmItem extends Item {
         }
         costSell = costBuy / 2;
     }
+    public void draw() {
+//        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void update() {
+//        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
