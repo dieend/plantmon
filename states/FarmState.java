@@ -18,6 +18,7 @@ import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
+import plantmon.entity.unmoveable.Road;
 import plantmon.game.GridMap;
 import plantmon.game.ImageEntity;
 import plantmon.game.Point2D;
@@ -41,6 +42,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
     boolean dragged;
     public FarmState(int gridRow, int gridColumn){
         super(gridRow, gridColumn);
+        map = new GridMap(gridRow,gridColumn);
         ID = FARMSTATE;
         init();
         time = new JTextArea();
@@ -58,7 +60,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         time.setBackground(Color.ORANGE);
         time.setForeground(Color.black);
         add(Game.instance().dialogBox());
-        add(time);
+//        add(time);
         //add(pane);
         addMouseMotionListener(this);
         active = true;
@@ -75,39 +77,60 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
 
     public void init() {
         startx=0; starty=0;
-        int x = 10; int y = 10;
-        map = new GridMap(x,y);
-        backbuffer = new BufferedImage(x*Utilities.GRIDSIZE, y*Utilities.GRIDSIZE, BufferedImage.TYPE_INT_ARGB);
+        backbuffer = new BufferedImage(864,537, BufferedImage.TYPE_INT_ARGB);
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
-        background.load("picture/bg2.png");
+        background.load("picture/Lahan.png");
+                       //0 1 2 3 4 5 6 7 8 9 10
+        int[][] what = {{0,0,0,0,0,0,0,0,0,0,0},//0
+                        {0,0,0,2,2,2,2,0,0,0,0},//1
+                        {0,0,0,2,2,2,2,0,0,0,0},//2
+                        {0,0,0,2,2,2,2,2,2,2,0},//3
+                        {0,0,0,2,2,2,2,2,2,2,0},//4
+                        {2,2,2,2,2,2,2,2,2,2,0},//5
+                        {2,2,2,2,2,2,2,2,2,2,0},//6
+                        {0,2,2,2,2,2,2,2,2,2,0},//7
+                        {0,1,1,1,1,1,1,1,1,1,0},//8
+                        {0,1,1,1,1,1,1,1,1,1,0},//9
+                        {0,1,1,1,1,1,1,1,1,1,0},//10
+                        {0,1,1,1,1,1,1,1,1,1,0},//11
+                        {0,1,1,1,1,1,1,1,1,1,0},//12
+                        {0,1,1,1,1,1,1,1,1,1,0},//13
+                        {0,1,1,1,1,1,1,1,1,1,0},//14
+                        {0,1,1,1,1,1,1,1,1,1,0},//15
+                        {0,1,1,1,1,1,1,1,1,1,0},//16
+                        {0,0,0,0,0,0,0,0,0,0,0}};//17
         for (int i=0; i<map.getRow();i++){
             for (int j=0; j<map.getColumn(); j++){
-                Land l = new Land(map, this, g2d,i,j);
-                l.setStatus(Game.instance().farmstatus()[i][j]);
-                map.gpush(i, j, l);
+                if (what[i][j] == 0){
+                } else if (what[i][j] == 1){
+                    Land l = new Land(map, this, g2d,i,j);
+                    l.setStatus(Game.instance().farmstatus()[i][j]);
+                    map.gpush(i, j, l);
+                } else if (what[i][j] ==2){
+                    Road r = new Road(map, this, g2d, i, j);
+                    map.gpush(i, j, r);
+                }
             }
         }
         for (Plant p:Game.instance().plants){
-            p.getEntity().setPanel(this);
-            p.getEntity().setGraphics(g2d);
-            p.getEntity().reinit();
             map.push(p.getPosition().IntX(), p.getPosition().IntY(), p);
+            p.reinit(map, this, g2d);
         }
-        map.gpush(1, 1, new Portal(map, this, g2d, 1, 1));
         Integer money = new Integer(2000);
         player = new Player(map, this, g2d);
-        player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT));
-        player.getCreature().setFinalPosition(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT);
+        map.gpush(3, 2, new Portal(map, this, g2d, 3, 2));
+        player.getCreature().setPosition(new Point2D(3*Utilities.GRIDSIZE,3*Utilities.GRIDSIZE));
+        player.getCreature().setFinalPosition(3*Utilities.GRIDSIZE,3*Utilities.GRIDSIZE);
         Point2D pos = player.getCreature().position();
         map.push(pos.X(), pos.Y(), player);
         for(Dwarf d:Game.instance().dwarfs){
-//            d.setGraphic(g2d);
-//            d.setPanel(this);
-            d.reinit(g2d,this);
+            d.reinit(map,g2d,this);
             Point2D dlocation = d.getCreature().position();
             map.push(dlocation.IntX(),dlocation.IntY(), d);
         }
+        selected = player;
+        selectsomething = true;
         addMouseListener(this);
     }
     @Override
@@ -129,7 +152,8 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
 //        System.out.format("I wonder why won't work\n");
         Time.instance().update();
         time.setText(Time.instance().getTime());
-//        Point2D pos = player.getCreature().position();
+        Point2D pos = player.getCreature().position();
+        System.out.print("Player position: "+pos.IntX()/Utilities.GRIDSIZE+" "+pos.IntY()/Utilities.GRIDSIZE+"\n");
 //        for (int i=0; i<8;i++){
 //            for (int j=0; j<8; j++){
 //                if (map.getTop(i, j) instanceof Drawable){
@@ -141,7 +165,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
 
     public void updated(){
         g2d.setColor(Color.WHITE);
-        g2d.drawImage(background.getImage(), 0, 0,SCREENWIDTH-1,SCREENHEIGHT-1, this);
+        g2d.drawImage(background.getImage(), 0, 0, this);
         map.draw(startx,starty);
         if (selectsomething) {
             selected.drawBounds();
@@ -194,6 +218,8 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
                         System.out.print("fjhfhgf");
                         popup = ((Canceller)map.getTop(gx,gy)).getMenu();
                         popup.show(tmp.getComponent(),tmp.getX(), tmp.getY());
+                    } else {
+                        selectsomething = false;
                     }
                 } else {
                     selectsomething = false;
@@ -234,7 +260,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
                 int x = e.getX();
                 int y = e.getY();
                 int ULx =10,ULy=10, LRx=-10+FarmState.SCREENWIDTH-map.getRow()*Utilities.GRIDSIZE,
-                        LRy = FarmState.SCREENHEIGHT-(map.getColumn()*Utilities.GRIDSIZE+150);
+                        LRy = FarmState.SCREENHEIGHT-(map.getColumn()*Utilities.GRIDSIZE+48);
                 int newx = defx +((x-clickx));
                 int newy = defy +((y-clicky));
 //                System.out.println("oooo" + newx+" "+ULx+" "+LRx);

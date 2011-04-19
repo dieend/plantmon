@@ -34,7 +34,8 @@ public abstract class MovingObject implements Drawable{
     public void setGraphic(Graphics2D g2d){
         creature.setGraphics(g2d);
     }
-    public void reinit(Graphics2D g2d, JPanel panel) {
+    public void reinit(GridMap map,Graphics2D g2d, JPanel panel) {
+        this.map = map;
         setGraphic(g2d);
         setPanel(panel);
     }

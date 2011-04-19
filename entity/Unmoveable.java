@@ -36,4 +36,9 @@ public abstract class Unmoveable implements Drawable{
     public void update(){
         entity.updateAnimation();
     }
+    public void reinit(GridMap map, JPanel panel, Graphics2D g2d){
+        this.map = map;
+        entity.setPanel(panel);
+        entity.setGraphics(g2d);
+    }
 }

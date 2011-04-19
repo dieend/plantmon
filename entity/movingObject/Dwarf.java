@@ -12,6 +12,7 @@ import plantmon.system.Selectable;
 import plantmon.entity.*;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.system.Utilities;
 
 public class Dwarf extends MovingObject implements Actionable,
                                                     Selectable,
@@ -38,18 +39,18 @@ public class Dwarf extends MovingObject implements Actionable,
         {
             name="justice";
             //set default position
-            defpos = new Point2D(80,160);
+            defpos = new Point2D(Utilities.GRIDSIZE,2*Utilities.GRIDSIZE);
         }
         else if (t==2)
         {
             name="freedom";
-            defpos = new Point2D(80,240);
+            defpos = new Point2D(Utilities.GRIDSIZE,3*Utilities.GRIDSIZE);
             moneyharvest=money;
         }
         else if (t==3)
         {
             name="destiny";
-            defpos = new Point2D(80,320);
+            defpos = new Point2D(Utilities.GRIDSIZE,4*Utilities.GRIDSIZE);
         }
         System.out.println("picture/dwarf"+type+"0");
         init();
@@ -67,8 +68,8 @@ public class Dwarf extends MovingObject implements Actionable,
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(3);
     }
-    public void reinit(Graphics2D g2d, JPanel panel){
-        super.reinit(g2d, panel);
+    public void reinit(GridMap map,Graphics2D g2d, JPanel panel){
+        super.reinit(map,g2d, panel);
         if (creature.panel()!=null){
             creature.load("picture/dwarf"+type+"0.png",4,1,32,32);
             creature.setImageName("picture/dwarf"+type);

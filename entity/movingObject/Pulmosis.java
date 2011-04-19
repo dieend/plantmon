@@ -68,7 +68,7 @@ public class Pulmosis extends MovingObject implements Cancellable,
     @Override public JPanel get_Info() {
         return null;
     }
-    @Override protected void init() {
+    @Override public void init() {
         //inisiasi semua variable disini.
 
         load("picture/anim", 4,1,32,32);

@@ -27,7 +27,6 @@ public class AnimatedSprite extends Sprite {
     @Override
     public void setPanel(JPanel panel){
         super.setPanel(panel);
-        super.reinit();
         this.panel = panel;
     }
     @Override

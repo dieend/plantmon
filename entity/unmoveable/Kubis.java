@@ -8,7 +8,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import plantmon.entity.Item;
+import plantmon.entity.item.FoodItem;
 import plantmon.game.GridMap;
+import plantmon.states.Game;
 
 public class Kubis extends Plant{
     private ImageIcon image1;
@@ -65,6 +68,10 @@ public class Kubis extends Plant{
         panel.add(label3);
         panel.add(label4);
         return panel;
+    }
+     @Override public void setPanen(){
+        Game.instance().getInventory().add(new FoodItem(Item.BuKubis, null),1);
+        super.setPanen();
     }
     public static void main(String[] str){
         JFrame frame=new JFrame();

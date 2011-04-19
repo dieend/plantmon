@@ -30,9 +30,9 @@ public class Game {
     }
     private Game(){
 //        states = new ArrayList<ParentState>();
-        farmstatus = new int[10][10];
-        for (int i=0; i<10; i++){
-            for (int j=0; j<10; j++){
+        farmstatus = new int[20][20];
+        for (int i=0; i<20; i++){
+            for (int j=0; j<20; j++){
                 farmstatus[i][j] = Land.NORMAL;
             }
         }
@@ -169,6 +169,11 @@ public class Game {
     public void changeDay(){
         for (Plant p:plants){
             p.grow(Time.instance().getSeason());
+        }
+        for (int i=0; i<20; i++){
+            for (int j=0; j<20; j++){
+                farmstatus[i][j] = Land.NORMAL;
+            }
         }
         Time.instance().changeDay();
         Game.instance().goTo(ParentState.HOME, null);
