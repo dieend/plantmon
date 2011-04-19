@@ -109,58 +109,415 @@ public abstract class Item {
         JPanel panel;
         panel = new JPanel();
         panel.setLayout(null);
-        if(this.getName().equals("Robe")){
+        //Untuk Armor
+        if(this.getIDitem()==Robe){
         image1=new ImageIcon(getClass().getResource("robe.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
-        if(this.getName().equals("Tunic")){
+        if(this.getIDitem()==Tunic){
         image1=new ImageIcon(getClass().getResource("tunic.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
-        if(this.getName().equals("Leather Coat")){
+        if(this.getIDitem()==LeatherCoat){
         image1=new ImageIcon(getClass().getResource("leather coat.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
-        if(this.getName().equals("Brass Armor")){
+        if(this.getIDitem()==BrassArmor){
         image1=new ImageIcon(getClass().getResource("brass armor.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
-        if(this.getName().equals("Bandanna")){
+        if(this.getIDitem()==Bandanna){
         image1=new ImageIcon(getClass().getResource("bandanna.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
-        if(this.getName().equals("HeadBand")){
+        if(this.getIDitem()==HeadBand){
         image1=new ImageIcon(getClass().getResource("headband.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
-        if(this.getName().equals("Pointed Hat")){
+        if(this.getIDitem()==PointedHat){
         image1=new ImageIcon(getClass().getResource("pointed.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
-        if(this.getName().equals("Wooden Shield")){
+        if(this.getIDitem()==WoodenShield){
         image1=new ImageIcon(getClass().getResource("wooden shield.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
-        if(this.getName().equals("Wooden Shoes")){
+        if(this.getIDitem()==WoodenShoes){
         image1=new ImageIcon(getClass().getResource("wooden shoes.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
-        if(this.getName().equals("Leggings")){
+        if(this.getIDitem()==Leggings){
         image1=new ImageIcon(getClass().getResource("leggings.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
-        if(this.getName().equals("Gloves")){
+        if(this.getIDitem()==Gloves){
         image1=new ImageIcon(getClass().getResource("gloves.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
-        if(this.getName().equals("Cape")){
+        if(this.getIDitem()==Cape){
         image1=new ImageIcon(getClass().getResource("cape.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
-        if(this.getName().equals("Circlet")){
+        if(this.getIDitem()==Circlet){
         image1=new ImageIcon(getClass().getResource("circlet.jpg"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
         }
+        //Untuk Bibit
+        if(this.getIDitem()==BiKentang){
+        image1=new ImageIcon(getClass().getResource("bibit kentang.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==BiLobak){
+        image1=new ImageIcon(getClass().getResource("bibit lobak.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==BiTimun){
+        image1=new ImageIcon(getClass().getResource("bibit timun.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==BiKubis){
+        image1=new ImageIcon(getClass().getResource("bibit kubis.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==BiNanas){
+        image1=new ImageIcon(getClass().getResource("bibit nanas.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==BiTomat){
+        image1=new ImageIcon(getClass().getResource("bibit tomat.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==BiBawang){
+        image1=new ImageIcon(getClass().getResource("bibit bawang.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==BiWortel){
+        image1=new ImageIcon(getClass().getResource("bibit wortel.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==BiTerong){
+        image1=new ImageIcon(getClass().getResource("bibit terong.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==BiUbi){
+        image1=new ImageIcon(getClass().getResource("bibit ubi.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==BiPaprika){
+        image1=new ImageIcon(getClass().getResource("bibit paprika.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==BiStroberi){
+        image1=new ImageIcon(getClass().getResource("bibit stroberi.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==BiLabu){
+        image1=new ImageIcon(getClass().getResource("bibit labu.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        //Untuk Buah
+        if(this.getIDitem()==BuKentang){
+        image1=new ImageIcon(getClass().getResource("buah kentang.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        if(this.getIDitem()==BuLobak){
+        image1=new ImageIcon(getClass().getResource("buah lobak.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        if(this.getIDitem()==BuTimun){
+        image1=new ImageIcon(getClass().getResource("buah timun.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        if(this.getIDitem()==BuKubis){
+        image1=new ImageIcon(getClass().getResource("buah kubis.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        if(this.getIDitem()==BuNanas){
+        image1=new ImageIcon(getClass().getResource("buah nanas.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        if(this.getIDitem()==BuTomat){
+        image1=new ImageIcon(getClass().getResource("buah tomat.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        if(this.getIDitem()==BuBawang){
+        image1=new ImageIcon(getClass().getResource("buah bawang.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        if(this.getIDitem()==BuWortel){
+        image1=new ImageIcon(getClass().getResource("buah wortel.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        if(this.getIDitem()==BuTerong){
+        image1=new ImageIcon(getClass().getResource("buah terong.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        if(this.getIDitem()==BuUbi){
+        image1=new ImageIcon(getClass().getResource("buah ubi.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        if(this.getIDitem()==BuPaprika){
+        image1=new ImageIcon(getClass().getResource("buah paprika.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        if(this.getIDitem()==BuStroberi){
+        image1=new ImageIcon(getClass().getResource("buah stroberi.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        if(this.getIDitem()==BuLabu){
+        image1=new ImageIcon(getClass().getResource("buah labu.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label4 = new JLabel("Harga Jual : " + this.getCostSell());
+        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label4.setBounds(120,40,150,30);
+        panel.add(label4);
+        }
+        //Untuk WarItem
+        if(this.getIDitem()==Water){
+        image1=new ImageIcon(getClass().getResource("water.jpg"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==HolyWater){
+        image1=new ImageIcon(getClass().getResource("holy water.jpg"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==Antitoxin){
+        image1=new ImageIcon(getClass().getResource("antitoxin.jpg"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==EyeDrop){
+        image1=new ImageIcon(getClass().getResource("eye drop.jpg"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+        if(this.getIDitem()==HotWater){
+        image1=new ImageIcon(getClass().getResource("hot water.jpg"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
+        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label3.setBounds(120,20,150,30);
+        panel.add(label3);
+        }
+
 
         label1 = new JLabel(image1);
         label1.setBounds(0,0,100,100);
@@ -168,27 +525,8 @@ public abstract class Item {
         label2 = new JLabel("Nama : " + this.getName());
         label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
         label2.setBounds(120,0,150,30);
-        label3 = new JLabel("Harga Beli : " + this.getCostBuy());
-        label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label3.setBounds(120,20,150,30);
-        label4 = new JLabel("Harga Jual : " + this.getCostSell());
-        label4.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label4.setBounds(120,40,150,30);
-//        label5 = new JLabel("Attack Status: " + this.getAtkStatus());
-//        label5.setFont(new Font("Times New Roman", Font.BOLD, 16));
-//        label5.setBounds(250,20,150,30);
-//        label6 = new JLabel("Deffense Status: " + this.getDefStatus());
-//        label6.setFont(new Font("Times New Roman", Font.BOLD, 16));
-//        label6.setBounds(250,0,150,30);
-//        label7 = new JLabel("Int Status: " + this.getIntStatus());
-//        label7.setFont(new Font("Times New Roman", Font.BOLD, 16));
-//        label7.setBounds(120,60,150,30);
         panel.add(label2);
-        panel.add(label3);
-        panel.add(label4);
-//        panel.add(label5);
-//        panel.add(label6);
-//        panel.add(label7);
+        
         return panel;
     }
 }
