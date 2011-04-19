@@ -5,12 +5,8 @@
 
 package plantmon.entity.item;
 
-import java.awt.Font;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import plantmon.entity.Item;
 
@@ -186,15 +182,14 @@ public class ArmorItem extends Item {
     public void setPosition(int position) {
         this.position = position;
     }
+
     public static void main(String[] str){
         JFrame frame=new JFrame();
         BufferedImage bf = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-        ArmorItem a = new ArmorItem(Item.Cape, new JPanel());
+        ArmorItem a = new ArmorItem(Item.Robe, new JPanel());
         frame.getContentPane().add(a.get_Info());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 500);
         frame.setVisible(true);
-    }
-
-    
+    }    
 }

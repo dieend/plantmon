@@ -1,8 +1,9 @@
 package plantmon.entity.item;
 
+import java.awt.image.BufferedImage;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import plantmon.entity.Item;
-import plantmon.game.ImageEntity;
 
 public class FarmItem extends Item {
     int efek;//efek dari buah yang dimakan player
@@ -115,5 +116,15 @@ public class FarmItem extends Item {
 
     public void update() {
 //        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+        public static void main(String[] str){
+        JFrame frame=new JFrame();
+        BufferedImage bf = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        FarmItem a = new FarmItem(Item.BiWortel, new JPanel());
+        frame.getContentPane().add(a.get_Info());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 500);
+        frame.setVisible(true);
     }
 }
