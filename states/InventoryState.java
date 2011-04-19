@@ -11,7 +11,9 @@
 
 package plantmon.states;
 
+import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import plantmon.entity.Inventory;
 import plantmon.entity.movingObject.Player;
 
@@ -89,7 +91,12 @@ public class InventoryState extends ParentState {
         farm = Game.instance().getInventory().getArmorItem();
         for (int i=0; i<farm.getSize(); i++){
 //            jPanel4.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
-            jPanel4.add(farm.getItem(i).get_Info());
+            JPanel a = farm.getItem(i).get_Info();
+            JLabel label =new JLabel("Jumlah Barang: "+farm.getJumlah(i));
+            label.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label.setBounds(120,60,150,30);
+            a.add(label);
+            jPanel4.add(a);
         }
         jTabbedPane1.addTab("Armor", jPanel4); // NOI18N
 
