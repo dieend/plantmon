@@ -249,8 +249,9 @@ public class Store extends Unmoveable implements Actionable {
         }
 
         public void actionPerformed(ActionEvent e) {
+            Player player = (Player) selected;
             if (e.getSource() == buttonbes) {
-                if (x != 99) {
+                if (x < (Game.instance().getMoney())/(temp.getCostBuy())) {
                     x += 1;
                 }
                 text.setText(""+x);
