@@ -132,11 +132,8 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         }
         selected = player;
         selectsomething = true;
-        story = new StoryLine();
+        story = new StoryLine(map,this,g2d);
         story.setDay(Time.instance().getDay());
-        story.setG2d(g2d);
-        story.setMap(map);
-        story.setPanel(this);
         ((Thread) new Thread(story)).start();
         addMouseListener(this);
     }
@@ -260,7 +257,10 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
             updateDiff(e);
         }
 
-        
+        @Override public void turnOff () {
+            super.turnOff();
+            story.turnOff();
+        }
 
         void updateDiff(MouseEvent e) {
             if (dragged){

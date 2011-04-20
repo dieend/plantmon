@@ -14,12 +14,12 @@ import plantmon.entity.unmoveable.Plant;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.system.Cancellable;
-import plantmon.system.Jobable;
+//import plantmon.system.Jobable;
 import plantmon.system.Utilities;
 
 public class Dwarf extends MovingObject implements Actionable,
                                                     Selectable,
-                                                    Runnable,Jobable,Cancellable{
+                                                    Runnable,/*Jobable,*/Cancellable{
     //status dwarf, 0 untuk sleep, 1 untuk wake_up
     Integer moneyharvest;
     private static Point2D defpos;

@@ -16,9 +16,15 @@ public class StoryLine implements Runnable {
     private JPanel panel;
     private Graphics2D g2d;
     boolean active;
+    Pulmosis kentang;
+    boolean belum;
 
-
-    public StoryLine () {
+    public StoryLine (GridMap map, JPanel panel, Graphics2D g2d) {
+        this.map = map;
+        this.panel = panel;
+        this.g2d = g2d;
+        belum = true;
+        kentang = new Pulmosis(map,panel,g2d,2,false);
     }
 
     public int getType() {
@@ -62,27 +68,42 @@ public class StoryLine implements Runnable {
     }
 
     public void Story () {
-        if (day >= 5) {
-            if (map.getTop(4, 4) instanceof Pulmosis) {
-            } else {
-                Pulmosis kentang = new Pulmosis(map,panel,g2d,2,false);
-                kentang.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*2,Utilities.GRIDSIZE*6));
+        Boolean[] cancel = new Boolean[1];
+        Object lock = new Object();
+        if (day >= 1) {
+            if (map.getTop(3, 6) instanceof Pulmosis) {
                 kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
-                kentang.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4));
+                kentang.move(3, 4, lock, cancel);
+            } else if (map.getTop(3, 5) instanceof Pulmosis) {
+            } else if (map.getTop(3, 4) instanceof Pulmosis) {
+                kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*6);
+                kentang.move(3, 6, lock, cancel);
+            } else if (belum){
+                belum = false;
+                kentang.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*6));
                 Point2D pos = kentang.getCreature().position();
                 map.push(pos.X(), pos.Y(), kentang);
+                kentang.move(3, 4, lock, cancel);
+                //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
             }
         }
     }
 
     public void run() {
-        System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
-        try {
-            Thread.sleep(20);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+       active = true;
+       while (active) {
+            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Story();
         }
-        Story();
+    }
+
+    public void turnOff () {
+        active = false;
     }
 
     public JPanel getPanel() {
