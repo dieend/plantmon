@@ -80,7 +80,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
     @Override protected void init() {
         //inisiasi semua variable disini.
         
-        load("picture/anim", 4,1,32,32);
+        load("picture/anim", 4,1,32,42);
         creature.setImageName("picture/anim");
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(1);
