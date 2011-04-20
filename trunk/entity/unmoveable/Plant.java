@@ -13,7 +13,7 @@ import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.states.Game;
 import plantmon.system.Actionable;
-import plantmon.system.Jobable;
+//import plantmon.system.Jobable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
 import plantmon.system.Utilities;
@@ -192,7 +192,8 @@ public class Plant extends Unmoveable implements Actionable,
         }
         public void run() {
             // membuat player berjalan ke posisi tumbuhan
-            Jobable player = (Jobable) selected;
+            //Jobable player = (Jobable) selected;
+            Player player = (Player) selected;
             // gx dan gy adalah posisi tumbuhan saat ini
             int gx = (int)Plant.this.getPosition().X();
             int gy = (int)Plant.this.getPosition().Y();
