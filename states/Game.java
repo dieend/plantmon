@@ -25,12 +25,15 @@ public class Game {
     JPanel dialogBox;
     JTextArea log;
     JScrollPane pane;
+    String name;
+
     private static Game stateManager;
     public int[][] farmstatus() {
         return farmstatus;
     }
     private Game(){
 //        states = new ArrayList<ParentState>();
+        name = "Opeh";
         farmstatus = new int[20][20];
         for (int i=0; i<20; i++){
             for (int j=0; j<20; j++){
@@ -48,6 +51,9 @@ public class Game {
         log.setEditable(false);
         pane = new JScrollPane(log);
         pane.setBounds(0, 350, 650, 100);
+    }
+    public String getName(){
+        return name;
     }
     public JTextArea log() {
         return log;
