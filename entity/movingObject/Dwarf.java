@@ -114,7 +114,7 @@ public class Dwarf extends MovingObject implements Actionable,
                 {
                     Boolean[] cancel = new Boolean[1];
                     Object key = new Object();
-                    move(route.get(route.size()-1).IntX()*Utilities.GRIDSIZE, route.get(route.size()-1).IntY()*Utilities.GRIDSIZE, key, cancel);
+                    move(route.get(0).IntX()*Utilities.GRIDSIZE, route.get(0).IntY()*Utilities.GRIDSIZE, key, cancel);
                     synchronized(key){
                         try {
                             key.wait(); // tunggu player sampai ke posisi tumbuhan
