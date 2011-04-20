@@ -173,16 +173,25 @@ public class Plant extends Unmoveable implements Actionable,
     private void setTitikPanen(int i) {
         titikPanen = i;
     }
-    public void doWater(Selectable selected){
+    public void doWater(){
         setFase(fase + 1);
     }
 
-    public void doHarvest(Selectable selected)
+    public void doHarvest()
     {
+        setPanen();
     }
 
-    public void doSlash(Selectable selected)
+    public void doSlash()
     {
+        int gx = (int)Plant.this.getPosition().X();
+            int gy = (int)Plant.this.getPosition().Y();
+        map.pop(gx, gy);
+        if (this.isWatered()) {
+            ((Land)map.getTop(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE)).setStatus(Land.WATERED);
+        }
+        Game.instance().removePlant(this);
+        Game.instance().log().append("slashing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
     }
     
 
