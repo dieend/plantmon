@@ -111,18 +111,18 @@ public class Dwarf extends MovingObject implements Actionable,
                 System.out.println("HIIIIIIIIIIIIIIIIIH");
                 if (route.size()==1)
                 {
-                    //dojob();
+                    dojob();
                 }
                 else 
                 {
                     Boolean[] cancel = new Boolean[1];
-                    move(route.get(0).IntX(), route.get(0).IntY(), lock, cancel);
-                    creature.setFinalPosition(route.get(0).IntX(),route.get(0).IntY()); 
+                    move(route.get(0).IntX()*Utilities.GRIDSIZE, route.get(0).IntY()*Utilities.GRIDSIZE, lock, cancel);
+                    System.out.println(route.size());
+                    creature.setFinalPosition(route.get(0).IntX()*Utilities.GRIDSIZE,route.get(0).IntY()*Utilities.GRIDSIZE);
                 }
             }
             else
             {
-                status=sleep;
                 System.out.println("HAHAHAHHAHAHAHAH"+creature.position().IntX()+creature.position().IntY());
                 //creature.setFinalPosition(30,30);
                 creature.setFinalPosition(creature.position().IntX(), creature.position().IntY());
@@ -132,9 +132,9 @@ public class Dwarf extends MovingObject implements Actionable,
 
     public void move(int gx,int gy,Object lock,Boolean[] cancel){
         addAction(lock,new Point2D(gx,gy));
-        Canceller ca = new Canceller(creature.panel(),creature.graphics(),
+        /*Canceller ca = new Canceller(creature.panel(),creature.graphics(),
                                     gx, gy, cancel,lock,(Cancellable)this,numAction-1);
-        map.push(gx, gy, ca);
+        map.push(gx, gy, ca);*/
     }
 
     ActionListener setstatus()

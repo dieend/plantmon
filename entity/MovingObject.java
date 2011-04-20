@@ -399,7 +399,7 @@ public abstract class MovingObject implements Drawable{
         ArrayList<Point2D> retroute = new ArrayList<Point2D>();
         Point2D cPoint;
 
-        if (TrueBRoute.size()>=1)
+        if ((TrueBRoute.size()>=1) && (found))
         {
 
             i=TrueBRoute.size()-1;
