@@ -66,6 +66,12 @@ public class InventoryState extends ParentState {
         farm = Game.instance().getInventory().getFarmItem();
         for (int i=0; i<farm.getSize(); i++){
             jPanel1.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
+//            JPanel a = farm.getItem(i).get_Info();
+//            JLabel label =new JLabel("Jumlah Barang: "+farm.getJumlah(i));
+//            label.setFont(new Font("Times New Roman", Font.BOLD, 16));
+//            label.setBounds(120,60,150,30);
+//            a.add(label);
+//            jPanel1.add(a);
         }
         jTabbedPane1.addTab("Farm Item", jPanel1); // NOI18N
 
@@ -73,7 +79,13 @@ public class InventoryState extends ParentState {
         jPanel2.setLayout(new java.awt.GridLayout(4, 4));
         farm = Game.instance().getInventory().getFoodItem();
         for (int i=0; i<farm.getSize(); i++){
-            jPanel2.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
+//            jPanel2.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
+            JPanel a = farm.getItem(i).get_Info();
+            JLabel label =new JLabel("Jumlah Barang: "+farm.getJumlah(i));
+            label.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label.setBounds(120,60,150,30);
+            a.add(label);
+            jPanel2.add(a);
             
         }
         jTabbedPane1.addTab("Food Item", jPanel2); // NOI18N
@@ -82,7 +94,13 @@ public class InventoryState extends ParentState {
         jPanel3.setLayout(new java.awt.GridLayout(4, 4));
         farm = Game.instance().getInventory().getWarItem();
         for (int i=0; i<farm.getSize(); i++){
-            jPanel3.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
+//            jPanel3.add(new JLabel(farm.getItem(i).getName()+" "+farm.getJumlah(i)));
+            JPanel a = farm.getItem(i).get_Info();
+            JLabel label =new JLabel("Jumlah Barang: "+farm.getJumlah(i));
+            label.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label.setBounds(120,60,150,30);
+            a.add(label);
+            jPanel3.add(a);
         }
         jTabbedPane1.addTab("War Item", jPanel3); // NOI18N
 
