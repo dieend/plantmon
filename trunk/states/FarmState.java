@@ -118,7 +118,6 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
             map.push(p.getPosition().IntX(), p.getPosition().IntY(), p);
             p.reinit(map, this, g2d);
         }
-        Integer money = new Integer(2000);
         player = new Player(map, this, g2d);
         map.gpush(3, 2, new Portal(map, this, g2d, 3, 2));
         player.getCreature().setPosition(new Point2D(3*Utilities.GRIDSIZE,3*Utilities.GRIDSIZE));
@@ -132,8 +131,8 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         }
         selected = player;
         selectsomething = true;
-        story = new StoryLine(map,this,g2d);
-        story.setDay(Time.instance().getDay());
+        story = Game.instance().story;
+        story.reinit(map,this,g2d);
         ((Thread) new Thread(story)).start();
         addMouseListener(this);
     }
