@@ -1,6 +1,7 @@
 package plantmon.states;
 
 public class StateFactory{
+    public StateFactory(){}
     public static ParentState createState(int IDstate,Object[] args){
         ParentState newState = null;
         switch (IDstate){
