@@ -29,10 +29,7 @@ public class Dwarf extends MovingObject implements Actionable,
     private String name;
 
     //type dwarf, 1 untuk water,0 untuk 
-    private int type;
-    public static final int water=1;
-    public static final int harvest=2;
-    public static final int slash=3;
+    
 
     
     
@@ -94,12 +91,12 @@ public class Dwarf extends MovingObject implements Actionable,
         else if (type==2)
         {
             Point2D where = route.get(0);
-            ((Plant)(map.getTop(where.IntX(), where.IntY()))).doHarvest(this);
+            ((Plant)(map.getTop(where.IntX()*Utilities.GRIDSIZE, where.IntY()*Utilities.GRIDSIZE))).doHarvest(this);
         }
         else if (type==3)
         {
             Point2D where = route.get(0);
-            ((Plant)(map.getTop(where.IntX(), where.IntY()))).doSlash(this);
+            ((Plant)(map.getTop(where.IntX()*Utilities.GRIDSIZE, where.IntY()))).doSlash(this);
         }
     }
     @Override public void run(){
@@ -116,9 +113,16 @@ public class Dwarf extends MovingObject implements Actionable,
                 else 
                 {
                     Boolean[] cancel = new Boolean[1];
-                    move(route.get(0).IntX()*Utilities.GRIDSIZE, route.get(0).IntY()*Utilities.GRIDSIZE, lock, cancel);
-                    System.out.println(route.size());
-                    creature.setFinalPosition(route.get(0).IntX()*Utilities.GRIDSIZE,route.get(0).IntY()*Utilities.GRIDSIZE);
+                    Object key = new Object();
+                    move(route.get(route.size()-1).IntX()*Utilities.GRIDSIZE, route.get(route.size()-1).IntY()*Utilities.GRIDSIZE, key, cancel);
+                    synchronized(key){
+                        try {
+                            key.wait(); // tunggu player sampai ke posisi tumbuhan
+                        } catch (InterruptedException e){}
+                    }
+//                    System.out.println(route.size());
+//                    if (!route.isEmpty())
+//                    creature.setFinalPosition(route.get(0).IntX()*Utilities.GRIDSIZE,route.get(0).IntY()*Utilities.GRIDSIZE);
                 }
             }
             else
