@@ -40,6 +40,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
     Actionable actionated;
     int clickx,clicky,defx,defy;
     boolean dragged;
+    StoryLine story;
     public FarmState(int gridRow, int gridColumn){
         super(gridRow, gridColumn);
         map = new GridMap(gridRow,gridColumn);
@@ -131,6 +132,12 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         }
         selected = player;
         selectsomething = true;
+        story = new StoryLine();
+        story.setDay(Time.instance().getDay());
+        story.setG2d(g2d);
+        story.setMap(map);
+        story.setPanel(this);
+        ((Thread) new Thread(story)).start();
         addMouseListener(this);
     }
     @Override

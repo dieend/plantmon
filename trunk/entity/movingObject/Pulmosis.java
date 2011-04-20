@@ -27,16 +27,20 @@ public class Pulmosis extends MovingObject implements Cancellable,
     double miss;
     public static final int Lobak = 0;
     public static final int Timun = 1;
+    public static final int Kentang = 2;
     
     public Pulmosis(GridMap map, JPanel panel, Graphics2D g2d, int tipe, boolean en) {
         super(map,panel,g2d);
         init();
         if (tipe == Lobak) {
-            level = 3;
+            level = 1;
             range = 2;
         } else if (tipe == Timun) {
-            level = 5;
+            level = 3;
             range = 3;
+        } else if (tipe == Kentang) {
+            level = 5;
+            range = 2;
         }
         atk = 0;
         attacked = 0;
