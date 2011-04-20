@@ -147,7 +147,8 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
             } catch (InterruptedException e){
                 e.printStackTrace();
             }
-            gameUpdate();
+            gameUpdate(
+                    );
             repaint();
         }
         

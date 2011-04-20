@@ -40,22 +40,23 @@ public class Dwarf extends MovingObject implements Actionable,
         super(map,panel,g2d);
         System.out.println(t);
         type=t;
+        status=sleep;
         if (t==1)
         {
             name="justice";
             //set default position
-            defpos = new Point2D(Utilities.GRIDSIZE,2*Utilities.GRIDSIZE);
+            defpos = new Point2D(Utilities.GRIDSIZE,4*Utilities.GRIDSIZE);
         }
         else if (t==2)
         {
             name="freedom";
-            defpos = new Point2D(Utilities.GRIDSIZE,3*Utilities.GRIDSIZE);
+            defpos = new Point2D(Utilities.GRIDSIZE,5*Utilities.GRIDSIZE);
             moneyharvest=money;
         }
         else if (t==3)
         {
             name="destiny";
-            defpos = new Point2D(Utilities.GRIDSIZE,4*Utilities.GRIDSIZE);
+            defpos = new Point2D(Utilities.GRIDSIZE,6*Utilities.GRIDSIZE);
         }
         creature.setPosition(defpos);
         System.out.println("picture/dwarf"+type+"0");
@@ -116,12 +117,14 @@ public class Dwarf extends MovingObject implements Actionable,
                 {
                     Boolean[] cancel = new Boolean[1];
                     move(route.get(0).IntX(), route.get(0).IntY(), lock, cancel);
-                    creature.setPosition(route.get(0)); 
+                    creature.setFinalPosition(route.get(0).IntX(),route.get(0).IntY()); 
                 }
             }
             else
             {
-                System.out.println("HAHAHAHHAHAHAHAH");
+                status=sleep;
+                System.out.println("HAHAHAHHAHAHAHAH"+creature.position().IntX()+creature.position().IntY());
+                //creature.setFinalPosition(30,30);
                 creature.setFinalPosition(creature.position().IntX(), creature.position().IntY());
             }
         }

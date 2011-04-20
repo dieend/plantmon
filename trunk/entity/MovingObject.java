@@ -7,6 +7,7 @@ import java.util.IdentityHashMap;
 import java.util.Scanner;
 import javax.swing.JPanel;
 import plantmon.entity.deadItem.Portal;
+import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
 import plantmon.entity.unmoveable.Road;
@@ -130,11 +131,11 @@ public abstract class MovingObject implements Drawable{
     }
 
     //for debugging
-    public static void performarr(int[][] arr,int c,int r)
+    public static void performarr(int[][] arr,int r,int c )
     {
         for(int i=0;i<r;++i)
         {
-            for(int j=0;j<r;++j)
+            for(int j=0;j<c;++j)
             {
                 System.out.print(arr[i][j]);
             }
@@ -197,11 +198,16 @@ public abstract class MovingObject implements Drawable{
                 {
                     tmap[i][j]= 0;
                 }
+                else if (map.getTop(i,j) instanceof Dwarf)
+                {
+                    tmap[i][j]=5;
+                }
                 //check non-land/non-destiny
                 else
                 {
                     tmap[i][j]= 1;
                 }
+
             }
         }
         
@@ -236,6 +242,9 @@ public abstract class MovingObject implements Drawable{
             {
                 for(j=0;j<map.getColumn();++j)
                 {
+                    if (map.getTop(i,j)!=null) {
+                      System.out.println(map.getTop(i, j).getClass().getName() + " : " + i + " : " + j);
+                    }
                     if (map.getTop(i, j) instanceof  Plant)
                     {
                         if (!((Plant)map.getTop(i, j)).isWatered())
@@ -312,15 +321,16 @@ public abstract class MovingObject implements Drawable{
         if (caller!=0)
         {
             System.out.println("INI DIANYA, type pemanggil : " + caller);
-            performarr(tmap, 8, 6);
+            performarr(tmap, map.getRow(),map.getColumn());
         }
         Boolean found=false;
 
         //System.out.println(TempBRoute.get(0).IntX());
-
+        System.out.println("Nilai found pertama : " + found);
         while (!TempBRoute.isEmpty() && (!found))
         {
-
+            //System.out.println("TESTESTES\n");
+            //System.out.println("Nilai found  : " + found);
             Point2D cPoint = new Point2D(TempBRoute.get(0).IntX(), TempBRoute.get(0).IntY());
             //System.out.println(TempBRoute.get(0).IntX()+","+TempBRoute.get(0).IntY());
             //check grid di atas

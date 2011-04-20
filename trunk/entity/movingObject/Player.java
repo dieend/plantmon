@@ -16,9 +16,10 @@ import plantmon.game.Point2D;
 import plantmon.states.ParentState;
 import plantmon.states.Game;
 import plantmon.system.Cancellable;
+import plantmon.system.Jobable;
 
 public class Player extends MovingObject implements Actionable, Cancellable,
-                                                    Selectable{
+                                                    Selectable,Jobable{
     //bisa ngapain aja
     public Player(GridMap map, JPanel panel, Graphics2D g2d){
         super(map,panel,g2d);

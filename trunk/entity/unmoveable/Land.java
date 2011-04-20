@@ -13,6 +13,7 @@ import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.states.Game;
 import plantmon.system.Actionable;
+import plantmon.system.Jobable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
 import plantmon.system.Utilities;
@@ -137,7 +138,7 @@ public class Land extends Unmoveable implements Actionable{
                 }
             }
             // buat plant baru berdasarkan item
-            if (!cancel[0]){
+            if ((cancel==null) || (!cancel[0])){
                 map.pop(gx, gy);
                 if (temp.getName().equals("Lobak")) {
                     Lobak lobak = new Lobak(map, panel(),graphics(),gx,gy,status);
@@ -194,7 +195,7 @@ public class Land extends Unmoveable implements Actionable{
             super(selected);
         }
         public void run() {
-            Player player = (Player) selected;
+            Jobable player = (Jobable) selected;
             int gx = (int)Land.this.getPosition().X();
             int gy = (int)Land.this.getPosition().Y();
             Object lock = new Object();
