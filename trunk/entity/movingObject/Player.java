@@ -41,7 +41,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         JPanel panel;
         panel = new JPanel();
         panel.setLayout(null);
-        image1 = new ImageIcon(this.getClass().getResource("player.jpg"));
+//        image1 = new ImageIcon(this.getClass().getResource("player.jpg"));
         label1 = new JLabel(image1);
         label1.setBounds(0,0,100,100);
         panel.add(label1);
@@ -79,7 +79,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
     }
     @Override protected void init() {
         //inisiasi semua variable disini.
-        
+        type = 0;
         load("picture/anim", 4,1,32,42);
         creature.setImageName("picture/anim");
         creature.setVelocity(new Point2D(0,0));

@@ -18,6 +18,10 @@ import plantmon.system.Utilities;
 
 public abstract class MovingObject implements Drawable{
     final public static int PLAYER = 0;
+    protected int type;
+    public static final int water=1;
+    public static final int harvest=2;
+    public static final int slash=3;
     protected ArrayList<Object> lock = new ArrayList<Object>();
     protected IdentityHashMap<Object,Point2D> destination = new IdentityHashMap<Object,Point2D>();
     protected GridMap map;
@@ -80,7 +84,7 @@ public abstract class MovingObject implements Drawable{
     protected abstract void init();
     public void updateAction(){
         if (inAction){
-            route = getRoute(destination.get(lock.get(0)).IntX(), destination.get(lock.get(0)).IntY(), PLAYER);
+            route = getRoute(destination.get(lock.get(0)).IntX(), destination.get(lock.get(0)).IntY(), type);
             if (route.size()>1){
                 Point2D dest;//;
     //            if (!(map.getTop(dest.IntX(),dest.IntY()) instanceof Land) &&
@@ -119,11 +123,7 @@ public abstract class MovingObject implements Drawable{
             }
         } else{//if not in action
             if (lock.size()>0){
-                lock.get(0);
-                int gx = destination.get(lock.get(0)).IntX();
-                int gy = destination.get(lock.get(0)).IntY();
-                gx = (gx/Utilities.GRIDSIZE)*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
-                gy = (gy/Utilities.GRIDSIZE)*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
+
                 inAction = true;
             }
         }
