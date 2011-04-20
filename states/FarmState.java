@@ -19,6 +19,7 @@ import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
 import plantmon.entity.unmoveable.Road;
+import plantmon.entity.unmoveable.SellBox;
 import plantmon.game.GridMap;
 import plantmon.game.ImageEntity;
 import plantmon.game.Point2D;
@@ -124,6 +125,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         player.getCreature().setFinalPosition(3*Utilities.GRIDSIZE,3*Utilities.GRIDSIZE);
         Point2D pos = player.getCreature().position();
         map.push(pos.X(), pos.Y(), player);
+        map.gpush(4, 2, new SellBox(map, this, g2d, 4, 2));
         for(Dwarf d:Game.instance().dwarfs){
             d.reinit(map,g2d,this);
             Point2D dlocation = d.getCreature().position();
