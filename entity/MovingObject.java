@@ -261,7 +261,8 @@ public abstract class MovingObject implements Drawable{
         //caller==2, artinya yang memakai adalah dwarf harvest
         else if (caller==2)
         {
-
+          System.out.println("CALLER 2 MAP SEBELUM DESTINY");
+          performarr(tmap,map.getRow(),map.getColumn());
             
         //inisialisasi nilai map
           
@@ -271,14 +272,21 @@ public abstract class MovingObject implements Drawable{
               {
                   if (map.getTop(i,j)!=null) {
                       System.out.println(map.getTop(i, j).getClass().getName() + " : " + i + " : " + j);
+                    }
+                  if (map.getTop(i,j)!=null) {
+                      System.out.println(map.getTop(i, j).getClass().getName() + " : " + i + " : " + j);
                   }
                   if (map.getTop(i, j) instanceof Plant)
                   {
+                      System.out.println("KETEMU LHO tanamannya!!!" + " : " + i + " : " + j);
                       if ( (((Plant)map.getTop(i, j)).getFase()==Plant.DEWASANOSIRAM) || (((Plant)map.getTop(i, j)).getFase()==Plant.DEWASASIRAM) )
                       {
+                          System.out.println("KETEMU LHO dewasanya!!!");
                           tmap[i][j]=2;
                       }
                   }
+                  System.out.println("SETELAH");
+                  performarr(tmap,map.getRow(),map.getColumn());
               }
           }
         }
@@ -286,6 +294,8 @@ public abstract class MovingObject implements Drawable{
         //caller=3, artinya yang memakai adalah dwarf slash
         else if (caller==3)
         {
+          System.out.println("CALLER 3 MAP SEBELUM DESTINY");
+          performarr(tmap,map.getRow(),map.getColumn());
         //inisialisasi nilai map
           for(i=0;i<map.getRow();++i)
           {
@@ -293,6 +303,10 @@ public abstract class MovingObject implements Drawable{
               {
                   if (map.getTop(i, j) instanceof Plant)
                   {
+                      if (map.getTop(i,j)!=null)
+                      {
+                          System.out.println(map.getTop(i,j).getClass().getName() + " : " + i + " : " + j);
+                      }
                       if ((((Plant)map.getTop(i, j)).getFase()==Plant.BIBITMATI) || (((Plant)map.getTop(i, j)).getFase()==Plant.TANAMANMATI))
                       {
                         tmap[i][j]=2;
@@ -300,6 +314,8 @@ public abstract class MovingObject implements Drawable{
                   }
               }
           }
+          System.out.println("SETELAH");
+          performarr(tmap,map.getRow(),map.getColumn());
         }
 
         /*hanya untuk debugging
