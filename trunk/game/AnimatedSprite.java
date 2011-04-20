@@ -24,6 +24,7 @@ public class AnimatedSprite extends Sprite {
     private int height;
     protected String imageName;
     protected JPanel panel;
+    boolean animated;
     @Override
     public void setPanel(JPanel panel){
         super.setPanel(panel);
@@ -32,7 +33,6 @@ public class AnimatedSprite extends Sprite {
     @Override
     public void setGraphics(Graphics2D g2d){
         super.setGraphics(g2d);
-
     }
     /**
      * imageName nama gambar beranimasi. harus bertipe png dan tidak memakai extensi.
@@ -56,6 +56,10 @@ public class AnimatedSprite extends Sprite {
         frWidth = 0;
         frHeight = 0;
         cols = 0;
+        animated = true;
+    }
+    public void setAnimated(boolean t){
+        animated = t;
     }
     /**
      * Meload data file gambar yang akan digunakan sebagai animasi
@@ -65,8 +69,14 @@ public class AnimatedSprite extends Sprite {
      * @param width lebar 1 frame(dalam pixel)
      * @param height tinggi 1 frame(dalam pixel)
      */
+    @Override
+    public void load (String filename){
+        super.load(filename);
+        animated = false;
+    }
     public void load(String filename, int columns, int rows,int width, int height)
     {
+        animated = true;
         try {
             animimage = ImageIO.read(this.getClass().getResource(filename));
         } catch(IOException e) {}
@@ -198,19 +208,21 @@ public class AnimatedSprite extends Sprite {
     @Override public void draw() {
         //calculate the current frame’s X and Y position
 //        System.out.print("I'm drawing animated\n");
-        tempImage = new BufferedImage(width, height,BufferedImage.TYPE_INT_ARGB);
-        tempSurface = tempImage.createGraphics();
-        int frameX = (currentFrame() % columns()) * frameWidth();
-        int frameY = (currentFrame() / columns()) * frameHeight();
-        //copy the frame onto the temp image
-        tempSurface.drawImage(animimage, 0, 0, frameWidth()-1,
-                frameHeight()-1, frameX, frameY, frameX+frameWidth(),
-                frameY+frameHeight(), panel());
-        //pass the temp image on to the parent class and draw it
-        //frame image is passed to parent class for drawing
-        
-        //super.setImage(tempImage);
-        super.setImage(tempImage);
+        if (animated && width != 0 && height != 0){
+            tempImage = new BufferedImage(width, height,BufferedImage.TYPE_INT_ARGB);
+            tempSurface = tempImage.createGraphics();
+            int frameX = (currentFrame() % columns()) * frameWidth();
+            int frameY = (currentFrame() / columns()) * frameHeight();
+            //copy the frame onto the temp image
+            tempSurface.drawImage(animimage, 0, 0, frameWidth()-1,
+                    frameHeight()-1, frameX, frameY, frameX+frameWidth(),
+                    frameY+frameHeight(), panel());
+            //pass the temp image on to the parent class and draw it
+            //frame image is passed to parent class for drawing
+
+            //super.setImage(tempImage);
+            super.setImage(tempImage);
+        }
         super.transform();
         super.draw();
     }

@@ -12,6 +12,7 @@ import plantmon.entity.Item;
 import plantmon.entity.item.FoodItem;
 import plantmon.game.GridMap;
 import plantmon.states.Game;
+import plantmon.system.Utilities;
 
 public class Paprika extends Plant{
     private ImageIcon image1;
@@ -81,5 +82,16 @@ public class Paprika extends Plant{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 400);
         frame.setVisible(true);
+    }
+    @Override
+    public void setFase(int i) {
+        fase = i;
+        if (fase == DEWASANOSIRAM){
+            entity.load("picture/paprikapanen.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        } else if (fase == REMAJANOSIRAM){
+            entity.load("picture/paprikaremaja.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        } else {
+            super.setFase(i);
+        }
     }
 }

@@ -19,10 +19,8 @@ import plantmon.system.Drawable;
 public abstract class Unmoveable implements Drawable{
     protected AnimatedSprite entity;
     protected GridMap map;
-    boolean animated;
     protected Unmoveable(GridMap map, JPanel panel,Graphics2D g2d){
         entity = new AnimatedSprite(panel,g2d);
-        animated = true;
         this.map = map;
     }
     public void draw(){

@@ -84,9 +84,9 @@ public class Land extends Unmoveable implements Actionable{
     public void setStatus(int status){
         this.status = status;
         if (status == WATERED)
-            entity.load("picture/water.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+            entity.load("picture/water.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         else if (status == PLOWED)
-            entity.load("picture/plow.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+            entity.load("picture/plow.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         else if (status == NORMAL)
             entity.load("picture/land.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
     }

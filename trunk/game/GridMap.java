@@ -6,6 +6,7 @@
 package plantmon.game;
 
 import java.util.ArrayList;
+import plantmon.entity.unmoveable.Land;
 import plantmon.states.ParentState;
 import plantmon.system.Drawable;
 import plantmon.system.Utilities;
@@ -73,6 +74,14 @@ public class GridMap {
                 return result;
             } else return null;
         }
+    }
+    public Land getLand(int x, int y){
+        for (int i=0; i<map[x][y].size(); i++){
+            if (map[x][y].get(i) instanceof Land){
+                return (Land)map[x][y].get(i);
+            }
+        }
+        return null;
     }
     /**
      * push sebuah Object o ke dalam stack yang ada di posisi x,y. x,y merupakan

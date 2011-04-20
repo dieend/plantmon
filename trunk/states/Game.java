@@ -11,6 +11,7 @@ import plantmon.entity.Time;
 import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
+import plantmon.system.Utilities;
 
 public class Game {
     //ArrayList<ParentState> states;
@@ -167,13 +168,14 @@ public class Game {
         plants.remove(plant);
     }
     public void changeDay(){
-        for (Plant p:plants){
-            p.grow(Time.instance().getSeason());
-        }
         for (int i=0; i<20; i++){
             for (int j=0; j<20; j++){
                 farmstatus[i][j] = Land.NORMAL;
             }
+        }
+        for (Plant p:plants){
+            p.grow(Time.instance().getSeason());
+            farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.PLOWED;
         }
         Time.instance().changeDay();
         Game.instance().goTo(ParentState.HOME, null);

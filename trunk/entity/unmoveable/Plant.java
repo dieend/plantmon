@@ -141,17 +141,17 @@ public class Plant extends Unmoveable implements Actionable,
     public void setFase(int i) {
         fase = i;
         if (fase == BIBITSIRAM){
-            entity.load("picture/bibitsiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+            entity.load("picture/bibitsiram.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         } else if (fase == BIBITNOSIRAM){
-            entity.load("picture/bibitnosiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+            entity.load("picture/bibitnosiram.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         } else if (fase == DEWASANOSIRAM){
             entity.load("picture/dewasa.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-        } else if (fase == DEWASASIRAM){
-            entity.load("picture/dewasasiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+//        } else if (fase == DEWASASIRAM){
+//            entity.load("picture/dewasasiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         } else if (fase == REMAJANOSIRAM){
             entity.load("picture/remaja.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-        } else if (fase == REMAJASIRAM){
-            entity.load("picture/remajasiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+//        } else if (fase == REMAJASIRAM){
+//            entity.load("picture/remajasiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         } else if (fase == BIBITMATI){
             entity.load("picture/bibitmati.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         } else if (fase == TANAMANMATI){
@@ -208,6 +208,7 @@ public class Plant extends Unmoveable implements Actionable,
             if (!cancel[0]){
                 map.pop(gx, gy);
                 setFase(fase + 1);
+                map.getLand(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE).setStatus(Land.WATERED);
             }
         }
     }
