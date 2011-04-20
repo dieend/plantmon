@@ -1,7 +1,7 @@
 package plantmon.states;
 
-import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -26,9 +26,12 @@ public class Game {
     JPanel dialogBox;
     JTextArea log;
     JScrollPane pane;
-    StoryLine story;
+    private StoryLine story;
     String name;
     private static Game stateManager;
+    public static final int SUNNY = 0;
+    public static final int RAINY = 1;
+    public static final int STORM = 2;
     public int[][] farmstatus() {
         return farmstatus;
     }
@@ -177,17 +180,62 @@ public class Game {
         plants.remove(plant);
     }
     public void changeDay(){
-        for (int i=0; i<20; i++){
-            for (int j=0; j<20; j++){
-                farmstatus[i][j] = Land.NORMAL;
+        Integer[] ran = new Integer[100];
+        int x;
+        for (int i = 0; i <60; i++) {
+            ran[i] = SUNNY;
+        }
+        for (int i = 60; i <90; i++) {
+            ran[i] = RAINY;
+        }
+        for (int i = 90; i <100; i++) {
+            ran[i] = STORM;
+        }
+        Random ranNum = new Random();
+        x = ranNum.nextInt(100);
+        if (ran[x] == SUNNY) {
+            for (int i=0; i<20; i++){
+                for (int j=0; j<20; j++){
+                    farmstatus[i][j] = Land.NORMAL;
+                }
             }
+            for (Plant p:plants){
+                p.grow(Time.instance().getSeason());
+                farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.PLOWED;
+            }
+            Time.instance().changeDay();
+            Game.instance().goTo(ParentState.HOME, null);
+        } else if (ran[x] == RAINY) {
+            for (int i=0; i<20; i++){
+                for (int j=0; j<20; j++){
+                    farmstatus[i][j] = Land.NORMAL;
+                }
+            }
+            for (Plant p:plants){
+                p.grow(Time.instance().getSeason());
+                farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.WATERED;
+            }
+            Time.instance().changeDay();
+            Game.instance().goTo(ParentState.HOME, null);
+        } else if (ran[x] == STORM) {
+            for (int i=0; i<20; i++){
+                for (int j=0; j<20; j++){
+                    farmstatus[i][j] = Land.NORMAL;
+                }
+            }
+            
+            for (Plant p:plants){
+                x = ranNum.nextInt(100);
+                if (x >= 60) {
+                    plants.remove(p);
+                } else {
+                   p.grow(Time.instance().getSeason());
+                    farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.WATERED;
+                }
+            }
+            Time.instance().changeDay();
+            Game.instance().goTo(ParentState.HOME, null);
         }
-        for (Plant p:plants){
-            p.grow(Time.instance().getSeason());
-            farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.PLOWED;
-        }
-        Time.instance().changeDay();
-        Game.instance().goTo(ParentState.HOME, null);
     }
     public JPanel dialogBox(){
         if (dialogBox != null)
@@ -215,5 +263,13 @@ public class Game {
             dialogBox.setVisible(false);
             dialogBox.updateUI();
         }
+    }
+
+    public StoryLine getStory() {
+        return story;
+    }
+
+    public void setStory(StoryLine story) {
+        this.story = story;
     }
 }
