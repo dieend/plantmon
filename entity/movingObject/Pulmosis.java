@@ -1,12 +1,18 @@
 package plantmon.entity.movingObject;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.Random;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import plantmon.entity.MovingObject;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.states.Game;
 import plantmon.system.Cancellable;
 import plantmon.system.Selectable;
 import plantmon.system.Utilities;
@@ -14,6 +20,10 @@ import plantmon.system.Utilities;
 
 public class Pulmosis extends MovingObject implements Cancellable,
                                                     Selectable{
+    private ImageIcon image1;
+    private JLabel label1;
+    private JLabel label2;
+    private JLabel label3;
     int HP;
     int level;
     int atk;
@@ -69,8 +79,21 @@ public class Pulmosis extends MovingObject implements Cancellable,
         creature.drawBounds(Color.RED);
        
     }
-    @Override public JPanel get_Info() {
-        return null;
+    @Override public JPanel get_Info(){
+        JPanel panel;
+        panel = new JPanel();
+        panel.setLayout(null);
+//        image1 = new ImageIcon(this.getClass().getResource("player.jpg"));
+        label1 = new JLabel(image1);
+        label1.setBounds(0,0,100,100);
+        panel.add(label1);
+        label2 = new JLabel("Nama : " + Game.instance().getName());
+        label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label2.setBounds(120,0,150,30);
+        panel.add(label2);
+
+        return panel;
+
     }
     @Override public void init() {
         //inisiasi semua variable disini.
@@ -202,5 +225,14 @@ public class Pulmosis extends MovingObject implements Cancellable,
         creature.setFinalPosition(this.position().IntX(),this.position().IntY());
         inAction = false;
     }
-    
+
+    public static void main(String[] str){
+        JFrame frame=new JFrame();
+        BufferedImage bf = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Pulmosis a = new Pulmosis(new GridMap(), new JPanel(),bf.createGraphics(),Pulmosis.Kentang,true);
+        frame.getContentPane().add(a.get_Info());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 500);
+        frame.setVisible(true);
+    }
 }

@@ -9,5 +9,4 @@ public class Diary implements Actionable {
     public JPopupMenu getMenu(Selectable selected) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
 }

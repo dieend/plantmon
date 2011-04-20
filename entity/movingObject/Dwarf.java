@@ -1,9 +1,15 @@
 package plantmon.entity.movingObject;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -13,6 +19,7 @@ import plantmon.entity.*;
 import plantmon.entity.unmoveable.Plant;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.states.Game;
 import plantmon.system.Cancellable;
 //import plantmon.system.Jobable;
 import plantmon.system.Utilities;
@@ -20,6 +27,10 @@ import plantmon.system.Utilities;
 public class Dwarf extends MovingObject implements Actionable,
                                                     Selectable,
                                                     Runnable,/*Jobable,*/Cancellable{
+    private ImageIcon image1;
+    private JLabel label1;
+    private JLabel label2;
+    private JLabel label3;
     //status dwarf, 0 untuk sleep, 1 untuk wake_up
     Integer moneyharvest;
     private static Point2D defpos;
@@ -27,6 +38,7 @@ public class Dwarf extends MovingObject implements Actionable,
     private final int sleep=0;
     private final int wake_up=1;
     private String name;
+
 
     //type dwarf, 1 untuk water,0 untuk 
     
@@ -65,8 +77,34 @@ public class Dwarf extends MovingObject implements Actionable,
     @Override public void drawBounds() {
         creature.drawBounds(Color.GREEN);
     }
-    @Override public JPanel get_Info() {
-        return null;
+        @Override public JPanel get_Info() {
+        JPanel panel;
+        panel = new JPanel();
+        panel.setLayout(null);
+        if(this.getID()==water){
+        image1 = new ImageIcon(this.getClass().getResource("icon dwarf10.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label1 = new JLabel(image1);
+        label1.setBounds(0,0,100,100);
+        panel.add(label1);}
+        else if(this.getID() == harvest){
+        image1 = new ImageIcon(this.getClass().getResource("icon dwarf20.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label1 = new JLabel(image1);
+        label1.setBounds(0,0,100,100);
+        panel.add(label1);}
+        else if(this.getID() == slash){
+        image1 = new ImageIcon(this.getClass().getResource("icon dwarf30.png"));
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+        label1 = new JLabel(image1);
+        label1.setBounds(0,0,100,100);
+        panel.add(label1);}
+        
+        label2 = new JLabel("Nama : " + Game.instance().getName());
+        label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        label2.setBounds(120,0,150,30);
+        panel.add(label2);
+        return panel;
     }
     @Override protected void init() {
         //inisiasi semua variable disini.
@@ -185,5 +223,14 @@ public class Dwarf extends MovingObject implements Actionable,
 
     public void cancel(Object lock) {
         //throw new UnsupportedOperationException("Not supported yet.");
+    }
+    public static void main(String[] str){
+        JFrame frame=new JFrame();
+        BufferedImage bf = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Dwarf a = new Dwarf(new GridMap(), new JPanel(),bf.createGraphics(),2, 200);
+        frame.getContentPane().add(a.get_Info());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 500);
+        frame.setVisible(true);
     }
 }
