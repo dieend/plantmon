@@ -1,5 +1,6 @@
 package plantmon.states;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,8 +26,8 @@ public class Game {
     JPanel dialogBox;
     JTextArea log;
     JScrollPane pane;
+    StoryLine story;
     String name;
-
     private static Game stateManager;
     public int[][] farmstatus() {
         return farmstatus;
@@ -51,6 +52,8 @@ public class Game {
         log.setEditable(false);
         pane = new JScrollPane(log);
         pane.setBounds(0, 350, 650, 100);
+        story = new StoryLine();
+        story.setDay(Time.instance().getDay());
     }
     public String getName(){
         return name;
