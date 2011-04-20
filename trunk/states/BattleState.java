@@ -129,13 +129,10 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
             for (j = 0; j < 10 && found;j++) {
                 if (map.getTop(i,j) instanceof Pulmosis) {
                     Pulmosis pul = (Pulmosis) map.getTop(i,j);
-                    System.out.println("adada");
                     if (pul.getStatusEnemy()) {
                         found = false;
                         break;
                     }
-                } else if (map.getTop(i,j) instanceof Land) {
-                    System.out.println("APAAN SIH"+i+j);
                 }
             }
         }
