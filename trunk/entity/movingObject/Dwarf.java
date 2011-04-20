@@ -30,7 +30,10 @@ public class Dwarf extends MovingObject implements Actionable,
 
     //type dwarf, 1 untuk water,0 untuk 
     
-
+    public String getName()
+    {
+        return name;
+    }
     
     
     public Dwarf(GridMap map, JPanel panel, Graphics2D g2d,int t,Integer money){
@@ -86,17 +89,17 @@ public class Dwarf extends MovingObject implements Actionable,
         if (type==1)
         {
            Point2D where = route.get(0);
-           ((Plant)(map.getTop(where.IntX(), where.IntY()))).doWater(this);
+           ((Plant)(map.getTop(where.IntX(), where.IntY()))).doWater();
         }
         else if (type==2)
         {
             Point2D where = route.get(0);
-            ((Plant)(map.getTop(where.IntX()*Utilities.GRIDSIZE, where.IntY()*Utilities.GRIDSIZE))).doHarvest(this);
+            ((Plant)(map.getTop(where.IntX(), where.IntY()))).doHarvest();
         }
         else if (type==3)
         {
             Point2D where = route.get(0);
-            ((Plant)(map.getTop(where.IntX()*Utilities.GRIDSIZE, where.IntY()))).doSlash(this);
+            ((Plant)(map.getTop(where.IntX(), where.IntY()))).doSlash();
         }
     }
     @Override public void run(){
@@ -150,7 +153,7 @@ public class Dwarf extends MovingObject implements Actionable,
                 {
                     status=sleep;
                 }
-                else if ("wake_up".equals(e.getActionCommand()))
+                else if ("wake_up".equals(e.getActionCommand()) && (status==sleep))
                 {
                     status=wake_up;
                     (new Thread (Dwarf.this)).start();
