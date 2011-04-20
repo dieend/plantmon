@@ -4,7 +4,9 @@ import java.awt.Graphics2D;
 import plantmon.game.Point2D;
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
+import java.util.Scanner;
 import javax.swing.JPanel;
+import plantmon.entity.deadItem.Portal;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
 import plantmon.entity.unmoveable.Road;
@@ -35,7 +37,7 @@ public abstract class MovingObject implements Drawable{
         creature.setGraphics(g2d);
     }
     public void reinit(GridMap map,Graphics2D g2d, JPanel panel) {
-        this.map = map;
+        this.map=map;
         setGraphic(g2d);
         setPanel(panel);
     }
@@ -157,7 +159,10 @@ public abstract class MovingObject implements Drawable{
      * 2 untuk dwarf harvest, 3 untuk dwarf slash
      * @return
      */
-    public  ArrayList<Point2D> getRoute(int x,int y,int caller){
+    
+    public ArrayList<Point2D> getRoute(int x,int y,int caller){
+
+
         final int land=0;
         final int block=1;
         final int destiny=2;
@@ -173,6 +178,10 @@ public abstract class MovingObject implements Drawable{
         TempBRoute.add(new Point2D(creature.position().IntX()/Utilities.GRIDSIZE, creature.position().IntY()/Utilities.GRIDSIZE));
 
         //copy dulu arraynya
+        if(map==null)
+        {
+            System.out.println("NULLLLLLLLLLLLLLLLLLLLL");
+        }
         int[][] tmap = new int[map.getRow()][map.getColumn()];
 
 
@@ -184,7 +193,7 @@ public abstract class MovingObject implements Drawable{
             for(j=0;j<map.getColumn();++j)
             {
                //check Land
-                if (map.getTop(i, j) instanceof Land || map.getTop(i, j) instanceof Road)
+                if (map.getTop(i, j) instanceof Land || map.getTop(i, j) instanceof Road || map.getTop(i,j) instanceof Portal || map.getTop(i,j) instanceof Canceller)
                 {
                     tmap[i][j]= 0;
                 }
@@ -195,7 +204,7 @@ public abstract class MovingObject implements Drawable{
                 }
             }
         }
-
+        
         /*
         //hanya untuk debugging
         for(i=0;i<8;++i)
@@ -217,6 +226,11 @@ public abstract class MovingObject implements Drawable{
         //z==1, artinya objek yang memakai adalah dwarf water
         else if(caller==1)
         {
+            System.out.println("CALLER 1 MAP SEBELUM DESTINY");
+            performarr(tmap,map.getRow(),map.getColumn());
+            
+            // Scanner sin = new Scanner(System.in);
+            //int n = sin.nextInt();
         //inisialisasi nilai map untuk tanaman yang bisa disiram
             for(i=0;i<map.getRow();++i)
             {
@@ -224,23 +238,31 @@ public abstract class MovingObject implements Drawable{
                 {
                     if (map.getTop(i, j) instanceof  Plant)
                     {
-                        if (((Plant)map.getTop(i, j)).getFase()%2==0)
+                        if (!((Plant)map.getTop(i, j)).isWatered())
                         {
                             tmap[i][j]=2;
                         }
                     }
                 }
             }
+            System.out.println("SETELAH");
+            performarr(tmap,map.getRow(),map.getColumn());
         }
 
         //caller==2, artinya yang memakai adalah dwarf harvest
         else if (caller==2)
         {
+
+            
         //inisialisasi nilai map
+          
           for(i=0;i<map.getRow();++i)
           {
               for(j=0;j<map.getColumn();++j)
               {
+                  if (map.getTop(i,j)!=null) {
+                      System.out.println(map.getTop(i, j).getClass().getName() + " : " + i + " : " + j);
+                  }
                   if (map.getTop(i, j) instanceof Plant)
                   {
                       if ( (((Plant)map.getTop(i, j)).getFase()==Plant.DEWASANOSIRAM) || (((Plant)map.getTop(i, j)).getFase()==Plant.DEWASASIRAM) )
@@ -286,6 +308,12 @@ public abstract class MovingObject implements Drawable{
         //hanya untuk debugging
         performarr(tmap, 8, 8);
         */
+        //tmap[0][0]=0;
+        if (caller!=0)
+        {
+            System.out.println("INI DIANYA, type pemanggil : " + caller);
+            performarr(tmap, 8, 6);
+        }
         Boolean found=false;
 
         //System.out.println(TempBRoute.get(0).IntX());
@@ -434,18 +462,29 @@ public abstract class MovingObject implements Drawable{
         {
             rettrue.add(retroute.get(i));
         }
-        /*System.out.println("TEWAS");
-        for(i=0;i<rettrue.size()-1;++i)
+
+
+        if (caller!=0)
         {
+          if (!rettrue.isEmpty())
+              System.out.println("TIDAK KOSONG");
+          else
+              System.out.println("KOSONG");
+          System.out.println("rute");
+          for(i=0;i<rettrue.size()-1;++i)
+          {
             System.out.println(rettrue.get(i).IntX() + "," + rettrue.get(i).IntY() );
-        }*/
+          }
+        }
+
+        
         return rettrue;
     }
     /*
     public static void main(String[] args)
     {
-        ArrayList<Point2D> al = getRoute(5, 4,0);
+        ArrayList<Point2D> al = getRoute(5, 4,1);
         
     }*/
-
+    
 }

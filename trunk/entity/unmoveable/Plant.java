@@ -13,6 +13,7 @@ import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.states.Game;
 import plantmon.system.Actionable;
+import plantmon.system.Jobable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
 import plantmon.system.Utilities;
@@ -172,14 +173,26 @@ public class Plant extends Unmoveable implements Actionable,
     private void setTitikPanen(int i) {
         titikPanen = i;
     }
+    public void doWater(Selectable selected){
+        setFase(fase + 1);
+    }
 
-    class Water extends RunnableListener {
+    public void doHarvest(Selectable selected)
+    {
+    }
+
+    public void doSlash(Selectable selected)
+    {
+    }
+    
+
+    public class Water extends RunnableListener {
         Water(Selectable selected){
             super(selected);
         }
         public void run() {
             // membuat player berjalan ke posisi tumbuhan
-            Player player = (Player) selected;
+            Jobable player = (Jobable) selected;
             // gx dan gy adalah posisi tumbuhan saat ini
             int gx = (int)Plant.this.getPosition().X();
             int gy = (int)Plant.this.getPosition().Y();

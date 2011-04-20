@@ -10,13 +10,16 @@ import javax.swing.JPopupMenu;
 import plantmon.system.Actionable;
 import plantmon.system.Selectable;
 import plantmon.entity.*;
+import plantmon.entity.unmoveable.Plant;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.system.Cancellable;
+import plantmon.system.Jobable;
 import plantmon.system.Utilities;
 
 public class Dwarf extends MovingObject implements Actionable,
                                                     Selectable,
-                                                    Runnable{
+                                                    Runnable,Jobable,Cancellable{
     //status dwarf, 0 untuk sleep, 1 untuk wake_up
     Integer moneyharvest;
     private static Point2D defpos;
@@ -30,6 +33,8 @@ public class Dwarf extends MovingObject implements Actionable,
     public static final int water=1;
     public static final int harvest=2;
     public static final int slash=3;
+
+    
     
     public Dwarf(GridMap map, JPanel panel, Graphics2D g2d,int t,Integer money){
         super(map,panel,g2d);
@@ -52,6 +57,7 @@ public class Dwarf extends MovingObject implements Actionable,
             name="destiny";
             defpos = new Point2D(Utilities.GRIDSIZE,4*Utilities.GRIDSIZE);
         }
+        creature.setPosition(defpos);
         System.out.println("picture/dwarf"+type+"0");
         init();
     }
@@ -68,6 +74,7 @@ public class Dwarf extends MovingObject implements Actionable,
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(3);
     }
+    @Override
     public void reinit(GridMap map,Graphics2D g2d, JPanel panel){
         super.reinit(map,g2d, panel);
         if (creature.panel()!=null){
@@ -75,12 +82,56 @@ public class Dwarf extends MovingObject implements Actionable,
             creature.setImageName("picture/dwarf"+type);
         }
     }
+
+    public void dojob()
+    {
+        if (type==1)
+        {
+           Point2D where = route.get(0);
+           ((Plant)(map.getTop(where.IntX(), where.IntY()))).doWater(this);
+        }
+        else if (type==2)
+        {
+            Point2D where = route.get(0);
+            ((Plant)(map.getTop(where.IntX(), where.IntY()))).doHarvest(this);
+        }
+        else if (type==3)
+        {
+            Point2D where = route.get(0);
+            ((Plant)(map.getTop(where.IntX(), where.IntY()))).doSlash(this);
+        }
+    }
     @Override public void run(){
         while (status==wake_up)
         {
-            route=getRoute(0, 0, type);
-            
+            route=getRoute(creature.position().IntX(), creature.position().IntY(), type);
+            if (!route.isEmpty())
+            {
+                System.out.println("HIIIIIIIIIIIIIIIIIH");
+                if (route.size()==1)
+                {
+                    //dojob();
+                }
+                else 
+                {
+                    Boolean[] cancel = new Boolean[1];
+                    move(route.get(0).IntX(), route.get(0).IntY(), lock, cancel);
+                    creature.setPosition(route.get(0)); 
+                }
+            }
+            else
+            {
+                System.out.println("HAHAHAHHAHAHAHAH");
+                creature.setFinalPosition(creature.position().IntX(), creature.position().IntY());
+            }
         }
+    }
+
+    public void move(int gx,int gy,Object lock,Boolean[] cancel){
+        addAction(lock,new Point2D(gx,gy));
+        Canceller ca = new Canceller(creature.panel(),creature.graphics(),
+                                    gx, gy, cancel,lock,(Cancellable)this,numAction-1);
+        map.push(gx, gy, ca);
     }
 
     ActionListener setstatus()
@@ -95,6 +146,7 @@ public class Dwarf extends MovingObject implements Actionable,
                 else if ("wake_up".equals(e.getActionCommand()))
                 {
                     status=wake_up;
+                    (new Thread (Dwarf.this)).start();
                 }
             }
         };
@@ -119,5 +171,9 @@ public class Dwarf extends MovingObject implements Actionable,
             return menu;
         }
         return null;
+    }
+
+    public void cancel(Object lock) {
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 }
