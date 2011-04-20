@@ -131,7 +131,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         }
         selected = player;
         selectsomething = true;
-        story = Game.instance().story;
+        story = Game.instance().getStory();
         story.reinit(map,this,g2d);
         ((Thread) new Thread(story)).start();
         addMouseListener(this);

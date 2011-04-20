@@ -393,6 +393,7 @@ public class Store extends Unmoveable implements Actionable {
                 } else if (temp instanceof ArmorItem){
                     System.out.print("armoritem");
                 }
+                Game.instance().getStory().setSold(temp.getIDitem(), x);
                 Game.instance().log().append("Sold "+x+" "+temp.getName()+"(s) Rp."+(x*temp.getCostSell())+"\n");
             }
         }

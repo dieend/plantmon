@@ -55,6 +55,10 @@ public class StoryLine implements Runnable {
         this.sold = sold;
     }
 
+    public void setSold(int ID, int amm) {
+        sold.set(ID,amm);
+    }
+
     public GridMap getMap() {
         return map;
     }
@@ -76,18 +80,51 @@ public class StoryLine implements Runnable {
         Boolean[] cancel = new Boolean[1];
         Object lock = new Object();
         if (map.getTop(5, 9) instanceof Pulmosis) {
-                //lobak.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*9);
-                lobak.move(3, 4, lock, cancel);
-        } else if (map.getTop(4, 9) instanceof Pulmosis) {
+            //lobak.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*9);
+            lobak.move(3*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE, lock, cancel);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){
+                    return;
+                }
+            }
+            if (!cancel[0]){
+                map.pop(3*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE);
+                lobak.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 9*Utilities.GRIDSIZE+5);
+            }
         } else if (map.getTop(3, 9) instanceof Pulmosis) {
             //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*6);
-            lobak.move(3, 9, lock, cancel);
+            lobak.move(5*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE, lock, cancel);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){
+                    return;
+                }
+            }
+            if (!cancel[0]){
+                map.pop(5*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE);
+                lobak.getCreature().setFinalPosition(5*Utilities.GRIDSIZE+5, 9*Utilities.GRIDSIZE+5);
+            }
         } else if (belum[0]){
             belum[0] = false;
             lobak.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*9));
+            lobak.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*9);
             Point2D pos = lobak.getCreature().position();
             map.push(pos.X(), pos.Y(), lobak);
-            lobak.move(5, 9, lock, cancel);
+            lobak.move(5*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE, lock, cancel);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){
+                    return;
+                }
+            }
+            if (!cancel[0]){
+                map.pop(5*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE);
+                lobak.getCreature().setFinalPosition(5*Utilities.GRIDSIZE+5, 9*Utilities.GRIDSIZE+5);
+            }
             //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
         }
         
@@ -103,17 +140,50 @@ public class StoryLine implements Runnable {
         if (day >= 1) {
             if (map.getTop(3, 6) instanceof Pulmosis) {
                 //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
-                kentang.move(3, 4, lock, cancel);
-            } else if (map.getTop(3, 5) instanceof Pulmosis) {
+                kentang.move(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE, lock, cancel);
+                synchronized(lock){
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e){
+                        return;
+                    }
+                }
+                if (!cancel[0]){
+                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
+                    kentang.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
+                }
             } else if (map.getTop(3, 4) instanceof Pulmosis) {
                 //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*6);
-                kentang.move(3, 6, lock, cancel);
+                kentang.move(3*Utilities.GRIDSIZE, 6*Utilities.GRIDSIZE, lock, cancel);
+                synchronized(lock){
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e){
+                        return;
+                    }
+                }
+                if (!cancel[0]){
+                    map.pop(3*Utilities.GRIDSIZE, 6*Utilities.GRIDSIZE);
+                    kentang.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 6*Utilities.GRIDSIZE+5);
+                }
             } else if (belum[2]){
                 belum[2] = false;
                 kentang.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*6));
+                kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*6);
                 Point2D pos = kentang.getCreature().position();
                 map.push(pos.X(), pos.Y(), kentang);
-                kentang.move(3, 4, lock, cancel);
+                kentang.move(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE, lock, cancel);
+                synchronized(lock){
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e){
+                        return;
+                    }
+                }
+                if (!cancel[0]){
+                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
+                    kentang.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
+                }
                 //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
             }
         } else {
