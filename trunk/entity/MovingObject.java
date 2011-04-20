@@ -45,7 +45,7 @@ public abstract class MovingObject implements Drawable{
     public void load(String filename, int columns, int rows,int width, int height){
         creature.setImageName(filename);
         filename = filename+"0.png";
-        creature.load(filename, 4,1,32,32);
+        creature.load(filename, 4,1,width,height);
     }
     public AnimatedSprite getCreature()     {return creature;}
     public void draw()                      {creature.draw();}

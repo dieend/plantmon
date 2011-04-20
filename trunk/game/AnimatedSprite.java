@@ -175,19 +175,19 @@ public class AnimatedSprite extends Sprite {
         if ((Math.abs(velocity().Y()/velocity().X())>1.0) && velocity().Y()>0) {
 //            System.out.println("Hadap bawah");
 //                setFaceAngle(0);
-            load(imageName+"0.png",4,1,32,32);
+            load(imageName+"0.png",4,1,width,height);
         } else if ((Math.abs(velocity().Y()/velocity().X())<1.0) && velocity().X()>0){
 //            System.out.println("Hadap kanan");
 //                setFaceAngle(90);
-            load(imageName+"3.png",4,1,32,32);
+            load(imageName+"3.png",4,1,width,height);
         } else if ((Math.abs(velocity().Y()/velocity().X())>1.0) && velocity().Y()<0){
 //                setFaceAngle(180);
 //            System.out.println("Hadap atas");
-            load(imageName+"2.png",4,1,32,32);
+            load(imageName+"2.png",4,1,width,height);
         } else if ((Math.abs(velocity().Y()/velocity().X())<1.0) && velocity().X()<0){
 //                setFaceAngle(270);
 //            System.out.println("Hadap ke kiri");
-            load(imageName+"1.png",4,1,32,32);
+            load(imageName+"1.png",4,1,width,height);
         }
         frCount++;
         if (frameCount() > frameDelay()) {
