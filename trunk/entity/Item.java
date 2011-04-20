@@ -12,6 +12,7 @@ public abstract class Item {
     protected int costBuy;
     protected int costSell;
     protected int IDItem;
+    protected int efekItem;
     protected ImageEntity gambar;
     protected String deskripsi;
     private ImageIcon image1;
@@ -75,6 +76,11 @@ public abstract class Item {
     final public static int Cape = 81;
     final public static int Circlet = 82;
 
+    final public static int Normal = 0;
+    final public static int Paralyze = 1;
+    final public static int Poison = 2;
+    final public static int Dead = 3;
+
     public String getName(){
         return name;
     }
@@ -104,6 +110,12 @@ public abstract class Item {
     }
     public void setDeskripsi(String deskripsi) {
         this.deskripsi = deskripsi;
+    }
+    public int getEfek(){
+        return efekItem;
+    }
+    public void setEfek(int efek){
+        efek =efekItem;
     }
     public JPanel get_Info(){
         JPanel panel;

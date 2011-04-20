@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 //import javax.swing.FarmState;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -41,8 +44,9 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         JPanel panel;
         panel = new JPanel();
         panel.setLayout(null);
-//        image1 = new ImageIcon(this.getClass().getResource("player.jpg"));
+        image1 = new ImageIcon(this.getClass().getResource("icon player.png"));
         label1 = new JLabel(image1);
+        image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
         label1.setBounds(0,0,100,100);
         panel.add(label1);
         label2 = new JLabel("Nama : " + Game.instance().getName());
@@ -51,12 +55,12 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         panel.add(label2);
         label3 = new JLabel("Uang : "+ Game.instance().getMoney());
         label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label3.setBounds(120,0,150,30);
+        label3.setBounds(120,30,150,30);
         panel.add(label3);
         
         return panel;
-
     }
+
     @Override public JPopupMenu getMenu(Selectable selected){
         if (selected instanceof Player){
             final Player player = (Player) selected;
@@ -70,7 +74,6 @@ public class Player extends MovingObject implements Actionable, Cancellable,
                     Game.instance().seek(ParentState.INVENTORY,args);
                 }
             });
-
             menu.add(ite);
             menu.pack();
             return menu;
@@ -101,5 +104,82 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         this.numAction--;
         creature.setFinalPosition(this.position().IntX(),this.position().IntY());
         inAction = false;
+    }
+
+    public void eat(Item item){
+        Inventory inventory =  new Inventory();
+        if(item.getIDitem()==Item.BuKentang){
+            inventory.delete(item,1);
+            item.setEfek(Item.Normal);
+        }
+        if(item.getIDitem()==Item.BuLobak){
+            inventory.delete(item,1);
+            item.setEfek(Item.Poison);
+        }
+        if(item.getIDitem()==Item.BuTimun){
+            inventory.delete(item,1);
+            item.setEfek(Item.Paralyze);
+        }
+        if(item.getIDitem()==Item.BuKubis){
+            inventory.delete(item,1);
+            item.setEfek(Item.Dead);
+        }
+        if(item.getIDitem()==Item.BuKubis){
+            inventory.delete(item,1);
+            item.setEfek(Item.Normal);
+        }
+        if(item.getIDitem()==Item.BuJagung){
+            inventory.delete(item,1);
+            item.setEfek(Item.Paralyze);
+        }
+        if(item.getIDitem()==Item.BuTomat){
+            inventory.delete(item,1);
+            item.setEfek(Item.Poison);
+        }
+        if(item.getIDitem()==Item.BuBawang){
+            inventory.delete(item,1);
+            item.setEfek(Item.Normal);
+        }
+        if(item.getIDitem()==Item.BuNanas){
+            inventory.delete(item,1);
+            item.setEfek(Item.Normal);
+        }
+        if(item.getIDitem()==Item.BuWortel){
+            inventory.delete(item,1);
+            item.setEfek(Item.Normal);
+        }
+        if(item.getIDitem()==Item.BuTerong){
+            inventory.delete(item,1);
+            item.setEfek(Item.Normal);
+        }
+        if(item.getIDitem()==Item.BuUbi){
+            inventory.delete(item,1);
+            item.setEfek(Item.Normal);
+        }
+        if(item.getIDitem()==Item.BuPaprika){
+            inventory.delete(item,1);
+            item.setEfek(Item.Normal);
+        }
+        if(item.getIDitem()==Item.BuStroberi){
+            inventory.delete(item,1);
+            item.setEfek(Item.Normal);
+        }
+        if(item.getIDitem()==Item.BuLabu){
+            inventory.delete(item,1);
+            item.setEfek(Item.Normal);
+        }
+        if(item.getIDitem()==Item.BuBayam){
+            inventory.delete(item,1);
+            item.setEfek(Item.Normal);
+        }
+    }
+        public static void main(String[] str){
+        JFrame frame=new JFrame();
+        BufferedImage bf = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Player a = new Player(new GridMap(), new JPanel(), bf.createGraphics());
+        frame.getContentPane().add(a.get_Info());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 400);
+        frame.setVisible(true);
     }
 }

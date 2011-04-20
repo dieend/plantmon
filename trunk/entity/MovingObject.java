@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import plantmon.game.Point2D;
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
-import java.util.Scanner;
 import javax.swing.JPanel;
 import plantmon.entity.deadItem.Portal;
 import plantmon.entity.movingObject.Dwarf;
@@ -41,6 +40,15 @@ public abstract class MovingObject implements Drawable{
     public void setGraphic(Graphics2D g2d){
         creature.setGraphics(g2d);
     }
+
+    public int getID(){
+        return type;
+    }
+
+    public void setID(int i){
+        type=i;
+    }
+    
     public void reinit(GridMap map,Graphics2D g2d, JPanel panel) {
         this.map=map;
         setGraphic(g2d);
