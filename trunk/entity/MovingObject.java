@@ -240,8 +240,8 @@ public abstract class MovingObject implements Drawable{
         //z==1, artinya objek yang memakai adalah dwarf water
         else if(caller==1)
         {
-            System.out.println("CALLER 1 MAP SEBELUM DESTINY");
-            performarr(tmap,map.getRow(),map.getColumn());
+//            System.out.println("CALLER 1 MAP SEBELUM DESTINY");
+//            performarr(tmap,map.getRow(),map.getColumn());
             
             // Scanner sin = new Scanner(System.in);
             //int n = sin.nextInt();
@@ -250,9 +250,9 @@ public abstract class MovingObject implements Drawable{
             {
                 for(j=0;j<map.getColumn();++j)
                 {
-                    if (map.getTop(i,j)!=null) {
-                      System.out.println(map.getTop(i, j).getClass().getName() + " : " + i + " : " + j);
-                    }
+//                    if (map.getTop(i,j)!=null) {
+////                      System.out.println(map.getTop(i, j).getClass().getName() + " : " + i + " : " + j);
+//                    }
                     if (map.getTop(i, j) instanceof  Plant)
                     {
                         if (!((Plant)map.getTop(i, j)).isWatered())
@@ -262,15 +262,15 @@ public abstract class MovingObject implements Drawable{
                     }
                 }
             }
-            System.out.println("SETELAH");
-            performarr(tmap,map.getRow(),map.getColumn());
+//            System.out.println("SETELAH");
+//            performarr(tmap,map.getRow(),map.getColumn());
         }
 
         //caller==2, artinya yang memakai adalah dwarf harvest
         else if (caller==2)
         {
-          System.out.println("CALLER 2 MAP SEBELUM DESTINY");
-          performarr(tmap,map.getRow(),map.getColumn());
+//          System.out.println("CALLER 2 MAP SEBELUM DESTINY");
+//          performarr(tmap,map.getRow(),map.getColumn());
             
         //inisialisasi nilai map
           
@@ -278,23 +278,23 @@ public abstract class MovingObject implements Drawable{
           {
               for(j=0;j<map.getColumn();++j)
               {
-                  if (map.getTop(i,j)!=null) {
-                      System.out.println(map.getTop(i, j).getClass().getName() + " : " + i + " : " + j);
-                    }
-                  if (map.getTop(i,j)!=null) {
-                      System.out.println(map.getTop(i, j).getClass().getName() + " : " + i + " : " + j);
-                  }
+//                  if (map.getTop(i,j)!=null) {
+//                      System.out.println(map.getTop(i, j).getClass().getName() + " : " + i + " : " + j);
+//                    }
+//                  if (map.getTop(i,j)!=null) {
+//                      System.out.println(map.getTop(i, j).getClass().getName() + " : " + i + " : " + j);
+//                  }
                   if (map.getTop(i, j) instanceof Plant)
                   {
-                      System.out.println("KETEMU LHO tanamannya!!!" + " : " + i + " : " + j);
+//                      System.out.println("KETEMU LHO tanamannya!!!" + " : " + i + " : " + j);
                       if ( (((Plant)map.getTop(i, j)).getFase()==Plant.DEWASANOSIRAM) || (((Plant)map.getTop(i, j)).getFase()==Plant.DEWASASIRAM) )
                       {
-                          System.out.println("KETEMU LHO dewasanya!!!");
+//                          System.out.println("KETEMU LHO dewasanya!!!");
                           tmap[i][j]=2;
                       }
                   }
-                  System.out.println("SETELAH");
-                  performarr(tmap,map.getRow(),map.getColumn());
+//                  System.out.println("SETELAH");
+//                  performarr(tmap,map.getRow(),map.getColumn());
               }
           }
         }
@@ -302,8 +302,8 @@ public abstract class MovingObject implements Drawable{
         //caller=3, artinya yang memakai adalah dwarf slash
         else if (caller==3)
         {
-          System.out.println("CALLER 3 MAP SEBELUM DESTINY");
-          performarr(tmap,map.getRow(),map.getColumn());
+//          System.out.println("CALLER 3 MAP SEBELUM DESTINY");
+//          performarr(tmap,map.getRow(),map.getColumn());
         //inisialisasi nilai map
           for(i=0;i<map.getRow();++i)
           {
@@ -311,10 +311,10 @@ public abstract class MovingObject implements Drawable{
               {
                   if (map.getTop(i, j) instanceof Plant)
                   {
-                      if (map.getTop(i,j)!=null)
-                      {
-                          System.out.println(map.getTop(i,j).getClass().getName() + " : " + i + " : " + j);
-                      }
+//                      if (map.getTop(i,j)!=null)
+//                      {
+//                          System.out.println(map.getTop(i,j).getClass().getName() + " : " + i + " : " + j);
+//                      }
                       if ((((Plant)map.getTop(i, j)).getFase()==Plant.BIBITMATI) || (((Plant)map.getTop(i, j)).getFase()==Plant.TANAMANMATI))
                       {
                         tmap[i][j]=2;
@@ -322,7 +322,7 @@ public abstract class MovingObject implements Drawable{
                   }
               }
           }
-          System.out.println("SETELAH");
+//          System.out.println("SETELAH");
           performarr(tmap,map.getRow(),map.getColumn());
         }
 
@@ -342,15 +342,15 @@ public abstract class MovingObject implements Drawable{
         performarr(tmap, 8, 8);
         */
         //tmap[0][0]=0;
-        if (caller!=0)
-        {
-            System.out.println("INI DIANYA, type pemanggil : " + caller);
-            performarr(tmap, map.getRow(),map.getColumn());
-        }
+//        if (caller!=0)
+//        {
+//            System.out.println("INI DIANYA, type pemanggil : " + caller);
+//            performarr(tmap, map.getRow(),map.getColumn());
+//        }
         Boolean found=false;
 
         //System.out.println(TempBRoute.get(0).IntX());
-        System.out.println("Nilai found pertama : " + found);
+//        System.out.println("Nilai found pertama : " + found);
         while (!TempBRoute.isEmpty() && (!found))
         {
             //System.out.println("TESTESTES\n");
@@ -498,19 +498,19 @@ public abstract class MovingObject implements Drawable{
         }
 
 
-        if (caller!=0)
-        {
-          if (!rettrue.isEmpty())
-              System.out.println("TIDAK KOSONG");
-          else
-              System.out.println("KOSONG");
-          System.out.println("rute");
-          for(i=0;i<rettrue.size()-1;++i)
-          {
-            System.out.println(rettrue.get(i).IntX() + "," + rettrue.get(i).IntY() );
-          }
-        }
-
+//        if (caller!=0)
+//        {
+////          if (!rettrue.isEmpty())
+////              System.out.println("TIDAK KOSONG");
+////          else
+////              System.out.println("KOSONG");
+////          System.out.println("rute");
+//          for(i=0;i<rettrue.size()-1;++i)
+//          {
+//            System.out.println(rettrue.get(i).IntX() + "," + rettrue.get(i).IntY() );
+//          }
+//        }
+//
         
         return rettrue;
     }

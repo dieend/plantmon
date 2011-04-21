@@ -54,12 +54,32 @@ public class HomeState extends ParentState implements MouseListener{
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
         background.load("picture/Rumah.png");
-        for (int i=3; i<10; i++){
-            for (int j=2 ;j<9; j++){
-                map.gpush( i, j, new Road(map, this, g2d, i, j));
+                       //0 1 2 3 4 5 6 7 8 9 10
+        int[][] what = {{0,0,0,0,0,0,0,0,0,0,0},//0
+                        {0,0,0,0,0,0,0,0,0,0,0},//1
+                        {0,0,0,0,0,0,0,0,0,0,0},//2
+                        {0,0,2,2,2,2,2,2,2,0,0},//3
+                        {0,0,2,2,2,2,2,2,2,0,0},//4
+                        {0,0,2,2,2,2,2,2,2,0,0},//5
+                        {0,0,2,2,0,0,2,2,2,0,0},//6
+                        {0,0,2,2,0,0,2,2,2,0,0},//7
+                        {0,0,2,2,2,2,2,2,2,0,0},//8
+                        {0,0,2,2,2,2,2,2,2,0,0},//9
+                        {0,0,0,2,2,2,2,2,0,0,0},//10
+                        {0,0,0,0,0,0,0,0,0,0,0},//11
+                        {0,0,0,0,0,0,0,0,0,0,0}};//12
+                        
+        for (int i=0; i<map.getRow();i++){
+            for (int j=0; j<map.getColumn(); j++){
+                if (what[i][j] == 0){
+                } else if (what[i][j] ==2){
+                    Road r = new Road(map, this, g2d, i, j);
+                    map.gpush(i, j, r);
+                }
             }
         }
         map.gpush(8,8, new Portal(map, this, g2d, 8, 8));
+        map.gpush(9,8, new Portal(map, this, g2d, 9, 8));
         player =  new Player(map, this, g2d);
         player.getCreature().setPosition(new Point2D(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE));
         player.getCreature().setFinalPosition(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE);
@@ -83,7 +103,7 @@ public class HomeState extends ParentState implements MouseListener{
     public void run(){
         active = true;
         while (active) {
-//            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
+            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e){
@@ -91,7 +111,7 @@ public class HomeState extends ParentState implements MouseListener{
             }
             repaint();
             gameUpdate();
-            System.out.print(""+player.position().IntX()/Utilities.GRIDSIZE+""+player.position().IntY()/Utilities.GRIDSIZE+"\n");
+//            System.out.print(""+player.position().IntX()/Utilities.GRIDSIZE+""+player.position().IntY()/Utilities.GRIDSIZE+"\n");
         }
 
     }
@@ -122,7 +142,7 @@ public class HomeState extends ParentState implements MouseListener{
         JPopupMenu popup;
         switch(clicked){    
             case MouseEvent.BUTTON1:
-                System.out.format("aduh %d %d\n",e.getX(),e.getY());
+//                System.out.format("aduh %d %d\n",e.getX(),e.getY());
                 if (map.getTop(gx, gy) != null ) {
                     if (map.getTop(gx, gy) instanceof Selectable) {
                         selected = (Selectable) map.getTop(gx, gy);

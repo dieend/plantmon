@@ -19,6 +19,7 @@ import plantmon.system.Selectable;
 import plantmon.entity.*;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.game.TalkPanel;
 import plantmon.states.ParentState;
 import plantmon.states.Game;
 import plantmon.system.Cancellable;
@@ -42,7 +43,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
     }
     @Override public JPanel get_Info() {
         JPanel panel;
-        panel = new JPanel();
+        panel = new TalkPanel();
         panel.setLayout(null);
         image1 = new ImageIcon(this.getClass().getResource("icon player.png"));
         label1 = new JLabel(image1);
@@ -86,7 +87,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         load("picture/anim", 4,1,32,42);
         creature.setImageName("picture/anim");
         creature.setVelocity(new Point2D(0,0));
-        creature.setFrameDelay(1);
+        creature.setFrameDelay(5);
     }
     public void move(int gx,int gy,Object lock,Boolean[] cancel){
         addAction(lock,new Point2D(gx,gy));

@@ -30,7 +30,7 @@ public class Bed extends Unmoveable implements Actionable,Drawable{
     }
     
     @Override public void draw(){
-        super.draw();
+     //   super.draw();
     }
 
     @Override

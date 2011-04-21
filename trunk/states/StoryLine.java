@@ -72,8 +72,11 @@ public class StoryLine implements Runnable {
         this.panel = panel;
         this.g2d = g2d;
         kentang.reinit(map, g2d, panel);
+        map.push(kentang.position().IntX(),kentang.position().IntY(), kentang);
         lobak.reinit(map, g2d, panel);
+        map.push(lobak.position().IntX(),lobak.position().IntY(), lobak);
         timun.reinit(map,g2d,panel);
+        map.push(timun.position().IntX(),timun.position().IntY(), timun);
     }
 
     public void Story () {
@@ -193,7 +196,7 @@ public class StoryLine implements Runnable {
     public void run() {
        active = true;
        while (active) {
-            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
+            System.out.format("Story running:There are currenty %d Thread running\n",Thread.activeCount());
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
@@ -201,10 +204,12 @@ public class StoryLine implements Runnable {
             }
             Story();
         }
+       System.out.print("ending story\n");
     }
 
     public void turnOff () {
         active = false;
+        System.out.print("Story.turnoff\n");
     }
 
     public JPanel getPanel() {

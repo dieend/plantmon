@@ -91,7 +91,11 @@ public class Time {
         String sd = make2digit(String.valueOf(day));
         String sh = make2digit(String.valueOf(hour));
         String smn = make2digit(String.valueOf(minutes));
-        return (ss+" year "+sy+", month "+sm+".\n"+" day "+sd+" "+sh+separator()+smn);
+        int w = Game.instance().getWeather();
+        String weather = (w == Game.RAINY)?("Rain"):
+                         (w == Game.STORM)?("Storm"):
+                         (w == Game.SUNNY)?("Sunny"):"";
+        return (ss+" year "+sy+", month "+sm+".\n"+" day "+sd+" "+sh+separator()+smn+" "+weather);
     }
     /**
      * @return the season

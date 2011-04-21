@@ -38,8 +38,8 @@ public class Portal extends Unmoveable implements Actionable{
         init();
     }
     public void init(){
-        //entity.load("picture/land.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-        //entity.setFrameDelay(5);
+        entity.load("picture/portal.png", 5, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        entity.setFrameDelay(7);
     }
     public JPopupMenu getMenu(Selectable selected){
         if (selected instanceof Player){
@@ -75,7 +75,7 @@ public class Portal extends Unmoveable implements Actionable{
         return null;
     }
     @Override public void draw(){
-        
+        super.draw();
     }
 
     class Teleport extends RunnableListener {

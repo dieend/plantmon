@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import plantmon.entity.Item;
 import plantmon.entity.item.FoodItem;
 import plantmon.game.GridMap;
+import plantmon.game.TalkPanel;
 import plantmon.states.Game;
-import plantmon.system.Utilities;
 
 public class Tomat extends Plant{
     private ImageIcon image1;
@@ -33,7 +33,7 @@ public class Tomat extends Plant{
     }
      @Override public JPanel get_Info(){
         JPanel panel;
-        panel = new JPanel();
+        panel = new TalkPanel();
         panel.setLayout(null);
         image1=new ImageIcon(getClass().getResource("tomat.png"));
         image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
