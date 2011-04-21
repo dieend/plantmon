@@ -62,6 +62,8 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         time.setBackground(Color.ORANGE);
         time.setForeground(Color.black);
         add(Game.instance().dialogBox());
+        Game.instance().setDialogBox(selected.get_Info(),this);
+        Game.instance().dialogOn();
 //        add(time);
         //add(pane);
         addMouseMotionListener(this);
@@ -135,14 +137,15 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         selectsomething = true;
         story = Game.instance().getStory();
         story.reinit(map,this,g2d);
-        ((Thread) new Thread(story)).start();
         addMouseListener(this);
     }
     @Override
     public void run(){
+        ((Thread) new Thread(story)).start();
+        System.out.print("creating story\n");
         active = true;
         while (active) {
-            //System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
+//            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e){
@@ -159,7 +162,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         Time.instance().update();
         time.setText(Time.instance().getTime());
         Point2D pos = player.getCreature().position();
-        System.out.print("Player position: "+pos.IntX()/Utilities.GRIDSIZE+" "+pos.IntY()/Utilities.GRIDSIZE+"\n");
+//        System.out.print("Player position: "+pos.IntX()/Utilities.GRIDSIZE+" "+pos.IntY()/Utilities.GRIDSIZE+"\n");
 //        for (int i=0; i<8;i++){
 //            for (int j=0; j<8; j++){
 //                if (map.getTop(i, j) instanceof Drawable){
@@ -226,6 +229,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
                         popup.show(tmp.getComponent(),tmp.getX(), tmp.getY());
                     } else {
                         selectsomething = false;
+                        Game.instance().dialogOff();
                     }
                 } else {
                     selectsomething = false;
@@ -260,8 +264,9 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         }
 
         @Override public void turnOff () {
-            super.turnOff();
             story.turnOff();
+            System.out.print("turn off famrstate");
+            super.turnOff();
         }
 
         void updateDiff(MouseEvent e) {

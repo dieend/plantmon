@@ -19,6 +19,7 @@ import plantmon.entity.*;
 import plantmon.entity.unmoveable.Plant;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.game.TalkPanel;
 import plantmon.states.Game;
 import plantmon.system.Cancellable;
 //import plantmon.system.Jobable;
@@ -79,7 +80,7 @@ public class Dwarf extends MovingObject implements Actionable,
     }
         @Override public JPanel get_Info() {
         JPanel panel;
-        panel = new JPanel();
+        panel = new TalkPanel();
         panel.setLayout(null);
         if(this.getID()==water){
         image1 = new ImageIcon(this.getClass().getResource("icon dwarf10.png"));
@@ -143,10 +144,11 @@ public class Dwarf extends MovingObject implements Actionable,
     @Override public void run(){
         while (status==wake_up)
         {
+            update();
             route=getRoute(creature.position().IntX(), creature.position().IntY(), type);
             if (!route.isEmpty())
             {
-                System.out.println("HIIIIIIIIIIIIIIIIIH");
+//                System.out.println("HIIIIIIIIIIIIIIIIIH");
                 if (route.size()==1)
                 {
                     dojob();
@@ -168,7 +170,7 @@ public class Dwarf extends MovingObject implements Actionable,
             }
             else
             {
-                System.out.println("HAHAHAHHAHAHAHAH"+creature.position().IntX()+creature.position().IntY());
+//                System.out.println("HAHAHAHHAHAHAHAH"+creature.position().IntX()+creature.position().IntY());
                 //creature.setFinalPosition(30,30);
                 creature.setFinalPosition(creature.position().IntX(), creature.position().IntY());
             }

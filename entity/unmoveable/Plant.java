@@ -174,7 +174,11 @@ public class Plant extends Unmoveable implements Actionable,
         titikPanen = i;
     }
     public void doWater(){
+        int gx = (int)Plant.this.getPosition().X();
+        int gy = (int)Plant.this.getPosition().Y();
         setFase(fase + 1);
+        map.getLand(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE).setStatus(Land.WATERED);
+        Game.instance().farmstatus()[gx/Utilities.GRIDSIZE][gy/Utilities.GRIDSIZE] = Land.WATERED;
     }
 
     public void doHarvest()
@@ -185,12 +189,12 @@ public class Plant extends Unmoveable implements Actionable,
     public void doSlash()
     {
         int gx = (int)Plant.this.getPosition().X();
-            int gy = (int)Plant.this.getPosition().Y();
+        int gy = (int)Plant.this.getPosition().Y();
         map.pop(gx, gy);
-        if (this.isWatered()) {
+        if (Plant.this.isWatered()) {
             ((Land)map.getTop(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE)).setStatus(Land.WATERED);
         }
-        Game.instance().removePlant(this);
+        Game.instance().removePlant(Plant.this);
         Game.instance().log().append("slashing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
     }
     
@@ -217,8 +221,7 @@ public class Plant extends Unmoveable implements Actionable,
             // setelah player sampai, siram tanaman.
             if (!cancel[0]){
                 map.pop(gx, gy);
-                setFase(fase + 1);
-                map.getLand(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE).setStatus(Land.WATERED);
+                doWater();
             }
         }
     }
@@ -302,12 +305,7 @@ public class Plant extends Unmoveable implements Actionable,
             }
             if (!cancel[0]){
                 map.pop(gx, gy);
-                map.pop(gx, gy);
-                if (Plant.this.isWatered()) {
-                    ((Land)map.getTop(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE)).setStatus(Land.WATERED);
-                }
-                Game.instance().removePlant(Plant.this);
-                Game.instance().log().append("slashing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
+                doSlash();
             }
         }
     }

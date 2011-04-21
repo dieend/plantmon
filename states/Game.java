@@ -29,6 +29,7 @@ public class Game {
     private StoryLine story;
     String name;
     private static Game stateManager;
+    private int weather;
     public static final int SUNNY = 0;
     public static final int RAINY = 1;
     public static final int STORM = 2;
@@ -193,6 +194,7 @@ public class Game {
         }
         Random ranNum = new Random();
         x = ranNum.nextInt(100);
+        weather = ran[x];
         if (ran[x] == SUNNY) {
             for (int i=0; i<20; i++){
                 for (int j=0; j<20; j++){
@@ -200,8 +202,8 @@ public class Game {
                 }
             }
             for (Plant p:plants){
-                p.grow(Time.instance().getSeason());
                 farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.PLOWED;
+                p.grow(Time.instance().getSeason());
             }
             Time.instance().changeDay();
             Game.instance().goTo(ParentState.HOME, null);
@@ -212,8 +214,9 @@ public class Game {
                 }
             }
             for (Plant p:plants){
-                p.grow(Time.instance().getSeason());
                 farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.WATERED;
+                p.grow(Time.instance().getSeason());
+                p.doWater();
             }
             Time.instance().changeDay();
             Game.instance().goTo(ParentState.HOME, null);
@@ -229,8 +232,8 @@ public class Game {
                 if (x >= 60) {
                     plants.remove(p);
                 } else {
+                   farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.WATERED;
                    p.grow(Time.instance().getSeason());
-                    farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.WATERED;
                 }
             }
             Time.instance().changeDay();
@@ -271,5 +274,12 @@ public class Game {
 
     public void setStory(StoryLine story) {
         this.story = story;
+    }
+
+    /**
+     * @return the weather
+     */
+    public int getWeather() {
+        return weather;
     }
 }

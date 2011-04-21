@@ -401,8 +401,8 @@ public class Store extends Unmoveable implements Actionable {
     
     @Override
     public void init() {
-        entity.load("picture/toko.png");//, 1, 1, 80, 80);
-        entity.setFrameDelay(5);
+//        entity.load("picture/toko.png");//, 1, 1, 80, 80);
+//        entity.setFrameDelay(5);
 
         
     }

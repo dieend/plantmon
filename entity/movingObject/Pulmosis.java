@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import plantmon.entity.MovingObject;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.game.TalkPanel;
 import plantmon.states.Game;
 import plantmon.system.Cancellable;
 import plantmon.system.Selectable;
@@ -81,7 +82,7 @@ public class Pulmosis extends MovingObject implements Cancellable,
     }
     @Override public JPanel get_Info(){
         JPanel panel;
-        panel = new JPanel();
+        panel = new TalkPanel();
         panel.setLayout(null);
 //        image1 = new ImageIcon(this.getClass().getResource("player.jpg"));
         label1 = new JLabel(image1);

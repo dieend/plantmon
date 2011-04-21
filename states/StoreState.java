@@ -44,16 +44,34 @@ public class StoreState extends ParentState implements MouseListener{
         int x = 13;
         int y = 10;
         map = new GridMap(x, y);
-        for (int i=3; i<11; i++){
-            for (int j=4 ;j<9; j++){
-                map.gpush( i, j, new Road(map, this, g2d, i, j));
+                       //0 1 2 3 4 5 6 7 8 9 10
+        int[][] what = {{0,0,0,0,0,0,0,0,0,0,0},//0
+                        {0,0,0,0,0,0,0,0,0,0,0},//1
+                        {0,0,0,0,2,2,2,2,2,0,0},//2
+                        {0,0,0,0,2,0,2,0,2,0,0},//3
+                        {0,0,0,0,2,0,2,0,2,0,0},//4
+                        {0,0,0,0,2,2,2,2,2,0,0},//5
+                        {0,0,0,0,2,2,2,2,2,0,0},//6
+                        {0,0,0,0,2,2,2,2,2,0,0},//7
+                        {0,0,0,0,2,0,2,0,2,0,0},//8
+                        {0,0,0,0,2,0,2,0,2,0,0},//9
+                        {0,0,0,0,2,2,2,2,2,0,0},//10
+                        {0,0,0,0,0,0,0,0,0,0,0},//11
+                        {0,0,0,0,0,0,0,0,0,0,0}};//12
+
+        for (int i=0; i<map.getRow();i++){
+            for (int j=0; j<map.getColumn(); j++){
+                if (what[i][j] == 0){
+                } else if (what[i][j] ==2){
+                    Road r = new Road(map, this, g2d, i, j);
+                    map.gpush(i, j, r);
+                }
             }
         }
         backbuffer = new BufferedImage(640, 480, BufferedImage.TYPE_INT_ARGB);
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
         background.load("picture/market.png");
-        map.gpush(4,4, new Portal(map, this, g2d, 4, 4));
         player =  new Player(map, this, g2d);
         player.getCreature().setPosition(new Point2D(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE));
         player.getCreature().setFinalPosition(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE);
@@ -66,8 +84,8 @@ public class StoreState extends ParentState implements MouseListener{
         add(time);
         map.gpush(4, 8, new Portal(map, this, g2d, 4, 8));
         Store stitem = new Store(map, this, g2d, 1);
-        stitem.getEntity().setPosition(new Point2D(3*Utilities.GRIDSIZE, 3*Utilities.GRIDSIZE));
-        stitem.getEntity().setFinalPosition(3*Utilities.GRIDSIZE, 3*Utilities.GRIDSIZE);
+        stitem.getEntity().setPosition(new Point2D(4*Utilities.GRIDSIZE, 3*Utilities.GRIDSIZE));
+        stitem.getEntity().setFinalPosition(4*Utilities.GRIDSIZE, 3*Utilities.GRIDSIZE);
         map.push(stitem.getEntity().position().IntX(), stitem.getEntity().position().IntY(), stitem);
         Store stwaritem = new Store(map, this, g2d, 2);
         stwaritem.getEntity().setPosition(new Point2D(6*Utilities.GRIDSIZE,3*Utilities.GRIDSIZE));
