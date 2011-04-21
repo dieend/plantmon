@@ -1,0 +1,75 @@
+Quest
+Lobak	: Auto
+Kentang	: Main Quest 1
+Timun	: Auto
+Kubis	: Main Quest 4
+Stroberi: Side Quest 1
+Jagung	: Side Quest 2
+Tomat	: Side Quest 3
+Bawang	: Side Quest 4
+Nanas	: Main Quest 2
+Labu	: Main Quest 3
+Wortel	: Side Quest 5
+Terong	: Side Quest 6
+Ubi		: Side Quest 7
+Paprika	: Side Quest 8
+
+Main Quest 1 :
+<Spring> | 5 - 30 SPRING
+: Player keluar dari rumah.
+: Mendapati seorang Pulmosis tergeletak di depan rumah.
+: Pulmosis Kentang.
+: Player memapah Kentang ke samping lahan (di atas).
+: Pulmosis Kentang kesakitan dan meminta air.
+: Player harus menyiram Pulmosis setiap hari selama seminggu agar Pulmosisnya tidak sakit lagi.
+--- Jika satu hari saja tidak disiram, maka akan GAME OVER ---
+: Pada hari kedelapan, Pulmosis Kentang sembuh dan menceritakan asal usulnya.
+: Dan meminta bantuan untuk menyelamatkan desanya dari seorang Pulmosis penjajah, yaitu Timun.
+: Sehingga pada tanggal 13 - 30 SPRING akan ter-unlock area baru pada map.
+: Player akan melakukan battle melawan Kubis.
+: Player harus menyelesaikan misi ini sebelum SUMMER.
+--- Jika Player belum menyelesaikan misi ini sampai SUMMER, maka akan GAME OVER ---
+: Jika berhasil menyelesaikan misi ini, Kentang dan Kubis akan bergabung.
+
+Main Quest 2 :
+<Summer> | 1 - 20 SUMMER
+: Seorang Pulmosis dan rekan-rekan kroco berandalnya datang dan merusak lahan.
+: Dia adalah Pulmosis Nanas.
+: Pulmosis Nanas menculik Lobak.
+: Sehingga pada tanggal 1 - 10 SUMMER akan ter-unlock area baru pada map.
+: Player mendapatkan pilihan untuk membayar tebusan atau tidak.
+: Jika iya, maka Player akan kehilangan sejumlah uang.
+: Akan tetapi Pulmosis Nanas akan kembali mengacau di lahan dan kembali menculik Lobak pada keesokan harinya.
+: Jika Player tidak memiliki uang maka Player hanya akan diberikan pilihan Tidak.
+: Jika tidak, maka Player akan melakukan battle melawan Pulmosis Nanas dan kroco-kroco Nanas.
+: Player harus menyelesaikan misi ini sebelum 21 SUMMER.
+--- Jika Player belum menyelesaikan misi ini sampai 21 SUMMER, maka akan GAME OVER ---
+: Jika berhasil menyelesaikan misi ini, Nanas akan bergabung.
+
+Main Quest 3 :
+<Fall> 	| 15 - 29 FALL
+: Pada tanggal 14 FALL, Nanas akan memberitahukan bahwa lahan mengalami kekeringan yang sangat.
+: Lalu Player disuruh memeriksa daerah mata air.
+: Maka akan ter-unlock area baru pada map.
+: Jika Player melakukan perjalanan ke area tersebut, maka akan terlihat bahwa gerombolan Labu yang dipimpin oleh Pulmosis.
+: Gerombolan ini melakukan pemboikotan air sehingga menyebabkan persediaan air tanah pada lahan menipis.
+: Lalu gerombolan ini akan kabur membawa persediaan air pada diri mereka.
+: Maka akan ter-unlock area baru pada map.
+: Player harus melakukan battle melawan gerombolan Labu.
+: Jika berhasil menyelesaikan misi ini, Labu akan bergabung.
+
+Main Quest 4 :
+<Fall>	| 30 FALL
+: Pada tanggal 30 FALL, paman Player pulang dari Konferensi Pers Petani Internasional.
+: Player harus menjalani tes terakhir dari Paman untuk mendapatkan lahan dan membuktikan dirinya menjadi seorang Petani.
+: Akan melakukan battle melawan Paman dan Pulmosisnya.
+--- THE END ---
+
+Side Quest 1: Tanam 4 jenis tanaman berbeda di lahan, maka Stroberi akan datang dan bergabung ke lahan.
+Side Quest 2: Jual 5 turnip, 5 timun, 5 kentang. Jagung akan bergabung.
+Side Quest 3: Pada 27 SPRING, Tomat akan datang ke lahan. Lalu mengajukan 3 pertanyaan, jawab dengan ngawur ketiga pertanyaan tersebut. Maka tomat akan bergabung. {Jika tidak bergabung, tomat akan berada di lahan setiap 10 hari}
+Side Quest 4: Pada 21 SUMMER, Lobak dan Timun dikaruniai seorang anak, Bawang.
+Side Quest 5: 
+Side Quest 6:
+Side Quest 7: 1 FALL, Ubi akan bergabung.
+Side Quest 8:
