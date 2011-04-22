@@ -6,6 +6,9 @@
 package plantmon.entity;
 
 import java.awt.Graphics2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import javax.swing.JPanel;
 import plantmon.game.AnimatedSprite;
 import plantmon.game.GridMap;
@@ -16,13 +19,19 @@ import plantmon.system.Drawable;
  *
  * @author asus
  */
-public abstract class Unmoveable implements Drawable{
+public abstract class Unmoveable implements Drawable,Serializable{
     protected AnimatedSprite entity;
-    protected GridMap map;
+    transient protected GridMap map;
     protected Unmoveable(GridMap map, JPanel panel,Graphics2D g2d){
         entity = new AnimatedSprite(panel,g2d);
         this.map = map;
     }
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
+    {
+        in.defaultReadObject();
+        map = new GridMap();
+    }
+
     public void draw(){
         entity.draw();
     }

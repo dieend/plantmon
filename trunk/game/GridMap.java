@@ -5,6 +5,7 @@
 
 package plantmon.game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import plantmon.entity.unmoveable.Land;
 import plantmon.states.ParentState;
@@ -15,11 +16,11 @@ import plantmon.system.Utilities;
  *
  * @author asus
  */
-public class GridMap {
+public class GridMap implements Serializable{
     /**
      * Peta yang menggambarkan keadaan area. Merupakan array of stack 2 dimensi
      */
-    ArrayList<Object>[][] map;
+    transient ArrayList<Object>[][] map;
     /**
      * jumlah kolom
      */

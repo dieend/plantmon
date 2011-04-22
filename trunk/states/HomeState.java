@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
 import plantmon.entity.Canceller;
 import plantmon.entity.Time;
 import plantmon.entity.deadItem.Bed;
+import plantmon.entity.deadItem.Diary;
 import plantmon.entity.deadItem.Portal;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Road;
@@ -85,6 +86,7 @@ public class HomeState extends ParentState implements MouseListener{
         player.getCreature().setFinalPosition(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE);
         map.gpush(5, 5,player);
         map.gpush(10, 2, new Bed(map, this, g2d, 10, 2));
+        map.gpush(9, 2, new Diary(map, this, g2d, 9, 2));
         addMouseListener(this);
         
         time = new JTextArea();
@@ -103,7 +105,7 @@ public class HomeState extends ParentState implements MouseListener{
     public void run(){
         active = true;
         while (active) {
-            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
+//            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e){

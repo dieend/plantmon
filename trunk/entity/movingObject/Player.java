@@ -28,10 +28,6 @@ import plantmon.system.Jobable;
 
 public class Player extends MovingObject implements Actionable, Cancellable,
                                                     Selectable,Jobable{
-    private ImageIcon image1;
-    private JLabel label1;
-    private JLabel label2;
-    private JLabel label3;
 
     //bisa ngapain aja
     public Player(GridMap map, JPanel panel, Graphics2D g2d){
@@ -42,6 +38,10 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         creature.drawBounds(Color.GREEN);
     }
     @Override public JPanel get_Info() {
+        ImageIcon image1;
+        JLabel label1;
+        JLabel label2;
+        JLabel label3;
         JPanel panel;
         panel = new TalkPanel();
         panel.setLayout(null);

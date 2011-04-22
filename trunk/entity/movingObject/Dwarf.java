@@ -28,10 +28,6 @@ import plantmon.system.Utilities;
 public class Dwarf extends MovingObject implements Actionable,
                                                     Selectable,
                                                     Runnable,/*Jobable,*/Cancellable{
-    private ImageIcon image1;
-    private JLabel label1;
-    private JLabel label2;
-    private JLabel label3;
     //status dwarf, 0 untuk sleep, 1 untuk wake_up
     Integer moneyharvest;
     private static Point2D defpos;
@@ -79,6 +75,11 @@ public class Dwarf extends MovingObject implements Actionable,
         creature.drawBounds(Color.GREEN);
     }
         @Override public JPanel get_Info() {
+        ImageIcon image1;
+        JLabel label1;
+        JLabel label2;
+        JLabel label3;
+
         JPanel panel;
         panel = new TalkPanel();
         panel.setLayout(null);

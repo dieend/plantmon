@@ -8,12 +8,11 @@ import java.awt.image.*;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-public class AnimatedSprite extends Sprite {
+public class AnimatedSprite extends Sprite{
     //this image holds the large tiled bitmap
-    private Image animimage;
+    transient private Image animimage;
+    transient protected JPanel panel;
     //temp image passed to parent draw method
-    BufferedImage tempImage;
-    Graphics2D tempSurface;
     //custom properties
     private int currFrame, totFrames;
     private int animDir;
@@ -23,7 +22,6 @@ public class AnimatedSprite extends Sprite {
     private int width;
     private int height;
     protected String imageName;
-    protected JPanel panel;
     boolean animated;
     @Override
     public void setPanel(JPanel panel){
@@ -213,6 +211,8 @@ public class AnimatedSprite extends Sprite {
      * menggambar animasi ke buffer
      */
     @Override public void draw() {
+        BufferedImage tempImage;
+        Graphics2D tempSurface;
         //calculate the current frame’s X and Y position
 //        System.out.print("I'm drawing animated\n");
         if (animated && width != 0 && height != 0){

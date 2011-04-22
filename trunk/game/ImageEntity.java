@@ -9,10 +9,10 @@ import javax.swing.JPanel;
 
 public class ImageEntity extends BaseGameEntity {
 //variables
-    protected Image image;
-    protected JPanel panel;
-    protected AffineTransform at;
-    protected Graphics2D g2d;
+    transient protected Image image;
+    transient protected JPanel panel;
+    transient protected AffineTransform at;
+    transient protected Graphics2D g2d;
     //default constructor
     public ImageEntity(JPanel a) {
         panel = a;

@@ -20,7 +20,7 @@ public class FoodItem extends Item {
     }
 
     public FoodItem(int IDitem, JPanel panel) {
-        gambar = new ImageEntity(panel);
+        
         IDItem = IDitem;
         if (IDitem == BuKentang) {
             name = "Kentang";
