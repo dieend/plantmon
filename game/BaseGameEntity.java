@@ -1,6 +1,8 @@
 package plantmon.game;
 
-public class BaseGameEntity extends Object {
+import java.io.Serializable;
+
+public class BaseGameEntity extends Object implements Serializable{
 //variables
     protected boolean alive;
     protected double x,y;

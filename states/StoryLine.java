@@ -1,6 +1,7 @@
 package plantmon.states;
 
 import java.awt.Graphics2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import plantmon.entity.movingObject.Pulmosis;
@@ -8,13 +9,12 @@ import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.system.Utilities;
 
-public class StoryLine implements Runnable {
+public class StoryLine implements Runnable,Serializable {
     private int type;
     private ArrayList<Integer> sold;
     private int day;
-    private GridMap map;
-    private JPanel panel;
-    private Graphics2D g2d;
+    transient private GridMap map;
+    transient private JPanel panel;
     boolean active;
     Pulmosis kentang;
     Pulmosis lobak;
@@ -26,9 +26,9 @@ public class StoryLine implements Runnable {
         belum[0] = true;
         belum[1] = true;
         belum[2] = true;
-        kentang = new Pulmosis(map,panel,g2d,2,false);
-        lobak = new Pulmosis(map,panel,g2d,0,false);
-        timun =  new Pulmosis(map,panel,g2d,1,false);
+        kentang = new Pulmosis(map,panel,null,2,false);
+        lobak = new Pulmosis(map,panel,null,0,false);
+        timun =  new Pulmosis(map,panel,null,1,false);
     }
 
     public int getType() {
@@ -63,14 +63,10 @@ public class StoryLine implements Runnable {
         return map;
     }
 
-    public Graphics2D getG2d() {
-        return g2d;
-    }
-
     public void reinit (GridMap map, JPanel panel, Graphics2D g2d) {
         this.map = map;
         this.panel = panel;
-        this.g2d = g2d;
+//        this.g2d = g2d;
         kentang.reinit(map, g2d, panel);
         map.push(kentang.position().IntX(),kentang.position().IntY(), kentang);
         lobak.reinit(map, g2d, panel);

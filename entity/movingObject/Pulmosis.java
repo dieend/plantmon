@@ -21,10 +21,6 @@ import plantmon.system.Utilities;
 
 public class Pulmosis extends MovingObject implements Cancellable,
                                                     Selectable{
-    private ImageIcon image1;
-    private JLabel label1;
-    private JLabel label2;
-    private JLabel label3;
     int HP;
     int level;
     int atk;
@@ -81,9 +77,13 @@ public class Pulmosis extends MovingObject implements Cancellable,
        
     }
     @Override public JPanel get_Info(){
+        JLabel label1;
+        JLabel label2;
+        JLabel label3;
         JPanel panel;
         panel = new TalkPanel();
         panel.setLayout(null);
+        ImageIcon image1 = null;
 //        image1 = new ImageIcon(this.getClass().getResource("player.jpg"));
         label1 = new JLabel(image1);
         label1.setBounds(0,0,100,100);

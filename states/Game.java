@@ -1,7 +1,15 @@
 package plantmon.states;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -14,18 +22,19 @@ import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
 import plantmon.system.Utilities;
 
-public class Game {
+public class Game implements Serializable{
     //ArrayList<ParentState> states;
     ArrayList<Plant> plants;
     ArrayList<Dwarf> dwarfs;
     int[][] farmstatus;
     Inventory inventory;
     Integer money;
-    ParentState currentState;
-    ParentState pause;
-    JPanel dialogBox;
+    transient ParentState currentState;
+    transient ParentState pause;
+    transient JFrame frame;
+    transient JPanel dialogBox;
     JTextArea log;
-    JScrollPane pane;
+    transient JScrollPane pane;
     private StoryLine story;
     String name;
     private static Game stateManager;
@@ -68,7 +77,6 @@ public class Game {
     public void destroy(){
         stateManager = null;
     }
-    public JFrame frame;
     public static Game instance(){
         if (stateManager == null){
             stateManager = new Game();
@@ -105,6 +113,9 @@ public class Game {
                 frame.remove(currentState);
             }
             currentState = StateFactory.createState(IDstate,args);
+            if (frame == null){
+                System.out.print("daaaaamn");
+            }
             frame.add(currentState);
 //        }
 //        if (currentState >= 0 && currentState< states.size()){
@@ -281,5 +292,65 @@ public class Game {
      */
     public int getWeather() {
         return weather;
+    }
+    public void save(String filename){
+        //filename = "file.txt";
+        FileOutputStream os = null;
+        ObjectOutputStream ob = null;
+        try {
+            os = new FileOutputStream(filename);
+            ob = new ObjectOutputStream(os);
+            ob.writeObject(this);
+            ob.close();
+        } catch (IOException ex){
+            System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            ex.printStackTrace();
+        } 
+    }
+    public void load(String filename){
+        frame.dispose();
+        Game.instance().destroy();
+        FileInputStream is = null;
+        ObjectInputStream in = null;
+        try {
+            is = new FileInputStream(filename);
+            in = new ObjectInputStream(is);
+            stateManager = (Game) in.readObject();
+        }
+        catch (ClassNotFoundException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }        catch (IOException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JFrame mainFrame = new JFrame();
+        mainFrame.setSize(640, 480);
+        mainFrame.setResizable(false);
+//        //mainFrame.add(p, BorderLayout.CENTER);
+////        JPanel panel = new JPanel();
+////        mainFrame.add(panel);
+//        //mainFrame.pack();
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setVisible(true);
+        stateManager.setFrame(mainFrame);
+        System.out.print(stateManager.plants.size());
+        stateManager.goTo(ParentState.HOME, null);
+    }
+    public static void main(String[] args) {
+        JFrame mainFrame = new JFrame("Plantmon");
+        mainFrame.setSize(640, 480);
+//        mainFrame.setResizable(false);
+        //mainFrame.add(p, BorderLayout.CENTER);
+//        JPanel panel = new JPanel();
+//        mainFrame.add(panel);
+        //mainFrame.pack();
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setVisible(true);
+        Game.instance().setFrame(mainFrame);
+        Game.instance().goTo(ParentState.FRONTSTATE, null);
+        Game.instance().save("B:/tes.txt");
+        Game.instance().load("B:/tes.txt");
+//        System.out.print(Game.instance().currentState.ID);
     }
 }

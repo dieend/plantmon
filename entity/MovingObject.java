@@ -1,6 +1,9 @@
 package plantmon.entity;
 
 import java.awt.Graphics2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import plantmon.game.Point2D;
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
@@ -15,21 +18,32 @@ import plantmon.game.GridMap;
 import plantmon.system.Drawable;
 import plantmon.system.Utilities;
 
-public abstract class MovingObject implements Drawable{
+public abstract class MovingObject implements Drawable, Serializable{
     final public static int PLAYER = 0;
     protected int type;
     public static final int water=1;
     public static final int harvest=2;
     public static final int slash=3;
-    protected ArrayList<Object> lock = new ArrayList<Object>();
-    protected IdentityHashMap<Object,Point2D> destination = new IdentityHashMap<Object,Point2D>();
-    protected GridMap map;
+    transient protected ArrayList<Object> lock;
+    transient protected IdentityHashMap<Object,Point2D> destination;
+    transient protected GridMap map;
+    transient protected boolean inAction;
+    transient protected int numAction;
+    
     protected AnimatedSprite creature;
     protected ArrayList<Point2D> route = new ArrayList<Point2D>();
-    protected boolean inAction;
-    protected int numAction;
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
+    {
+        in.defaultReadObject();
+        lock = new ArrayList<Object>();
+        destination = new IdentityHashMap<Object,Point2D>();
+        map = new GridMap();
+    }
     public MovingObject(GridMap map, JPanel panel, Graphics2D g2d){
         this.map = map;
+        lock = new ArrayList<Object>();
+        destination = new IdentityHashMap<Object,Point2D>();
         creature = new AnimatedSprite(panel, g2d);
         numAction = 0;
     //    init();

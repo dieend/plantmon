@@ -10,12 +10,11 @@ import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.states.Game;
 import plantmon.system.Actionable;
-import plantmon.system.Drawable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
 import plantmon.system.Utilities;
 
-public class Bed extends Unmoveable implements Actionable,Drawable{
+public class Bed extends Unmoveable implements Actionable{
     public Bed(GridMap map, JPanel panel, Graphics2D g2d,int gridX, int gridY) {
         super(map, panel, g2d);
         entity.setPosition(new Point2D(gridX*Utilities.GRIDSIZE, gridY*Utilities.GRIDSIZE));
@@ -35,8 +34,6 @@ public class Bed extends Unmoveable implements Actionable,Drawable{
 
     @Override
     public void init() {
-        entity.load("picture/bed.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-        entity.setFrameDelay(5);
     }
     public class Sleep extends RunnableListener {
         public Sleep(Selectable selected) {

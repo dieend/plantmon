@@ -2,13 +2,14 @@ package plantmon.entity;
 /**
  * Masih salah, harusnya ada jumlah item di tiap slot... saya lupa -.-"
  */
+import java.io.Serializable;
 import java.util.ArrayList;
 import plantmon.entity.item.ArmorItem;
 import plantmon.entity.item.FarmItem;
 import plantmon.entity.item.WarItem;
 import plantmon.entity.item.FoodItem;
 
-public class Inventory {
+public class Inventory implements Serializable{
     int size;
     ArrayList<Item> item;
     ArrayList<Integer> jumlahitem;

@@ -13,14 +13,8 @@ import plantmon.entity.item.FoodItem;
 import plantmon.game.GridMap;
 import plantmon.game.TalkPanel;
 import plantmon.states.Game;
-import plantmon.system.Utilities;
 
 public class Lobak extends Plant{
-    private ImageIcon image1;
-    private JLabel label1;
-    private JLabel label2;
-    private JLabel label3;
-    private JLabel label4;
     public Lobak(GridMap map, JPanel panel, Graphics2D g2d,int gx, int gy,int status) {
         super(map,panel,g2d,gx,gy);
         setFase(status - 1);
@@ -33,6 +27,12 @@ public class Lobak extends Plant{
         panenBerulang = false;
     }
      @Override public JPanel get_Info(){
+        ImageIcon image1;
+        JLabel label1;
+        JLabel label2;
+        JLabel label3 = null;
+        JLabel label4;
+
         JPanel panel;
         panel = new TalkPanel();
         panel.setLayout(null);
@@ -94,5 +94,10 @@ public class Lobak extends Plant{
         } else {
             super.setFase(i);
         }
+    }
+    @Override
+    public void reinit(GridMap map, JPanel panel, Graphics2D g2d){
+        super.reinit(map, panel, g2d);
+        setFase(fase);
     }
 }

@@ -1,10 +1,11 @@
 package plantmon.game;
 import java.awt.*;
+import java.io.Serializable;
 import javax.swing.JPanel;
 /**
  * Sprite class represent a sprite
  */
-public class Sprite extends Object {
+public class Sprite implements Serializable{
     
     private ImageEntity entity;
     protected Point2D pos;

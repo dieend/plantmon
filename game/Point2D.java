@@ -1,5 +1,6 @@
 package plantmon.game;
 
+import java.io.Serializable;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import plantmon.entity.movingObject.Player;
@@ -10,9 +11,8 @@ import plantmon.system.Selectable;
 /*********************************************************
 * Point2D Class
 **********************************************************/
-public class Point2D extends Object implements Actionable {
+public class Point2D extends Object implements Actionable,Serializable {
     private double x, y;
-    Object lock = new Object();
     //int constructor
 
     

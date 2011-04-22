@@ -2,27 +2,18 @@ package plantmon.entity;
 
 import java.awt.Font;
 import java.awt.Image;
+import java.io.Serializable;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import plantmon.game.ImageEntity;
 
-public abstract class Item {
+public abstract class Item implements Serializable{
     protected String name;
     protected int costBuy;
     protected int costSell;
     protected int IDItem;
     protected int efekItem;
-    protected ImageEntity gambar;
     protected String deskripsi;
-    private ImageIcon image1;
-    private JLabel label1;
-    private JLabel label2;
-    private JLabel label3;
-    private JLabel label4;
-    private JLabel label5;
-    private JLabel label6;
-    private JLabel label7;
 
     final public static int BiKentang = 0;
     final public static int BiLobak = 1;
@@ -119,8 +110,17 @@ public abstract class Item {
     }
     public JPanel get_Info(){
         JPanel panel;
+
         panel = new JPanel();
         panel.setLayout(null);
+        ImageIcon image1 = null;
+        JLabel label1;
+        JLabel label2;
+        JLabel label3;
+        JLabel label4;
+        JLabel label5;
+        JLabel label6;
+        JLabel label7;
         //Untuk Armor
         if(this.getIDitem()==Robe){
         image1=new ImageIcon(getClass().getResource("robe.jpg"));
