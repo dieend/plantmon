@@ -23,6 +23,7 @@ public class AnimatedSprite extends Sprite{
     private int height;
     protected String imageName;
     boolean animated;
+    boolean animating;
     @Override
     public void setPanel(JPanel panel){
         super.setPanel(panel);
@@ -55,9 +56,10 @@ public class AnimatedSprite extends Sprite{
         frHeight = 0;
         cols = 0;
         animated = true;
+        animating = true;
     }
     public void setAnimated(boolean t){
-        animated = t;
+        animating = t;
     }
     /**
      * Meload data file gambar yang akan digunakan sebagai animasi
@@ -192,7 +194,7 @@ public class AnimatedSprite extends Sprite{
             setFrameDelay(5);
         }
         frCount++;
-        if (frameCount() > frameDelay() && !velocity().same(new Point2D(0, 0))) {
+        if (frameCount() > frameDelay() && animating) {
             setFrameCount(0);
             //update the animation frame
             setCurrentFrame(currentFrame() + animationDirection());
@@ -203,7 +205,7 @@ public class AnimatedSprite extends Sprite{
                 setCurrentFrame(totalFrames() - 1);
             }
         }
-        if (velocity().same(new Point2D(0, 0))){
+        if (!animating){
             setCurrentFrame(0);
         }
     }

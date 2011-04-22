@@ -15,6 +15,7 @@ import plantmon.entity.unmoveable.Plant;
 import plantmon.entity.unmoveable.Road;
 import plantmon.game.AnimatedSprite;
 import plantmon.game.GridMap;
+import plantmon.system.Cancellable;
 import plantmon.system.Drawable;
 import plantmon.system.Utilities;
 
@@ -107,11 +108,24 @@ public abstract class MovingObject implements Drawable, Serializable{
     public void updateAction(){
         if (inAction){
             route = getRoute(destination.get(lock.get(0)).IntX(), destination.get(lock.get(0)).IntY(), type);
-            if (route.size()>1){
+            if (route.size() == 0 ){
+                if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
+                    (Math.abs(creature.position().Y()-creature.finalPosition().Y())  <= 1)){
+                    inAction = false;
+                    if (lock.size()>0){
+                        synchronized (lock.get(0)) {
+    //                            Point2D dest = destination.get(lock.get(0));
+                            lock.get(0).notify();
+    //                          animate(lock);
+                            destination.remove(lock.get(0));
+                            lock.remove(0);
+                            numAction--;
+                        }
+                    }
+                }
+            } else if (route.size()>1 || lock.get(0).equals("exact")){
                 Point2D dest;//;
-    //            if (!(map.getTop(dest.IntX(),dest.IntY()) instanceof Land) &&
-    //                !(map.getTop(dest.IntX(),dest.IntY()).equals(this))){
-                    dest = route.get(0);
+                dest = route.get(0);
     //            }
                 int gx = dest.IntX()*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
                 int gy = dest.IntY()*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
@@ -120,14 +134,12 @@ public abstract class MovingObject implements Drawable, Serializable{
                     (Math.abs(creature.position().Y()-creature.finalPosition().Y())  <= 1)) {
                     route.remove(0);
                 }
-            }
-            if (route.size()==1){
+            } else if (route.size()==1){
                 if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
                     (Math.abs(creature.position().Y()-creature.finalPosition().Y())  <= 1)) {
-
+                    System.out.print("size == 1");
                     int gx = route.get(0).IntX()*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
                     int gy = route.get(0).IntY()*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
-                    System.out.println(gx+" "+gy);
                     creature.setArah(new Point2D(gx,gy));
                     inAction = false;
                     if (lock.size()>0){
@@ -144,8 +156,9 @@ public abstract class MovingObject implements Drawable, Serializable{
                 }
             }
         } else{//if not in action
+            creature.setAnimated(false);
             if (lock.size()>0){
-
+                creature.setAnimated(true);
                 inAction = true;
             }
         }
@@ -528,6 +541,7 @@ public abstract class MovingObject implements Drawable, Serializable{
         
         return rettrue;
     }
+    
     /*
     public static void main(String[] args)
     {

@@ -54,7 +54,7 @@ public class Road extends Unmoveable implements Actionable{
             Player player = (Player) selected;
             int gx = (int)Road.this.getPosition().X();
             int gy = (int)Road.this.getPosition().Y();
-            Object lock = new Object();
+            Object lock = new String("exact");
             Boolean[] cancel = new Boolean[1];
             player.move(gx, gy, lock,cancel);
             synchronized(lock){
@@ -65,8 +65,8 @@ public class Road extends Unmoveable implements Actionable{
                 }
             }
             if (!cancel[0]){
-                map.pop(gx, gy);
-                player.getCreature().setFinalPosition(gx+10, gy+10);
+                map.popCancel(gx, gy);
+//                player.getCreature().setFinalPosition(gx+10, gy+10);
             }
         }
     }
