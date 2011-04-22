@@ -7,6 +7,7 @@ package plantmon.game;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import plantmon.entity.Canceller;
 import plantmon.entity.unmoveable.Land;
 import plantmon.states.ParentState;
 import plantmon.system.Drawable;
@@ -77,9 +78,11 @@ public class GridMap implements Serializable{
         }
     }
     public Land getLand(int x, int y){
-        for (int i=0; i<map[x][y].size(); i++){
-            if (map[x][y].get(i) instanceof Land){
-                return (Land)map[x][y].get(i);
+        synchronized (map[x][y]){
+            for (int i=0; i<map[x][y].size(); i++){
+                if (map[x][y].get(i) instanceof Land){
+                    return (Land)map[x][y].get(i);
+                }
             }
         }
         return null;
@@ -207,6 +210,26 @@ public class GridMap implements Serializable{
 //                        }
 //                    }
 //                }
+            }
+        }
+    }
+    public void popCancel(int x, int y){
+        x /= Utilities.GRIDSIZE;
+        y /= Utilities.GRIDSIZE;
+        synchronized(map[x][y]){
+            for (int i=0; i<map[x][y].size(); i++){
+                if (map[x][y].get(i) instanceof Canceller){
+                    map[x][y].remove(i);
+                }
+            }
+        }
+    }
+    public void gpopCancel(int x, int y){
+        synchronized(map[x][y]){
+            for (int i=0; i<map[x][y].size(); i++){
+                if (map[x][y].get(i) instanceof Canceller){
+                    map[x][y].remove(i);
+                }
             }
         }
     }
