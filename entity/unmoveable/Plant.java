@@ -393,4 +393,9 @@ public class Plant extends Unmoveable implements Actionable,
     public void init(){
         entity.setFrameDelay(5);
     }
+    @Override
+    public void reinit(GridMap map, JPanel panel, Graphics2D g2d){
+        super.reinit(map, panel, g2d);
+        setFase(fase);
+    }
 }

@@ -59,7 +59,7 @@ public class Diary extends Unmoveable implements Actionable {
             }
             if (!cancel[0]){
                 map.pop(gx, gy);
-                Game.instance().save("B:/tes.txt");
+                Game.instance().save("tes.txt");
             }
         }
     }
@@ -83,7 +83,7 @@ public class Diary extends Unmoveable implements Actionable {
             }
             if (!cancel[0]){
                 map.pop(gx, gy);
-                Game.instance().load("B:/tes.txt");
+                Game.instance().load("tes.txt");
             }
         }
 

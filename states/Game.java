@@ -301,6 +301,7 @@ public class Game implements Serializable{
             os = new FileOutputStream(filename);
             ob = new ObjectOutputStream(os);
             ob.writeObject(this);
+            ob.writeObject(Time.instance());
             ob.close();
         } catch (IOException ex){
             System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -316,6 +317,7 @@ public class Game implements Serializable{
             is = new FileInputStream(filename);
             in = new ObjectInputStream(is);
             stateManager = (Game) in.readObject();
+            Time.instance().load((Time) in.readObject());
         }
         catch (ClassNotFoundException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);

@@ -84,12 +84,16 @@ public class Land extends Unmoveable implements Actionable{
 
     public void setStatus(int status){
         this.status = status;
-        if (status == WATERED)
+        int gx = (int)this.getPosition().X();
+        int gy = (int)this.getPosition().Y();
+        Game.instance().farmstatus()[gx/Utilities.GRIDSIZE][gy/Utilities.GRIDSIZE] = status;
+        if (status == WATERED){
             entity.load("picture/water.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-        else if (status == PLOWED)
+        } else if (status == PLOWED){
             entity.load("picture/plow.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-        else if (status == NORMAL)
-            entity.load("picture/land.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        } else if (status == NORMAL){
+            entity.load("picture/land.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        }
     }
     
     class Move extends RunnableListener {
@@ -181,10 +185,11 @@ public class Land extends Unmoveable implements Actionable{
             
             if (!cancel[0]){
                 map.pop(gx, gy);
-                status = PLOWED;
-                Game.instance().farmstatus()[gx/Utilities.GRIDSIZE][gy/Utilities.GRIDSIZE] = status;
-                entity.load("picture/plow.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-                Game.instance().log().append("plowing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
+                if (Game.instance().getWeather() == Game.RAINY){
+                    setStatus(WATERED);
+                } else {
+                    setStatus(PLOWED);
+                }
             }
             
         }
@@ -211,7 +216,6 @@ public class Land extends Unmoveable implements Actionable{
             if (!cancel[0]){
                 map.pop(gx, gy);
                 setStatus(WATERED);
-                Game.instance().farmstatus()[gx/Utilities.GRIDSIZE][gy/Utilities.GRIDSIZE] = status;
             }
         }
     }

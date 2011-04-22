@@ -95,9 +95,4 @@ public class Lobak extends Plant{
             super.setFase(i);
         }
     }
-    @Override
-    public void reinit(GridMap map, JPanel panel, Graphics2D g2d){
-        super.reinit(map, panel, g2d);
-        setFase(fase);
-    }
 }

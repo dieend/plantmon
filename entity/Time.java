@@ -5,6 +5,7 @@
 
 package plantmon.entity;
 
+import java.io.Serializable;
 import plantmon.states.Game;
 import plantmon.states.ParentState;
 
@@ -12,7 +13,7 @@ import plantmon.states.ParentState;
  *
  * @author asus
  */
-public class Time {
+public class Time implements Serializable{
     public static final int SPRING = 0;
     public static final int SUMMER = 1;
     public static final int FALL = 2;
@@ -39,6 +40,9 @@ public class Time {
         hour = 6;
         minutes = 0;
         counter = 0;
+    }
+    public void load(Time time){
+        Time.time = time;
     }
     public synchronized void update(){
         counter+=1;

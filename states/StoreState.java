@@ -149,6 +149,7 @@ public class StoreState extends ParentState implements MouseListener{
                     } else if (map.getTop(gx, gy) instanceof Canceller){
                         popup = ((Canceller)map.getTop(gx,gy)).getMenu();
                         popup.show(tmp.getComponent(),tmp.getX(), tmp.getY());
+                    } else {
                         selectsomething = false;
                     }
                 } else selectsomething = false;
