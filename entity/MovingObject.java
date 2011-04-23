@@ -257,26 +257,35 @@ public abstract class MovingObject implements Drawable, Serializable{
             for(j=0;j<map.getColumn();++j)
             {
                //check Land
-                if (map.getTop(i, j) instanceof Land || map.getTop(i, j) instanceof Road || map.getTop(i,j) instanceof Portal || map.getTop(i,j) instanceof Canceller)
+                if (map.getTop(i, j) instanceof Land || map.getTop(i, j) instanceof Road || map.getTop(i,j) instanceof Portal )
                 {
                     tmap[i][j]= 0;
                 }
-                else if (map.getTop(i,j) instanceof MovingObject)
+                else if (map.getTop(i,j) instanceof MovingObject || map.getTop(i,j) instanceof Canceller)
                 {
                     tmap[i][j]=1;
                 }
                 //check non-land/non-destiny
-                else if (map.getTop(i,j) instanceof Pulmosis)
+                if (map.getTop(i,j) instanceof Pulmosis)
                 {
                     tmap[i][j]= 1;
                 }
-                else
+                if (map.getTop(i, j) instanceof Dwarf)
+                {
+                    System.out.println("INI DWARF");
+                    tmap[i][j]=5;
+                }
+                if (map.getTop(i, j)==null)
                 {
                     tmap[i][j]=1;
                 }
+                /*else
+                {
+                    tmap[i][j]=1;
+                }*/
             }
         }
-        
+        performarr(tmap, map.getRow(), map.getColumn());
         /*
         //hanya untuk debugging
         for(i=0;i<8;++i)
@@ -568,21 +577,23 @@ public abstract class MovingObject implements Drawable, Serializable{
         }
 
 
-//        if (caller!=0)
-//        {
-////          if (!rettrue.isEmpty())
-////              System.out.println("TIDAK KOSONG");
-////          else
-////              System.out.println("KOSONG");
-////          System.out.println("rute");
-//          for(i=0;i<rettrue.size()-1;++i)
-//          {
-//            System.out.println(rettrue.get(i).IntX() + "," + rettrue.get(i).IntY() );
-//          }
-//        }
-//
-//        System.out.println("Ini rutenya : ");
-//        performarrlist(rettrue);
+        if (caller!=0)
+        {
+          if (!rettrue.isEmpty())
+              System.out.println("TIDAK KOSONG");
+          else
+              System.out.println("KOSONG");
+          System.out.println("MAP KURCACI : ");
+          performarr(tmap, map.getRow(), map.getColumn());
+          System.out.println("rute KURCACI");
+          for(i=0;i<rettrue.size()-1;++i)
+          {
+            System.out.println(rettrue.get(i).IntX() + "," + rettrue.get(i).IntY() );
+          }
+        }
+
+        System.out.println("Ini rutenya : ");
+        performarrlist(rettrue);
         return rettrue;
     }
     

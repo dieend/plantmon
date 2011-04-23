@@ -179,6 +179,8 @@ public class Dwarf extends MovingObject implements Actionable,
             }
             else
             {
+                if (type!=0)
+                {
                 if (type==1)
                     type=4;
                 else if (type==2)
@@ -210,6 +212,7 @@ public class Dwarf extends MovingObject implements Actionable,
                     type=2;
                 else if (type==6)
                     type=3;
+                }
                 //creature.setFinalPosition(creature.position().IntX(), creature.position().IntY());
             }
         }
