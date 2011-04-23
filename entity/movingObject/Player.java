@@ -28,11 +28,12 @@ import plantmon.system.Jobable;
 
 public class Player extends MovingObject implements Actionable, Cancellable,
                                                     Selectable,Jobable{
+    private int work;
 
     //bisa ngapain aja
     public Player(GridMap map, JPanel panel, Graphics2D g2d){
         super(map,panel,g2d);
-        init();
+        init();work=3;
     }
     @Override public void drawBounds() {
         creature.drawBounds(Color.GREEN);
@@ -84,7 +85,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
     @Override protected void init() {
         //inisiasi semua variable disini.
         type = 0;
-        load("picture/anim", 4,1,32,42);
+        load("picture/anim", 4,1,88,94);
         creature.setImageName("picture/anim");
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(5);
@@ -181,5 +182,19 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 400);
         frame.setVisible(true);
+    }
+
+    /**
+     * @return the work
+     */
+    public int getWork() {
+        return work;
+    }
+
+    /**
+     * @param work the work to set
+     */
+    public void setWork(int work) {
+        this.work = work;
     }
 }

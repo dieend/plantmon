@@ -2,6 +2,8 @@ package plantmon.entity.unmoveable;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -220,6 +222,16 @@ public class Plant extends Unmoveable implements Actionable,
             if (!cancel[0]){
                 map.pop(gx, gy);
                 doWater();
+                player.getCreature().setFrameDelay(5);
+
+                player.getCreature().load("picture/siramanim"+player.getCreature().getFace()+".png",4,1,88,94);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Land.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                player.setWork(1);
+                player.getCreature().load("picture/anim"+player.getCreature().getFace()+".png",4,1,88,94);
             }
         }
     }
@@ -274,12 +286,23 @@ public class Plant extends Unmoveable implements Actionable,
             if (!cancel[0]){
                 map.pop(gx, gy);
                 map.pop(gx, gy);
+                player.getCreature().setFrameDelay(5);
+
+                player.getCreature().load("picture/cangkulanim"+player.getCreature().getFace()+".png",4,1,88,94);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Land.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                player.setWork(0);
 
                 if (Plant.this.isWatered()) {
                     ((Land)map.getTop(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE)).setStatus(Land.WATERED);
                 }
                 Game.instance().removePlant(Plant.this);
                 Game.instance().log().append("plowing  ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
+
+                player.getCreature().load("picture/anim"+player.getCreature().getFace()+".png",4,1,88,94);
             }
         }
     }
@@ -304,6 +327,16 @@ public class Plant extends Unmoveable implements Actionable,
             if (!cancel[0]){
                 map.pop(gx, gy);
                 doSlash();
+                map.pop(gx, gy);
+                player.getCreature().setFrameDelay(5);
+                player.getCreature().load("picture/sabitanim"+player.getCreature().getFace()+".png",4,1,88,94);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Land.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                player.setWork(2);
+                player.getCreature().load("picture/anim"+player.getCreature().getFace()+".png",4,1,88,94);
             }
         }
     }

@@ -21,6 +21,7 @@ public class AnimatedSprite extends Sprite{
     private int cols;
     private int width;
     private int height;
+    private int face;
     protected String imageName;
     boolean animated;
     boolean animating;
@@ -171,25 +172,32 @@ public class AnimatedSprite extends Sprite{
     /**
      * mengupdate animasi
      */
+
+    public int getFace() { return face; }
+    public void setFace(int fac) { face =  fac; }
     public void updateAnimation() {
         if ((Math.abs(velocity().Y()/velocity().X())>1.0) && velocity().Y()>0) {
 //            System.out.println("Hadap bawah");
 //                setFaceAngle(0);
+            this.setFace(0);
             load(imageName+"0.png",4,1,width,height);
             setFrameDelay(5);
         } else if ((Math.abs(velocity().Y()/velocity().X())<1.0) && velocity().X()>0){
 //            System.out.println("Hadap kanan");
 //                setFaceAngle(90);
+            this.setFace(3);
             load(imageName+"3.png",4,1,width,height);
             setFrameDelay(5);
         } else if ((Math.abs(velocity().Y()/velocity().X())>1.0) && velocity().Y()<0){
 //                setFaceAngle(180);
 //            System.out.println("Hadap atas");
+            this.setFace(2);
             load(imageName+"2.png",4,1,width,height);
             setFrameDelay(5);
         } else if ((Math.abs(velocity().Y()/velocity().X())<1.0) && velocity().X()<0){
 //                setFaceAngle(270);
 //            System.out.println("Hadap ke kiri");
+            this.setFace(1);
             load(imageName+"1.png",4,1,width,height);
             setFrameDelay(5);
         }
@@ -244,18 +252,22 @@ public class AnimatedSprite extends Sprite{
         System.out.println(vx + " " + vy + " " + (vy/vx));
         if ((Math.abs(vy/vx)>1.0) && vy>0) {
 //                setFaceAngle(0);
+            this.setFace(0);
             load(imageName+"0.png",cols,totFrames/cols,width,height);
         } else if ((Math.abs(vy/vx)<1.0) && vx>0){
 //            System.out.println("Hadap kanan");
 //                setFaceAngle(90);
+            this.setFace(3);
             load(imageName+"3.png",cols,totFrames/cols,width,height);
         } else if ((Math.abs(vy/vx)>1.0) && vy<0){
 //                setFaceAngle(180);
 //            System.out.println("Hadap atas");
+            this.setFace(2);
             load(imageName+"2.png",cols,totFrames/cols,width,height);
         } else if ((Math.abs(vy/vx)<1.0) && vx<0){
 //                setFaceAngle(270);
 //            System.out.println("Hadap ke kiri");
+            this.setFace(1);
             load(imageName+"1.png",cols,totFrames/cols,width,height);
         }
 
