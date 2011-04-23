@@ -141,7 +141,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
     }
     @Override
     public void run(){
-        ((Thread) new Thread(story)).start();
+        story.begin();
         System.out.print("creating story\n");
         active = true;
         while (active) {

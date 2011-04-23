@@ -107,6 +107,12 @@ public abstract class MovingObject implements Drawable, Serializable{
     protected abstract void init();
     public void updateAction(){
         if (inAction){
+            if (destination.get(lock.get(0)) == null){
+                destination.remove(lock.get(0));
+                lock.remove(0);
+                inAction = false;
+                return;
+            }
             route = getRoute(destination.get(lock.get(0)).IntX(), destination.get(lock.get(0)).IntY(), type);
             if (route.size() == 0 ){
                 if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
