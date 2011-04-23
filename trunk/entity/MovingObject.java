@@ -12,6 +12,7 @@ import plantmon.entity.deadItem.Portal;
 import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.movingObject.Pulmosis;
+import plantmon.entity.movingObject.PulmosisLand;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
 import plantmon.entity.unmoveable.Road;
@@ -261,10 +262,19 @@ public abstract class MovingObject implements Drawable, Serializable{
                 }
                 if (map.getTop(i,j) instanceof MovingObject || map.getTop(i,j) instanceof Canceller || map.getTop(i, j) instanceof Plant)
                 {
-                    tmap[i][j]=1;
+                    /*
+                    if (map.getTop(i, j) instanceof Plant)
+                    {
+                        if ((((Plant)map.getTop(i, j)).getFase()==1) || (((Plant)map.getTop(i, j)).getFase()==6))
+                            tmap[i][j]=0;
+                        else
+                            tmap[i][j]=1;
+                    }
+                    else*/
+                        tmap[i][j]=1;
                 }
                 //check non-land/non-destiny
-                if (map.getTop(i,j) instanceof Pulmosis)
+                if (map.getTop(i,j) instanceof PulmosisLand)
                 {
                     tmap[i][j]= 1;
                 }
