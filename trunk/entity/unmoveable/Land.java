@@ -94,7 +94,7 @@ public class Land extends Unmoveable implements Actionable{
         } else if (status == PLOWED){
             entity.load("picture/plow.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         } else if (status == NORMAL){
-            entity.load("picture/land.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+//            entity.load("picture/land.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         }
     }
     
@@ -144,7 +144,7 @@ public class Land extends Unmoveable implements Actionable{
             }
             // buat plant baru berdasarkan item
             if ((cancel==null) || (!cancel[0])){
-                map.pop(gx, gy);
+                map.popCancel(gx, gy);
                 if (temp.getName().equals("Lobak")) {
                     Lobak lobak = new Lobak(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, lobak);

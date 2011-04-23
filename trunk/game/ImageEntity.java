@@ -50,6 +50,7 @@ public class ImageEntity extends BaseGameEntity {
     }
     public void load(String filename) {
         try {
+            System.out.println(filename);
             image = ImageIO.read(this.getClass().getResource(filename));
         } catch(IOException e){}
         while(getImage().getWidth(panel) <= 0);

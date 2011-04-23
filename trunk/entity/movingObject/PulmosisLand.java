@@ -75,7 +75,6 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
                 }
             }
             if (!cancel[0]){
-                map.pop(gx, gy);
                 sumWater += 1;
                 watered = true;
             }
@@ -101,7 +100,6 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
                 }
             }
             if (!cancel[0]){
-                map.pop(gx, gy);
             }
         }
     }

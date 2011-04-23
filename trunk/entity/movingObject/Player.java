@@ -100,7 +100,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
     
     @Override
     public void cancel(Object lock){
-        map.pop(destination.get(lock).X(), destination.get(lock).Y());
+        map.popCancel(destination.get(lock).IntX(), destination.get(lock).IntY());
         destination.remove(lock);
         this.lock.remove(lock);
         this.numAction--;

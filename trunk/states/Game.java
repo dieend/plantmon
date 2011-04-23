@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,6 @@ import plantmon.entity.Inventory;
 import plantmon.entity.Item;
 import plantmon.entity.Time;
 import plantmon.entity.movingObject.Dwarf;
-import plantmon.entity.movingObject.PulmosisLand;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
 import plantmon.system.Utilities;
@@ -237,10 +237,11 @@ public class Game implements Serializable{
                     farmstatus[i][j] = Land.NORMAL;
                 }
             }    
-            for (Plant p:plants){
+            for (Iterator<Plant> iter =plants.iterator(); iter.hasNext();){
                 x = ranNum.nextInt(100);
+                Plant p = iter.next();
                 if (x >= 60) {
-                    plants.remove(p);
+                    iter.remove();
                 } else {
                    farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.PLOWED;
                    p.grow(Time.instance().getSeason());

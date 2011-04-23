@@ -60,7 +60,13 @@ public class Portal extends Unmoveable implements Actionable{
             if (panel instanceof HomeState){
                 item = new JMenuItem("Teleport Farm");
                 item.addActionListener(new Teleport(selected,ParentState.FARMSTATE));
-                if (Time.instance().getHour()>=18) item.setEnabled(false);
+                if (Time.instance().getHour()>=18) {
+                    item.setText("It's already dark outside");
+                    item.setEnabled(false);
+                } else if (Game.instance().getWeather() == Game.STORM){
+                    item.setText("It's dangerous to go out at storm like this");
+                    item.setEnabled(false);
+                }
                 menu.add(item);
             }
             if (panel instanceof StoreState){
@@ -99,7 +105,7 @@ public class Portal extends Unmoveable implements Actionable{
                 }
             }
             if (!cancel[0]){
-                map.pop(gx, gy);
+                map.popCancel(gx, gy);
                 Game.instance().goTo(where, new Object[0]);
             }
         }
