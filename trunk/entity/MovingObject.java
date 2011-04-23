@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.IdentityHashMap;
 import javax.swing.JPanel;
 import plantmon.entity.deadItem.Portal;
-import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
 import plantmon.entity.unmoveable.Road;
 import plantmon.game.AnimatedSprite;
 import plantmon.game.GridMap;
-import plantmon.system.Cancellable;
 import plantmon.system.Drawable;
 import plantmon.system.Utilities;
 
@@ -259,7 +257,7 @@ public abstract class MovingObject implements Drawable, Serializable{
                 {
                     tmap[i][j]= 0;
                 }
-                else if (map.getTop(i,j) instanceof Dwarf)
+                else if (map.getTop(i,j) instanceof MovingObject)
                 {
                     tmap[i][j]=5;
                 }

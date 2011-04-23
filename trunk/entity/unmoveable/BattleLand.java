@@ -26,7 +26,7 @@ public class BattleLand extends Unmoveable implements Actionable {
     public Point2D getPosition () {
         return posisi;
     }
-    public boolean cekDistance(PulmosisBattle player){
+    public boolean inDistance(PulmosisBattle player){
         int lengthX, lengthY;
         lengthX = posisi.IntX() / Utilities.GRIDSIZE - player.position().IntX() / Utilities.GRIDSIZE;
         if (lengthX < 0) {
@@ -40,33 +40,21 @@ public class BattleLand extends Unmoveable implements Actionable {
 
         if (lengthY+lengthX <= player.getRange()) return true;
         return false;
-//        i = player.getRange();
-//        while (i > 0 && cek) {
-//            if (lengthX == i) {
-//                if (lengthY <= player.getRange() - i) {
-//                    ite = new JMenuItem("move");
-//                    ite.addActionListener(new Move(selected));
-//                    menu.add(ite);
-//                    if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof Pulmosis) {
-//                        Pulmosis pul = (Pulmosis) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
-//                        ite = new JMenuItem("attack");
-//                        ite.addActionListener(new Attack(selected,pul));
-//                        menu.add(ite);
-//                    }
-//                    cek = false;
-//                } else {
-//                    i--;
-//                }
-//            } else if (lengthY == i) {
-//                if (lengthX <= player.getRange() - i) {
-//                    cek = false;
-//                } else {
-//                    i--;
-//                }
-//            } else {
-//                i--;
-//            }
-//        }
+    }
+    public boolean inAttackRange(PulmosisBattle player){
+        int lengthX, lengthY;
+        lengthX = posisi.IntX() / Utilities.GRIDSIZE - player.position().IntX() / Utilities.GRIDSIZE;
+        if (lengthX < 0) {
+            lengthX = -1 * lengthX;
+        }
+
+        lengthY = posisi.IntY() / Utilities.GRIDSIZE - player.position().IntY() / Utilities.GRIDSIZE;
+        if (lengthY < 0) {
+            lengthY = -1 * lengthY;
+        }
+
+        if (lengthY+lengthX <= player.getRange()+player.getAttackRange()) return true;
+        return false;
     }
     public JPopupMenu getMenu(Selectable selected) {
         final PulmosisBattle player = (PulmosisBattle) selected;
@@ -74,14 +62,13 @@ public class BattleLand extends Unmoveable implements Actionable {
         boolean cek = true;
         JPopupMenu menu = new JPopupMenu();
         JMenuItem ite;
-        if (cekDistance(player)){
+        if (inDistance(player)){
             ite = new JMenuItem("move");
             ite.addActionListener(new Move(selected));
             menu.add(ite);
-            if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof Pulmosis) {
-                Pulmosis pul = (Pulmosis) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
+            if (inAttackRange(player)){
                 ite = new JMenuItem("attack");
-                ite.addActionListener(new Attack(selected,pul));
+                ite.addActionListener(new Attack(selected,new Point2D(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE)));
                 menu.add(ite);
             }
         }
@@ -119,13 +106,13 @@ public class BattleLand extends Unmoveable implements Actionable {
     }
 
     class Attack extends RunnableListener {
-        Pulmosis enemy;
-        public Attack(Selectable selected,Pulmosis pul){
+        Point2D posisi;
+        public Attack(Selectable selected,Point2D posisi){
             super(selected);
-            enemy = pul;
+            this.posisi = posisi;
         }
         public void run() {
-            Pulmosis player = (Pulmosis) selected;
+            PulmosisBattle player = (PulmosisBattle) selected;
             int gx = BattleLand.this.getPosition().IntX();
             int gy = BattleLand.this.getPosition().IntY();
             System.out.format("%d %d\n",gx,gy);
@@ -139,12 +126,18 @@ public class BattleLand extends Unmoveable implements Actionable {
                     return;
                 }
             }
-            System.out.println("HP:"+enemy.getHP());
-            player.doDamage(enemy);
-            System.out.println("HP:"+enemy.getHP());
-            if (enemy.getHP() <= 0) {
-                map.pop(gx, gy);
-                player.levelUp(12);
+//            System.out.println("HP:"+enemy.getHP());
+            
+//            System.out.println("HP:"+enemy.getHP());
+            Object enemy = map.getTop(posisi.IntX(), posisi.IntY());
+            if (enemy instanceof PulmosisBattle){
+                player.doDamage((PulmosisBattle)enemy);
+                if (((PulmosisBattle)enemy).getHP() <= 0) {
+                    map.pop(gx, gy);
+                    player.levelUp(12);
+                }
+            } else {
+                player.miss();
             }
         }
     }

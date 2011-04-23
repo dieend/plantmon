@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -20,10 +21,6 @@ import plantmon.system.Utilities;
 
 public class PulmosisBattle extends MovingObject implements Cancellable,
                                                     Selectable{
-    private ImageIcon image1;
-    private JLabel label1;
-    private JLabel label2;
-    private JLabel label3;
     int HP;
     int level;
     int atk;
@@ -33,24 +30,32 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     int attacked;
     int dmg;
     int range;
+    int missed;
     boolean enemy;
+    private boolean selected;
     double miss;
+    private int attackRange;
     public static final int Lobak = 0;
     public static final int Timun = 1;
     public static final int Kentang = 2;
-    
+    public void miss(){
+        missed = 100;
+    }
     public PulmosisBattle(GridMap map, JPanel panel, Graphics2D g2d, int tipe, boolean en) {
         super(map,panel,g2d);
         init();
         if (tipe == Lobak) {
             level = 1;
-            range = 99;
+            range = 2;
+            attackRange = 1;
         } else if (tipe == Timun) {
             level = 3;
-            range = 99;
+            range = 4;
+            attackRange = 1;
         } else if (tipe == Kentang) {
             level = 5;
-            range = 99;
+            range = 3;
+            attackRange = 1;
         }
         atk = 0;
         attacked = 0;
@@ -63,23 +68,30 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     }
     @Override public void draw() {
         super.draw();
-        
-         if (attacked > 0) {
+        if (attacked > 0) {
              if (dmg == -99999) {
-                creature.graphics().drawString("miss", 100, 100);
+                creature.graphics().drawString("miss", position().IntX(), position().IntX());
              } else {
                 System.out.print("drawing pulmo");
                 creature.graphics().drawString(""+dmg, 100, 100);
              }
             attacked--;
         }
+        if (missed >0) {
+            creature.graphics().drawString("miss", position().IntX(), position().IntY());
+            missed--;
+        }
     }
     
     @Override public void drawBounds() {
         creature.drawBounds(Color.RED);
-       
+        drawArea();
     }
     @Override public JPanel get_Info(){
+        ImageIcon image1 = null;
+        JLabel label1;
+        JLabel label2;
+        JLabel label3;
         JPanel panel;
         panel = new JPanel();
         panel.setLayout(null);
@@ -233,5 +245,69 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 500);
         frame.setVisible(true);
+    }
+    public void drawArea(){
+        Graphics2D g2d = creature.graphics();
+        int x = position().IntX()/Utilities.GRIDSIZE;
+        int y = position().IntY()/Utilities.GRIDSIZE;
+        int[] dx = {1,0,-1,0};
+        int[] dy = {0,1,0,-1};
+        boolean[][] udah = new boolean[map.getRow()][map.getColumn()];
+        udah[x][y] = true;
+        int dist = 0;
+        ArrayList<Point2D> queue = new ArrayList<Point2D>();
+        queue.add(new Point2D(x,y));
+        while (!queue.isEmpty()){
+            Point2D now = queue.get(0);
+            queue.remove(0);
+            for (int i=0; i<dx.length; i++){
+                int cekx = now.IntX()+dx[i];
+                int ceky = now.IntY()+dy[i];
+                if (0<=cekx && cekx<map.getRow() && 0<=ceky && ceky<map.getColumn()){
+                    dist = ((cekx-x)<0)?(cekx-x)*-1:(cekx-x);
+                    dist += ((ceky-y)<0?(ceky-y)*-1:(ceky-y));
+                    if (dist<=getRange() && !udah[cekx][ceky]){
+                        g2d.setColor(Color.BLUE);
+                        g2d.drawRect(cekx*Utilities.GRIDSIZE, ceky*Utilities.GRIDSIZE, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+                        queue.add(new Point2D(cekx,ceky));
+                        udah[cekx][ceky] = true;
+                    }
+                    if (dist<=getRange()+getAttackRange() && !udah[cekx][ceky]){
+                        g2d.setColor(Color.RED);
+                        g2d.drawRect(cekx*Utilities.GRIDSIZE, ceky*Utilities.GRIDSIZE, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+                        queue.add(new Point2D(cekx,ceky));
+                        udah[cekx][ceky] = true;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * @return the selected
+     */
+    public boolean isSelected() {
+        return selected;
+    }
+
+    /**
+     * @param selected the selected to set
+     */
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    /**
+     * @return the attackRange
+     */
+    public int getAttackRange() {
+        return attackRange;
+    }
+
+    /**
+     * @param attackRange the attackRange to set
+     */
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
     }
 }
