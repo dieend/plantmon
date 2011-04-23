@@ -158,7 +158,7 @@ public class SellBox extends Unmoveable implements Actionable{
 
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == buttonbes) {
-                if (x <= Game.instance().getInventory().getSize()) {
+                if (x < Game.instance().getInventory().getJumItem(temp)) {
                     x += 1;
                 }
                 text.setText(""+x);
@@ -202,10 +202,10 @@ public class SellBox extends Unmoveable implements Actionable{
                     System.out.print("farmitem");
                 } else if (temp instanceof FoodItem){
                     System.out.print("fooditem");
+                    Game.instance().getStory().setSold(temp.getIDitem()-20, x);
                 } else if (temp instanceof ArmorItem){
                     System.out.print("armoritem");
                 }
-                Game.instance().getStory().setSold(temp.getIDitem(), x);
                 Game.instance().log().append("Sold "+x+" "+temp.getName()+"(s) Rp."+(x*temp.getCostSell())+"\n");
             }
         }

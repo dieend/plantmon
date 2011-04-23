@@ -5,7 +5,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import plantmon.entity.Unmoveable;
-import plantmon.entity.movingObject.Pulmosis;
 import plantmon.entity.movingObject.PulmosisBattle;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;

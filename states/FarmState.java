@@ -120,7 +120,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
                 }
             }
         }
-        for (Plant p:Game.instance().plants){
+        for (Plant p:Game.instance().getPlants()){
             map.push(p.getPosition().IntX(), p.getPosition().IntY(), p);
             p.reinit(map, this, g2d);
         }

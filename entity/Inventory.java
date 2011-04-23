@@ -141,6 +141,16 @@ public class Inventory implements Serializable{
         }
     }
 
+    public int getJumItem (Item it) {
+        int a = 0;
+        for (int i = 0; i < item.size(); i++) {
+            if (item.get(i).getIDitem() == it.getIDitem()) {
+                a = jumlahitem.get(i);
+            }
+        }
+        return a;
+    }
+
 //    public boolean isEmpty(Inventory i) {
 //        if (i.getSize() == 0) {
 //            return true;
