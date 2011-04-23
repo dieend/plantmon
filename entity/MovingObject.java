@@ -261,7 +261,7 @@ public abstract class MovingObject implements Drawable, Serializable{
                 }
                 else if (map.getTop(i,j) instanceof MovingObject)
                 {
-                    tmap[i][j]=5;
+                    tmap[i][j]=1;
                 }
                 //check non-land/non-destiny
                 else

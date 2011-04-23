@@ -32,7 +32,7 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
     int startx;
     int starty;
     JTextArea time;
-    Selectable selected;
+    PulmosisBattle selected;
     boolean selectsomething;
     Actionable actionated;
     int clickx,clicky,defx,defy;
@@ -120,6 +120,9 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
     }
     public void gameUpdate() {
 //        System.out.format("I wonder why won't work\n");
+        if ((selected!=null) && !selected.isActive()){
+            selectsomething = false;
+        }
         boolean found = true;
         int i = 0;
         int j = 0;
@@ -194,14 +197,12 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
         switch(clicked){
             case MouseEvent.BUTTON1:
                 if (map.getTop(gx, gy) != null ) {
-                    if (map.getTop(gx, gy) instanceof Selectable) {
+                    if (map.getTop(gx, gy) instanceof PulmosisBattle) {
                         //actionated = (Actionable) map.getTop(gx, gy);
-                        selected = (Selectable) map.getTop(gx, gy);
-                        selectsomething = true;
-                    } else if (map.getTop(gx, gy) instanceof Canceller){
-                        popup = ((Canceller)map.getTop(gx,gy)).getMenu();
-                        popup.show(tmp.getComponent(),tmp.getX(), tmp.getY());
-                        selectsomething = false;
+                        selected = (PulmosisBattle) map.getTop(gx, gy);
+                        if (selected.isActive()){
+                            selectsomething = true;
+                        }
                     } else {
                         selectsomething = false;
                     }

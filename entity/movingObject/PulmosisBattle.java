@@ -31,6 +31,8 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     int dmg;
     int range;
     int missed;
+    int chargeMeter;
+    private boolean active;
     boolean enemy;
     private boolean selected;
     double miss;
@@ -82,9 +84,21 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         setAgi();
         setAttack();
         setHP();
+        chargeMeter = 0;
+    }
+    @Override public void update(){
+        chargeMeter++;
+        System.out.println(""+chargeMeter+"/"+(10000/agi));
+        if (chargeMeter >= 1000/agi){
+            active = true;
+        }
+        super.update();
     }
     @Override public void draw() {
         super.draw();
+        if (isActive()){
+            creature.graphics().drawString("ACTIVE", position().IntX(), position().IntY());
+        }
         if (attacked > 0) {
              if (dmg == -99999) {
                 creature.graphics().drawString("miss", position().IntX(), position().IntX());
@@ -101,8 +115,10 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     }
     
     @Override public void drawBounds() {
-        creature.drawBounds(Color.RED);
-        drawArea();
+        if (isActive()){
+            creature.drawBounds(Color.RED);
+            drawArea();
+        }
     }
     @Override public JPanel get_Info(){
         ImageIcon image1 = null;
@@ -326,5 +342,16 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
      */
     public void setAttackRange(int attackRange) {
         this.attackRange = attackRange;
+    }
+    public void resetChargeMeter(){
+        chargeMeter = 0;
+        active = false;
+    }
+
+    /**
+     * @return the active
+     */
+    public boolean isActive() {
+        return active;
     }
 }

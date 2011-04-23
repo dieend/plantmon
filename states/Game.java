@@ -207,8 +207,8 @@ public class Game implements Serializable{
         }
         Random ranNum = new Random();
         x = ranNum.nextInt(100);
-//        weather = ran[x];
-        weather = RAINY;
+        weather = ran[x];
+//        weather = RAINY;
         if (weather == SUNNY) {
             for (int i=0; i<20; i++){
                 for (int j=0; j<20; j++){
