@@ -272,7 +272,7 @@ public abstract class MovingObject implements Drawable, Serializable{
                 }
                 if (map.getTop(i, j) instanceof Dwarf)
                 {
-                    System.out.println("INI DWARF");
+//                    System.out.println("INI DWARF");
                     tmap[i][j]=5;
                 }
                 if (map.getTop(i, j)==null)
@@ -285,7 +285,7 @@ public abstract class MovingObject implements Drawable, Serializable{
                 }*/
             }
         }
-        performarr(tmap, map.getRow(), map.getColumn());
+//        performarr(tmap, map.getRow(), map.getColumn());
         /*
         //hanya untuk debugging
         for(i=0;i<8;++i)
@@ -577,23 +577,23 @@ public abstract class MovingObject implements Drawable, Serializable{
         }
 
 
-        if (caller!=0)
-        {
-          if (!rettrue.isEmpty())
-              System.out.println("TIDAK KOSONG");
-          else
-              System.out.println("KOSONG");
-          System.out.println("MAP KURCACI : ");
-          performarr(tmap, map.getRow(), map.getColumn());
-          System.out.println("rute KURCACI");
-          for(i=0;i<rettrue.size()-1;++i)
-          {
-            System.out.println(rettrue.get(i).IntX() + "," + rettrue.get(i).IntY() );
-          }
-        }
-
-        System.out.println("Ini rutenya : ");
-        performarrlist(rettrue);
+//        if (caller!=0)
+//        {
+//          if (!rettrue.isEmpty())
+//              System.out.println("TIDAK KOSONG");
+//          else
+//              System.out.println("KOSONG");
+//          System.out.println("MAP KURCACI : ");
+//          performarr(tmap, map.getRow(), map.getColumn());
+//          System.out.println("rute KURCACI");
+//          for(i=0;i<rettrue.size()-1;++i)
+//          {
+//            System.out.println(rettrue.get(i).IntX() + "," + rettrue.get(i).IntY() );
+//          }
+//        }
+//
+//        System.out.println("Ini rutenya : ");
+//        performarrlist(rettrue);
         return rettrue;
     }
     
