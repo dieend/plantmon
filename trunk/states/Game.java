@@ -18,6 +18,7 @@ import plantmon.entity.Inventory;
 import plantmon.entity.Item;
 import plantmon.entity.Time;
 import plantmon.entity.movingObject.Dwarf;
+import plantmon.entity.movingObject.PulmosisLand;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
 import plantmon.system.Utilities;
@@ -250,6 +251,8 @@ public class Game implements Serializable{
             Time.instance().changeDay();
             Game.instance().goTo(ParentState.HOME, null);
         }
+        story.setDay(Time.instance().getDay());
+        story.getKentang().setWatered(false);
     }
     public JPanel dialogBox(){
         if (dialogBox != null)
