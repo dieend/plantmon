@@ -125,6 +125,7 @@ public class StoryLine implements Runnable,Serializable {
 
     public void Story () {
         Boolean[] cancel = new Boolean[1];
+        cancel[0] = false;
         boolean arahKanan = false;
         if (map.getTop(5, 9) instanceof PulmosisLand) {
             //lobak.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*9);
