@@ -108,7 +108,7 @@ public class Dwarf extends MovingObject implements Actionable,
         label1.setBounds(0,0,100,100);
         panel.add(label1);}
         
-        label2 = new JLabel("Nama : " + Game.instance().getName());
+        label2 = new JLabel("Nama : " + this.getName());
         label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
         label2.setBounds(400,13,150,30);
         panel.add(label2);
