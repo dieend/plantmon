@@ -52,11 +52,11 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         panel.add(label1);
         label2 = new JLabel("Nama : " + Game.instance().getName());
         label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label2.setBounds(120,0,150,30);
+        label2.setBounds(400,7,150,30);
         panel.add(label2);
         label3 = new JLabel("Uang : "+ Game.instance().getMoney());
         label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label3.setBounds(120,30,150,30);
+        label3.setBounds(400,25,150,30);
         panel.add(label3);
         
         return panel;
