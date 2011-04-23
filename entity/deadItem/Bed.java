@@ -54,7 +54,7 @@ public class Bed extends Unmoveable implements Actionable{
                 }
             }
             if (!cancel[0]){
-                map.pop(gx, gy);
+                map.popCancel(gx, gy);
                 Game.instance().changeDay();
             }
         }

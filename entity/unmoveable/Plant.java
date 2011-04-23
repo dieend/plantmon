@@ -142,19 +142,9 @@ public class Plant extends Unmoveable implements Actionable,
 
     public void setFase(int i) {
         fase = i;
-        if (fase == BIBITSIRAM){
-            entity.load("picture/bibitsiram.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-        } else if (fase == BIBITNOSIRAM){
-            entity.load("picture/bibitnosiram.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-        } else if (fase == DEWASANOSIRAM){
-            entity.load("picture/dewasa.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-//        } else if (fase == DEWASASIRAM){
-//            entity.load("picture/dewasasiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-        } else if (fase == REMAJANOSIRAM){
-            entity.load("picture/remaja.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-//        } else if (fase == REMAJASIRAM){
-//            entity.load("picture/remajasiram.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-        } else if (fase == BIBITMATI){
+        if (fase == BIBITSIRAM || fase == BIBITNOSIRAM){
+            entity.load("picture/bibit.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+        }  else if (fase == BIBITMATI){
             entity.load("picture/bibitmati.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         } else if (fase == TANAMANMATI){
             entity.load("picture/tanamanmati.png", 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
@@ -226,7 +216,7 @@ public class Plant extends Unmoveable implements Actionable,
             }
             // setelah player sampai, siram tanaman.
             if (!cancel[0]){
-                map.pop(gx, gy);
+                map.popCancel(gx, gy);
                 doWater();
                 player.setWork(1);
             }
@@ -255,7 +245,7 @@ public class Plant extends Unmoveable implements Actionable,
             }
             // setelah player sampai, siram tanaman.
             if (!cancel[0]){
-                map.pop(gx, gy);
+                map.popCancel(gx, gy);
                 setPanen();
                 Game.instance().log().append("harvesting at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
@@ -281,7 +271,7 @@ public class Plant extends Unmoveable implements Actionable,
                 } catch (InterruptedException e){}
             }
             if (!cancel[0]){
-                map.pop(gx, gy);
+                map.popCancel(gx, gy);
                 map.pop(gx, gy);
                 player.setWork(0);
 
@@ -312,9 +302,8 @@ public class Plant extends Unmoveable implements Actionable,
                 } catch (InterruptedException e){}
             }
             if (!cancel[0]){
-                map.pop(gx, gy);
+                map.popCancel(gx, gy);
                 doSlash();
-                map.pop(gx, gy);
                 player.setWork(2);
             }
         }
@@ -346,9 +335,9 @@ public class Plant extends Unmoveable implements Actionable,
         }
     }
     public void grow(int newCurrentSeason)
-// mengubah fase pada pergantian hari
-// not instant change
-{   System.out.print("Growing plants at"+entity.position().IntX()+" "+entity.position().IntY()+"from fase "+getFase());
+    // mengubah fase pada pergantian hari
+    // not instant change
+    {
         if (umur>=0){
             setUmur(umur-1);
             if (isWatered())
@@ -400,7 +389,6 @@ public class Plant extends Unmoveable implements Actionable,
                             }
                     }
         }
-        System.out.println("to "+fase);
     }
     public void init(){
         entity.setFrameDelay(5);

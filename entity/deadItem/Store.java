@@ -299,7 +299,7 @@ public class Store extends Unmoveable implements Actionable {
                 }
             }
             if (!cancel[0]){
-                map.pop(gx, gy);
+                map.popCancel(gx, gy);
                 int money = Game.instance().getMoney();
                 if (money >= x*temp.getCostBuy()) {
                     money = money - x * temp.getCostBuy();
@@ -394,7 +394,7 @@ public class Store extends Unmoveable implements Actionable {
                 }
             }
             if (!cancel[0]){
-                map.pop(gx, gy);
+                map.popCancel(gx, gy);
                 int money = Game.instance().getMoney();
                 money = money + x * temp.getCostSell();
                 Game.instance().setMoney(money);

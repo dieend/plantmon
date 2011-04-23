@@ -7,7 +7,6 @@ import java.io.Serializable;
 import plantmon.game.Point2D;
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
-import java.util.Scanner;
 import javax.swing.JPanel;
 import plantmon.entity.deadItem.Portal;
 import plantmon.entity.movingObject.Dwarf;
@@ -18,7 +17,6 @@ import plantmon.entity.unmoveable.Plant;
 import plantmon.entity.unmoveable.Road;
 import plantmon.game.AnimatedSprite;
 import plantmon.game.GridMap;
-import plantmon.system.Cancellable;
 import plantmon.system.Drawable;
 import plantmon.system.Utilities;
 
