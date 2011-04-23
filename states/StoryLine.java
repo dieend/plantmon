@@ -3,6 +3,8 @@ package plantmon.states;
 import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import plantmon.entity.movingObject.Pulmosis;
 import plantmon.game.GridMap;
@@ -20,7 +22,8 @@ public class StoryLine implements Runnable,Serializable {
     Pulmosis lobak;
     Pulmosis timun;
     Boolean[] belum;
-
+    Thread storyloop;
+    final Object lock = new String("exact");
     public StoryLine () {
         belum = new Boolean[3];
         belum[0] = true;
@@ -68,16 +71,15 @@ public class StoryLine implements Runnable,Serializable {
         this.panel = panel;
 //        this.g2d = g2d;
         kentang.reinit(map, g2d, panel);
-        map.push(kentang.position().IntX(),kentang.position().IntY(), kentang);
+        if (!belum[2]) map.push(kentang.position().IntX(),kentang.position().IntY(), kentang);
         lobak.reinit(map, g2d, panel);
-        map.push(lobak.position().IntX(),lobak.position().IntY(), lobak);
+        if (!belum[0]) map.push(lobak.position().IntX(),lobak.position().IntY(), lobak);
         timun.reinit(map,g2d,panel);
-        map.push(timun.position().IntX(),timun.position().IntY(), timun);
+        if (!belum[1]) map.push(timun.position().IntX(),timun.position().IntY(), timun);
     }
 
     public void Story () {
         Boolean[] cancel = new Boolean[1];
-        Object lock = new Object();
         if (map.getTop(5, 9) instanceof Pulmosis) {
             //lobak.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*9);
             lobak.move(3*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE, lock, cancel);
@@ -85,11 +87,10 @@ public class StoryLine implements Runnable,Serializable {
                 try {
                     lock.wait();
                 } catch (InterruptedException e){
-                    return;
+//                    return;
                 }
             }
             if (!cancel[0]){
-                map.pop(3*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE);
                 lobak.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 9*Utilities.GRIDSIZE+5);
             }
         } else if (map.getTop(3, 9) instanceof Pulmosis) {
@@ -99,11 +100,11 @@ public class StoryLine implements Runnable,Serializable {
                 try {
                     lock.wait();
                 } catch (InterruptedException e){
-                    return;
+//                    return;
                 }
             }
             if (!cancel[0]){
-                map.pop(5*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE);
+//                map.pop(5*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE);
                 lobak.getCreature().setFinalPosition(5*Utilities.GRIDSIZE+5, 9*Utilities.GRIDSIZE+5);
             }
         } else if (belum[0]){
@@ -117,11 +118,11 @@ public class StoryLine implements Runnable,Serializable {
                 try {
                     lock.wait();
                 } catch (InterruptedException e){
-                    return;
+//                    return;
                 }
             }
             if (!cancel[0]){
-                map.pop(5*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE);
+//                map.pop(5*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE);
                 lobak.getCreature().setFinalPosition(5*Utilities.GRIDSIZE+5, 9*Utilities.GRIDSIZE+5);
             }
             //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
@@ -144,11 +145,11 @@ public class StoryLine implements Runnable,Serializable {
                     try {
                         lock.wait();
                     } catch (InterruptedException e){
-                        return;
+//                        return;
                     }
                 }
                 if (!cancel[0]){
-                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
+//                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
                     kentang.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
                 }
             } else if (map.getTop(3, 4) instanceof Pulmosis) {
@@ -158,11 +159,11 @@ public class StoryLine implements Runnable,Serializable {
                     try {
                         lock.wait();
                     } catch (InterruptedException e){
-                        return;
+//                        return;
                     }
                 }
                 if (!cancel[0]){
-                    map.pop(3*Utilities.GRIDSIZE, 6*Utilities.GRIDSIZE);
+//                    map.pop(3*Utilities.GRIDSIZE, 6*Utilities.GRIDSIZE);
                     kentang.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 6*Utilities.GRIDSIZE+5);
                 }
             } else if (belum[2]){
@@ -176,11 +177,11 @@ public class StoryLine implements Runnable,Serializable {
                     try {
                         lock.wait();
                     } catch (InterruptedException e){
-                        return;
+//                        return;
                     }
                 }
                 if (!cancel[0]){
-                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
+//                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
                     kentang.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
                 }
                 //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
@@ -199,16 +200,47 @@ public class StoryLine implements Runnable,Serializable {
                 e.printStackTrace();
             }
             Story();
+            synchronized(this){
+                notifyAll();
+            }
         }
        System.out.print("ending story\n");
     }
 
     public void turnOff () {
+        boolean fail;
+        do{
+            fail = false;
+            try{
+                System.out.print("waiting . . .\n");
+                synchronized(this){
+                    wait(10);
+                }
+            }catch(InterruptedException ex){
+                synchronized(lock){
+                    lock.notifyAll();
+                    fail = true;
+                }
+            }
+        }while (fail);
+        System.out.print("end of wait\n");
         active = false;
-        System.out.print("Story.turnoff\n");
     }
 
     public JPanel getPanel() {
         return panel;
+    }
+    public void begin(){
+        (new Thread(new Runnable() {
+            public void run() {
+                if (storyloop != null){
+                    if (storyloop.isAlive()){
+                        storyloop.interrupt();
+                    }
+                }
+                storyloop = new Thread(StoryLine.this);
+                storyloop.start();
+            }
+        })).start();
     }
 }
