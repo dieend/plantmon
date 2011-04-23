@@ -5,6 +5,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import plantmon.entity.Unmoveable;
+import plantmon.entity.movingObject.Pulmosis;
 import plantmon.entity.movingObject.PulmosisBattle;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
@@ -25,59 +26,66 @@ public class BattleLand extends Unmoveable implements Actionable {
     public Point2D getPosition () {
         return posisi;
     }
-
-    public JPopupMenu getMenu(Selectable selected) {
-        final PulmosisBattle player = (PulmosisBattle) selected;
+    public boolean cekDistance(PulmosisBattle player){
         int lengthX, lengthY;
-        int i;
-        boolean cek = true;
-        JPopupMenu menu = new JPopupMenu();
-        JMenuItem ite;
         lengthX = posisi.IntX() / Utilities.GRIDSIZE - player.position().IntX() / Utilities.GRIDSIZE;
         if (lengthX < 0) {
             lengthX = -1 * lengthX;
         }
-        
+
         lengthY = posisi.IntY() / Utilities.GRIDSIZE - player.position().IntY() / Utilities.GRIDSIZE;
         if (lengthY < 0) {
             lengthY = -1 * lengthY;
         }
-        i = player.getRange();
-        while (i > 0 && cek) {
-            if (lengthX == i) {
-                if (lengthY <= player.getRange() - i) {
-                    ite = new JMenuItem("move");
-                    ite.addActionListener(new Move(selected));
-                    menu.add(ite);
-                    if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof PulmosisBattle) {
-                        PulmosisBattle pul = (PulmosisBattle) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
-                        ite = new JMenuItem("attack");
-                        ite.addActionListener(new Attack(selected,pul));
-                        menu.add(ite);
-                    }
-                    cek = false;
-                } else {
-                    i--;
-                }
-            } else if (lengthY == i) {
-                if (lengthX <= player.getRange() - i) {
-                    ite = new JMenuItem("move");
-                    ite.addActionListener(new Move(selected));
-                    menu.add(ite);
-                    if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof PulmosisBattle) {
-                        PulmosisBattle pul = (PulmosisBattle) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
-                        ite = new JMenuItem("attack");
-                        ite.addActionListener(new Attack(selected,pul));
-                        menu.add(ite);
-                    }
-                    cek = false;
-                } else {
-                    i--;
-                }
-            } else {
-                i--;
+
+        if (lengthY+lengthX <= player.getRange()) return true;
+        return false;
+//        i = player.getRange();
+//        while (i > 0 && cek) {
+//            if (lengthX == i) {
+//                if (lengthY <= player.getRange() - i) {
+//                    ite = new JMenuItem("move");
+//                    ite.addActionListener(new Move(selected));
+//                    menu.add(ite);
+//                    if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof Pulmosis) {
+//                        Pulmosis pul = (Pulmosis) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
+//                        ite = new JMenuItem("attack");
+//                        ite.addActionListener(new Attack(selected,pul));
+//                        menu.add(ite);
+//                    }
+//                    cek = false;
+//                } else {
+//                    i--;
+//                }
+//            } else if (lengthY == i) {
+//                if (lengthX <= player.getRange() - i) {
+//                    cek = false;
+//                } else {
+//                    i--;
+//                }
+//            } else {
+//                i--;
+//            }
+//        }
+    }
+    public JPopupMenu getMenu(Selectable selected) {
+        final PulmosisBattle player = (PulmosisBattle) selected;
+        int i;
+        boolean cek = true;
+        JPopupMenu menu = new JPopupMenu();
+        JMenuItem ite;
+        if (cekDistance(player)){
+            ite = new JMenuItem("move");
+            ite.addActionListener(new Move(selected));
+            menu.add(ite);
+            if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof Pulmosis) {
+                Pulmosis pul = (Pulmosis) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
+                ite = new JMenuItem("attack");
+                ite.addActionListener(new Attack(selected,pul));
+                menu.add(ite);
             }
         }
+        
         menu.pack();
         return menu;
     }
@@ -96,7 +104,7 @@ public class BattleLand extends Unmoveable implements Actionable {
             int gx = BattleLand.this.getPosition().IntX();
             int gy = BattleLand.this.getPosition().IntY();
             System.out.format("%d %d\n",gx,gy);
-            Object lock = new Object();
+            Object lock = new String("paused");
             Boolean[] cancel = new Boolean[1];
             player.move(gx, gy, lock,cancel);
             synchronized(lock){
@@ -106,21 +114,18 @@ public class BattleLand extends Unmoveable implements Actionable {
                     return;
                 }
             }
-            if (!cancel[0]){
-                player.getCreature().setFinalPosition(gx, gy);
-            }
             
         }
     }
 
     class Attack extends RunnableListener {
-        PulmosisBattle enemy;
-        public Attack(Selectable selected,PulmosisBattle pul){
+        Pulmosis enemy;
+        public Attack(Selectable selected,Pulmosis pul){
             super(selected);
             enemy = pul;
         }
         public void run() {
-            PulmosisBattle player = (PulmosisBattle) selected;
+            Pulmosis player = (Pulmosis) selected;
             int gx = BattleLand.this.getPosition().IntX();
             int gy = BattleLand.this.getPosition().IntY();
             System.out.format("%d %d\n",gx,gy);
