@@ -29,6 +29,9 @@ public class StateFactory{
             case ParentState.TOMATSTATE:
                 newState = new TomatState(18, 11);
                 break;
+            case ParentState.NANASSTATE:
+                newState = new NanasState(18, 11);
+                break;
         }
         return newState;
     }

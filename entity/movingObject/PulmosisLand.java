@@ -105,7 +105,7 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
     }
 
     public boolean isFullWatered () {
-        if (sumWater >= 1) {
+        if (sumWater >= 7) {
             return true;
         } else {
             return false;

@@ -46,6 +46,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     public static final int Stroberi = 4;
     public static final int Jagung = 5;
     public static final int Tomat = 6;
+    public static final int Nanas = 7;
     public boolean isAlreadyMove(){
         return move;
     }
@@ -84,6 +85,9 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             range = 3;
         } else if (tipe == Tomat) {
             level = 10;
+            range = 2;
+        } else if (tipe == Nanas) {
+            level = 15;
             range = 2;
         }
         atk = 0;
