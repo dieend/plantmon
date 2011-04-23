@@ -10,6 +10,7 @@ import java.util.IdentityHashMap;
 import javax.swing.JPanel;
 import plantmon.entity.deadItem.Portal;
 import plantmon.entity.movingObject.Dwarf;
+import plantmon.entity.movingObject.Player;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
 import plantmon.entity.unmoveable.Road;
@@ -162,10 +163,12 @@ public abstract class MovingObject implements Drawable, Serializable{
                 }
             }
         } else{//if not in action
-            creature.setAnimated(false);
-            if (lock.size()>0){
-                creature.setAnimated(true);
-                inAction = true;
+            if (!(this instanceof Player) || ((Player)this).getWork()==3){
+                creature.setAnimated(false);
+                if (lock.size()>0){
+                    creature.setAnimated(true);
+                    inAction = true;
+                }
             }
         }
         
