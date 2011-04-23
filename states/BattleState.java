@@ -156,7 +156,6 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
         if (selectsomething) {
             selected.drawBounds();
         }
-
         g2d.setColor(Color.GRAY);
     }
     @Override public void paintComponent(Graphics g) {
@@ -200,9 +199,10 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
                         selected = (Selectable) map.getTop(gx, gy);
                         selectsomething = true;
                     } else if (map.getTop(gx, gy) instanceof Canceller){
-                        System.out.print("fjhfhgf");
                         popup = ((Canceller)map.getTop(gx,gy)).getMenu();
                         popup.show(tmp.getComponent(),tmp.getX(), tmp.getY());
+                        selectsomething = false;
+                    } else {
                         selectsomething = false;
                     }
                 } else selectsomething = false;

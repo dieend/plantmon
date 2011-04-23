@@ -207,7 +207,7 @@ public class Game implements Serializable{
         Random ranNum = new Random();
         x = ranNum.nextInt(100);
         weather = ran[x];
-        if (ran[x] == SUNNY) {
+        if (weather == SUNNY) {
             for (int i=0; i<20; i++){
                 for (int j=0; j<20; j++){
                     farmstatus[i][j] = Land.NORMAL;
@@ -217,42 +217,38 @@ public class Game implements Serializable{
                 farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.PLOWED;
                 p.grow(Time.instance().getSeason());
             }
-            Time.instance().changeDay();
-            Game.instance().goTo(ParentState.HOME, null);
-        } else if (ran[x] == RAINY) {
+        } else if (weather == RAINY) {
             for (int i=0; i<20; i++){
                 for (int j=0; j<20; j++){
                     farmstatus[i][j] = Land.NORMAL;
                 }
             }
             for (Plant p:plants){
-                farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.WATERED;
+                farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE]
+                          [p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.WATERED;
                 p.grow(Time.instance().getSeason());
                 p.doWater();
             }
-            Time.instance().changeDay();
-            Game.instance().goTo(ParentState.HOME, null);
-        } else if (ran[x] == STORM) {
+        } else if (weather == STORM) {
             for (int i=0; i<20; i++){
                 for (int j=0; j<20; j++){
                     farmstatus[i][j] = Land.NORMAL;
                 }
-            }
-            
+            }    
             for (Plant p:plants){
                 x = ranNum.nextInt(100);
                 if (x >= 60) {
                     plants.remove(p);
                 } else {
-                   farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.WATERED;
+                   farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.PLOWED;
                    p.grow(Time.instance().getSeason());
                 }
             }
-            Time.instance().changeDay();
-            Game.instance().goTo(ParentState.HOME, null);
         }
+        Time.instance().changeDay();
         story.setDay(Time.instance().getDay());
         story.getKentang().setWatered(false);
+        Game.instance().goTo(ParentState.HOME, null);
     }
     public JPanel dialogBox(){
         if (dialogBox != null)
