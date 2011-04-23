@@ -44,13 +44,13 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         init();
         if (tipe == Lobak) {
             level = 1;
-            range = 2;
+            range = 99;
         } else if (tipe == Timun) {
             level = 3;
-            range = 3;
+            range = 99;
         } else if (tipe == Kentang) {
             level = 5;
-            range = 2;
+            range = 99;
         }
         atk = 0;
         attacked = 0;
@@ -217,12 +217,11 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
 
     @Override
     public void cancel(Object lock){
-        map.pop(destination.get(lock).X(), destination.get(lock).Y());
-        System.out.println(destination.size());
         destination.remove(lock);
         this.lock.remove(lock);
         this.numAction--;
         creature.setFinalPosition(this.position().IntX(),this.position().IntY());
+        inAction = false;
         inAction = false;
     }
 

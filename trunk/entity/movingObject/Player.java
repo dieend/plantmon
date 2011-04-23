@@ -33,7 +33,8 @@ public class Player extends MovingObject implements Actionable, Cancellable,
     //bisa ngapain aja
     public Player(GridMap map, JPanel panel, Graphics2D g2d){
         super(map,panel,g2d);
-        init();work=3;
+        init();
+        work=3;
     }
     @Override public void drawBounds() {
         creature.drawBounds(Color.GREEN);

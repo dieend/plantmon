@@ -108,13 +108,16 @@ public abstract class MovingObject implements Drawable, Serializable{
     protected abstract void init();
     public void updateAction(){
         if (inAction){
+            System.out.println("panjang rute "+route.size());
             if (destination.get(lock.get(0)) == null){
                 destination.remove(lock.get(0));
                 lock.remove(0);
                 inAction = false;
                 return;
             }
-            route = getRoute(destination.get(lock.get(0)).IntX(), destination.get(lock.get(0)).IntY(), type);
+            if (!lock.get(0).equals("stop") && !lock.get(0).equals("paused")){
+                route = getRoute(destination.get(lock.get(0)).IntX(), destination.get(lock.get(0)).IntY(), type);
+            }
             if (route.size() == 0 ){
                 if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
                     (Math.abs(creature.position().Y()-creature.finalPosition().Y())  <= 1)){
@@ -130,16 +133,27 @@ public abstract class MovingObject implements Drawable, Serializable{
                         }
                     }
                 }
-            } else if (route.size()>1 || lock.get(0).equals("exact")){
+            } else if (route.size()>1 || lock.get(0).equals("exact") || lock.get(0).equals("stop") || lock.get(0).equals("paused")){
                 Point2D dest;//;
                 dest = route.get(0);
-    //            }
                 int gx = dest.IntX()*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
                 int gy = dest.IntY()*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
-                creature.setFinalPosition(gx, gy);
-                if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
-                    (Math.abs(creature.position().Y()-creature.finalPosition().Y())  <= 1)) {
-                    route.remove(0);
+                if ((lock.get(0).equals("paused") || lock.get(0).equals("stop")) &&
+                    !map.getTop(dest.IntX(),dest.IntY()).equals(this)&&
+                    !(map.getTop(dest.IntX(),dest.IntY()) instanceof Road ||
+                      map.getTop(dest.IntX(),dest.IntY()) instanceof Land)){
+
+                    if (lock.get(0).equals("paused")){
+                        creature.setFinalPosition(creature.position().IntX(), creature.position().IntY());
+                    } else if (lock.get(0).equals("stop")){
+                        route.removeAll(route);
+                    }
+                } else {
+                    creature.setFinalPosition(gx, gy);
+                    if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
+                        (Math.abs(creature.position().Y()-creature.finalPosition().Y())  <= 1)) {
+                        route.remove(0);
+                    }
                 }
             } else if (route.size()==1){
                 if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
@@ -166,6 +180,9 @@ public abstract class MovingObject implements Drawable, Serializable{
             if (!(this instanceof Player) || ((Player)this).getWork()==3){
                 creature.setAnimated(false);
                 if (lock.size()>0){
+                    if (lock.get(0).equals("stop") || lock.get(0).equals("paused")) {
+                        route = getRoute(destination.get(lock.get(0)).IntX(), destination.get(lock.get(0)).IntY(), 0);
+                    }
                     creature.setAnimated(true);
                     inAction = true;
                 }

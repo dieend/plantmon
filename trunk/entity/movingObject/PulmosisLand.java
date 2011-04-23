@@ -4,15 +4,12 @@ import java.awt.Graphics2D;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import plantmon.entity.unmoveable.Land;
 import plantmon.game.GridMap;
-import plantmon.states.Game;
 import plantmon.system.Actionable;
 import plantmon.system.Cancellable;
 import plantmon.system.Jobable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
-import plantmon.system.Utilities;
 
 public class PulmosisLand extends PulmosisBattle implements Cancellable,
                                                     Selectable,Actionable {
