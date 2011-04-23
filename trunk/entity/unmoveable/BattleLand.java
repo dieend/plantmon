@@ -55,6 +55,7 @@ public class BattleLand extends Unmoveable implements Actionable {
         if (lengthY+lengthX <= player.getRange()+player.getAttackRange()) return true;
         return false;
     }
+    
     public JPopupMenu getMenu(Selectable selected) {
         final PulmosisBattle player = (PulmosisBattle) selected;
         int i;
@@ -138,6 +139,7 @@ public class BattleLand extends Unmoveable implements Actionable {
             } else {
                 player.miss();
             }
+            player.resetChargeMeter();
         }
     }
 
