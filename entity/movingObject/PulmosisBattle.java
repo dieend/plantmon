@@ -99,7 +99,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     }
     @Override public void update(){
         chargeMeter++;
-        System.out.println(""+chargeMeter+"/"+(10000/agi)+" move:"+move+" attack"+attack);
+//        System.out.println(""+chargeMeter+"/"+(10000/agi)+" move:"+move+" attack"+attack);
         if (!active && chargeMeter >= 1000/agi){
             active = true;
             move = false;

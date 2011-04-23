@@ -381,7 +381,7 @@ public abstract class MovingObject implements Drawable, Serializable{
               }
           }
 //          System.out.println("SETELAH");
-          performarr(tmap,map.getRow(),map.getColumn());
+//          performarr(tmap,map.getRow(),map.getColumn());
         }
         else  if (caller==4)
         {
