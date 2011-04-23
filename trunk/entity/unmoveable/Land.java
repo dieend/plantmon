@@ -191,18 +191,18 @@ public class Land extends Unmoveable implements Actionable{
                 } else {
                     setStatus(PLOWED);
                 }
+                player.setWork(0);
+                player.getCreature().setAnimated(true);
                 player.getCreature().setFrameDelay(5);
-               
                 player.getCreature().load("picture/cangkulanim"+player.getCreature().getFace()+".png",4,1,88,94);
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Land.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                player.setWork(0);
-
-                
                 player.getCreature().load("picture/anim"+player.getCreature().getFace()+".png",4,1,88,94);
+                player.getCreature().setAnimated(false);
+                player.setWork(3);
             }
             
         }

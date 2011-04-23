@@ -61,7 +61,7 @@ public class ImageEntity extends BaseGameEntity {
         if (at != null) {
             at.setToIdentity();
             at.translate((int)getX() + width()/2, (int)getY() + height()/2);
-            at.rotate(Math.toRadians(getFaceAngle()));
+//            at.rotate(Math.toRadians(getFaceAngle()));
             at.translate(-width()/2, -height()/2);
         }
     }
