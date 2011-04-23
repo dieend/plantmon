@@ -386,8 +386,8 @@ public abstract class MovingObject implements Drawable, Serializable{
         else  if (caller==4)
         {
             tmap[1][4]=2;
-            System.out.println("INI MAPNYA : " + x + " -- " + y);
-            performarr(tmap, map.getRow(), map.getColumn());
+//            System.out.println("INI MAPNYA : " + x + " -- " + y);
+//            performarr(tmap, map.getRow(), map.getColumn());
         }else if (caller==5)
         {
             tmap[1][5]=2;
@@ -581,8 +581,8 @@ public abstract class MovingObject implements Drawable, Serializable{
 //          }
 //        }
 //
-        System.out.println("Ini rutenya : ");
-        performarrlist(rettrue); 
+//        System.out.println("Ini rutenya : ");
+//        performarrlist(rettrue);
         return rettrue;
     }
     
