@@ -4,6 +4,10 @@
 
 package plantmon;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.io.File;
+import java.net.MalformedURLException;
 import javax.swing.JFrame;
 import plantmon.states.ParentState;
 import plantmon.states.Game;
@@ -33,7 +37,7 @@ public class PlantmonApp{
     }
     
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MalformedURLException {
         PlantmonApp app = new PlantmonApp();
         app.start();
     }
