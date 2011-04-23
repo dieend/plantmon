@@ -5,7 +5,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import plantmon.entity.Unmoveable;
-import plantmon.entity.movingObject.Pulmosis;
+import plantmon.entity.movingObject.PulmosisBattle;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.system.Actionable;
@@ -27,7 +27,7 @@ public class BattleLand extends Unmoveable implements Actionable {
     }
 
     public JPopupMenu getMenu(Selectable selected) {
-        final Pulmosis player = (Pulmosis) selected;
+        final PulmosisBattle player = (PulmosisBattle) selected;
         int lengthX, lengthY;
         int i;
         boolean cek = true;
@@ -49,8 +49,8 @@ public class BattleLand extends Unmoveable implements Actionable {
                     ite = new JMenuItem("move");
                     ite.addActionListener(new Move(selected));
                     menu.add(ite);
-                    if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof Pulmosis) {
-                        Pulmosis pul = (Pulmosis) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
+                    if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof PulmosisBattle) {
+                        PulmosisBattle pul = (PulmosisBattle) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
                         ite = new JMenuItem("attack");
                         ite.addActionListener(new Attack(selected,pul));
                         menu.add(ite);
@@ -64,8 +64,8 @@ public class BattleLand extends Unmoveable implements Actionable {
                     ite = new JMenuItem("move");
                     ite.addActionListener(new Move(selected));
                     menu.add(ite);
-                    if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof Pulmosis) {
-                        Pulmosis pul = (Pulmosis) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
+                    if (map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE) instanceof PulmosisBattle) {
+                        PulmosisBattle pul = (PulmosisBattle) map.getTop(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE);
                         ite = new JMenuItem("attack");
                         ite.addActionListener(new Attack(selected,pul));
                         menu.add(ite);
@@ -92,7 +92,7 @@ public class BattleLand extends Unmoveable implements Actionable {
             super(selected);
         }
         public void run() {
-            Pulmosis player = (Pulmosis) selected;
+            PulmosisBattle player = (PulmosisBattle) selected;
             int gx = BattleLand.this.getPosition().IntX();
             int gy = BattleLand.this.getPosition().IntY();
             System.out.format("%d %d\n",gx,gy);
@@ -114,13 +114,13 @@ public class BattleLand extends Unmoveable implements Actionable {
     }
 
     class Attack extends RunnableListener {
-        Pulmosis enemy;
-        public Attack(Selectable selected,Pulmosis pul){
+        PulmosisBattle enemy;
+        public Attack(Selectable selected,PulmosisBattle pul){
             super(selected);
             enemy = pul;
         }
         public void run() {
-            Pulmosis player = (Pulmosis) selected;
+            PulmosisBattle player = (PulmosisBattle) selected;
             int gx = BattleLand.this.getPosition().IntX();
             int gy = BattleLand.this.getPosition().IntY();
             System.out.format("%d %d\n",gx,gy);
