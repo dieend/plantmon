@@ -44,7 +44,6 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
     int clickx,clicky,defx,defy;
     boolean dragged;
     StoryLine story;
-    Thread s;
     public FarmState(int gridRow, int gridColumn){
         super(gridRow, gridColumn);
         map = new GridMap(gridRow,gridColumn);

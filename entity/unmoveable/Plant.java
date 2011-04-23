@@ -183,13 +183,14 @@ public class Plant extends Unmoveable implements Actionable,
 
     public void doSlash()
     {
-        int gx = (int)Plant.this.getPosition().X();
-        int gy = (int)Plant.this.getPosition().Y();
+        int gx = (int)this.getPosition().X();
+        int gy = (int)this.getPosition().Y();
         map.pop(gx, gy);
-        if (Plant.this.isWatered()) {
+        if (this.isWatered()) {
             ((Land)map.getTop(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE)).setStatus(Land.WATERED);
-        
-        Game.instance().removePlant(Plant.this);
+        System.out.println("Before REMOVE "+Game.instance().getPlants().size());
+        Game.instance().removePlant(this);
+        System.out.println("After REMOVE"+Game.instance().getPlants().size());
         Game.instance().log().append("slashing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
         }
     }
@@ -332,7 +333,8 @@ public class Plant extends Unmoveable implements Actionable,
                     }
             } else {
                     setFase(TANAMANMATI);
-        }
+                    setUmur(0);
+            }
     }
     public void grow(int newCurrentSeason)
     // mengubah fase pada pergantian hari
