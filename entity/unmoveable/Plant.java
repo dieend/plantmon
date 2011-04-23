@@ -178,12 +178,12 @@ public class Plant extends Unmoveable implements Actionable,
     public void doWater(){
         int gx = (int)Plant.this.getPosition().X();
         int gy = (int)Plant.this.getPosition().Y();
-        if (!isWatered()){
+        if (!isWatered() && (fase!=6) && (fase!=7)){
             setFase(fase + 1);
-        }
         map.getLand(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE).setStatus(Land.WATERED);
         Game.instance().farmstatus()[gx/Utilities.GRIDSIZE][gy/Utilities.GRIDSIZE] = Land.WATERED;
         map.getLand(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE).setStatus(Land.WATERED);
+        }
     }
 
     public void doHarvest()
@@ -198,9 +198,10 @@ public class Plant extends Unmoveable implements Actionable,
         map.pop(gx, gy);
         if (Plant.this.isWatered()) {
             ((Land)map.getTop(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE)).setStatus(Land.WATERED);
-        }
+        
         Game.instance().removePlant(Plant.this);
         Game.instance().log().append("slashing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
+        }
     }
     
 
