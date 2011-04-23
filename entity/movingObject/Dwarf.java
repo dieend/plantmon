@@ -125,8 +125,9 @@ public class Dwarf extends MovingObject implements Actionable,
     public void reinit(GridMap map,Graphics2D g2d, JPanel panel){
         super.reinit(map,g2d, panel);
         if (creature.panel()!=null){
-            creature.load("picture/dwarf"+type+"0.png",4,1,32,32);
-            creature.setImageName("picture/dwarf"+type);
+            System.out.println("picture/dwarf"+((type>3)?type-3:type)+"0.png");
+            creature.load("picture/dwarf"+((type>3)?type-3:type)+"0.png",4,1,32,32);
+            creature.setImageName("picture/dwarf"+((type>3)?type-3:type));
         }
     }
 

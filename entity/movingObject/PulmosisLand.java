@@ -25,7 +25,7 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
             watered = false;
         }
     }
-
+    
     public JPopupMenu getMenu(Selectable selected){
         if (selected instanceof Player){
             final Player player = (Player) selected;
