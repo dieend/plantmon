@@ -51,8 +51,8 @@ public class BattleLand extends Unmoveable implements Actionable {
         if (lengthY < 0) {
             lengthY = -1 * lengthY;
         }
-
-        if (lengthY+lengthX <= player.getRange()+player.getAttackRange()) return true;
+        if (!player.isAlreadyMove() && lengthY+lengthX <= player.getRange()+player.getAttackRange()) return true;
+        else if (lengthY+lengthX <= player.getAttackRange()) return true;
         return false;
     }
     
@@ -62,15 +62,15 @@ public class BattleLand extends Unmoveable implements Actionable {
         boolean cek = true;
         JPopupMenu menu = new JPopupMenu();
         JMenuItem ite;
-        if (inDistance(player)){
+        if (inDistance(player) && !player.isAlreadyMove()){
             ite = new JMenuItem("move");
             ite.addActionListener(new Move(selected));
             menu.add(ite);
-            if (inAttackRange(player)){
-                ite = new JMenuItem("attack");
-                ite.addActionListener(new Attack(selected,new Point2D(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE)));
-                menu.add(ite);
-            }
+        }
+        if (inAttackRange(player) && !player.isAlreadyAttack()){
+            ite = new JMenuItem("attack");
+            ite.addActionListener(new Attack(selected,new Point2D(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE)));
+            menu.add(ite);
         }
         
         menu.pack();
@@ -115,9 +115,9 @@ public class BattleLand extends Unmoveable implements Actionable {
             PulmosisBattle player = (PulmosisBattle) selected;
             int gx = BattleLand.this.getPosition().IntX();
             int gy = BattleLand.this.getPosition().IntY();
-            System.out.format("%d %d\n",gx,gy);
             Object lock = new Object();
             Boolean[] cancel = new Boolean[1];
+            player.makeAttack();
             player.move(gx, gy, lock,cancel);
             synchronized(lock){
                 try {

@@ -33,8 +33,10 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     int missed;
     int chargeMeter;
     private boolean active;
-    boolean enemy;
     private boolean selected;
+    private boolean move;
+    private boolean attack;
+    boolean enemy;
     double miss;
     private int attackRange;
     public static final int Lobak = 0;
@@ -44,7 +46,15 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     public static final int Stroberi = 4;
     public static final int Jagung = 5;
     public static final int Tomat = 6;
-    
+    public boolean isAlreadyMove(){
+        return move;
+    }
+    public boolean isAlreadyAttack(){
+        return attack;
+    }
+    public void makeAttack(){
+        attack = true;
+    }
     public void miss(){
         missed = 100;
     }
@@ -85,12 +95,15 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         setAttack();
         setHP();
         chargeMeter = 0;
+        move = false;
     }
     @Override public void update(){
         chargeMeter++;
-        System.out.println(""+chargeMeter+"/"+(10000/agi));
-        if (chargeMeter >= 1000/agi){
+        System.out.println(""+chargeMeter+"/"+(10000/agi)+" move:"+move+" attack"+attack);
+        if (!active && chargeMeter >= 1000/agi){
             active = true;
+            move = false;
+            attack = false;
         }
         super.update();
     }
@@ -101,10 +114,9 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         }
         if (attacked > 0) {
              if (dmg == -99999) {
-                creature.graphics().drawString("miss", position().IntX(), position().IntX());
+                creature.graphics().drawString("miss", position().IntX(), position().IntY());
              } else {
-                System.out.print("drawing pulmo");
-                creature.graphics().drawString(""+dmg, 100, 100);
+                creature.graphics().drawString(""+dmg, position().IntX(), position().IntY());
              }
             attacked--;
         }
@@ -149,17 +161,13 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         creature.setFrameDelay(1);
     }
     public void move(int gx,int gy,Object lock,Boolean[] cancel){
+        move = true;
         addAction(lock,new Point2D(gx,gy));
-        if (map.getTop(gx / Utilities.GRIDSIZE, gy / Utilities.GRIDSIZE) instanceof PulmosisBattle) {
-            cancel[0] = true;
-        } else {
-            cancel[0] = false;
-        }
 //        Canceller ca = new Canceller(creature.panel(),creature.graphics(),
 //                                    gx, gy, cancel,lock,(Cancellable)this,numAction-1);
 //        map.push(gx, gy, ca);
     }
-
+    
     public void doDamage (PulmosisBattle pulmo) {
         int HP = pulmo.getHP();
         int minus = 0;
@@ -299,13 +307,17 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                 if (0<=cekx && cekx<map.getRow() && 0<=ceky && ceky<map.getColumn()){
                     dist = ((cekx-x)<0)?(cekx-x)*-1:(cekx-x);
                     dist += ((ceky-y)<0?(ceky-y)*-1:(ceky-y));
-                    if (dist<=getRange() && !udah[cekx][ceky]){
+                    if (!isAlreadyMove() && dist<=getRange() && !udah[cekx][ceky]){
                         g2d.setColor(Color.BLUE);
                         g2d.drawRect(cekx*Utilities.GRIDSIZE, ceky*Utilities.GRIDSIZE, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
                         queue.add(new Point2D(cekx,ceky));
                         udah[cekx][ceky] = true;
-                    }
-                    if (dist<=getRange()+getAttackRange() && !udah[cekx][ceky]){
+                    } else if (!isAlreadyMove() && dist<=getRange()+getAttackRange() && !udah[cekx][ceky]){
+                        g2d.setColor(Color.RED);
+                        g2d.drawRect(cekx*Utilities.GRIDSIZE, ceky*Utilities.GRIDSIZE, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
+                        queue.add(new Point2D(cekx,ceky));
+                        udah[cekx][ceky] = true;
+                    } else if (isAlreadyMove() && !isAlreadyAttack() && dist<=getAttackRange()&& !udah[cekx][ceky]){
                         g2d.setColor(Color.RED);
                         g2d.drawRect(cekx*Utilities.GRIDSIZE, ceky*Utilities.GRIDSIZE, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
                         queue.add(new Point2D(cekx,ceky));
