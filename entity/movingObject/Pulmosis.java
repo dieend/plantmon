@@ -90,7 +90,7 @@ public class Pulmosis extends MovingObject implements Cancellable,
         panel.add(label1);
         label2 = new JLabel("Nama : " + Game.instance().getName());
         label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label2.setBounds(120,0,150,30);
+        label2.setBounds(400,13,150,30);
         panel.add(label2);
 
         return panel;
