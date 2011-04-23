@@ -38,6 +38,11 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     public static final int Lobak = 0;
     public static final int Timun = 1;
     public static final int Kentang = 2;
+    public static final int Kubis = 3;
+    public static final int Stroberi = 4;
+    public static final int Jagung = 5;
+    public static final int Tomat = 6;
+    
     public void miss(){
         missed = 100;
     }
@@ -45,7 +50,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         super(map,panel,g2d);
         init();
         if (tipe == Lobak) {
-            level = 1;
+            level = 3;
             range = 2;
             attackRange = 1;
         } else if (tipe == Timun) {
@@ -56,6 +61,18 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             level = 5;
             range = 3;
             attackRange = 1;
+        } else if (tipe == Kubis) {
+            level = 6;
+            range = 2;
+        } else if (tipe == Stroberi) {
+            level = 8;
+            range = 1;
+        } else if (tipe == Jagung) {
+            level = 9;
+            range = 3;
+        } else if (tipe == Tomat) {
+            level = 10;
+            range = 2;
         }
         atk = 0;
         attacked = 0;

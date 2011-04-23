@@ -18,12 +18,12 @@ import plantmon.entity.item.FarmItem;
 import plantmon.entity.item.FoodItem;
 import plantmon.entity.item.WarItem;
 import plantmon.entity.movingObject.Player;
+import plantmon.entity.movingObject.PulmosisBattle;
+import plantmon.entity.movingObject.PulmosisLand;
 import plantmon.game.GridMap;
-import plantmon.game.Point2D;
 import plantmon.states.Game;
 import plantmon.system.Actionable;
 import plantmon.system.Selectable;
-import plantmon.system.Utilities;
 
 public class Store extends Unmoveable implements Actionable {
     ArrayList<Item> item = new ArrayList<Item>();
@@ -38,62 +38,77 @@ public class Store extends Unmoveable implements Actionable {
         super(map,panel,g2d);
         init();
         if (typetoko==1) {
-        type = typetoko;
-        item.add(0, new FarmItem(0,panel));
-        item.add(1, new FarmItem(1,panel));
-        item.add(2, new FarmItem(2,panel));
-        item.add(3, new FarmItem(3,panel));
-        item.add(4, new FarmItem(4,panel));
-        item.add(5, new FarmItem(5,panel));
-        item.add(6, new FarmItem(6,panel));
-        item.add(7, new FarmItem(7,panel));
-        item.add(8, new FarmItem(8,panel));
-        item.add(9, new FarmItem(9,panel));
-        item.add(10, new FarmItem(10,panel));
-        item.add(11, new FarmItem(11,panel));
-        item.add(12, new FarmItem(12,panel));
-        item.add(13, new FarmItem(13,panel));
-        for (int i = 0; i <= 13; i++) {
-            lock.add(i,false);
-        }
-        lock.set(1,true);
-        lock.set(2,true);
+            type = typetoko;
+            item.add(0, new FarmItem(0,panel));
+            item.add(1, new FarmItem(1,panel));
+            item.add(2, new FarmItem(2,panel));
+            item.add(3, new FarmItem(3,panel));
+            item.add(4, new FarmItem(4,panel));
+            item.add(5, new FarmItem(5,panel));
+            item.add(6, new FarmItem(6,panel));
+            item.add(7, new FarmItem(7,panel));
+            item.add(8, new FarmItem(8,panel));
+            item.add(9, new FarmItem(9,panel));
+            item.add(10, new FarmItem(10,panel));
+            item.add(11, new FarmItem(11,panel));
+            item.add(12, new FarmItem(12,panel));
+            item.add(13, new FarmItem(13,panel));
+            item.add(14, new FarmItem(14,panel));
+            for (int i = 0; i <= 14; i++) {
+                lock.add(i,false);
+            }
+
+            for (PulmosisLand p:Game.instance().getStory().getPulmosis()) {
+                if (p.getTypePul() == PulmosisBattle.Lobak) {
+                    lock.set(1, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Timun) {
+                    lock.set(2, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Kentang) {
+                    if (p.isFullWatered()) {
+                        lock.set(0, Boolean.TRUE);
+                    }
+                } else if (p.getTypePul() == PulmosisBattle.Stroberi) {
+                    lock.set(12, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Kubis) {
+                    lock.set(3, Boolean.TRUE);
+                }
+            }
         } else if (typetoko==2) {
-        type = typetoko;
-        item.add(0, new WarItem(50,panel));
-        item.add(1, new WarItem(51,panel));
-        item.add(2, new WarItem(52,panel));
-        item.add(3, new WarItem(53,panel));
-        item.add(4, new WarItem(54,panel));
-        for (int i = 0; i <= 4; i++) {
-            lock.add(i,false);
-        }
-        lock.set(0,true);
-        lock.set(2,true);
-        lock.set(3,true);
-        lock.set(4,true);
+            type = typetoko;
+            item.add(0, new WarItem(50,panel));
+            item.add(1, new WarItem(51,panel));
+            item.add(2, new WarItem(52,panel));
+            item.add(3, new WarItem(53,panel));
+            item.add(4, new WarItem(54,panel));
+            for (int i = 0; i <= 4; i++) {
+                lock.add(i,false);
+            }
+            lock.set(0,true);
+            lock.set(2,true);
+            lock.set(3,true);
+            lock.set(4,true);
         } else if (typetoko==3) {
-        type = typetoko;
-        item.add(0, new ArmorItem(70,panel));
-        item.add(1, new ArmorItem(71,panel));
-        item.add(2, new ArmorItem(72,panel));
-        item.add(3, new ArmorItem(73,panel));
-        item.add(4, new ArmorItem(74,panel));
-        item.add(5, new ArmorItem(75,panel));
-        item.add(6, new ArmorItem(76,panel));
-        item.add(7, new ArmorItem(77,panel));
-        item.add(8, new ArmorItem(78,panel));
-        item.add(9, new ArmorItem(79,panel));
-        item.add(10, new ArmorItem(80,panel));
-        item.add(11, new ArmorItem(81,panel));
-        item.add(12, new ArmorItem(82,panel));
-        for (int i = 0; i <= 12; i++) {
-            lock.add(i,false);
-        }
-        lock.set(0,true);
-        lock.set(3,true);
-        lock.set(8,true);
-        }
+            type = typetoko;
+            item.add(0, new ArmorItem(70,panel));
+            item.add(1, new ArmorItem(71,panel));
+            item.add(2, new ArmorItem(72,panel));
+            item.add(3, new ArmorItem(73,panel));
+            item.add(4, new ArmorItem(74,panel));
+            item.add(5, new ArmorItem(75,panel));
+            item.add(6, new ArmorItem(76,panel));
+            item.add(7, new ArmorItem(77,panel));
+            item.add(8, new ArmorItem(78,panel));
+            item.add(9, new ArmorItem(79,panel));
+            item.add(10, new ArmorItem(80,panel));
+            item.add(11, new ArmorItem(81,panel));
+            item.add(12, new ArmorItem(82,panel));
+            for (int i = 0; i <= 12; i++) {
+                lock.add(i,false);
+            }
+            lock.set(0,true);
+            lock.set(3,true);
+            lock.set(8,true);
+            }
     }
 
     public JPopupMenu getMenu(Selectable selected) {
@@ -346,7 +361,7 @@ public class Store extends Unmoveable implements Actionable {
 
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == buttonbes) {
-                if (x <= Game.instance().getInventory().getSize()) {
+                if (x < Game.instance().getInventory().getJumItem(temp)) {
                     x += 1;
                 }
                 text.setText(""+x);
@@ -390,10 +405,10 @@ public class Store extends Unmoveable implements Actionable {
                     System.out.print("farmitem");
                 } else if (temp instanceof FoodItem){
                     System.out.print("fooditem");
+                    Game.instance().getStory().setSold(temp.getIDitem()-20, x);
                 } else if (temp instanceof ArmorItem){
                     System.out.print("armoritem");
                 }
-                Game.instance().getStory().setSold(temp.getIDitem(), x);
                 Game.instance().log().append("Sold "+x+" "+temp.getName()+"(s) Rp."+(x*temp.getCostSell())+"\n");
             }
         }

@@ -25,7 +25,7 @@ import plantmon.system.Utilities;
 
 public class Game implements Serializable{
     //ArrayList<ParentState> states;
-    ArrayList<Plant> plants;
+    private ArrayList<Plant> plants;
     ArrayList<Dwarf> dwarfs;
     int[][] farmstatus;
     Inventory inventory;
@@ -187,10 +187,10 @@ public class Game implements Serializable{
         return money;
     }
     public void addPlant(Plant plant){
-        plants.add(plant);
+        getPlants().add(plant);
     }
     public void removePlant(Plant plant){
-        plants.remove(plant);
+        getPlants().remove(plant);
     }
     public void changeDay(){
         System.out.println("Change Day");
@@ -215,7 +215,7 @@ public class Game implements Serializable{
                     farmstatus[i][j] = Land.NORMAL;
                 }
             }
-            for (Plant p:plants){
+            for (Plant p:getPlants()){
                 farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.PLOWED;
                 p.grow(Time.instance().getSeason());
             }
@@ -225,7 +225,7 @@ public class Game implements Serializable{
                     farmstatus[i][j] = Land.NORMAL;
                 }
             }
-            for (Plant p:plants){
+            for (Plant p:getPlants()){
                 farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE]
                           [p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.WATERED;
                 p.grow(Time.instance().getSeason());
@@ -336,7 +336,7 @@ public class Game implements Serializable{
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
         stateManager.setFrame(mainFrame);
-        System.out.print(stateManager.plants.size());
+        System.out.print(stateManager.getPlants().size());
         stateManager.goTo(ParentState.HOME, null);
     }
     public static void main(String[] args) {
@@ -355,5 +355,13 @@ public class Game implements Serializable{
         Game.instance().save("B:/tes.txt");
         Game.instance().load("B:/tes.txt");
 //        System.out.print(Game.instance().currentState.ID);
+    }
+
+    public ArrayList<Plant> getPlants() {
+        return plants;
+    }
+
+    public void setPlants(ArrayList<Plant> plants) {
+        this.plants = plants;
     }
 }

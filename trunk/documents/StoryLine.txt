@@ -2,7 +2,7 @@ Quest
 Lobak	: Auto
 Kentang	: Main Quest 1
 Timun	: Auto
-Kubis	: Main Quest 4
+Kubis	: Main Quest 1
 Stroberi: Side Quest 1
 Jagung	: Side Quest 2
 Tomat	: Side Quest 3

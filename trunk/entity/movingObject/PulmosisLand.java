@@ -15,11 +15,14 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
                                                     Selectable,Actionable {
     private int sumWater;
     private boolean watered;
+    private int typePul;
     
     public PulmosisLand (GridMap map, JPanel panel, Graphics2D g2d, int type) {
         super(map,panel,g2d,type,false);
+        this.typePul = type;
         if (type == PulmosisBattle.Kentang) {
             sumWater  = 0;
+            watered = false;
         }
     }
 
@@ -31,9 +34,8 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
             item = new JMenuItem("talk");
             item.addActionListener(new Talk(selected));
             menu.add(item);
-            if (type == PulmosisBattle.Kentang) {
-                if (!watered) {
-                    menu.add(item);
+            if (getTypePul() == 2) {
+                if (!watered && !isFullWatered()) {
                     JMenuItem item4;
                     item4 = new JMenuItem("water");
                     item4.addActionListener(new Water(selected));
@@ -44,6 +46,14 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
             return menu;
         }
         return null;
+    }
+
+    public int getTypePul() {
+        return typePul;
+    }
+
+    public void setTypePul(int typePul) {
+        this.typePul = typePul;
     }
 
     class Water extends RunnableListener {
@@ -97,7 +107,11 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
     }
 
     public boolean isFullWatered () {
-        return (sumWater >= 10);
+        if (sumWater >= 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setWatered (boolean water) {
