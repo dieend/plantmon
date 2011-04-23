@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import plantmon.entity.Time;
 import plantmon.entity.movingObject.PulmosisLand;
 import plantmon.entity.unmoveable.Kentang;
 import plantmon.entity.unmoveable.Kubis;
@@ -21,6 +22,7 @@ public class StoryLine implements Runnable,Serializable {
     private int type;
     private ArrayList<Integer> sold;
     private int day;
+    private int season;
     transient private GridMap map;
     transient private JPanel panel;
     PulmosisLand kentang;
@@ -39,14 +41,16 @@ public class StoryLine implements Runnable,Serializable {
     boolean adaKubis;
     boolean adaKentang;
     boolean done;
+    boolean doneTomat;
     boolean tomatDapat;
+    boolean doneNanas1;
     private Boolean[] winBattle;
     private ArrayList<PulmosisLand> pulmosis;
     final Object lock = new String("exact");
 
     
     public StoryLine () {
-        belum = new Boolean[7];
+        belum = new Boolean[8];
         pulmosis = new ArrayList<PulmosisLand>(15);
         sold = new ArrayList<Integer>(15);
         for (int i = 0; i < 15; i++) {
@@ -56,10 +60,11 @@ public class StoryLine implements Runnable,Serializable {
         for (int i = 0; i <4; i++) {
             winBattle[i]=false;
         }
-        for (int i = 0; i <7; i++) {
+        for (int i = 0; i <8; i++) {
             belum[i]=true;
         }
         done = false;
+        doneNanas1 = false;
         kentang = new PulmosisLand(map,panel,null,2);
         lobak = new PulmosisLand(map,panel,null,0);
         timun =  new PulmosisLand(map,panel,null,1);
@@ -67,6 +72,7 @@ public class StoryLine implements Runnable,Serializable {
         kubis = new PulmosisLand(map,panel,null,3);
         jagung = new PulmosisLand(map,panel,null,5);
         tomat = new PulmosisLand(map,panel,null,6);
+        nanas = new PulmosisLand(map,panel,null,7);
     }
 
     public int getType() {
@@ -122,12 +128,13 @@ public class StoryLine implements Runnable,Serializable {
         if (!belum[5]) map.push(jagung.position().IntX(), jagung.position().IntY(), jagung);
         tomat.reinit(map, g2d, panel);
         if (!belum[6]) map.push(tomat.position().IntX(), tomat.position().IntY(), tomat);
+        nanas.reinit(map, g2d, panel);
+        if (!belum[7]) map.push(nanas.position().IntX(), nanas.position().IntY(), nanas);
     }
 
     public void Story () {
         Boolean[] cancel = new Boolean[1];
         cancel[0] = false;
-        boolean arahKanan = false;
         if (map.getTop(5, 9) instanceof PulmosisLand) {
             //lobak.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*9);
             lobak.move(3*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE, lock, cancel);
@@ -190,7 +197,7 @@ public class StoryLine implements Runnable,Serializable {
             //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
         }
         
-        if (day >= 5) {
+        if (day >= 5 && season >= Time.SPRING) {
             if (kentang.isFullWatered()) {
                 if (!done) {
                     done = true;
@@ -378,21 +385,24 @@ public class StoryLine implements Runnable,Serializable {
             }
         }
 
-        if (day >= 2 && belum[6]) {
+        if (day >= 27 && season>=Time.SPRING && belum[6]) {
             belum[6] = false;
-            System.out.println("masuk kesini");
             Game.instance().seek(ParentState.TOMATSTATE, null);
         }
         
-        if (!done) {
+        if (!doneTomat) {
             if (tomatDapat) {
-                System.out.println("masuk kesini lagi euy");
                 tomat.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*5,Utilities.GRIDSIZE*3));
                 tomat.getCreature().setFinalPosition(Utilities.GRIDSIZE*5,Utilities.GRIDSIZE*3);
                 pulmosis.add(tomat);
                 Point2D pos = tomat.getCreature().position();
                 map.push(pos.X(), pos.Y(), tomat);   
             }
+        }
+
+        if (day >= 1 && season>=Time.SUMMER && !doneNanas1) {
+            Game.instance().seek(ParentState.NANASSTATE, null);
+            doneNanas1 = true;
         }
 
     }
@@ -485,10 +495,24 @@ public class StoryLine implements Runnable,Serializable {
 
     public void isTomatDapat (boolean dapat) {
         this.tomatDapat = dapat;
-        setDone(false);
+        setDoneTomat(false);
     }
 
-    public void setDone (boolean don) {
-        done = don;
+    public void setDoneTomat (boolean don) {
+        doneTomat = don;
+    }
+
+    /**
+     * @return the season
+     */
+    public int getSeason() {
+        return season;
+    }
+
+    /**
+     * @param season the season to set
+     */
+    public void setSeason(int season) {
+        this.season = season;
     }
 }

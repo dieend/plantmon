@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import plantmon.entity.deadItem.Portal;
 import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.movingObject.Player;
-import plantmon.entity.movingObject.Pulmosis;
+import plantmon.entity.movingObject.PulmosisLand;
 import plantmon.entity.movingObject.PulmosisLand;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;

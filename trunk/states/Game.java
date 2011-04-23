@@ -252,6 +252,7 @@ public class Game implements Serializable{
         }
         Time.instance().changeDay();
         story.setDay(Time.instance().getDay());
+        story.setSeason(Time.instance().getSeason());
         story.getKentang().setWatered(false);
         Game.instance().goTo(ParentState.HOME, null);
     }
