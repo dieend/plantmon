@@ -250,6 +250,7 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
         JFrame frame = new JFrame();
         frame.setSize(640, 480);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Game.instance().setFrame(frame);
         Game.instance().goTo(ParentState.BATTLESTATE, args);
     }
