@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +36,7 @@ public class Dwarf extends MovingObject implements Actionable,
     private final int sleep=0;
     private final int wake_up=1;
     private String name;
+    
 
 
     //type dwarf, 1 untuk water,0 untuk 
@@ -55,6 +57,10 @@ public class Dwarf extends MovingObject implements Actionable,
             name="justice";
             //set default position
             defpos = new Point2D(Utilities.GRIDSIZE,4*Utilities.GRIDSIZE);
+            System.out.println("TYPE : " + type);
+            System.out.println("Posisi X : " +defpos.IntX()/Utilities.GRIDSIZE);
+            System.out.println("Posisi X : " +defpos.IntY()/Utilities.GRIDSIZE);
+            System.out.println("TYPE : " + type + " -- " + defpos.IntX()/Utilities.GRIDSIZE + " -- " + defpos.IntY()/Utilities.GRIDSIZE);
         }
         else if (t==2)
         {
@@ -171,9 +177,38 @@ public class Dwarf extends MovingObject implements Actionable,
             }
             else
             {
+                if (type==1)
+                    type=4;
+                else if (type==2)
+                    type=5;
+                else if (type==3)
+                    type=6;
 //                System.out.println("HAHAHAHHAHAHAHAH"+creature.position().IntX()+creature.position().IntY());
                 //creature.setFinalPosition(30,30);
-                creature.setFinalPosition(creature.position().IntX(), creature.position().IntY());
+                ArrayList<Point2D> backroute= new ArrayList<Point2D>();
+                System.out.println("TYPE KURCACI : " + type + " -- " + defpos.IntX()/Utilities.GRIDSIZE + " -- " + defpos.IntY()/Utilities.GRIDSIZE);
+                System.out.println("COORDINATE : " + defpos.IntX()/Utilities.GRIDSIZE+ "--" +defpos.IntY()/Utilities.GRIDSIZE);
+                backroute = getRoute(defpos.IntX()/Utilities.GRIDSIZE,defpos.IntY()/Utilities.GRIDSIZE, type);
+                System.out.println("Ini rutenya :: ");
+                performarrlist(backroute);
+                Boolean[] cancel = new Boolean[1];
+                Object key = new String("exact");
+                if (!backroute.isEmpty())
+                {
+                    move(backroute.get(0).IntX()*Utilities.GRIDSIZE,backroute.get(0).IntY()*Utilities.GRIDSIZE,key,cancel);
+                    synchronized(key){
+                        try{
+                            key.wait();
+                        }catch (InterruptedException e){}
+                    }
+                }
+                if (type==4)
+                    type=1;
+                else if (type==5)
+                    type=2;
+                else if (type==6)
+                    type=3;
+                //creature.setFinalPosition(creature.position().IntX(), creature.position().IntY());
             }
         }
     }
