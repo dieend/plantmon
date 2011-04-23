@@ -1,8 +1,10 @@
 package plantmon.states;
 
 
+import java.awt.event.KeyEvent;
 import javax.swing.JPopupMenu;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -28,7 +30,7 @@ import plantmon.system.Selectable;
 import plantmon.system.Utilities;
 
 
-public class FarmState extends ParentState implements MouseListener,MouseMotionListener {
+public class FarmState extends ParentState implements MouseListener,MouseMotionListener, KeyListener {
     Thread gameloop;
     GridMap map;
     JPopupMenu popup;
@@ -286,5 +288,11 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         }
 
     public void mouseMoved(MouseEvent e) {}
+
+    public void keyTyped(KeyEvent e) {}
+
+    public void keyPressed(KeyEvent e) {}
+
+    public void keyReleased(KeyEvent e) {}
 }
    

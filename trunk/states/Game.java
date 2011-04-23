@@ -193,6 +193,7 @@ public class Game implements Serializable{
         plants.remove(plant);
     }
     public void changeDay(){
+        System.out.println("Change Day");
         Integer[] ran = new Integer[100];
         int x;
         for (int i = 0; i <60; i++) {
@@ -206,7 +207,8 @@ public class Game implements Serializable{
         }
         Random ranNum = new Random();
         x = ranNum.nextInt(100);
-        weather = ran[x];
+//        weather = ran[x];
+        weather = RAINY;
         if (weather == SUNNY) {
             for (int i=0; i<20; i++){
                 for (int j=0; j<20; j++){
