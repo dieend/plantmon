@@ -322,7 +322,7 @@ public abstract class MovingObject implements Drawable, Serializable{
 //                    }
                     if (map.getTop(i, j) instanceof  Plant)
                     {
-                        if (!((Plant)map.getTop(i, j)).isWatered())
+                        if (!((Plant)map.getTop(i, j)).isWatered() && ((Plant)map.getTop(i, j)).getFase()!=7     )
                         {
                             tmap[i][j]=2;
                         }
