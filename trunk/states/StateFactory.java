@@ -26,6 +26,9 @@ public class StateFactory{
             case ParentState.MAPSTATE:
                 newState = new MapState(args);
                 break;
+            case ParentState.TOMATSTATE:
+                newState = new TomatState(18, 11);
+                break;
         }
         return newState;
     }
