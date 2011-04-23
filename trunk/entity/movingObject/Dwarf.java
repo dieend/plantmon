@@ -186,11 +186,11 @@ public class Dwarf extends MovingObject implements Actionable,
 //                System.out.println("HAHAHAHHAHAHAHAH"+creature.position().IntX()+creature.position().IntY());
                 //creature.setFinalPosition(30,30);
                 ArrayList<Point2D> backroute= new ArrayList<Point2D>();
-                System.out.println("TYPE KURCACI : " + type + " -- " + defpos.IntX()/Utilities.GRIDSIZE + " -- " + defpos.IntY()/Utilities.GRIDSIZE);
-                System.out.println("COORDINATE : " + defpos.IntX()/Utilities.GRIDSIZE+ "--" +defpos.IntY()/Utilities.GRIDSIZE);
+//                System.out.println("TYPE KURCACI : " + type + " -- " + defpos.IntX()/Utilities.GRIDSIZE + " -- " + defpos.IntY()/Utilities.GRIDSIZE);
+//                System.out.println("COORDINATE : " + defpos.IntX()/Utilities.GRIDSIZE+ "--" +defpos.IntY()/Utilities.GRIDSIZE);
                 backroute = getRoute(defpos.IntX()/Utilities.GRIDSIZE,defpos.IntY()/Utilities.GRIDSIZE, type);
-                System.out.println("Ini rutenya :: ");
-                performarrlist(backroute);
+//                System.out.println("Ini rutenya :: ");
+//                performarrlist(backroute);
                 Boolean[] cancel = new Boolean[1];
                 Object key = new String("exact");
                 if (!backroute.isEmpty())
