@@ -85,7 +85,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
     @Override protected void init() {
         //inisiasi semua variable disini.
         type = 0;
-        load("picture/anim", 4,1,32,42);
+        load("picture/anim", 4,1,66,70);
         creature.setImageName("picture/anim");
         creature.setVelocity(new Point2D(0,0));
         creature.setFrameDelay(5);
@@ -200,11 +200,11 @@ public class Player extends MovingObject implements Actionable, Cancellable,
 
         this.getCreature().setFrameDelay(5);
         if (this.getWork() == 0) {
-        this.getCreature().load("picture/cangkulanim"+this.getCreature().getFace()+".png",4,1,88,94);
+        this.getCreature().load("picture/cangkulanim"+this.getCreature().getFace()+".png",4,1,66,70);
         } else if (this.getWork() == 1) {
-        this.getCreature().load("picture/siramanim"+this.getCreature().getFace()+".png",4,1,88,94);
+        this.getCreature().load("picture/siramanim"+this.getCreature().getFace()+".png",4,1,66,70);
         } if (this.getWork() == 2) {
-        this.getCreature().load("picture/sabitanim"+this.getCreature().getFace()+".png",4,1,88,94);
+        this.getCreature().load("picture/sabitanim"+this.getCreature().getFace()+".png",4,1,66,70);
         }
         try {
             Thread.sleep(500);
@@ -212,7 +212,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
         }
 
 
-        this.getCreature().load("picture/anim"+this.getCreature().getFace()+".png",4,1,32,42);
+        this.getCreature().load("picture/anim"+this.getCreature().getFace()+".png",4,1,66,70);
         this.getCreature().setAnimated(false);
         this.work = 3;
     }
