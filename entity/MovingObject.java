@@ -7,10 +7,12 @@ import java.io.Serializable;
 import plantmon.game.Point2D;
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
+import java.util.Scanner;
 import javax.swing.JPanel;
 import plantmon.entity.deadItem.Portal;
 import plantmon.entity.movingObject.Dwarf;
 import plantmon.entity.movingObject.Player;
+import plantmon.entity.movingObject.Pulmosis;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Plant;
 import plantmon.entity.unmoveable.Road;
@@ -264,11 +266,14 @@ public abstract class MovingObject implements Drawable, Serializable{
                     tmap[i][j]=1;
                 }
                 //check non-land/non-destiny
-                else
+                else if (map.getTop(i,j) instanceof Pulmosis)
                 {
                     tmap[i][j]= 1;
                 }
-
+                else
+                {
+                    tmap[i][j]=1;
+                }
             }
         }
         
@@ -377,6 +382,18 @@ public abstract class MovingObject implements Drawable, Serializable{
           }
 //          System.out.println("SETELAH");
           performarr(tmap,map.getRow(),map.getColumn());
+        }
+        else  if (caller==4)
+        {
+            tmap[1][4]=2;
+            System.out.println("INI MAPNYA : " + x + " -- " + y);
+            performarr(tmap, map.getRow(), map.getColumn());
+        }else if (caller==5)
+        {
+            tmap[1][5]=2;
+        }else if (caller==6)
+        {
+            tmap[1][6]=2;
         }
 
         /*hanya untuk debugging
@@ -564,7 +581,8 @@ public abstract class MovingObject implements Drawable, Serializable{
 //          }
 //        }
 //
-        
+        System.out.println("Ini rutenya : ");
+        performarrlist(rettrue); 
         return rettrue;
     }
     
