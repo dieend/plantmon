@@ -154,6 +154,7 @@ public class Dwarf extends MovingObject implements Actionable,
         {
             update();
             route=getRoute(creature.position().IntX(), creature.position().IntY(), type);
+//            performarrlist(route);
             if (!route.isEmpty())
             {
 //                System.out.println("HIIIIIIIIIIIIIIIIIH");
