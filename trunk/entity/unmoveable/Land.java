@@ -1,6 +1,8 @@
 package plantmon.entity.unmoveable;
 
 import java.awt.Graphics2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -189,6 +191,18 @@ public class Land extends Unmoveable implements Actionable{
                 } else {
                     setStatus(PLOWED);
                 }
+                player.getCreature().setFrameDelay(5);
+               
+                player.getCreature().load("picture/cangkulanim"+player.getCreature().getFace()+".png",4,1,88,94);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Land.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                player.setWork(0);
+
+                
+                player.getCreature().load("picture/anim"+player.getCreature().getFace()+".png",4,1,88,94);
             }
             
         }
@@ -199,6 +213,7 @@ public class Land extends Unmoveable implements Actionable{
             super(selected);
         }
         public void run() {
+            Player player1 = (Player) selected;
             Jobable player = (Jobable) selected;
             int gx = (int)Land.this.getPosition().X();
             int gy = (int)Land.this.getPosition().Y();
@@ -214,7 +229,17 @@ public class Land extends Unmoveable implements Actionable{
             }
             if (!cancel[0]){
                 map.pop(gx, gy);
+                player1.getCreature().setFrameDelay(5);
+
+                player1.getCreature().load("picture/siramanim"+player1.getCreature().getFace()+".png",4,1,88,94);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Land.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                player1.setWork(1);
                 setStatus(WATERED);
+                player1.getCreature().load("picture/anim"+player1.getCreature().getFace()+".png",4,1,88,94);
             }
         }
     }
