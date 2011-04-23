@@ -22,7 +22,7 @@ JLabel gameDate3;
 JLabel playerName4;
 JLabel gameDate4;
 
-        SaveState () {
+        LoadState () {
         playerName1 = new JLabel ("Empty");
         playerName2 = new JLabel ("Empty");
         playerName3 = new JLabel ("Empty");
@@ -95,7 +95,7 @@ JLabel gameDate4;
     }
         public void actionPerformed(ActionEvent e) {
       // ActionListener, akan mengecek tiap-tiap aksi yang dilakukan oleh user
-    if ("SAVESTATE2".equals(e.getActionCommand())) {
+    if ("LOADSTATE2".equals(e.getActionCommand())) {
             playerName1.setText("Gurun");
     }
 
