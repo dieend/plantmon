@@ -188,11 +188,9 @@ public class Plant extends Unmoveable implements Actionable,
         map.pop(gx, gy);
         if (this.isWatered()) {
             ((Land)map.getTop(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE)).setStatus(Land.WATERED);
-        System.out.println("Before REMOVE "+Game.instance().getPlants().size());
-        Game.instance().removePlant(this);
-        System.out.println("After REMOVE"+Game.instance().getPlants().size());
-        Game.instance().log().append("slashing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
         }
+        Game.instance().removePlant(this);
+        Game.instance().log().append("slashing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
     }
     
 
