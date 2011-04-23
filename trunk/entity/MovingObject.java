@@ -259,7 +259,7 @@ public abstract class MovingObject implements Drawable, Serializable{
                 {
                     tmap[i][j]= 0;
                 }
-                else if (map.getTop(i,j) instanceof MovingObject || map.getTop(i,j) instanceof Canceller)
+                if (map.getTop(i,j) instanceof MovingObject || map.getTop(i,j) instanceof Canceller || map.getTop(i, j) instanceof Plant)
                 {
                     tmap[i][j]=1;
                 }
