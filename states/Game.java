@@ -165,10 +165,12 @@ public class Game implements Serializable{
         currentState.turnOff();
         pause = StateFactory.createState(IDstate, args);
         pause.setVisible(true);
+        ((Thread)new Thread(pause)).start();
         frame.add(pause);
     }
     public void returnTo(){
         pause.setVisible(false);
+        pause.turnOff();
         frame.remove(pause);
         currentState.setVisible(true);
         ((Thread) new Thread(currentState)).start();

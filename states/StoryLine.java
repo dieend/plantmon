@@ -39,6 +39,7 @@ public class StoryLine implements Runnable,Serializable {
     boolean adaKubis;
     boolean adaKentang;
     boolean done;
+    boolean tomatDapat;
     private Boolean[] winBattle;
     private ArrayList<PulmosisLand> pulmosis;
     final Object lock = new String("exact");
@@ -377,14 +378,23 @@ public class StoryLine implements Runnable,Serializable {
             }
         }
 
-        if (day >= 27 && belum[6]) {
+        if (day >= 2 && belum[6]) {
             belum[6] = false;
-            tomat.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*6,Utilities.GRIDSIZE*3));
-            tomat.getCreature().setFinalPosition(Utilities.GRIDSIZE*6,Utilities.GRIDSIZE*3);
-            pulmosis.add(tomat);
-            Point2D pos = tomat.getCreature().position();
-            map.push(pos.X(), pos.Y(), tomat);
+            System.out.println("masuk kesini");
+            Game.instance().seek(ParentState.TOMATSTATE, null);
         }
+        
+        if (!done) {
+            if (tomatDapat) {
+                System.out.println("masuk kesini lagi euy");
+                tomat.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*5,Utilities.GRIDSIZE*3));
+                tomat.getCreature().setFinalPosition(Utilities.GRIDSIZE*5,Utilities.GRIDSIZE*3);
+                pulmosis.add(tomat);
+                Point2D pos = tomat.getCreature().position();
+                map.push(pos.X(), pos.Y(), tomat);   
+            }
+        }
+
     }
 
     public void run() {
@@ -471,5 +481,14 @@ public class StoryLine implements Runnable,Serializable {
      */
     public void setPulmosis(ArrayList<PulmosisLand> pulmosis) {
         this.pulmosis = pulmosis;
+    }
+
+    public void isTomatDapat (boolean dapat) {
+        this.tomatDapat = dapat;
+        setDone(false);
+    }
+
+    public void setDone (boolean don) {
+        done = don;
     }
 }
