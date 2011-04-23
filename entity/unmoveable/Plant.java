@@ -176,7 +176,9 @@ public class Plant extends Unmoveable implements Actionable,
     public void doWater(){
         int gx = (int)Plant.this.getPosition().X();
         int gy = (int)Plant.this.getPosition().Y();
-        setFase(fase + 1);
+        if (!isWatered()){
+            setFase(fase + 1);
+        }
         map.getLand(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE).setStatus(Land.WATERED);
         Game.instance().farmstatus()[gx/Utilities.GRIDSIZE][gy/Utilities.GRIDSIZE] = Land.WATERED;
     }
@@ -342,7 +344,7 @@ public class Plant extends Unmoveable implements Actionable,
     public void grow(int newCurrentSeason)
 // mengubah fase pada pergantian hari
 // not instant change
-{
+{   System.out.print("Growing plants at"+entity.position().IntX()+" "+entity.position().IntY()+"from fase "+getFase());
         if (umur>=0){
             setUmur(umur-1);
             if (isWatered())
@@ -394,7 +396,7 @@ public class Plant extends Unmoveable implements Actionable,
                             }
                     }
         }
-        System.out.print("fase sekarang"+fase);
+        System.out.println("to "+fase);
     }
     public void init(){
         entity.setFrameDelay(5);

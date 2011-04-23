@@ -126,7 +126,7 @@ public class StoryLine implements Runnable,Serializable {
             }
             //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
         }
-        System.out.println("posisi lobak : "+lobak.position().IntX()+"  "+lobak.position().IntY());
+//        System.out.println("posisi lobak : "+lobak.position().IntX()+"  "+lobak.position().IntY());
         
         if (belum[1]){
             belum[1] = false;
@@ -191,7 +191,7 @@ public class StoryLine implements Runnable,Serializable {
     public void run() {
         active = true;
         while (active) {
-            System.out.format("Story running:There are currenty %d Thread running\n",Thread.activeCount());
+//            System.out.format("Story running:There are currenty %d Thread running\n",Thread.activeCount());
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
