@@ -3,10 +3,8 @@ package plantmon.states;
 import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JPanel;
-import plantmon.entity.movingObject.Pulmosis;
+import plantmon.entity.movingObject.PulmosisLand;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.system.Utilities;
@@ -17,10 +15,10 @@ public class StoryLine implements Runnable,Serializable {
     private int day;
     transient private GridMap map;
     transient private JPanel panel;
-    boolean active;
-    Pulmosis kentang;
-    Pulmosis lobak;
-    Pulmosis timun;
+    PulmosisLand kentang;
+    PulmosisLand lobak;
+    PulmosisLand timun;
+    private boolean active;
     Boolean[] belum;
     Thread storyloop;
     final Object lock = new String("exact");
@@ -29,9 +27,9 @@ public class StoryLine implements Runnable,Serializable {
         belum[0] = true;
         belum[1] = true;
         belum[2] = true;
-        kentang = new Pulmosis(map,panel,null,2,false);
-        lobak = new Pulmosis(map,panel,null,0,false);
-        timun =  new Pulmosis(map,panel,null,1,false);
+        kentang = new PulmosisLand(map,panel,null,2);
+        lobak = new PulmosisLand(map,panel,null,0);
+        timun =  new PulmosisLand(map,panel,null,1);
     }
 
     public int getType() {
@@ -80,7 +78,8 @@ public class StoryLine implements Runnable,Serializable {
 
     public void Story () {
         Boolean[] cancel = new Boolean[1];
-        if (map.getTop(5, 9) instanceof Pulmosis) {
+        boolean arahKanan = false;
+        if (map.getTop(5, 9) instanceof PulmosisLand) {
             //lobak.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*9);
             lobak.move(3*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE, lock, cancel);
             synchronized(lock){
@@ -93,7 +92,7 @@ public class StoryLine implements Runnable,Serializable {
             if (!cancel[0]){
                 lobak.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 9*Utilities.GRIDSIZE+5);
             }
-        } else if (map.getTop(3, 9) instanceof Pulmosis) {
+        } else if (map.getTop(3, 9) instanceof PulmosisLand) {
             //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*6);
             lobak.move(5*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE, lock, cancel);
             synchronized(lock){
@@ -127,6 +126,7 @@ public class StoryLine implements Runnable,Serializable {
             }
             //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
         }
+        System.out.println("posisi lobak : "+lobak.position().IntX()+"  "+lobak.position().IntY());
         
         if (belum[1]){
             belum[1] = false;
@@ -137,8 +137,8 @@ public class StoryLine implements Runnable,Serializable {
             //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
         }
         
-        if (day >= 1) {
-            if (map.getTop(3, 6) instanceof Pulmosis) {
+        if (day >= 5) {
+            if (map.getTop(3, 6) instanceof PulmosisLand) {
                 //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
                 kentang.move(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE, lock, cancel);
                 synchronized(lock){
@@ -152,7 +152,7 @@ public class StoryLine implements Runnable,Serializable {
 //                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
                     kentang.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
                 }
-            } else if (map.getTop(3, 4) instanceof Pulmosis) {
+            } else if (map.getTop(3, 4) instanceof PulmosisLand) {
                 //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*6);
                 kentang.move(3*Utilities.GRIDSIZE, 6*Utilities.GRIDSIZE, lock, cancel);
                 synchronized(lock){
@@ -163,10 +163,9 @@ public class StoryLine implements Runnable,Serializable {
                     }
                 }
                 if (!cancel[0]){
-//                    map.pop(3*Utilities.GRIDSIZE, 6*Utilities.GRIDSIZE);
                     kentang.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 6*Utilities.GRIDSIZE+5);
                 }
-            } else if (belum[2]){
+            }  else if (belum[2]) {
                 belum[2] = false;
                 kentang.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*6));
                 kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*6);
@@ -186,16 +185,15 @@ public class StoryLine implements Runnable,Serializable {
                 }
                 //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
             }
-        } else {
         }
     }
 
     public void run() {
-       active = true;
-       while (active) {
+        active = true;
+        while (active) {
             System.out.format("Story running:There are currenty %d Thread running\n",Thread.activeCount());
             try {
-                Thread.sleep(20);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -204,7 +202,7 @@ public class StoryLine implements Runnable,Serializable {
                 notifyAll();
             }
         }
-       System.out.print("ending story\n");
+        System.out.print("ending story\n");
     }
 
     public void turnOff () {
@@ -242,5 +240,9 @@ public class StoryLine implements Runnable,Serializable {
                 storyloop.start();
             }
         })).start();
+    }
+
+    public PulmosisLand getKentang () {
+        return kentang;
     }
 }

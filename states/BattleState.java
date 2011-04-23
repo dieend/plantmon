@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import plantmon.entity.Canceller;
 import plantmon.entity.Time;
-import plantmon.entity.movingObject.Pulmosis;
+import plantmon.entity.movingObject.PulmosisBattle;
 import plantmon.entity.unmoveable.BattleLand;
 import plantmon.entity.unmoveable.Land;
 import plantmon.game.GridMap;
@@ -84,10 +84,10 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
         background = new ImageEntity(this);
         background.load("picture/bg2.png");
        
-        Pulmosis player = new Pulmosis(map,this, g2d,1,false);
+        PulmosisBattle player = new PulmosisBattle(map,this, g2d,1,false);
         player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT));
         player.getCreature().setFinalPosition(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT);
-        Pulmosis player2 = new Pulmosis(map,this, g2d,0,true);
+        PulmosisBattle player2 = new PulmosisBattle(map,this, g2d,0,true);
         player2.getCreature().setPosition(new Point2D(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
         player2.getCreature().setFinalPosition(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
         for (int i=0; i<map.getRow();i++){
@@ -127,8 +127,8 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
         time.setText(Time.instance().getTime());
         for (i = 0;i < 10 && found; i++) {
             for (j = 0; j < 10 && found;j++) {
-                if (map.getTop(i,j) instanceof Pulmosis) {
-                    Pulmosis pul = (Pulmosis) map.getTop(i,j);
+                if (map.getTop(i,j) instanceof PulmosisBattle) {
+                    PulmosisBattle pul = (PulmosisBattle) map.getTop(i,j);
                     if (pul.getStatusEnemy()) {
                         found = false;
                         break;
