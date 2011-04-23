@@ -156,6 +156,14 @@ public class GridMap implements Serializable{
             }
         }
     }
+    public void gpop(int x, int y, Object o){
+        synchronized(map[x][y]){
+            if (map[x][y].size()!=0) {
+                map[x][y].remove(o);
+            }
+        }
+    }
+
     /**
      * pop sebuah Object o dari stack yang ada di posisi x,y. x,y merupakan
      * posisi pixel dari Object o.

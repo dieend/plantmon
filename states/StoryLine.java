@@ -33,7 +33,7 @@ public class StoryLine implements Runnable,Serializable {
     PulmosisLand nanas;
     private boolean active;
     Boolean[] belum;
-    Thread storyloop;
+    transient Thread storyloop;
     boolean adaLobak;
     boolean adaTimun;
     boolean adaKubis;

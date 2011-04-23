@@ -95,7 +95,7 @@ public abstract class MovingObject implements Drawable, Serializable{
         int fy = (int) creature.position().Y();
         fy/=Utilities.GRIDSIZE;
         if (!(fx==gx && fy==gy)){
-            map.gpop(gx, gy);
+            map.gpop(gx, gy, this);
             map.gpush(fx,fy,this);
         }
     }

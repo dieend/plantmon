@@ -185,7 +185,7 @@ public class Land extends Unmoveable implements Actionable{
             }
             
             if (!cancel[0]){
-                map.pop(gx, gy);
+                map.popCancel(gx, gy);
                 if (Game.instance().getWeather() == Game.RAINY){
                     setStatus(WATERED);
                 } else {
@@ -217,7 +217,7 @@ public class Land extends Unmoveable implements Actionable{
                 }
             }
             if (!cancel[0]){
-                map.pop(gx, gy);
+                map.popCancel(gx, gy);
                 setStatus(WATERED);
                 player1.setWork(1);
             }

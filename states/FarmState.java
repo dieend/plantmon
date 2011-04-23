@@ -148,7 +148,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         System.out.print("creating story\n");
         active = true;
         while (active) {
-            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
+//            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e){
