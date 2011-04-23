@@ -7,7 +7,9 @@ import java.util.logging.Logger;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import plantmon.entity.Item;
 import plantmon.entity.Unmoveable;
+import plantmon.entity.item.FoodItem;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
@@ -181,6 +183,7 @@ public class Plant extends Unmoveable implements Actionable,
         }
         map.getLand(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE).setStatus(Land.WATERED);
         Game.instance().farmstatus()[gx/Utilities.GRIDSIZE][gy/Utilities.GRIDSIZE] = Land.WATERED;
+        map.getLand(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE).setStatus(Land.WATERED);
     }
 
     public void doHarvest()
