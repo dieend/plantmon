@@ -70,6 +70,7 @@ public abstract class MovingObject implements Drawable, Serializable{
         this.map=map;
         setGraphic(g2d);
         setPanel(panel);
+        System.out.println("action"+this.inAction+" dest"+this.destination.size()+" lock"+this.lock.size()+" position"+this.creature.position().IntX()+this.creature.position().IntY());
     }
     public void load(String filename, int columns, int rows,int width, int height){
         creature.setImageName(filename);

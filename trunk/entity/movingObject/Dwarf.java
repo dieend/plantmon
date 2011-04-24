@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -267,6 +268,7 @@ public class Dwarf extends MovingObject implements Actionable,
     public void cancel(Object lock) {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
+    
     public static void main(String[] str){
         JFrame frame=new JFrame();
         BufferedImage bf = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);

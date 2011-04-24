@@ -26,7 +26,7 @@ import plantmon.system.Utilities;
 public class Game implements Serializable{
     //ArrayList<ParentState> states;
     private ArrayList<Plant> plants;
-    ArrayList<Dwarf> dwarfs;
+    transient ArrayList<Dwarf> dwarfs;
     int[][] farmstatus;
     Inventory inventory;
     Integer money;
@@ -340,7 +340,13 @@ public class Game implements Serializable{
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
         stateManager.setFrame(mainFrame);
-        System.out.print(stateManager.getPlants().size());
+        stateManager.dwarfs = new ArrayList<Dwarf>();
+        Dwarf dw = new Dwarf(null, null, null, 2, Game.instance().money);
+        stateManager.dwarfs.add(dw);
+        dw = new Dwarf(null, null, null, 1, Game.instance().money);
+        stateManager.dwarfs.add(dw);
+        dw = new Dwarf(null, null, null, 3, Game.instance().money);
+        stateManager.dwarfs.add(dw);
         stateManager.goTo(ParentState.HOME, null);
     }
     public static void main(String[] args) {

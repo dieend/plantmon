@@ -119,10 +119,6 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
                 }
             }
         }
-        for (Plant p:Game.instance().getPlants()){
-            map.push(p.getPosition().IntX(), p.getPosition().IntY(), p);
-            p.reinit(map, this, g2d);
-        }
         player = new Player(map, this, g2d);
         map.gpush(3, 2, new Portal(map, this, g2d, 3, 2));
         player.getCreature().setPosition(new Point2D(3*Utilities.GRIDSIZE,3*Utilities.GRIDSIZE));
@@ -134,6 +130,10 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
             d.reinit(map,g2d,this);
             Point2D dlocation = d.getCreature().position();
             map.push(dlocation.IntX(),dlocation.IntY(), d);
+        }
+        for (Plant p:Game.instance().getPlants()){
+            p.reinit(map, this, g2d);
+            map.push(p.getPosition().IntX(), p.getPosition().IntY(), p);
         }
         selected = player;
         selectsomething = true;
