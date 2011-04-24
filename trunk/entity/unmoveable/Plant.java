@@ -213,7 +213,9 @@ public class Plant extends Unmoveable implements Actionable,
                 } catch (InterruptedException e){}
             }
             // setelah player sampai, siram tanaman.
-            if (!cancel[0]){
+            if (player.getRoute(gx, gy, 0).size()!=1){
+                map.popCancel(gx, gy);
+            }else if (!cancel[0]){
                 map.popCancel(gx, gy);
                 doWater();
                 player.setWork(1);
@@ -242,7 +244,9 @@ public class Plant extends Unmoveable implements Actionable,
                 } catch (InterruptedException e){}
             }
             // setelah player sampai, siram tanaman.
-            if (!cancel[0]){
+            if (player.getRoute(gx, gy, 0).size()!=1){
+                map.popCancel(gx, gy);
+            }else if (!cancel[0]){
                 map.popCancel(gx, gy);
                 setPanen();
             }
@@ -267,7 +271,9 @@ public class Plant extends Unmoveable implements Actionable,
                     lock.wait(); // tunggu player sampai ke posisi tumbuhan
                 } catch (InterruptedException e){}
             }
-            if (!cancel[0]){
+            if (player.getRoute(gx, gy, 0).size()!=1){
+                map.popCancel(gx, gy);
+            }else if (!cancel[0]){
                 map.popCancel(gx, gy);
                 map.pop(gx, gy);
                 player.setWork(0);
@@ -298,7 +304,9 @@ public class Plant extends Unmoveable implements Actionable,
                     lock.wait(); // tunggu player sampai ke posisi tumbuhan
                 } catch (InterruptedException e){}
             }
-            if (!cancel[0]){
+            if (player.getRoute(gx, gy, 0).size()!=1){
+                map.popCancel(gx, gy);
+            }else if (!cancel[0]){
                 map.popCancel(gx, gy);
                 doSlash();
                 player.setWork(2);

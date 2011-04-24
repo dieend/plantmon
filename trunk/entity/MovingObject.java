@@ -126,9 +126,7 @@ public abstract class MovingObject implements Drawable, Serializable{
                     inAction = false;
                     if (lock.size()>0){
                         synchronized (lock.get(0)) {
-    //                            Point2D dest = destination.get(lock.get(0));
                             lock.get(0).notify();
-    //                          animate(lock);
                             destination.remove(lock.get(0));
                             lock.remove(0);
                             numAction--;

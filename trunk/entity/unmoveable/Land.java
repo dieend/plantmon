@@ -143,13 +143,19 @@ public class Land extends Unmoveable implements Actionable{
                 }
             }
             // buat plant baru berdasarkan item
-            if ((cancel==null) || (!cancel[0])){
+            if (player.getRoute(gx, gy, 0).size()!=1){
+                map.popCancel(gx, gy);
+            }else if ((cancel==null) || (!cancel[0])){
                 map.popCancel(gx, gy);
                 if (temp.getName().equals("Lobak")) {
                     Lobak lobak = new Lobak(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, lobak);
                     Game.instance().addPlant(lobak);
                 } else if (temp.getName().equals("Timun")) {
+                    Timun timun = new Timun(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, timun);
+                    Game.instance().addPlant(timun);
+                }else if (temp.getName().equals("Kentang")) {
                     Timun timun = new Timun(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, timun);
                     Game.instance().addPlant(timun);
@@ -183,8 +189,9 @@ public class Land extends Unmoveable implements Actionable{
                     return;
                 }
             }
-            
-            if (!cancel[0]){
+            if (player.getRoute(gx, gy, 0).size()!=1){
+                map.popCancel(gx, gy);
+            }else if (!cancel[0]){
                 map.popCancel(gx, gy);
                 if (Game.instance().getWeather() == Game.RAINY){
                     setStatus(WATERED);
@@ -216,7 +223,9 @@ public class Land extends Unmoveable implements Actionable{
                     return;
                 }
             }
-            if (!cancel[0]){
+            if (player1.getRoute(gx, gy, 0).size()!=1){
+                map.popCancel(gx, gy);
+            }else if (!cancel[0]){
                 map.popCancel(gx, gy);
                 setStatus(WATERED);
                 player1.setWork(1);

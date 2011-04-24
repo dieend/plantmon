@@ -53,10 +53,12 @@ public class ImageEntity extends BaseGameEntity {
             System.out.println(filename);
             image = ImageIO.read(this.getClass().getResource(filename));
         } catch(IOException e){}
-        while(getImage().getWidth(panel) <= 0);
-        double x = panel.getSize().width/2 - width()/2;
-        double y = panel.getSize().height/2 - height()/2;
-        at = AffineTransform.getTranslateInstance(x, y);
+        if (panel != null){
+            while(getImage().getWidth(panel) <= 0);
+            double x = panel.getSize().width/2 - width()/2;
+            double y = panel.getSize().height/2 - height()/2;
+            at = AffineTransform.getTranslateInstance(x, y);
+        }
     }
     public void transform() {
         if (at != null) {

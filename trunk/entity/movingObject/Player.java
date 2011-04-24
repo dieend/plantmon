@@ -94,7 +94,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
     public void move(int gx,int gy,Object lock,Boolean[] cancel){
         addAction(lock,new Point2D(gx,gy));
         Canceller ca = new Canceller(creature.panel(),creature.graphics(),
-        gx, gy, cancel,lock,(Cancellable)this,numAction-1);
+                    gx, gy, cancel,lock,(Cancellable)this,numAction-1);
         map.push(gx, gy, ca);
     }
     
