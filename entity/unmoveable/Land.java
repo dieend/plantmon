@@ -156,9 +156,9 @@ public class Land extends Unmoveable implements Actionable{
                     map.push(gx, gy, timun);
                     Game.instance().addPlant(timun);
                 }else if (temp.getName().equals("Kentang")) {
-                    Timun timun = new Timun(map, panel(),graphics(),gx,gy,status);
-                    map.push(gx, gy, timun);
-                    Game.instance().addPlant(timun);
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
                 }
                 Game.instance().getInventory().delete(temp, 1);
                 Game.instance().log().append("put "+temp.getName()+" at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
