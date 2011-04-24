@@ -86,9 +86,9 @@ public class Terong extends Plant{
     @Override
     public void setFase(int i) {
         fase = i;
-        if (fase == DEWASANOSIRAM){
+        if (fase == DEWASANOSIRAM || fase == DEWASASIRAM){
             entity.load("picture/terongpanen.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
-        } else if (fase == REMAJANOSIRAM){
+        } else if (fase == REMAJANOSIRAM || fase == REMAJASIRAM){
             entity.load("picture/terongremaja.png");//, 1, 1, Utilities.GRIDSIZE, Utilities.GRIDSIZE);
         } else {
             super.setFase(i);

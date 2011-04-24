@@ -190,7 +190,6 @@ public class Plant extends Unmoveable implements Actionable,
             ((Land)map.getTop(gx/Utilities.GRIDSIZE, gy/Utilities.GRIDSIZE)).setStatus(Land.WATERED);
         }
         Game.instance().removePlant(this);
-        Game.instance().log().append("slashing at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
     }
     
 
@@ -246,7 +245,6 @@ public class Plant extends Unmoveable implements Actionable,
             if (!cancel[0]){
                 map.popCancel(gx, gy);
                 setPanen();
-                Game.instance().log().append("harvesting at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
             }
         }
     }
@@ -396,6 +394,7 @@ public class Plant extends Unmoveable implements Actionable,
     @Override
     public void reinit(GridMap map, JPanel panel, Graphics2D g2d){
         super.reinit(map, panel, g2d);
-        setFase(fase);
+        System.out.println(this.getClass().getName());
+        this.setFase(fase);
     }
 }
