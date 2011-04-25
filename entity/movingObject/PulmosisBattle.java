@@ -21,6 +21,7 @@ import plantmon.system.Utilities;
 
 public class PulmosisBattle extends MovingObject implements Cancellable,
                                                     Selectable{
+    int tipe;
     int HP;
     int level;
     int atk;
@@ -47,6 +48,8 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     public static final int Jagung = 5;
     public static final int Tomat = 6;
     public static final int Nanas = 7;
+    public static final int Bawang = 8;
+    public static final int Labu = 9;
     public boolean isAlreadyMove(){
         return move;
     }
@@ -89,7 +92,14 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         } else if (tipe == Nanas) {
             level = 15;
             range = 2;
+        } else if (tipe == Bawang) {
+            level = 19;
+            range = 1;
+        } else if (tipe == Labu) {
+            level = 21;
+            range = 1;
         }
+        this.tipe = tipe;
         atk = 0;
         attacked = 0;
         miss = 0.05;
