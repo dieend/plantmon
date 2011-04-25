@@ -19,7 +19,6 @@ import plantmon.game.TalkPanel;
 import plantmon.system.Utilities;
 
 public class StoryLine implements Runnable,Serializable {
-    private int type;
     private ArrayList<Integer> sold;
     private int day;
     private int season;
@@ -33,6 +32,8 @@ public class StoryLine implements Runnable,Serializable {
     PulmosisLand jagung;
     PulmosisLand tomat;
     PulmosisLand nanas;
+    PulmosisLand bawang;
+    PulmosisLand labu;
     private boolean active;
     Boolean[] belum;
     transient Thread storyloop;
@@ -44,13 +45,15 @@ public class StoryLine implements Runnable,Serializable {
     boolean doneTomat;
     boolean tomatDapat;
     boolean doneNanas1;
+    boolean alreadyBawang;
+    private boolean labuDone;
     private Boolean[] winBattle;
     private ArrayList<PulmosisLand> pulmosis;
     final Object lock = new String("exact");
 
     
     public StoryLine () {
-        belum = new Boolean[8];
+        belum = new Boolean[10];
         pulmosis = new ArrayList<PulmosisLand>(15);
         sold = new ArrayList<Integer>(15);
         for (int i = 0; i < 15; i++) {
@@ -60,11 +63,12 @@ public class StoryLine implements Runnable,Serializable {
         for (int i = 0; i <4; i++) {
             winBattle[i]=false;
         }
-        for (int i = 0; i <8; i++) {
+        for (int i = 0; i <10; i++) {
             belum[i]=true;
         }
         done = false;
         doneNanas1 = false;
+        alreadyBawang = false;
         kentang = new PulmosisLand(map,panel,null,2);
         lobak = new PulmosisLand(map,panel,null,0);
         timun =  new PulmosisLand(map,panel,null,1);
@@ -73,16 +77,10 @@ public class StoryLine implements Runnable,Serializable {
         jagung = new PulmosisLand(map,panel,null,5);
         tomat = new PulmosisLand(map,panel,null,6);
         nanas = new PulmosisLand(map,panel,null,7);
+        bawang = new PulmosisLand(map, panel, null, 8);
+        labu = new PulmosisLand(map, panel, null, 9);
     }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
+    
     public ArrayList<Integer> getSold() {
         return sold;
     }
@@ -130,6 +128,10 @@ public class StoryLine implements Runnable,Serializable {
         if (!belum[6]) map.push(tomat.position().IntX(), tomat.position().IntY(), tomat);
         nanas.reinit(map, g2d, panel);
         if (!belum[7]) map.push(nanas.position().IntX(), nanas.position().IntY(), nanas);
+        bawang.reinit(map, g2d, panel);
+        if (!belum[8]) map.push(bawang.position().IntX(), bawang.position().IntY(), bawang);
+        labu.reinit(map, g2d, panel);
+        if (!belum[9]) map.push(labu.position().IntX(), labu.position().IntY(), labu);
     }
 
     public void Story () {
@@ -403,6 +405,89 @@ public class StoryLine implements Runnable,Serializable {
         if (day >= 1 && season>=Time.SUMMER && !doneNanas1) {
             Game.instance().seek(ParentState.NANASSTATE, null);
             doneNanas1 = true;
+            for (int i = 3; i <= 5; i++) {
+                if (map.getTop(i, 9) instanceof PulmosisLand) {
+                    map.pop(Utilities.GRIDSIZE*i,Utilities.GRIDSIZE*9);
+                }
+            }
+        }
+
+        if (map.getTop(16,4) instanceof PulmosisLand) {
+            nanas.move(16*Utilities.GRIDSIZE, 6*Utilities.GRIDSIZE, lock, cancel);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){
+//                        return;
+                }
+            }
+            if (!cancel[0]){
+//                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
+                nanas.getCreature().setFinalPosition(16*Utilities.GRIDSIZE+5, 6*Utilities.GRIDSIZE+5);
+            }
+        } else if (map.getTop(16,6) instanceof PulmosisLand) {
+            nanas.move(16*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE, lock, cancel);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){
+//                        return;
+                }
+            }
+            if (!cancel[0]){
+//                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
+                nanas.getCreature().setFinalPosition(16*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
+            }
+        } else if (day < 21 && season>=Time.SUMMER && winBattle[1] && belum[7]) {
+            belum[7] = false;
+            nanas.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*16,Utilities.GRIDSIZE*4));
+            nanas.getCreature().setFinalPosition(Utilities.GRIDSIZE*16,Utilities.GRIDSIZE*4);
+            pulmosis.add(nanas);
+            Point2D pos = nanas.getCreature().position();
+            map.push(pos.X(), pos.Y(), nanas);
+            nanas.move(16*Utilities.GRIDSIZE, 6*Utilities.GRIDSIZE, lock, cancel);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){
+//                        return;
+                }
+            }
+            if (!cancel[0]){
+//                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
+                nanas.getCreature().setFinalPosition(16*Utilities.GRIDSIZE+5, 6*Utilities.GRIDSIZE+5);
+            }
+        }
+
+        if (day >= 21 && season>=Time.SUMMER && !alreadyBawang) {
+            alreadyBawang = true;
+            Game.instance().seek(ParentState.BAWANGSTATE, null);
+        }
+
+        if (alreadyBawang && belum[8]) {
+            belum[8] = false;
+            bawang.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*2,Utilities.GRIDSIZE*5));
+            bawang.getCreature().setFinalPosition(Utilities.GRIDSIZE*2,Utilities.GRIDSIZE*5);
+            pulmosis.add(bawang);
+            Point2D pos = bawang.getCreature().position();
+            map.push(pos.X(), pos.Y(), bawang);
+            pos = new Point2D(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*5);
+            bawang.getCreature().setArah(pos);
+        }
+
+        if (day >=5 && day <= 15 && season == Time.SUMMER && !isLabuDone()) {
+            labu.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*5,Utilities.GRIDSIZE*1));
+            labu.getCreature().setFinalPosition(Utilities.GRIDSIZE*5,Utilities.GRIDSIZE*1);
+            Point2D pos = labu.getCreature().position();
+            map.push(pos.X(), pos.Y(), labu);
+            pos = new Point2D(Utilities.GRIDSIZE*6,Utilities.GRIDSIZE*1);
+            labu.getCreature().setArah(pos);
+            //Game.instance().seek(ParentState.LABUSTATE, null);
+        }
+
+        if (isLabuDone()) {
+            belum[9] = false;
+            pulmosis.add(bawang);
         }
 
     }
@@ -447,6 +532,7 @@ public class StoryLine implements Runnable,Serializable {
     public JPanel getPanel() {
         return panel;
     }
+
     public void begin(){
         (new Thread(new Runnable() {
             public void run() {
@@ -514,5 +600,19 @@ public class StoryLine implements Runnable,Serializable {
      */
     public void setSeason(int season) {
         this.season = season;
+    }
+
+    /**
+     * @return the labuDone
+     */
+    public boolean isLabuDone() {
+        return labuDone;
+    }
+
+    /**
+     * @param labuDone the labuDone to set
+     */
+    public void setLabuDone(boolean labuDone) {
+        this.labuDone = labuDone;
     }
 }

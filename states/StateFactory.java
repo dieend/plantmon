@@ -32,7 +32,14 @@ public class StateFactory{
             case ParentState.NANASSTATE:
                 newState = new NanasState(18, 11);
                 break;
+            case ParentState.BAWANGSTATE:
+                newState = new BawangState(18, 11);
+                break;
+            case ParentState.LABUSTATE:
+                newState = new LabuState(18,11);
+                break;
         }
+
         return newState;
     }
 }
