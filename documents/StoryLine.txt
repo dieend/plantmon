@@ -8,11 +8,11 @@ Jagung	: Side Quest 2
 Tomat	: Side Quest 3
 Bawang	: Side Quest 4
 Nanas	: Main Quest 2
-Labu	: Main Quest 3
-Wortel	: Side Quest 5
+Labu	: Side Quest 5
+Wortel	: Side Quest 8
 Terong	: Side Quest 6
 Ubi		: Side Quest 7
-Paprika	: Side Quest 8
+Paprika	: Main Quest 3
 
 Main Quest 1 :
 <Spring> | 5 - 30 SPRING
@@ -36,7 +36,7 @@ Main Quest 2 :
 : Seorang Pulmosis dan rekan-rekan kroco berandalnya datang dan merusak lahan.
 : Dia adalah Pulmosis Nanas.
 : Pulmosis Nanas menculik Lobak.
-: Sehingga pada tanggal 1 - 10 SUMMER akan ter-unlock area baru pada map.
+: Sehingga pada tanggal 1 - 20 SUMMER akan ter-unlock area baru pada map.
 : Player mendapatkan pilihan untuk membayar tebusan atau tidak.
 : Jika iya, maka Player akan kehilangan sejumlah uang.
 : Akan tetapi Pulmosis Nanas akan kembali mengacau di lahan dan kembali menculik Lobak pada keesokan harinya.
@@ -55,7 +55,7 @@ Main Quest 3 :
 : Gerombolan ini melakukan pemboikotan air sehingga menyebabkan persediaan air tanah pada lahan menipis.
 : Lalu gerombolan ini akan kabur membawa persediaan air pada diri mereka.
 : Maka akan ter-unlock area baru pada map.
-: Player harus melakukan battle melawan gerombolan Labu.
+: Player harus melakukan battle melawan gerombolan Paprika.
 : Jika berhasil menyelesaikan misi ini, Labu akan bergabung.
 
 Main Quest 4 :
