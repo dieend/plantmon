@@ -29,6 +29,8 @@ public class ParentState extends JPanel implements Runnable{
     public static final int MAPSTATE = 6;
     public static final int TOMATSTATE = 7;
     public static final int NANASSTATE = 8;
+    public static final int BAWANGSTATE = 9;
+    public static final int LABUSTATE = 10;
     public ParentState(){
     }
 
