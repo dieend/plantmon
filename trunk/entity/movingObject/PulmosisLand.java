@@ -1,10 +1,15 @@
 package plantmon.entity.movingObject;
 
+import java.awt.Font;
 import java.awt.Graphics2D;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import plantmon.game.GridMap;
+import plantmon.game.TalkPanel;
+import plantmon.states.Game;
+import plantmon.states.ParentState;
 import plantmon.system.Actionable;
 import plantmon.system.Cancellable;
 import plantmon.system.Jobable;
@@ -16,10 +21,12 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
     private int sumWater;
     private boolean watered;
     private int typePul;
+    private JPanel pan;
     
     public PulmosisLand (GridMap map, JPanel panel, Graphics2D g2d, int type) {
         super(map,panel,g2d,type,false);
         this.typePul = type;
+        pan = panel;
         if (type == PulmosisBattle.Kentang) {
             sumWater  = 0;
             watered = false;
@@ -102,6 +109,9 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
             }
             if (!cancel[0]){
                 map.popCancel(gx, gy);
+            }
+            if (tipe == PulmosisBattle.Labu) {
+                Game.instance().seek(ParentState.LABUSTATE,null);
             }
         }
     }
