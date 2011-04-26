@@ -46,7 +46,7 @@ public class StoryLine implements Runnable,Serializable {
     boolean adaTimun;
     boolean adaKubis;
     boolean adaKentang;
-    boolean done;
+    private boolean doneKentang;
     boolean doneTomat;
     boolean tomatDapat;
     boolean doneNanas1;
@@ -73,7 +73,7 @@ public class StoryLine implements Runnable,Serializable {
         for (int i = 0; i <15; i++) {
             belum[i]=true;
         }
-        done = false;
+        doneKentang = false;
         doneNanas1 = false;
         alreadyBawang = false;
         kentang = new PulmosisLand(map,panel,null,2);
@@ -215,33 +215,11 @@ public class StoryLine implements Runnable,Serializable {
 
         //kentang akan muncul dan bergabung ketika sudah disiram 7 kali
         if (day >= 5 && season >= Time.SPRING) {
-            if (kentang.isFullWatered()) {
-                if (!done) {
-                    done = true;
-                    JLabel label1;
-                    JLabel label2;
-                    JLabel label3;
-                    JPanel panelis;
-                    panelis = new TalkPanel();
-                    panelis.setLayout(null);
-                    label1 = new JLabel();
-                    label1.setBounds(0,0,100,100);
-                    panelis.add(label1);
-                    label2 = new JLabel("Nama : " + Game.instance().getName());
-                    label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
-                    label2.setBounds(400,7,150,30);
-                    panelis.add(label2);
-                    label3 = new JLabel ("Hello Guys... My Name ");
-                    label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
-                    label3.setBounds(101,9,450,90);
-                    panelis.add(label3);
-                    label3 = new JLabel ("Please Help Me!! My Land was attacked");
-                    label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
-                    label3.setBounds(101,26,450,90);
-                    panelis.add(label3);
-                    getPulmosis().add(kentang);
-                    Game.instance().setDialogBox(panelis, panel);
-                }
+            if (kentang.isFullWatered() && !doneKentang) {
+                Game.instance().seek(ParentState.KENTANGSTATE, null);
+            }
+
+            if (doneKentang) {
                 if (map.getTop(3, 6) instanceof PulmosisLand) {
                     kentang.move(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE, lock, cancel);
                     synchronized(lock){
@@ -283,6 +261,8 @@ public class StoryLine implements Runnable,Serializable {
                     kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*2,Utilities.GRIDSIZE*5);
                     Point2D pos = kentang.getCreature().position();
                     map.push(pos.X(), pos.Y(), kentang);
+                    pos = new Point2D(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*5);
+                    kentang.getCreature().setArah(pos);
                 }
             }
         }
@@ -557,6 +537,10 @@ public class StoryLine implements Runnable,Serializable {
             map.push(pos.X(), pos.Y(), paprika);
         }
 
+        if (day>=29 && season>=Time.FALL && !isDonePaprika()) {
+            Game.instance().goTo(ParentState.GAMEOVER, null);
+        }
+
         if (pulmosis.size() >= 2 && !isDoneBayam()) {
             Game.instance().seek(ParentState.BAYAMSTATE, null);
         }
@@ -569,6 +553,8 @@ public class StoryLine implements Runnable,Serializable {
             Point2D pos = bayam.getCreature().position();
             map.push(pos.X(), pos.Y(), bayam);
         }
+
+        
 
     }
 
@@ -687,17 +673,19 @@ public class StoryLine implements Runnable,Serializable {
         this.doneBayam = doneBayam;
     }
 
-    /**
-     * @return the alreadyBawang
-     */
     public boolean isAlreadyBawang() {
         return alreadyBawang;
     }
 
-    /**
-     * @param alreadyBawang the alreadyBawang to set
-     */
     public void setAlreadyBawang(boolean alreadyBawang) {
         this.alreadyBawang = alreadyBawang;
+    }
+
+    public boolean isDoneKentang() {
+        return doneKentang;
+    }
+
+    public void setDoneKentang(boolean doneKentang) {
+        this.doneKentang = doneKentang;
     }
 }
