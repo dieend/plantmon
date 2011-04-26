@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.*;
 import java.net.URL;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -70,12 +71,12 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         background = new ImageEntity(this);
         background.load("picture/Gurun Island.png");
        
-        PulmosisBattle player = new PulmosisBattle(map,this, g2d,1,false);
+        PulmosisBattle player = new PulmosisBattle(map,this, g2d,1,false,0);
         player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT));
         player.getCreature().setFinalPosition(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT);
-        PulmosisBattle player2 = new PulmosisBattle(map,this, g2d,0,true);
-        player2.getCreature().setPosition(new Point2D(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
-        player2.getCreature().setFinalPosition(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
+        PulmosisBattle player2 = new PulmosisBattle(map,this, g2d,-7,true,player.level);
+        player2.getCreature().setPosition(new Point2D(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
+        player2.getCreature().setFinalPosition(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
         for (int i=0; i<map.getRow();i++){
             for (int j=0; j<map.getColumn(); j++){
                 map.gpush(i, j, new Land(map, this, g2d,i,j));
@@ -110,23 +111,39 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
             selectsomething = false;
         }
         boolean found = true;
+        boolean founden = true;
         int i = 0;
         int j = 0;
         Time.instance().update();
         time.setText(Time.instance().getTime());
-        for (i = 0;i < map.getRow() && found; i++) {
-            for (j = 0; j < map.getColumn() && found;j++) {
+        Object lock = new String("stop");
+        Boolean[] cancel = new Boolean[1];
+        cancel[0] = true;
+  
+        for (i = 0;i < map.getRow() && (found || founden); i++) {
+            for (j = 0; j < map.getColumn() && (found || founden); j++) {
                 if (map.getTop(i,j) instanceof PulmosisBattle) {
                     PulmosisBattle pul = (PulmosisBattle) map.getTop(i,j);
                     if (pul.getStatusEnemy()) {
                         found = false;
+                        if(pul.isActive()) {
+//                            pul.move((i+1)*Utilities.GRIDSIZE, j*Utilities.GRIDSIZE, lock,cancel);
+//                            pul.resetChargeMeter();
+                            pul.nextMove();
+                            pul.resetChargeMeter();
+                        }
                         break;
+                    }else{
+                        founden=false;
                     }
                 }
             }
         }
         if (found) {
             Game.instance().goTo(ParentState.MAPSTATE,new Object[0]);
+        }
+        if (founden){
+            Game.instance().goTo(ParentState.GAMEOVER,new Object[0]);
         }
 //        Point2D pos = player.getCreature().position();
 //        for (int i=0; i<8;i++){
