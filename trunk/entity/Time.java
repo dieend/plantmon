@@ -54,7 +54,7 @@ public class Time implements Serializable{
             }
             counter = 0;
         }
-        if (hour == 18) {
+        if (hour == 19) {
             Game.instance().goTo(ParentState.HOME, null);
         }
     }

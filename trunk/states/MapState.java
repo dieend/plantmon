@@ -5,8 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import plantmon.entity.Time;
 import plantmon.entity.deadItem.Portal;
@@ -26,20 +25,16 @@ public class MapState extends ParentState implements MouseListener{
     JTextArea time;
     Image a = null;
     public MapState(Object[] args){
-        super(6,6);
+        super(17,13);
         time = new JTextArea();
         ID = MAPSTATE;
-        map = new GridMap(6, 6);
+        map = new GridMap(17, 13);
         background = new ImageEntity(this);
-        background.load("picture/bg2.png");
-        try {
-            a = ImageIO.read(this.getClass().getResource("lahanMap.png"));
-            
-        } catch (IOException e) {
-        }
+        background.load("picture/worldmap.png");
+        
 
-        map.gpush(1,1, new Portal(map, this, g2d, 1, 1));
-        map.gpush(4,4, new Portal(map, this, g2d, 4, 4));
+        map.gpush(5,1, new Portal(map, this, g2d, 5, 1));
+        map.gpush(6,4, new Portal(map, this, g2d, 6, 4));
         addMouseListener(this);
         time.setEditable(false);
         time.setBounds(0, 0, 200, 50);
@@ -90,11 +85,11 @@ public class MapState extends ParentState implements MouseListener{
             case MouseEvent.BUTTON1:
                 System.out.format("aduh %d %d\n",e.getX(),e.getY());
                 if (map.getTop(gx, gy) != null ) {
-                    if (gx == 1 && gy == 1) {
+                    if (gx == 6 && gy == 4) {
                         Game.instance().goTo(ParentState.FARMSTATE,new Object[0]);
                         selectsomething = true;
-                    } else if (gx == 4 && gy == 4) {
-                        Game.instance().goTo(ParentState.BATTLESTATE,new Object[0]);
+                    } else if (gx == 5 && gy == 1) {
+                        Game.instance().goTo(ParentState.BATTLEGURUN,new Object[0]);
                         selectsomething = true;
                     } else {
                         selectsomething = true;
@@ -104,11 +99,11 @@ public class MapState extends ParentState implements MouseListener{
            case MouseEvent.BUTTON3:
                 System.out.format("aduh %d %d\n",e.getX(),e.getY());
                 if (map.getTop(gx, gy) != null ) {
-                    if (gx == 1 && gy == 1) {
+                    if (gx == 6 && gy == 4) {
                         Game.instance().goTo(ParentState.FARMSTATE,new Object[0]);
                         selectsomething = true;
-                    } else if (gx == 4 && gy == 4) {
-                        Game.instance().goTo(ParentState.BATTLESTATE,new Object[0]);
+                    } else if (gx == 5 && gy == 1) {
+                        Game.instance().goTo(ParentState.BATTLEGURUN,new Object[0]);
                         selectsomething = true;
                     } else {
                         selectsomething = true;
@@ -122,4 +117,12 @@ public class MapState extends ParentState implements MouseListener{
     public void mouseReleased(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
+    public static void main(String[] args){
+        JFrame frame = new JFrame();
+        frame.setSize(640, 480);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Game.instance().setFrame(frame);
+        Game.instance().goTo(ParentState.MAPSTATE, args);
+    }
 }

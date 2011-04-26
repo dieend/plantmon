@@ -66,7 +66,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         add(Game.instance().dialogBox());
         Game.instance().setDialogBox(selected.get_Info(),this);
         Game.instance().dialogOn();
-//        add(time);
+        add(time);
         //add(pane);
         addMouseMotionListener(this);
         active = true;
@@ -175,6 +175,11 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
 
     public void updated(){
         g2d.setColor(Color.WHITE);
+        if (Time.instance().getHour() == 18 && Time.instance().getMinutes() == 0){
+            background.load("picture/LahanDark.png");
+        } else if (Time.instance().getHour() == 18 && Time.instance().getMinutes() == 0){
+            background.load("picture/Lahan.png");
+        }
         g2d.drawImage(background.getImage(), 0, 0, this);
         map.draw(startx,starty);
         if (selectsomething) {
