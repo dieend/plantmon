@@ -13,6 +13,7 @@ Wortel	: Side Quest 8
 Terong	: Side Quest 6
 Ubi		: Side Quest 7
 Paprika	: Main Quest 3
+Bayam	: Side Quest 9
 
 Main Quest 1 :
 <Spring> | 5 - 30 SPRING

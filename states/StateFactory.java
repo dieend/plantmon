@@ -38,6 +38,12 @@ public class StateFactory{
             case ParentState.LABUSTATE:
                 newState = new LabuState(18,11);
                 break;
+            case ParentState.GAMEOVER:
+                newState = new GameOver(args);
+                break;
+            case ParentState.PAPRIKASTATE:
+                newState = new PaprikaState(18,11);
+                break;
         }
 
         return newState;

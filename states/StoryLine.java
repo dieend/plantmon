@@ -34,6 +34,11 @@ public class StoryLine implements Runnable,Serializable {
     PulmosisLand nanas;
     PulmosisLand bawang;
     PulmosisLand labu;
+    PulmosisLand ubi;
+    PulmosisLand terong;
+    PulmosisLand paprika;
+    PulmosisLand bayam;
+    PulmosisLand wortel;
     private boolean active;
     Boolean[] belum;
     transient Thread storyloop;
@@ -46,6 +51,7 @@ public class StoryLine implements Runnable,Serializable {
     boolean tomatDapat;
     boolean doneNanas1;
     boolean alreadyBawang;
+    private boolean donePaprika;
     private boolean labuDone;
     private Boolean[] winBattle;
     private ArrayList<PulmosisLand> pulmosis;
@@ -53,7 +59,7 @@ public class StoryLine implements Runnable,Serializable {
 
     
     public StoryLine () {
-        belum = new Boolean[10];
+        belum = new Boolean[15];
         pulmosis = new ArrayList<PulmosisLand>(15);
         sold = new ArrayList<Integer>(15);
         for (int i = 0; i < 15; i++) {
@@ -63,7 +69,7 @@ public class StoryLine implements Runnable,Serializable {
         for (int i = 0; i <4; i++) {
             winBattle[i]=false;
         }
-        for (int i = 0; i <10; i++) {
+        for (int i = 0; i <15; i++) {
             belum[i]=true;
         }
         done = false;
@@ -79,6 +85,11 @@ public class StoryLine implements Runnable,Serializable {
         nanas = new PulmosisLand(map,panel,null,7);
         bawang = new PulmosisLand(map, panel, null, 8);
         labu = new PulmosisLand(map, panel, null, 9);
+        ubi = new PulmosisLand(map, panel, null, 10);
+        terong = new PulmosisLand(map, panel, null, 11);
+        paprika = new PulmosisLand(map, panel, null, 12);
+        bayam = new PulmosisLand(map, panel, null, 13);
+        wortel = new PulmosisLand(map, panel, null, 14);
     }
     
     public ArrayList<Integer> getSold() {
@@ -132,36 +143,42 @@ public class StoryLine implements Runnable,Serializable {
         if (!belum[8]) map.push(bawang.position().IntX(), bawang.position().IntY(), bawang);
         labu.reinit(map, g2d, panel);
         if (!belum[9]) map.push(labu.position().IntX(), labu.position().IntY(), labu);
+        ubi.reinit(map, g2d, panel);
+        if (!belum[10]) map.push(ubi.position().IntX(), ubi.position().IntY(), ubi);
+        terong.reinit(map, g2d, panel);
+        if (!belum[11]) map.push(terong.position().IntX(), terong.position().IntY(), terong);
+        paprika.reinit(map, g2d, panel);
+        if (!belum[12]) map.push(paprika.position().IntX(), paprika.position().IntY(), paprika);
+        bayam.reinit(map, g2d, panel);
+        if (!belum[13]) map.push(bayam.position().IntX(), bayam.position().IntY(), bayam);
+        wortel.reinit(map, g2d, panel);
+        if (!belum[14]) map.push(wortel.position().IntX(), wortel.position().IntY(), wortel);
     }
 
     public void Story () {
         Boolean[] cancel = new Boolean[1];
         cancel[0] = false;
+        //lobak muncul pada hari pertama dan bergerak
         if (map.getTop(5, 9) instanceof PulmosisLand) {
-            //lobak.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*9);
             lobak.move(3*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE, lock, cancel);
             synchronized(lock){
                 try {
                     lock.wait();
                 } catch (InterruptedException e){
-//                    return;
                 }
             }
             if (!cancel[0]){
                 lobak.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 9*Utilities.GRIDSIZE+5);
             }
         } else if (map.getTop(3, 9) instanceof PulmosisLand) {
-            //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*6);
             lobak.move(5*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE, lock, cancel);
             synchronized(lock){
                 try {
                     lock.wait();
                 } catch (InterruptedException e){
-//                    return;
                 }
             }
             if (!cancel[0]){
-//                map.pop(5*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE);
                 lobak.getCreature().setFinalPosition(5*Utilities.GRIDSIZE+5, 9*Utilities.GRIDSIZE+5);
             }
         } else if (belum[0]){
@@ -176,17 +193,14 @@ public class StoryLine implements Runnable,Serializable {
                 try {
                     lock.wait();
                 } catch (InterruptedException e){
-//                    return;
                 }
             }
             if (!cancel[0]){
-//                map.pop(5*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE);
                 lobak.getCreature().setFinalPosition(5*Utilities.GRIDSIZE+5, 9*Utilities.GRIDSIZE+5);
             }
-            //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
         }
-//        System.out.println("posisi lobak : "+lobak.position().IntX()+"  "+lobak.position().IntY());
-        
+
+        //timun otomatis muncul pada hari pertama dengan tetap diam ditempat
         if (belum[1]){
             belum[1] = false;
             timun.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*2,Utilities.GRIDSIZE*6));
@@ -196,9 +210,9 @@ public class StoryLine implements Runnable,Serializable {
             map.push(pos.X(), pos.Y(), timun);
             pos = new Point2D(4*Utilities.GRIDSIZE,6*Utilities.GRIDSIZE);
             timun.getCreature().setArah(pos);
-            //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
         }
-        
+
+        //kentang akan muncul dan bergabung ketika sudah disiram 7 kali
         if (day >= 5 && season >= Time.SPRING) {
             if (kentang.isFullWatered()) {
                 if (!done) {
@@ -209,9 +223,7 @@ public class StoryLine implements Runnable,Serializable {
                     JPanel panelis;
                     panelis = new TalkPanel();
                     panelis.setLayout(null);
-                    //image1 = new ImageIcon(this.getClass().getResource("icon player.png"));
                     label1 = new JLabel();
-                    //image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
                     label1.setBounds(0,0,100,100);
                     panelis.add(label1);
                     label2 = new JLabel("Nama : " + Game.instance().getName());
@@ -226,31 +238,26 @@ public class StoryLine implements Runnable,Serializable {
                     label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
                     label3.setBounds(101,26,450,90);
                     panelis.add(label3);
-                    
+                    getPulmosis().add(kentang);
                     Game.instance().setDialogBox(panelis, panel);
                 }
                 if (map.getTop(3, 6) instanceof PulmosisLand) {
-                    //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*4);
                     kentang.move(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE, lock, cancel);
                     synchronized(lock){
                         try {
                             lock.wait();
                         } catch (InterruptedException e){
-    //                        return;
                         }
                     }
                     if (!cancel[0]){
-    //                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
                         kentang.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
                     }
                 } else if (map.getTop(3, 4) instanceof PulmosisLand) {
-                    //kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*6);
                     kentang.move(3*Utilities.GRIDSIZE, 6*Utilities.GRIDSIZE, lock, cancel);
                     synchronized(lock){
                         try {
                             lock.wait();
                         } catch (InterruptedException e){
-    //                        return;
                         }
                     }
                     if (!cancel[0]){
@@ -262,7 +269,6 @@ public class StoryLine implements Runnable,Serializable {
                         try {
                             lock.wait();
                         } catch (InterruptedException e){
-    //                        return;
                         }
                     }
                     if (!cancel[0]){
@@ -274,7 +280,6 @@ public class StoryLine implements Runnable,Serializable {
                     belum[2] = false;
                     kentang.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*2,Utilities.GRIDSIZE*5));
                     kentang.getCreature().setFinalPosition(Utilities.GRIDSIZE*2,Utilities.GRIDSIZE*5);
-                    getPulmosis().add(kentang);
                     Point2D pos = kentang.getCreature().position();
                     map.push(pos.X(), pos.Y(), kentang);
                 }
@@ -293,6 +298,7 @@ public class StoryLine implements Runnable,Serializable {
             } 
         }
 
+        //stroberi akan bergabung jika dilahan adan empat jenis tanaman berbeda
         if (adaLobak && adaTimun && adaKentang && adaKubis && belum[3]) {
             belum[3] = false;
             stroberi.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*6,Utilities.GRIDSIZE*0));
@@ -314,6 +320,7 @@ public class StoryLine implements Runnable,Serializable {
             }   
         }
 
+        //kubis akan bergabung jika telah mengalahkannya di battle
         if (winBattle[0] && belum[4]) {
             belum[4] = false;
             kubis.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*7,Utilities.GRIDSIZE*9));
@@ -325,6 +332,12 @@ public class StoryLine implements Runnable,Serializable {
             kubis.getCreature().setArah(pos);
         }
 
+        //jika belum memenangkan pertarungan melawan kubis sampai summer, player gameover
+        if (day >= 1 && season>=Time.SUMMER && !winBattle[0]) {
+            Game.instance().goTo(ParentState.GAMEOVER, null);
+        }
+
+        //jika telah menjual 5 kentang, 5 lobak, dan 5 timun, jagung akan bergabung
         if (sold.get(0) >= 5 && sold.get(1) >= 5 && sold.get(2) >= 5 && belum[5]) {
             belum[5] = false;
             jagung.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*6,Utilities.GRIDSIZE*4));
@@ -337,26 +350,21 @@ public class StoryLine implements Runnable,Serializable {
                 try {
                     lock.wait();
                 } catch (InterruptedException e){
-//                        return;
                 }
             }
             if (!cancel[0]){
-//                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
                 jagung.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
                 pos = new Point2D(3*Utilities.GRIDSIZE+5,3*Utilities.GRIDSIZE+5);
                 jagung.getCreature().setArah(pos);
             }
             
-            //ImageIcon image1;
             JLabel label1;
             JLabel label2;
             JLabel label3;
             JPanel panelis;
             panelis = new TalkPanel();
             panelis.setLayout(null);
-            //image1 = new ImageIcon(this.getClass().getResource("icon player.png"));
             label1 = new JLabel();
-            //image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
             label1.setBounds(0,0,100,100);
             panelis.add(label1);
             label2 = new JLabel("Nama : " + Game.instance().getName());
@@ -387,6 +395,7 @@ public class StoryLine implements Runnable,Serializable {
             }
         }
 
+        //tomat akan otomatis bergabung pada tanggal 27 Springs
         if (day >= 27 && season>=Time.SPRING && belum[6]) {
             belum[6] = false;
             Game.instance().seek(ParentState.TOMATSTATE, null);
@@ -402,6 +411,7 @@ public class StoryLine implements Runnable,Serializable {
             }
         }
 
+        //nanas akan muncul pada hari pertama summer dan menculik lobak
         if (day >= 1 && season>=Time.SUMMER && !doneNanas1) {
             Game.instance().seek(ParentState.NANASSTATE, null);
             doneNanas1 = true;
@@ -412,17 +422,16 @@ public class StoryLine implements Runnable,Serializable {
             }
         }
 
+        //nanas akan bergabung jika sudah mengalahkannya sebelum 21 Summer
         if (map.getTop(16,4) instanceof PulmosisLand) {
             nanas.move(16*Utilities.GRIDSIZE, 6*Utilities.GRIDSIZE, lock, cancel);
             synchronized(lock){
                 try {
                     lock.wait();
                 } catch (InterruptedException e){
-//                        return;
                 }
             }
             if (!cancel[0]){
-//                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
                 nanas.getCreature().setFinalPosition(16*Utilities.GRIDSIZE+5, 6*Utilities.GRIDSIZE+5);
             }
         } else if (map.getTop(16,6) instanceof PulmosisLand) {
@@ -431,11 +440,9 @@ public class StoryLine implements Runnable,Serializable {
                 try {
                     lock.wait();
                 } catch (InterruptedException e){
-//                        return;
                 }
             }
             if (!cancel[0]){
-//                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
                 nanas.getCreature().setFinalPosition(16*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
             }
         } else if (day < 21 && season>=Time.SUMMER && winBattle[1] && belum[7]) {
@@ -450,16 +457,19 @@ public class StoryLine implements Runnable,Serializable {
                 try {
                     lock.wait();
                 } catch (InterruptedException e){
-//                        return;
                 }
             }
             if (!cancel[0]){
-//                    map.pop(3*Utilities.GRIDSIZE, 4*Utilities.GRIDSIZE);
                 nanas.getCreature().setFinalPosition(16*Utilities.GRIDSIZE+5, 6*Utilities.GRIDSIZE+5);
             }
         }
 
-        if (day >= 21 && season>=Time.SUMMER && !alreadyBawang) {
+        if (day >=21 && season>=Time.SUMMER && !winBattle[1]) {
+            Game.instance().goTo(ParentState.GAMEOVER, null);
+        }
+
+        //bawang akan muncul dari hasil perkawinan timun dan lobak
+        if (day >= 22 && season>=Time.SUMMER && !alreadyBawang) {
             alreadyBawang = true;
             Game.instance().seek(ParentState.BAWANGSTATE, null);
         }
@@ -475,6 +485,8 @@ public class StoryLine implements Runnable,Serializable {
             bawang.getCreature().setArah(pos);
         }
 
+        //labu akan berada dilahan dari tanggal 5 Summer sampai 15 Summer
+        //jika berhasil mengalahkan labu dalam permainannya, labu akan bergabung
         if (day >=5 && day <= 15 && season == Time.SUMMER && !isLabuDone()) {
             labu.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*5,Utilities.GRIDSIZE*1));
             labu.getCreature().setFinalPosition(Utilities.GRIDSIZE*5,Utilities.GRIDSIZE*1);
@@ -482,12 +494,67 @@ public class StoryLine implements Runnable,Serializable {
             map.push(pos.X(), pos.Y(), labu);
             pos = new Point2D(Utilities.GRIDSIZE*6,Utilities.GRIDSIZE*1);
             labu.getCreature().setArah(pos);
-            //Game.instance().seek(ParentState.LABUSTATE, null);
         }
 
-        if (isLabuDone()) {
+        if (isLabuDone() && belum[9]) {
             belum[9] = false;
-            pulmosis.add(bawang);
+            pulmosis.add(labu);
+        }
+
+        //ubi akan otomatis bergabung pada hari pertama Fall
+        if (day>=1 && season>=Time.FALL && belum[10]) {
+            belum[10] = false;
+            ubi.getCreature().setPosition(new Point2D(6*Utilities.GRIDSIZE,0*Utilities.GRIDSIZE));
+            ubi.getCreature().setFinalPosition(6*Utilities.GRIDSIZE, 0*Utilities.GRIDSIZE);
+            pulmosis.add(ubi);
+            Point2D pos = ubi.getCreature().position();
+            map.push(pos.X(), pos.Y(), ubi);
+            ubi.move(3*Utilities.GRIDSIZE,8*Utilities.GRIDSIZE, lock, cancel);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){
+                }
+            }
+            if (!cancel[0]){
+                ubi.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 8*Utilities.GRIDSIZE+5);
+                pos = new Point2D(Utilities.GRIDSIZE*4,Utilities.GRIDSIZE*8);
+                ubi.getCreature().setArah(pos);
+            }
+        }
+
+        int countSell = 0;
+        for (int i = 0; i < 15; i++) {
+            if (sold.get(i) >= 1) {
+                countSell += 1;
+            }
+        }
+
+        //terong otomatis bergabung jika sudah menjual 9 tanaman
+        if (countSell>=9 && belum[11]) {
+            belum[11] = false;
+            terong.getCreature().setPosition(new Point2D(16*Utilities.GRIDSIZE,1*Utilities.GRIDSIZE));
+            terong.getCreature().setFinalPosition(16*Utilities.GRIDSIZE, 1*Utilities.GRIDSIZE);
+            pulmosis.add(terong);
+            Point2D pos = terong.getCreature().position();
+            map.push(pos.X(), pos.Y(), terong);
+            pos = new Point2D(Utilities.GRIDSIZE*15,Utilities.GRIDSIZE*1);
+            terong.getCreature().setArah(pos);
+        }
+
+        //event bos paprika
+        if (day>=15 && season>=Time.FALL && !isDonePaprika()) {
+            Game.instance().seek(ParentState.PAPRIKASTATE, null);
+        }
+
+        //paprika bergabung setelah dikalahkan
+        if (day <= 29 && season>=Time.FALL && isDonePaprika() && belum[12] && winBattle[2]) {
+            belum[12] = false;
+            paprika.getCreature().setPosition(new Point2D(10*Utilities.GRIDSIZE,9*Utilities.GRIDSIZE));
+            paprika.getCreature().setFinalPosition(10*Utilities.GRIDSIZE, 9*Utilities.GRIDSIZE);
+            pulmosis.add(paprika);
+            Point2D pos = paprika.getCreature().position();
+            map.push(pos.X(), pos.Y(), paprika);
         }
 
     }
@@ -495,7 +562,6 @@ public class StoryLine implements Runnable,Serializable {
     public void run() {
         active = true;
         while (active) {
-//            System.out.format("Story running:There are currenty %d Thread running\n",Thread.activeCount());
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -551,30 +617,18 @@ public class StoryLine implements Runnable,Serializable {
         return kentang;
     }
 
-    /**
-     * @return the winBattle
-     */
     public Boolean[] getWinBattle() {
         return winBattle;
     }
 
-    /**
-     * @param winBattle the winBattle to set
-     */
-    public void setWinBattle(Boolean[] winBattle) {
-        this.winBattle = winBattle;
+    public void setWinBattle(Boolean winBattle, int i) {
+        this.winBattle[i] = winBattle;
     }
 
-    /**
-     * @return the pulmosis
-     */
     public ArrayList<PulmosisLand> getPulmosis() {
         return pulmosis;
     }
 
-    /**
-     * @param pulmosis the pulmosis to set
-     */
     public void setPulmosis(ArrayList<PulmosisLand> pulmosis) {
         this.pulmosis = pulmosis;
     }
@@ -588,31 +642,33 @@ public class StoryLine implements Runnable,Serializable {
         doneTomat = don;
     }
 
-    /**
-     * @return the season
-     */
     public int getSeason() {
         return season;
     }
 
-    /**
-     * @param season the season to set
-     */
     public void setSeason(int season) {
         this.season = season;
     }
 
-    /**
-     * @return the labuDone
-     */
     public boolean isLabuDone() {
         return labuDone;
     }
 
-    /**
-     * @param labuDone the labuDone to set
-     */
     public void setLabuDone(boolean labuDone) {
         this.labuDone = labuDone;
+    }
+
+    /**
+     * @return the donePaprika
+     */
+    public boolean isDonePaprika() {
+        return donePaprika;
+    }
+
+    /**
+     * @param donePaprika the donePaprika to set
+     */
+    public void setDonePaprika(boolean donePaprika) {
+        this.donePaprika = donePaprika;
     }
 }

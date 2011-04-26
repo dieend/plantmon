@@ -52,6 +52,11 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     public static final int Nanas = 7;
     public static final int Bawang = 8;
     public static final int Labu = 9;
+    public static final int Ubi = 10;
+    public static final int Terong = 11;
+    public static final int Paprika = 12;
+    public static final int Bayam = 13;
+    public static final int Wortel = 14;
     public boolean isAlreadyMove(){
         return move;
     }
@@ -110,6 +115,26 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             level = 21;
             range = 1;
             name = "Labu";
+        } else if (tipe == Ubi) {
+            level = 22;
+            range = 3;
+            name = "Ubi";
+        } else if (tipe == Paprika) {
+            level = 23;
+            range = 2;
+            name = "Paprika";
+        } else if (tipe == Terong) {
+            level = 23;
+            range = 2;
+            name = "Terong";
+        } else if (tipe == Bayam) {
+            level = 24;
+            range = 3;
+            name = "Bayam";
+        } else if (tipe == Wortel) {
+            level = 24;
+            range = 1;
+            name = "Wortel";
         }
         this.tipe = tipe;
         atk = 0;
