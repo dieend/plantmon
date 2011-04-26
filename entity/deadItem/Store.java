@@ -12,6 +12,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import plantmon.entity.Inventory;
 import plantmon.entity.Item;
+import plantmon.entity.Time;
 import plantmon.entity.Unmoveable;
 import plantmon.entity.item.ArmorItem;
 import plantmon.entity.item.FarmItem;
@@ -71,6 +72,26 @@ public class Store extends Unmoveable implements Actionable {
                     lock.set(12, Boolean.TRUE);
                 } else if (p.getTypePul() == PulmosisBattle.Kubis) {
                     lock.set(3, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Jagung) {
+                    lock.set(4, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Tomat) {
+                    lock.set(5, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Bawang) {
+                    lock.set(6, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Nanas) {
+                    lock.set(7, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Labu) {
+                    lock.set(13, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Wortel) {
+                    lock.set(8, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Paprika) {
+                    lock.set(11, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Terong) {
+                    lock.set(9, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Ubi) {
+                    lock.set(10, Boolean.TRUE);
+                } else if (p.getTypePul() == PulmosisBattle.Bayam) {
+                    lock.set(14, Boolean.TRUE);
                 }
             }
         } else if (typetoko==2) {
@@ -87,6 +108,9 @@ public class Store extends Unmoveable implements Actionable {
             lock.set(2,true);
             lock.set(3,true);
             lock.set(4,true);
+            if (Game.instance().getStory().getPulmosis().size() >= 8) {
+                lock.set(1, Boolean.TRUE);
+            }
         } else if (typetoko==3) {
             type = typetoko;
             item.add(0, new ArmorItem(70,panel));
@@ -108,7 +132,20 @@ public class Store extends Unmoveable implements Actionable {
             lock.set(0,true);
             lock.set(3,true);
             lock.set(8,true);
+            lock.set(9,true);
+            if (Game.instance().getStory().getSeason()>=Time.SUMMER) {
+                lock.set(1, Boolean.TRUE);
+                lock.set(4, Boolean.TRUE);
+                lock.set(7, Boolean.TRUE);
+                lock.set(10, Boolean.TRUE);
+            } else if (Game.instance().getStory().getSeason()>=Time.FALL) {
+                lock.set(2, Boolean.TRUE);
+                lock.set(5, Boolean.TRUE);
+                lock.set(6, Boolean.TRUE);
+                lock.set(11, Boolean.TRUE);
+                lock.set(12, Boolean.TRUE);
             }
+        }
     }
 
     public JPopupMenu getMenu(Selectable selected) {

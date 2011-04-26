@@ -47,6 +47,9 @@ public class StateFactory{
             case ParentState.BAYAMSTATE:
                 newState = new BayamState(18,11);
                 break;
+            case ParentState.KENTANGSTATE:
+                newState = new KentangState(18,11);
+                break;
         }
 
         return newState;
