@@ -50,7 +50,8 @@ public class StoryLine implements Runnable,Serializable {
     boolean doneTomat;
     boolean tomatDapat;
     boolean doneNanas1;
-    boolean alreadyBawang;
+    private boolean alreadyBawang;
+    private boolean doneBayam;
     private boolean donePaprika;
     private boolean labuDone;
     private Boolean[] winBattle;
@@ -469,12 +470,11 @@ public class StoryLine implements Runnable,Serializable {
         }
 
         //bawang akan muncul dari hasil perkawinan timun dan lobak
-        if (day >= 22 && season>=Time.SUMMER && !alreadyBawang) {
-            alreadyBawang = true;
+        if (day >= 22 && season>=Time.SUMMER && !isAlreadyBawang()) {
             Game.instance().seek(ParentState.BAWANGSTATE, null);
         }
 
-        if (alreadyBawang && belum[8]) {
+        if (isAlreadyBawang() && belum[8]) {
             belum[8] = false;
             bawang.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*2,Utilities.GRIDSIZE*5));
             bawang.getCreature().setFinalPosition(Utilities.GRIDSIZE*2,Utilities.GRIDSIZE*5);
@@ -555,6 +555,19 @@ public class StoryLine implements Runnable,Serializable {
             pulmosis.add(paprika);
             Point2D pos = paprika.getCreature().position();
             map.push(pos.X(), pos.Y(), paprika);
+        }
+
+        if (pulmosis.size() >= 2 && !isDoneBayam()) {
+            Game.instance().seek(ParentState.BAYAMSTATE, null);
+        }
+        //bayam akan bergabung jika jumlah pulmosis di lahan sudah mencapai 12 dan menjawab 'yes' pada pertanyaannya
+        if (isDoneBayam() && belum[13]) {
+            belum[13] = false;
+            bayam.getCreature().setPosition(new Point2D(13*Utilities.GRIDSIZE,1*Utilities.GRIDSIZE));
+            bayam.getCreature().setFinalPosition(13*Utilities.GRIDSIZE, 1*Utilities.GRIDSIZE);
+            pulmosis.add(bayam);
+            Point2D pos = bayam.getCreature().position();
+            map.push(pos.X(), pos.Y(), bayam);
         }
 
     }
@@ -658,17 +671,33 @@ public class StoryLine implements Runnable,Serializable {
         this.labuDone = labuDone;
     }
 
-    /**
-     * @return the donePaprika
-     */
     public boolean isDonePaprika() {
         return donePaprika;
     }
 
-    /**
-     * @param donePaprika the donePaprika to set
-     */
     public void setDonePaprika(boolean donePaprika) {
         this.donePaprika = donePaprika;
+    }
+
+    public boolean isDoneBayam() {
+        return doneBayam;
+    }
+
+    public void setDoneBayam(boolean doneBayam) {
+        this.doneBayam = doneBayam;
+    }
+
+    /**
+     * @return the alreadyBawang
+     */
+    public boolean isAlreadyBawang() {
+        return alreadyBawang;
+    }
+
+    /**
+     * @param alreadyBawang the alreadyBawang to set
+     */
+    public void setAlreadyBawang(boolean alreadyBawang) {
+        this.alreadyBawang = alreadyBawang;
     }
 }

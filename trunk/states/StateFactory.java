@@ -44,6 +44,9 @@ public class StateFactory{
             case ParentState.PAPRIKASTATE:
                 newState = new PaprikaState(18,11);
                 break;
+            case ParentState.BAYAMSTATE:
+                newState = new BayamState(18,11);
+                break;
         }
 
         return newState;

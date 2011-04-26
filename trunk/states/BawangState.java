@@ -604,6 +604,7 @@ public void updated(){
                 i++;
                 Game.instance().setDialogBox(boces(i), panel);
             } else if (state == 13) {
+                Game.instance().getStory().setAlreadyBawang(true);
                 Game.instance().returnTo();
             }
         }
