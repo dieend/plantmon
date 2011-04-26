@@ -518,8 +518,8 @@ public void updated(){
             } else if (state == 2) {
                 i++;
                 timumun = new PulmosisLand(map,panel,g2d,PulmosisBattle.Timun);
-                timumun.getCreature().setPosition(new Point2D(7*Utilities.GRIDSIZE,4*Utilities.GRIDSIZE));
-                timumun.getCreature().setFinalPosition(7*Utilities.GRIDSIZE,4*Utilities.GRIDSIZE);
+                timumun.getCreature().setPosition(new Point2D(11*Utilities.GRIDSIZE,4*Utilities.GRIDSIZE));
+                timumun.getCreature().setFinalPosition(11*Utilities.GRIDSIZE,4*Utilities.GRIDSIZE);
                 Point2D pos = timumun.getCreature().position();
                 map.push(pos.X(), pos.Y(), timumun);
                 pos = new Point2D(6*Utilities.GRIDSIZE,4*Utilities.GRIDSIZE);
@@ -538,8 +538,8 @@ public void updated(){
                 }
                 if (!cancel[0]){
                     timumun.getCreature().setFinalPosition(5*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
+                    Game.instance().setDialogBox(boces(i), panel);
                 }
-                Game.instance().setDialogBox(boces(i), panel);
             } else if (state == 4) {
                 i++;
                 Game.instance().setDialogBox(boces(i), panel);
@@ -554,8 +554,8 @@ public void updated(){
                 }
                 if (!cancel[0]){
                     turunip.getCreature().setFinalPosition(4*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
+                    Game.instance().setDialogBox(boces(i), panel);
                 }
-                Game.instance().setDialogBox(boces(i), panel);
             } else if (state == 6) {
                 i++;
                 background.load("picture/BlackOut.png");
