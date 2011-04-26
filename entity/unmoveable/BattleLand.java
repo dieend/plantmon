@@ -62,14 +62,24 @@ public class BattleLand extends Unmoveable implements Actionable {
         boolean cek = true;
         JPopupMenu menu = new JPopupMenu();
         JMenuItem ite;
-        if (inDistance(player) && !player.isAlreadyMove()){
-            ite = new JMenuItem("move");
-            ite.addActionListener(new Move(selected));
-            menu.add(ite);
-        }
-        if (inAttackRange(player) && !player.isAlreadyAttack()){
-            ite = new JMenuItem("attack");
-            ite.addActionListener(new Attack(selected,new Point2D(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE)));
+        Object pulE = map.getTop(posisi.IntX()/Utilities.GRIDSIZE, posisi.IntY()/Utilities.GRIDSIZE);
+        if (!player.getStatusEnemy()) {
+            if (pulE instanceof PulmosisBattle) {
+                if (((PulmosisBattle) pulE).getStatusEnemy()) {
+                    if (inAttackRange(player) && !player.isAlreadyAttack()){
+                        ite = new JMenuItem("attack");
+                        ite.addActionListener(new Attack(selected,new Point2D(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE)));
+                        menu.add(ite);
+                    }
+                }
+            }
+            if (inDistance(player) && !player.isAlreadyMove()){
+                ite = new JMenuItem("move");
+                ite.addActionListener(new Move(selected));
+                menu.add(ite);
+            }
+            ite = new JMenuItem("skip");
+            ite.addActionListener(new Skip(selected));
             menu.add(ite);
         }
         
@@ -139,6 +149,16 @@ public class BattleLand extends Unmoveable implements Actionable {
             } else {
                 player.miss();
             }
+            player.resetChargeMeter();
+        }
+    }
+
+    class Skip extends RunnableListener {
+        public Skip(Selectable selected){
+            super(selected);
+        }
+        public void run() {
+            PulmosisBattle player = (PulmosisBattle) selected;
             player.resetChargeMeter();
         }
     }

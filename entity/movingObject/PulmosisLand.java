@@ -24,7 +24,7 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
     private JPanel pan;
     
     public PulmosisLand (GridMap map, JPanel panel, Graphics2D g2d, int type) {
-        super(map,panel,g2d,type,false);
+        super(map,panel,g2d,type,false,0);
         this.typePul = type;
         pan = panel;
         if (type == PulmosisBattle.Kentang) {
