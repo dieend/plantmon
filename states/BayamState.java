@@ -354,6 +354,7 @@ public void updated(){
                 Game.instance().setDialogBox(boces(i), panel);
             } else if (state == 4) {
                 Game.instance().getStory().setDoneBayam(true);
+                Game.instance().getStory().setBayamMuncul(true);
                 nanaso.move(15*Utilities.GRIDSIZE,4*Utilities.GRIDSIZE, lock, cancel);
                 synchronized(lock){
                     try {
@@ -366,6 +367,7 @@ public void updated(){
                 }
                 Game.instance().returnTo();
             } else if (state == 5) {
+                Game.instance().getStory().setDoneBayam(true);
                 Game.instance().returnTo();
             }
         }

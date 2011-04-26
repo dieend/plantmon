@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import plantmon.entity.Time;
+import plantmon.entity.movingObject.PulmosisBattle;
 import plantmon.entity.movingObject.PulmosisLand;
 import plantmon.entity.unmoveable.Kentang;
 import plantmon.entity.unmoveable.Kubis;
@@ -50,6 +51,8 @@ public class StoryLine implements Runnable,Serializable {
     boolean doneTomat;
     boolean tomatDapat;
     boolean doneNanas1;
+    boolean labuHere;
+    private boolean bayamMuncul;
     private boolean alreadyBawang;
     private boolean doneBayam;
     private boolean donePaprika;
@@ -76,6 +79,7 @@ public class StoryLine implements Runnable,Serializable {
         doneKentang = false;
         doneNanas1 = false;
         alreadyBawang = false;
+        bayamMuncul = false;
         kentang = new PulmosisLand(map,panel,null,2);
         lobak = new PulmosisLand(map,panel,null,0);
         timun =  new PulmosisLand(map,panel,null,1);
@@ -216,6 +220,7 @@ public class StoryLine implements Runnable,Serializable {
         //kentang akan muncul dan bergabung ketika sudah disiram 7 kali
         if (day >= 5 && season >= Time.SPRING) {
             if (kentang.isFullWatered() && !doneKentang) {
+                pulmosis.add(kentang);
                 Game.instance().seek(ParentState.KENTANGSTATE, null);
             }
 
@@ -352,10 +357,17 @@ public class StoryLine implements Runnable,Serializable {
             label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
             label2.setBounds(400,7,150,30);
             panelis.add(label2);
-            label3 = new JLabel ("Hello Guys... I think I have missed to coming to this land.\nBut I will do my hard to helping you\n"
-                    + "Oh yeah, my name is");
+            label3 = new JLabel ("Hello Guys... My name is Corno..");
             label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
-            label3.setBounds(101,9,450,90);
+            label3.setBounds(101,0,450,90);
+            panelis.add(label3);
+            label3 = new JLabel ("I think I have missed to coming to this land.");
+            label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label3.setBounds(101,16,450,90);
+            panelis.add(label3);
+            label3 = new JLabel ("But I will do my hard to helping you");
+            label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label3.setBounds(101,32,450,90);
             panelis.add(label3);
             
             Game.instance().setDialogBox(panelis, panel);
@@ -481,6 +493,10 @@ public class StoryLine implements Runnable,Serializable {
             pulmosis.add(labu);
         }
 
+        if (day>=16 && !isLabuDone()) {
+            map.pop(Utilities.GRIDSIZE*5, Utilities.GRIDSIZE*1);
+        }
+
         //ubi akan otomatis bergabung pada hari pertama Fall
         if (day>=1 && season>=Time.FALL && belum[10]) {
             belum[10] = false;
@@ -541,11 +557,11 @@ public class StoryLine implements Runnable,Serializable {
             Game.instance().goTo(ParentState.GAMEOVER, null);
         }
 
-        if (pulmosis.size() >= 2 && !isDoneBayam()) {
+        if (pulmosis.size() >= 12 && !isDoneBayam()) {
             Game.instance().seek(ParentState.BAYAMSTATE, null);
         }
         //bayam akan bergabung jika jumlah pulmosis di lahan sudah mencapai 12 dan menjawab 'yes' pada pertanyaannya
-        if (isDoneBayam() && belum[13]) {
+        if (isDoneBayam() && belum[13] && isBayamMuncul()) {
             belum[13] = false;
             bayam.getCreature().setPosition(new Point2D(13*Utilities.GRIDSIZE,1*Utilities.GRIDSIZE));
             bayam.getCreature().setFinalPosition(13*Utilities.GRIDSIZE, 1*Utilities.GRIDSIZE);
@@ -554,7 +570,32 @@ public class StoryLine implements Runnable,Serializable {
             map.push(pos.X(), pos.Y(), bayam);
         }
 
-        
+        for (PulmosisLand p:pulmosis) {
+            if(p.getTypePul() == PulmosisBattle.Labu) {
+                labuHere = true;
+            }
+        }
+
+        if (labuHere && belum[14]) {
+            belum[14] = false;
+            wortel.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE*6,Utilities.GRIDSIZE*0));
+            wortel.getCreature().setFinalPosition(Utilities.GRIDSIZE*6,Utilities.GRIDSIZE*0);
+            pulmosis.add(wortel);
+            Point2D pos = wortel.getCreature().position();
+            map.push(pos.X(), pos.Y(), wortel);
+            wortel.move(9*Utilities.GRIDSIZE, 1*Utilities.GRIDSIZE, lock, cancel);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){
+                }
+            }
+            if (!cancel[0]){
+                wortel.getCreature().setFinalPosition(9*Utilities.GRIDSIZE+5, 1*Utilities.GRIDSIZE+5);
+                pos = new Point2D(9*Utilities.GRIDSIZE+5,2*Utilities.GRIDSIZE+5);
+                wortel.getCreature().setArah(pos);
+            }
+        }
 
     }
 
@@ -687,5 +728,13 @@ public class StoryLine implements Runnable,Serializable {
 
     public void setDoneKentang(boolean doneKentang) {
         this.doneKentang = doneKentang;
+    }
+
+    public boolean isBayamMuncul() {
+        return bayamMuncul;
+    }
+
+    public void setBayamMuncul(boolean bayamMuncul) {
+        this.bayamMuncul = bayamMuncul;
     }
 }

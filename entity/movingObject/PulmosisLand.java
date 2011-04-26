@@ -1,13 +1,10 @@
 package plantmon.entity.movingObject;
 
-import java.awt.Font;
 import java.awt.Graphics2D;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import plantmon.game.GridMap;
-import plantmon.game.TalkPanel;
 import plantmon.states.Game;
 import plantmon.states.ParentState;
 import plantmon.system.Actionable;
