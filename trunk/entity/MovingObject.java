@@ -261,7 +261,7 @@ public abstract class MovingObject implements Drawable, Serializable{
                 }
                 if (map.getTop(i,j) instanceof MovingObject || map.getTop(i,j) instanceof Canceller || map.getTop(i, j) instanceof Plant)
                 {
-                    /*
+                    
                     if (map.getTop(i, j) instanceof Plant)
                     {
                         if ((((Plant)map.getTop(i, j)).getFase()==1) || (((Plant)map.getTop(i, j)).getFase()==6))
@@ -269,7 +269,7 @@ public abstract class MovingObject implements Drawable, Serializable{
                         else
                             tmap[i][j]=1;
                     }
-                    else*/
+                    else
                         tmap[i][j]=1;
                 }
                 //check non-land/non-destiny
