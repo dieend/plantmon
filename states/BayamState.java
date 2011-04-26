@@ -31,7 +31,7 @@ import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
 import plantmon.system.Utilities;
 
-public class PaprikaState extends ParentState implements MouseListener,MouseMotionListener, KeyListener {
+public class BayamState extends ParentState implements MouseListener,MouseMotionListener, KeyListener {
     Thread gameloop;
     GridMap map;
     JPopupMenu popup;
@@ -49,14 +49,14 @@ public class PaprikaState extends ParentState implements MouseListener,MouseMoti
     Boolean[] sudah;
     PulmosisLand nanaso;
     Boolean[] cancel = new Boolean[1];
-    public PaprikaState(int gridRow, int gridColumn) {
+    public BayamState(int gridRow, int gridColumn) {
         super(gridRow, gridColumn);
         map = new GridMap(gridRow,gridColumn);
         sudah = new Boolean[5];
         for (int j = 0; j < 5; j++) {
             sudah[j]=false;
         }
-        ID = PAPRIKASTATE;
+        ID = BAYAMSTATE;
         this.init();
         time = new JTextArea();
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -114,11 +114,13 @@ public class PaprikaState extends ParentState implements MouseListener,MouseMoti
                 }
             }
         }
-        nanaso = new PulmosisLand(map,this,g2d,PulmosisBattle.Nanas);
-        nanaso.getCreature().setPosition(new Point2D(12*Utilities.GRIDSIZE,9*Utilities.GRIDSIZE));
-        nanaso.getCreature().setFinalPosition(12*Utilities.GRIDSIZE,9*Utilities.GRIDSIZE);
+        nanaso = new PulmosisLand(map,this,g2d,PulmosisBattle.Bayam);
+        nanaso.getCreature().setPosition(new Point2D(3*Utilities.GRIDSIZE,4*Utilities.GRIDSIZE));
+        nanaso.getCreature().setFinalPosition(3*Utilities.GRIDSIZE,4*Utilities.GRIDSIZE);
         Point2D pos = nanaso.getCreature().position();
         map.push(pos.X(), pos.Y(), nanaso);
+        pos = new Point2D(3*Utilities.GRIDSIZE,3*Utilities.GRIDSIZE);
+        nanaso.getCreature().setArah(pos);
         player = new Player(map,this,g2d);
         player.getCreature().setPosition(new Point2D(3*Utilities.GRIDSIZE,3*Utilities.GRIDSIZE));
         player.getCreature().setFinalPosition(3*Utilities.GRIDSIZE,3*Utilities.GRIDSIZE);
@@ -187,9 +189,17 @@ public void updated(){
             label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
             label2.setBounds(400,7,150,30);
             panelis.add(label2);
-            label3 = new JLabel ("Hello Sir");
+            label3 = new JLabel ("Hei hei you..");
             label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
             label3.setBounds(101,0,450,90);
+            panelis.add(label3);
+            label3 = new JLabel ("You have a lot of pulmosis");
+            label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label3.setBounds(101,16,450,90);
+            panelis.add(label3);
+            label3 = new JLabel ("becoming your friends");
+            label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label3.setBounds(101,32,450,90);
             panelis.add(label3);
             but1 = new JButton ("Next");
             but1.setBounds(375,70,150,16);
@@ -202,26 +212,26 @@ public void updated(){
             //image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
             label1.setBounds(0,0,100,100);
             panelis.add(label1);
-            label2 = new JLabel("Nama : Nanaso");
+            label2 = new JLabel("Nama : ?????");
             label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
             label2.setBounds(400,7,150,30);
             panelis.add(label2);
-            label3 = new JLabel ("I think we have some problem");
+            label3 = new JLabel ("Would you like me to join you?");
             label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
             label3.setBounds(101,0,450,90);
             panelis.add(label3);
-            label3 = new JLabel ("We don't get any water now");
+            label3 = new JLabel ("I can do anything well");
             label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
             label3.setBounds(101,16,450,90);
             panelis.add(label3);
-            label3 = new JLabel ("We're very exhausted");
-            label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
-            label3.setBounds(101,32,450,90);
-            panelis.add(label3);
-            but1 = new JButton ("Next");
-            but1.setBounds(375,70,150,16);
+            but1 = new JButton ("Yes");
+            but1.setBounds(375,70,75,16);
             but1.addActionListener(new Yes(selected,i,this));
             panelis.add(but1);
+            but2 = new JButton ("No");
+            but2.setBounds(500,70,75,16);
+            but2.addActionListener(new No(selected,i,this));
+            panelis.add(but2);
         } else if (i == 3) {
             panelis.setLayout(null);
             //image1 = new ImageIcon(this.getClass().getResource("icon player.png"));
@@ -229,19 +239,19 @@ public void updated(){
             //image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
             label1.setBounds(0,0,100,100);
             panelis.add(label1);
-            label2 = new JLabel("Nama : Nanaso");
+            label2 = new JLabel("Nama : ?????");
             label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
             label2.setBounds(400,7,150,30);
             panelis.add(label2);
-            label3 = new JLabel ("Can you help us to check it??");
+            label3 = new JLabel ("Thank you sir..");
             label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
             label3.setBounds(101,0,450,90);
             panelis.add(label3);
-            label3 = new JLabel ("We need your help very much");
+            label3 = new JLabel ("I will do my best");
             label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
             label3.setBounds(101,16,450,90);
-            but1 = new JButton ("Yes");
-            but1.setBounds(375,70,75,16);
+            but1 = new JButton ("Next");
+            but1.setBounds(375,70,150,16);
             but1.addActionListener(new Yes(selected,i,this));
             panelis.add(but1);
         } else if (i == 4) {
@@ -251,17 +261,48 @@ public void updated(){
             //image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
             label1.setBounds(0,0,100,100);
             panelis.add(label1);
-            label2 = new JLabel("Nama : Nanaso");
+            label2 = new JLabel("Nama : Bayamus");
             label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
             label2.setBounds(400,7,150,30);
             panelis.add(label2);
-            label3 = new JLabel ("Thank you sir");
+            label3 = new JLabel ("Oh yeah, let me introduce myself");
             label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
             label3.setBounds(101,0,450,90);
             panelis.add(label3);
-            label3 = new JLabel ("Hope you can fix it faster");
+            label3 = new JLabel ("My name is Bayamus");
             label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
             label3.setBounds(101,16,450,90);
+            panelis.add(label3);
+            label3 = new JLabel ("Nice to meet you");
+            label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label3.setBounds(101,32,450,90);
+            panelis.add(label3);
+            but1 = new JButton ("Return");
+            but1.setBounds(375,70,150,16);
+            but1.addActionListener(new Yes(selected,i,this));
+            panelis.add(but1);
+        } else if (i == 5) {
+            panelis.setLayout(null);
+            //image1 = new ImageIcon(this.getClass().getResource("icon player.png"));
+            label1 = new JLabel();
+            //image1.setImage(image1.getImage().getScaledInstance(100, 100, Image.SCALE_FAST));
+            label1.setBounds(0,0,100,100);
+            panelis.add(label1);
+            label2 = new JLabel("Nama : ?????");
+            label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label2.setBounds(400,7,150,30);
+            panelis.add(label2);
+            label3 = new JLabel ("Oh, I'm sorry to hear thar");
+            label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label3.setBounds(101,0,450,90);
+            panelis.add(label3);
+            label3 = new JLabel ("See yaa Guys");
+            label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label3.setBounds(101,16,450,90);
+            panelis.add(label3);
+            label3 = new JLabel ("Hope you can be a better pulmo trainer");
+            label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label3.setBounds(101,32,450,90);
             panelis.add(label3);
             but1 = new JButton ("Return");
             but1.setBounds(375,70,150,16);
@@ -292,7 +333,13 @@ public void updated(){
         public void run() {
             if (state == 1) {
                 i++;
-                nanaso.move(3*Utilities.GRIDSIZE,4*Utilities.GRIDSIZE, lock, cancel);
+                Game.instance().setDialogBox(boces(i), panel);
+            } else if (state == 2) {
+                i++;
+                Game.instance().setDialogBox(boces(i), panel);
+            } else if (state == 3) {
+                i++;
+                nanaso.move(10*Utilities.GRIDSIZE,4*Utilities.GRIDSIZE, lock, cancel);
                 synchronized(lock){
                     try {
                         lock.wait();
@@ -300,20 +347,43 @@ public void updated(){
                     }
                 }
                 if (!cancel[0]){
-                    nanaso.getCreature().setFinalPosition(3*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
-                    Point2D pos = new Point2D(Utilities.GRIDSIZE*3,Utilities.GRIDSIZE*1);
+                    nanaso.getCreature().setFinalPosition(10*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
+                    Point2D pos = new Point2D(Utilities.GRIDSIZE*9,Utilities.GRIDSIZE*4);
                     nanaso.getCreature().setArah(pos);
                 }
                 Game.instance().setDialogBox(boces(i), panel);
-            } else if (state == 2) {
-                i++;
-                Game.instance().setDialogBox(boces(i), panel);
-            } else if (state == 3) {
-                i++;
-                Game.instance().setDialogBox(boces(i), panel);
             } else if (state == 4) {
-                Game.instance().getStory().setDonePaprika(true);
+                Game.instance().getStory().setDoneBayam(true);
+                nanaso.move(15*Utilities.GRIDSIZE,4*Utilities.GRIDSIZE, lock, cancel);
+                synchronized(lock){
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e){
+                    }
+                }
+                if (!cancel[0]){
+                    nanaso.getCreature().setFinalPosition(15*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
+                }
                 Game.instance().returnTo();
+            } else if (state == 5) {
+                Game.instance().returnTo();
+            }
+        }
+    }
+
+    class No extends RunnableListener {
+        int state;
+        JPanel panel;
+        public No(Selectable selected,int i,JPanel panel) {
+            super(selected);
+            state = i;
+            this.panel=panel;
+        }
+
+        public void run() {
+            if (state == 2) {
+                i=5;
+                Game.instance().setDialogBox(boces(i), panel);
             }
         }
     }
@@ -359,6 +429,6 @@ public void updated(){
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
         Game.instance().setFrame(mainFrame);
-        Game.instance().goTo(ParentState.PAPRIKASTATE,null);
+        Game.instance().goTo(ParentState.BAYAMSTATE,null);
     }
 }
