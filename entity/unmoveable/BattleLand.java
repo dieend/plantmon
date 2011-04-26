@@ -91,7 +91,7 @@ public class BattleLand extends Unmoveable implements Actionable {
             int gx = BattleLand.this.getPosition().IntX();
             int gy = BattleLand.this.getPosition().IntY();
             System.out.format("%d %d\n",gx,gy);
-            Object lock = new String("paused");
+            Object lock = new String("stop");
             Boolean[] cancel = new Boolean[1];
             player.move(gx, gy, lock,cancel);
             synchronized(lock){
@@ -115,7 +115,7 @@ public class BattleLand extends Unmoveable implements Actionable {
             PulmosisBattle player = (PulmosisBattle) selected;
             int gx = BattleLand.this.getPosition().IntX();
             int gy = BattleLand.this.getPosition().IntY();
-            Object lock = new Object();
+            Object lock = new String("stop");
             Boolean[] cancel = new Boolean[1];
             player.makeAttack();
             player.move(gx, gy, lock,cancel);

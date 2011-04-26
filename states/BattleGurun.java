@@ -11,7 +11,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import plantmon.entity.Canceller;
 import plantmon.entity.Time;
 import plantmon.entity.movingObject.PulmosisBattle;
 import plantmon.entity.unmoveable.BattleLand;
@@ -20,11 +19,10 @@ import plantmon.game.GridMap;
 import plantmon.game.ImageEntity;
 import plantmon.game.Point2D;
 import plantmon.system.Actionable;
-import plantmon.system.Selectable;
 import plantmon.system.Utilities;
 
 
-public class BattleState extends ParentState implements MouseListener,MouseMotionListener {
+public class BattleGurun extends ParentState implements MouseListener,MouseMotionListener {
     Thread gameloop;
     GridMap map;
     JPopupMenu popup;
@@ -37,30 +35,18 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
     Actionable actionated;
     int clickx,clicky,defx,defy;
     boolean dragged;
-    public BattleState(int gridRow, int gridColumn){
+    public BattleGurun(int gridRow, int gridColumn){
         super(gridRow, gridColumn);
-        ID = BATTLESTATE;
+        ID = BATTLEGURUN;
         init();
         time = new JTextArea();
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
         setLayout(null);
-        text = new JTextArea();
-        text.setBounds(0, 350, 650, 100);
-        JScrollPane pane = new JScrollPane(text);
-        pane.setBounds(0, 350, 650, 100);
 //        add(new Component() {});
 //        add(new Component() {});
 //        add(new Component() {});
 //        add(new Component() {});
-        //test.setVisible(true);
-        text.setEditable(false);
-        time.setEditable(false);
-        time.setBounds(0, 0, 200, 50);
-        time.setBackground(Color.ORANGE);
-        time.setForeground(Color.black);
-        add(pane);
-        add(time);
         //add(pane);
         addMouseMotionListener(this);
         active = true;
@@ -77,12 +63,12 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
 
     protected void init() {
         startx=0; starty=0;
-        int x = 10; int y = 10;
+        int x = 16; int y = 16;
         map = new GridMap(x,y);
         backbuffer = new BufferedImage(x*Utilities.GRIDSIZE, y*Utilities.GRIDSIZE, BufferedImage.TYPE_INT_ARGB);
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
-        background.load("picture/bg2.png");
+        background.load("picture/Gurun Island.png");
        
         PulmosisBattle player = new PulmosisBattle(map,this, g2d,1,false);
         player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT));
@@ -128,8 +114,8 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
         int j = 0;
         Time.instance().update();
         time.setText(Time.instance().getTime());
-        for (i = 0;i < 10 && found; i++) {
-            for (j = 0; j < 10 && found;j++) {
+        for (i = 0;i < map.getRow() && found; i++) {
+            for (j = 0; j < map.getColumn() && found;j++) {
                 if (map.getTop(i,j) instanceof PulmosisBattle) {
                     PulmosisBattle pul = (PulmosisBattle) map.getTop(i,j);
                     if (pul.getStatusEnemy()) {
@@ -154,7 +140,7 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
 
     public void updated(){
         g2d.setColor(Color.WHITE);
-        g2d.drawImage(background.getImage(), 0, 0,SCREENWIDTH-1,SCREENHEIGHT-1, this);
+        g2d.drawImage(background.getImage(), 0, 0, this);
         map.draw(startx,starty);
         if (selectsomething) {
             selected.drawBounds();
@@ -213,9 +199,10 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
                     // get object from where it's clicked from map
                     //actionated = (Actionable) map.getTop(gx, gy);
                     actionated = new BattleLand(gx * Utilities.GRIDSIZE + Utilities.GRIDGALAT,gy * Utilities.GRIDSIZE + Utilities.GRIDGALAT,map,this,g2d);
+
                     popup = actionated.getMenu(selected);
                     //get menu from selected
-                    if (popup != null) {
+                    if (gx < map.getRow() && gy < map.getColumn() && popup != null) {
                         popup.show(tmp.getComponent(),tmp.getX(), tmp.getY());
                     }
                 }
@@ -253,6 +240,6 @@ public class BattleState extends ParentState implements MouseListener,MouseMotio
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Game.instance().setFrame(frame);
-        Game.instance().goTo(ParentState.BATTLESTATE, args);
+        Game.instance().goTo(ParentState.BATTLEGURUN, args);
     }
 }

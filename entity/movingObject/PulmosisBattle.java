@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import plantmon.entity.MovingObject;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.game.TalkPanel;
 import plantmon.states.Game;
 import plantmon.system.Cancellable;
 import plantmon.system.Selectable;
@@ -33,6 +34,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     int range;
     int missed;
     int chargeMeter;
+    String name;
     private boolean active;
     private boolean selected;
     private boolean move;
@@ -69,35 +71,45 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             level = 3;
             range = 2;
             attackRange = 1;
+            name = "Lobak";
         } else if (tipe == Timun) {
             level = 3;
             range = 4;
             attackRange = 1;
+            name = "Timun";
         } else if (tipe == Kentang) {
             level = 5;
             range = 3;
             attackRange = 1;
+            name = "Kentang";
         } else if (tipe == Kubis) {
             level = 6;
             range = 2;
+            name = "Kubis";
         } else if (tipe == Stroberi) {
             level = 8;
             range = 1;
+            name = "Stroberi";
         } else if (tipe == Jagung) {
             level = 9;
             range = 3;
+            name = "Jagung";
         } else if (tipe == Tomat) {
             level = 10;
             range = 2;
+            name = "Tomat";
         } else if (tipe == Nanas) {
             level = 15;
             range = 2;
+            name = "Nanas";
         } else if (tipe == Bawang) {
             level = 19;
             range = 1;
+            name = "Bawang";
         } else if (tipe == Labu) {
             level = 21;
             range = 1;
+            name = "Labu";
         }
         this.tipe = tipe;
         atk = 0;
@@ -152,13 +164,13 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         JLabel label2;
         JLabel label3;
         JPanel panel;
-        panel = new JPanel();
+        panel = new TalkPanel();
         panel.setLayout(null);
 //        image1 = new ImageIcon(this.getClass().getResource("player.jpg"));
         label1 = new JLabel(image1);
         label1.setBounds(0,0,100,100);
         panel.add(label1);
-        label2 = new JLabel("Nama : " + Game.instance().getName());
+        label2 = new JLabel("Nama : " + name);
         label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
         label2.setBounds(120,0,150,30);
         panel.add(label2);

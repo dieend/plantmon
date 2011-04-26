@@ -32,6 +32,7 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
             watered = false;
         }
     }
+    @Override public void drawArea(){}
     
     public JPopupMenu getMenu(Selectable selected){
         if (selected instanceof Player){

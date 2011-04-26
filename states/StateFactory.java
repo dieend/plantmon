@@ -17,8 +17,8 @@ public class StateFactory{
             case ParentState.HOME:
                 newState = new HomeState(args);
                 break;
-            case ParentState.BATTLESTATE:
-                newState = new BattleState(10,10);
+            case ParentState.BATTLEGURUN:
+                newState = new BattleGurun(16,16);
                 break;
             case ParentState.STORE:
                 newState = new StoreState(args);
