@@ -43,21 +43,21 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     boolean enemy;
     double miss;
     private int attackRange;
-    public static final int Lobak = 0;
-    public static final int Timun = 1;
-    public static final int Kentang = 2;
-    public static final int Kubis = 3;
-    public static final int Stroberi = 4;
-    public static final int Jagung = 5;
-    public static final int Tomat = 6;
-    public static final int Nanas = 7;
-    public static final int Bawang = 8;
-    public static final int Labu = 9;
-    public static final int Ubi = 10;
-    public static final int Terong = 11;
-    public static final int Paprika = 12;
-    public static final int Bayam = 13;
-    public static final int Wortel = 14;
+    public static final int Lobak = 0;  //thunderpunch easy(3)
+    public static final int Timun = 1;  //healing easy(3)
+    public static final int Kentang = 2;//speedup easy(3)
+    public static final int Kubis = 3;  //thunderpunch(3)
+    public static final int Stroberi = 4;//healing easy(3)
+    public static final int Jagung = 5;//speedup easy(3)
+    public static final int Tomat = 6;  //thunderpunch easy(3)
+    public static final int Nanas = 7; //healing easy(3)
+    public static final int Bawang = 8; //speedup advance(2)
+    public static final int Labu = 9;   //thunderpunch advance(2)
+    public static final int Ubi = 10;  //healing advance(2)
+    public static final int Terong = 11;//speedup advance(2)
+    public static final int Paprika = 12;//thunderpunch mega(1)
+    public static final int Bayam = 13;  //healing mega(1)
+    public static final int Wortel = 14; //speedup mega(1)
 
     public static final int easy=-1;
     public static final int medium=-2;
@@ -81,6 +81,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
 
     //code 9 untuk boss
     public static final int megabadpumpkin=-10;//all tipe
+    private int specialtotal;
 
     public int getTipe(){
         return tipe;
@@ -278,6 +279,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             creature.graphics().drawString("miss", position().IntX(), position().IntY());
             missed--;
         }
+        
     }
     
     @Override public void drawBounds() {
@@ -542,6 +544,10 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             }
         }
         exp = exp % 30;
+    }
+
+    public int getMaxHP(){
+        return  level + atk * 2 + def;
     }
 
     public boolean getStatusEnemy () {
