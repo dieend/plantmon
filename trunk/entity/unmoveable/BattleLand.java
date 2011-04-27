@@ -78,6 +78,7 @@ public class BattleLand extends Unmoveable implements Actionable {
                     if (player.getTipe()==PulmosisBattle.Timun){
                         System.out.println("YA IYALAH");
                         ite = new JMenuItem("HEALING");
+                        ite.addActionListener(new Healing(selected, new Point2D(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE)));
                         menu.add(ite);
                     }
                }
@@ -173,8 +174,14 @@ public class BattleLand extends Unmoveable implements Actionable {
             PulmosisBattle player = (PulmosisBattle) selected;
             int gx = BattleLand.this.getPosition().IntX();
             int gy = BattleLand.this.getPosition().IntY();
-            Object lock = new String("stop");
-            Boolean[] cancel = new Boolean[1];
+//            Object lock = new String("stop");
+//            Boolean[] cancel = new Boolean[1];
+
+            Object pbhealed = map.getTop(posisi.IntX() , posisi.IntY());
+            ((PulmosisBattle)pbhealed).setHP(1000);
+            System.out.println("HEALED, new HP : " + ((PulmosisBattle)pbhealed).getHP());
+
+            /*
             player.makeAttack();
             player.move(gx, gy, lock,cancel);
             synchronized(lock){
@@ -196,7 +203,7 @@ public class BattleLand extends Unmoveable implements Actionable {
                 }
             } else {
                 player.miss();
-            }
+            }*/
             player.resetChargeMeter();
         }
     }
