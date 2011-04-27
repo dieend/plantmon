@@ -29,6 +29,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     int atk;
     int def;
     int agi;
+    public int tagi;;
     int exp;
     int attacked;
     int dmg;
@@ -36,6 +37,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     int missed;
     int healed;
     int thundered;
+    int speedup;
     int chargeMeter;
     String name;
     private boolean active;
@@ -342,22 +344,31 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             creature.graphics().drawString("  /\\/\\/\\/\\", position().IntX(), position().IntY()+25);
             creature.graphics().drawString("  /\\/\\/\\/\\", position().IntX(), position().IntY()+35);
             creature.graphics().setColor(oldcolor);
-            creature.setImage(null);
             thundered--;
-//            creature.set
-            
-            
-            
-            /*
-            load("picture/pulmo_1_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_1_");
-            creature.setVelocity(new Point2D(0,0));
-            creature.setFrameDelay(1);
-            
-            load("picture/pulmo_1_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_1_");
-            creature.setVelocity(new Point2D(0,0));
-            creature.setFrameDelay(1);*/
+        }
+        if (speedup > 0){
+            Color oldcolor = creature.graphics().getColor();
+            creature.graphics().setColor(Color.ORANGE);
+            creature.graphics().drawString(" ~~", position().IntX()-15, position().IntY()+30);
+            creature.graphics().drawString(" ~~", position().IntX()-15, position().IntY()+32);
+            creature.graphics().drawString(" ~~", position().IntX()-15, position().IntY()+35);
+            creature.graphics().drawString("~~~", position().IntX()-15, position().IntY()+38);
+            creature.graphics().drawString("~~~", position().IntX()-15, position().IntY()+40);
+            creature.graphics().drawString("~~~", position().IntX()-15, position().IntY()+42);
+            creature.graphics().drawString("~~~", position().IntX()-15, position().IntY()+45);
+
+            creature.graphics().drawString("~~", position().IntX()+38, position().IntY()+30);
+            creature.graphics().drawString("~~", position().IntX()+38, position().IntY()+32);
+            creature.graphics().drawString("~~", position().IntX()+38, position().IntY()+35);
+            creature.graphics().drawString("~~~", position().IntX()+38, position().IntY()+38);
+            creature.graphics().drawString("~~~", position().IntX()+38, position().IntY()+40);
+            creature.graphics().drawString("~~~", position().IntX()+38, position().IntY()+42);
+            creature.graphics().drawString("~~~", position().IntX()+38, position().IntY()+45);
+            creature.graphics().setColor(oldcolor);
+            speedup--;
+            setAgi(tagi);
+        }else{
+            setAgi();
         }
         
     }
@@ -558,7 +569,10 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     public void doThunder(){
         thundered=100;
     }
-    
+
+    public void doSpeedup(int time){
+        speedup=time;
+    }
     public void setDamage (int i) {
         dmg = i;
     }
@@ -605,6 +619,11 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
 
     public void setAgi () {
         agi = (level * 4 + def + 10) * 12/100;
+        tagi = agi;
+    }
+
+    public void setAgi (int nagi){
+        agi = nagi;
     }
 
     public void attackUp () {

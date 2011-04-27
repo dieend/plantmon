@@ -72,14 +72,14 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         background = new ImageEntity(this);
         background.load("picture/Gurun Island.png");
 
-        PulmosisBattle player = new PulmosisBattle(map,this, g2d,0,false,0);
+        PulmosisBattle player = new PulmosisBattle(map,this, g2d,8,false,0);
         player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT));
         player.getCreature().setFinalPosition(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT);
         PulmosisBattle player2 = new PulmosisBattle(map,this, g2d,-8,true,player.level);
         player2.getCreature().setPosition(new Point2D(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
         player2.getCreature().setFinalPosition(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
 
-        PulmosisBattle player3 = new PulmosisBattle(map,this, g2d,2,false,0);
+        PulmosisBattle player3 = new PulmosisBattle(map,this, g2d,14,false,0);
         player3.getCreature().setPosition(new Point2D(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
         player3.getCreature().setFinalPosition(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
         
