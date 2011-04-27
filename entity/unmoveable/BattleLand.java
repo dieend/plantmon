@@ -80,6 +80,9 @@ public class BattleLand extends Unmoveable implements Actionable {
                         ite = new JMenuItem("HEALING");
                         ite.addActionListener(new Healing(selected, new Point2D(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE)));
                         menu.add(ite);
+                        if (player.specialtotal<1){
+                            ite.setEnabled(false); 
+                        }
                     }
                }
                //////////////////////////
@@ -176,11 +179,13 @@ public class BattleLand extends Unmoveable implements Actionable {
             int gy = BattleLand.this.getPosition().IntY();
 //            Object lock = new String("stop");
 //            Boolean[] cancel = new Boolean[1];
-
-            Object pbhealed = map.getTop(posisi.IntX() , posisi.IntY());
-            ((PulmosisBattle)pbhealed).setHP(((PulmosisBattle)pbhealed).getMaxHP());
-            ((PulmosisBattle)pbhealed).doHealing();
-            System.out.println("HEALED, new HP : " + ((PulmosisBattle)pbhealed).getHP());
+            if (player.specialtotal>0){
+                Object pbhealed = map.getTop(posisi.IntX() , posisi.IntY());
+                ((PulmosisBattle)pbhealed).setHP(((PulmosisBattle)pbhealed).getMaxHP());
+                ((PulmosisBattle)pbhealed).doHealing();
+                player.specialtotal--;
+                System.out.println("HEALED, new HP : " + ((PulmosisBattle)pbhealed).getHP());
+            }
 
             /*
             player.makeAttack();

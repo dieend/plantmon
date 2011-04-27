@@ -52,7 +52,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     public static final int Jagung = 5;//speedup easy(3)
     public static final int Tomat = 6;  //thunderpunch easy(3)
     public static final int Nanas = 7; //healing easy(3)
-    public static final int Bawang = 8; //speedup advance(2)
+    public static final int Bawang = 8; //speedup advance(3)
     public static final int Labu = 9;   //thunderpunch advance(2)
     public static final int Ubi = 10;  //healing advance(2)
     public static final int Terong = 11;//speedup advance(2)
@@ -82,7 +82,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
 
     //code 9 untuk boss
     public static final int megabadpumpkin=-10;//all tipe
-    private int specialtotal;
+    public  int specialtotal;
 
     public int getTipe(){
         return tipe;
@@ -117,64 +117,79 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                 range = 2;
                 attackRange = 1;
                 name = "Lobak";
+                specialtotal=3;
             } else if (tipe == Timun) {
                 level = 3;
                 range = 4;
                 attackRange = 1;
                 name = "Timun";
+                specialtotal=3;
             } else if (tipe == Kentang) {
                 level = 5;
                 range = 3;
                 attackRange = 1;
                 name = "Kentang";
+                specialtotal=3;
             } else if (tipe == Kubis) {
                 level = 6;
                 range = 2;
                 name = "Kubis";
+                specialtotal=3;
             } else if (tipe == Stroberi) {
                 level = 8;
                 range = 1;
                 name = "Stroberi";
+                specialtotal=3;
             } else if (tipe == Jagung) {
                 level = 9;
                 range = 3;
                 name = "Jagung";
+                specialtotal=3;
             } else if (tipe == Tomat) {
                 level = 10;
                 range = 2;
                 name = "Tomat";
+                specialtotal=3;
             } else if (tipe == Nanas) {
                 level = 15;
                 range = 2;
                 name = "Nanas";
+                specialtotal=3;
             } else if (tipe == Bawang) {
                 level = 19;
                 range = 1;
                 name = "Bawang";
+                specialtotal=3;
             } else if (tipe == Labu) {
                 level = 21;
                 range = 1;
                 name = "Labu";
+                specialtotal=2;
             } else if (tipe == Ubi) {
                 level = 22;
                 range = 3;
                 name = "Ubi";
-            } else if (tipe == Paprika) {
-                level = 23;
-                range = 2;
-                name = "Paprika";
+                specialtotal=2;
             } else if (tipe == Terong) {
                 level = 23;
                 range = 2;
                 name = "Terong";
+                specialtotal=2;
+            } else if (tipe == Paprika) {
+                level = 23;
+                range = 2;
+                name = "Paprika";
+                specialtotal=1;
             } else if (tipe == Bayam) {
                 level = 24;
                 range = 3;
                 name = "Bayam";
+                specialtotal=1;
             } else if (tipe == Wortel) {
                 level = 24;
                 range = 1;
                 name = "Wortel";
+                specialtotal=1;
             }
         }else
         {
