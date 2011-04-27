@@ -124,8 +124,6 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         boolean founden = true;
         int i = 0;
         int j = 0;
-        Time.instance().update();
-        time.setText(Time.instance().getTime());
         Object lock = new String("stop");
         Boolean[] cancel = new Boolean[1];
         cancel[0] = true;
