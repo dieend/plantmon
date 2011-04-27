@@ -32,7 +32,7 @@ public class Time implements Serializable{
         }
         return time;
     }
-    Time(){
+    public Time(){
         season = SPRING;
         year = 1;
         month = 1;
