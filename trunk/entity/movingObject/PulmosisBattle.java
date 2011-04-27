@@ -618,6 +618,26 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         }
         return cm;
     }
+
+    public Point2D minPoint(int xp,int yp,int xdes,int ydes){
+        Point2D mp=null;
+        int length=0;
+        int i,j;
+        int row = map.getRow()*Utilities.GRIDSIZE;
+        int col = map.getColumn()*Utilities.GRIDSIZE;
+        for(i=0;i<row;i+=Utilities.GRIDSIZE){
+            for(j=0;j<col;j+=Utilities.GRIDSIZE){
+                if (isInMap(i, j) && isInRange(xp, yp, attackRange, xdes, ydes)){
+                    int templength=Math.abs(xdes-i)+Math.abs(ydes-j);
+                    if (length<templength){
+                        length=templength;
+                        mp = new Point2D(i,j);
+                    }
+                }
+            }
+        }
+        return mp;
+    }
     
     public void nextMove(){
         instantiateALPB();
@@ -638,8 +658,17 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             
             if (isInRange(this.position().IntX(), this.position().IntY(),attackRange , ce.IntX(), ce.IntY())){
 //                delaymove();
-                attackAI(en); 
+                attackAI(en);
                 System.out.println("IN RANGE//ATTACKKKKK!!!!");
+                
+                if (tipe<=-7 && tipe>=-10){
+                    Point2D mp = minPoint(this.position().IntX(), this.position().IntY(), ce.IntX(), ce.IntY());
+                    if (mp!=null){
+                        this.move(mp.IntX(), mp.IntY(), lock, cancel); 
+                    }
+                }
+                
+                
             }else{System.out.println("NOT IN ATTACK RANGE");
                 Point2D cm = closestMove(this.position().IntX(), this.position().IntY(), range, ce.IntX(), ce.IntY());
                 System.out.println("ICBATTAK : " +iscanbeattacked);
@@ -696,7 +725,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                map.pop(enemy.position().IntX(), enemy.position().IntY());
                this.levelUp(12);
            }
-           this.resetChargeMeter();
+//           this.resetChargeMeter();
     }
 
     public void performALPB(){
