@@ -45,22 +45,21 @@ public class GameOver extends ParentState{
         background.load("picture/Rumah.png");
         buttonNew = new JButton("New Game");
         buttonNew.setLayout(null);
-        buttonNew.setBounds(100, 245, 150, 20);
+        buttonNew.setBounds(245, 300, 150, 20);
         buttonNew.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                 Game.instance().goTo(ParentState.HOME,new Object[0]);
                 }
         });
         add(buttonNew);
-        buttonLoad = new JButton("New Game");
+        buttonLoad = new JButton("Load Game");
         buttonLoad.setLayout(null);
-        buttonLoad.setBounds(200, 245, 150, 20);
+        buttonLoad.setBounds(245, 350, 150, 20);
         buttonLoad.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                 Game.instance().load("tes.txt");
                 }
         });
         add(buttonLoad);
-
     }
 }

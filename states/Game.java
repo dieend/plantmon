@@ -309,7 +309,6 @@ public class Game implements Serializable{
             ob.writeObject(Time.instance());
             ob.close();
         } catch (IOException ex){
-            System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             ex.printStackTrace();
         } 
     }

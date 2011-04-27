@@ -36,7 +36,8 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
     Actionable actionated;
     int clickx,clicky,defx,defy;
     boolean dragged;
-    public BattleGurun(int gridRow, int gridColumn){
+    Object[] pulmos;
+    public BattleGurun(int gridRow, int gridColumn, Object[] args){
         super(gridRow, gridColumn);
         ID = BATTLEGURUN;
         init();
@@ -51,7 +52,7 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         //add(pane);
         addMouseMotionListener(this);
         active = true;
-
+        this.pulmos = args;
     }
     private URL getURL(String filename) {
         URL url = null;

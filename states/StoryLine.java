@@ -597,6 +597,10 @@ public class StoryLine implements Runnable,Serializable {
             }
         }
 
+        if (day == 30 && season == Time.FALL) {
+            Game.instance().goTo(ParentState.FINALSTATE, null);
+        }
+
     }
 
     public void run() {
@@ -657,8 +661,8 @@ public class StoryLine implements Runnable,Serializable {
         return kentang;
     }
 
-    public Boolean[] getWinBattle() {
-        return winBattle;
+    public Boolean getWinBattle(int i) {
+        return winBattle[i];
     }
 
     public void setWinBattle(Boolean winBattle, int i) {
