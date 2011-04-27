@@ -32,9 +32,17 @@ public class MapState extends ParentState implements MouseListener{
         background = new ImageEntity(this);
         background.load("picture/worldmap.png");
         
-
-        map.gpush(5,1, new Portal(map, this, g2d, 5, 1));
-        map.gpush(6,4, new Portal(map, this, g2d, 6, 4));
+        if (Game.instance().getStory().isDoneKentang() && Game.instance().getStory().getDay() <= 30 && Game.instance().getStory().getSeason() == Time.SPRING) {
+            map.gpush(5,1, new Portal(map, this, g2d, 5, 1));
+        }
+        if (Game.instance().getStory().isDoneNanas1() && Game.instance().getStory().getDay() < 21 && Game.instance().getStory().getSeason() == Time.SUMMER) {
+            map.gpush(2,7, new Portal(map, this, g2d, 2, 7));
+        }
+        if (Game.instance().getStory().isDonePaprika() && Game.instance().getStory().getDay() < 30 && Game.instance().getStory().getSeason() == Time.FALL) {
+            map.gpush(11,4, new Portal(map, this, g2d, 11, 4));
+        }
+        map.gpush(9, 7, new Portal(map, this, g2d, 9, 7));
+        map.gpush(6, 4, new Portal(map, this, g2d, 6, 4));
         addMouseListener(this);
         time.setEditable(false);
         time.setBounds(0, 0, 200, 50);
@@ -63,9 +71,6 @@ public class MapState extends ParentState implements MouseListener{
     public void updated(){
         g2d.drawImage(background.getImage(), 0, 0,SCREENWIDTH-1,SCREENHEIGHT-1, this);
         map.draw(0,0);
-        if (selectsomething) {
-            selected.drawBounds();
-        }
         g2d.drawImage(a,80,80,80,80, this);
     }
     @Override public void paintComponent(Graphics g) {
@@ -88,8 +93,25 @@ public class MapState extends ParentState implements MouseListener{
                     if (gx == 6 && gy == 4) {
                         Game.instance().goTo(ParentState.FARMSTATE,new Object[0]);
                         selectsomething = true;
-                    } else if (gx == 5 && gy == 1) {
-                        Game.instance().goTo(ParentState.SELECTPULMOSIS,new Object[0]);
+                    } else if (map.getTop(gx, gy) instanceof Portal && gx == 5 && gy == 1) {
+                        Object[] as= new Integer[1];
+                        as[0] = 0;
+                        Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
+                        selectsomething = true;
+                    } else if (map.getTop(gx, gy) instanceof Portal && gx == 2 && gy == 7) {
+                        Object[] as= new Integer[1];
+                        as[0] = 1;
+                        Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
+                        selectsomething = true;
+                    } else if (map.getTop(gx, gy) instanceof Portal && gx == 11 && gy == 4) {
+                        Object[] as= new Integer[1];
+                        as[0] = 2;
+                        Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
+                        selectsomething = true;
+                    } else if (map.getTop(gx, gy) instanceof Portal && gx == 9 && gy == 7) {
+                        Object[] as= new Integer[1];
+                        as[0] = 3;
+                        Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
                         selectsomething = true;
                     } else {
                         selectsomething = true;
@@ -102,8 +124,25 @@ public class MapState extends ParentState implements MouseListener{
                     if (gx == 6 && gy == 4) {
                         Game.instance().goTo(ParentState.FARMSTATE,new Object[0]);
                         selectsomething = true;
-                    } else if (gx == 5 && gy == 1) {
-                        Game.instance().goTo(ParentState.BATTLEGURUN,new Object[0]);
+                    } else if (map.getTop(gx, gy) instanceof Portal && gx == 5 && gy == 1) {
+                        Object[] as= new Integer[1];
+                        as[0] = 0;
+                        Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
+                        selectsomething = true;
+                    } else if (map.getTop(gx, gy) instanceof Portal && gx == 2 && gy == 7) {
+                        Object[] as= new Integer[1];
+                        as[0] = 1;
+                        Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
+                        selectsomething = true;
+                    } else if (map.getTop(gx, gy) instanceof Portal && gx == 11 && gy == 4) {
+                        Object[] as= new Integer[1];
+                        as[0] = 2;
+                        Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
+                        selectsomething = true;
+                    } else if (map.getTop(gx, gy) instanceof Portal && gx == 9 && gy == 7) {
+                        Object[] as= new Integer[1];
+                        as[0] = 3;
+                        Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
                         selectsomething = true;
                     } else {
                         selectsomething = true;

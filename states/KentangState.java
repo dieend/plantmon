@@ -245,7 +245,7 @@ public void updated(){
             panelis.add(label3);
             label3 = new JLabel ("My land was attacked by Kububis");
             label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
-            label3.setBounds(101,16,450,90);
+            label3.setBounds(101,32,450,90);
             panelis.add(label3);
             but1 = new JButton ("Next");
             but1.setBounds(375,70,150,16);
