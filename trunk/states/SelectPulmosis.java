@@ -5,13 +5,16 @@
 
 package plantmon.states;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import plantmon.entity.movingObject.PulmosisLand;
+import plantmon.game.ImageEntity;
 
 /**
  *
@@ -26,6 +29,10 @@ public class SelectPulmosis extends ParentState {
         ID = SELECTPULMOSIS;
         initComponents();
         pulmos = new PulmosisLand[3];
+        backbuffer = new BufferedImage(640,480, BufferedImage.TYPE_INT_ARGB);
+        g2d = backbuffer.createGraphics();
+        background = new ImageEntity(this);
+        background.load("picture/Gurun_Battle_Field.png");
         count = 0;
     }
 
@@ -50,16 +57,19 @@ public class SelectPulmosis extends ParentState {
         for(int i = 0; i <3; i++) {
             if (pulmos[i] instanceof PulmosisLand) {
                 jPanel2.add(((PulmosisLand) pulmos[i]).get_Info());
+                jPanel2.setVisible(true);
             }
         }
     }
     
     public void updated(){
+        g2d.drawImage(background.getImage(), 0, 0, this);
     }
     
     @Override public void paintComponent(Graphics g) {
 //        System.out.println("paintComponent - CobaOpeh");
         updated();
+        g.drawImage(backbuffer,0, 0, this);
     }
 
     @SuppressWarnings("unchecked")
@@ -73,19 +83,21 @@ public class SelectPulmosis extends ParentState {
         jButton2 = new javax.swing.JButton();
 
         this.setLayout(null);
+        this.setBackground(Color.red);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(new GridLayout(15,2));
         for (PulmosisLand p:Game.instance().getStory().getPulmosis()) {
-            JButton a = new JButton(""+p.getName());
+            final JButton a = new JButton(""+p.getName());
             this.pulmo = p;
             a.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (count < 3) {
                     pulmos[count] = pulmo;
                     count++;
+                    a.setEnabled(false);
                 } else {
                 }
             }
@@ -114,8 +126,9 @@ public class SelectPulmosis extends ParentState {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel1.setText("Pulmosis -- (Choose three of them)");
+        jLabel1.setForeground(Color.RED);
         this.add(jLabel1);
-        jLabel1.setBounds(10, 11, 213, 38);
+        jLabel1.setBounds(10, 24, 213, 38);
 
         jButton1.setText("Delete");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
