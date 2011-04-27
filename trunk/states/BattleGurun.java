@@ -78,6 +78,11 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         PulmosisBattle player2 = new PulmosisBattle(map,this, g2d,-8,true,player.level);
         player2.getCreature().setPosition(new Point2D(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
         player2.getCreature().setFinalPosition(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
+
+        PulmosisBattle player3 = new PulmosisBattle(map,this, g2d,2,false,0);
+        player3.getCreature().setPosition(new Point2D(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
+        player3.getCreature().setFinalPosition(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
+        
         for (int i=0; i<map.getRow();i++){
             for (int j=0; j<map.getColumn(); j++){
                 map.gpush(i, j, new Land(map, this, g2d,i,j));
@@ -89,6 +94,10 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         pos = player2.getCreature().position();
         //map.gpush(2, 2, new Pulmosis(map,this,g2d,0,true));
         map.push(pos.X(), pos.Y(), player2);
+
+        pos=player3.getCreature().position();
+        map.push(pos.X(), pos.Y(), player3);
+        
         addMouseListener(this);
     }
     @Override

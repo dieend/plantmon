@@ -82,6 +82,10 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     //code 9 untuk boss
     public static final int megabadpumpkin=-10;//all tipe
 
+    public int getTipe(){
+        return tipe;
+    }
+
     ArrayList<PulmosisBattle> alpb = new ArrayList<PulmosisBattle>();
     public boolean isAlreadyMove(){
         return move;
@@ -220,8 +224,8 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                     name="blacklobak";
                 }else if (tipe==blackjagung)
                 {
-                    range=level+4;
-                    attackRange=level+4;
+                    range=level-1;
+                    attackRange=level-1;
                     name="blackjagung";
                 }else if (tipe==blacknanas)
                 {
