@@ -63,6 +63,13 @@ public class BattleLand extends Unmoveable implements Actionable {
         JPopupMenu menu = new JPopupMenu();
         JMenuItem ite;
         Object pulE = map.getTop(posisi.IntX()/Utilities.GRIDSIZE, posisi.IntY()/Utilities.GRIDSIZE);
+        if (player.position().IntX()==posisi.IntX() && player.position().IntY()==posisi.IntY()){
+            ite = new JMenuItem("");
+            if (player.getTipe()==PulmosisBattle.Kentang){
+                ite.setText("Clock Up");
+                menu.add(ite);
+            }
+        }
         if (!player.getStatusEnemy()) {
             if (pulE instanceof PulmosisBattle) {
                 if (((PulmosisBattle) pulE).getStatusEnemy()) {
@@ -71,13 +78,39 @@ public class BattleLand extends Unmoveable implements Actionable {
                         ite.addActionListener(new Attack(selected,new Point2D(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE)));
                         menu.add(ite);
                     }
+
+                    //TAMBAHKAN FUNGSI THUNDERPUNCH
+                    if (inAttackRange(player) && !player.isAlreadyAttack()){
+                        if (player.getTipe()==PulmosisBattle.Lobak || player.getTipe()==PulmosisBattle.Kubis || player.getTipe()==PulmosisBattle.Tomat || player.getTipe()==PulmosisBattle.Labu || player.getTipe()==PulmosisBattle.Paprika){
+                            ite = new JMenuItem("");
+                            if (player.getTipe()==PulmosisBattle.Lobak || player.getTipe()==PulmosisBattle.Kubis){
+                                ite.setText("THUNDER PUNCH");
+                            }else if (player.getTipe()==PulmosisBattle.Tomat || player.getTipe()==PulmosisBattle.Labu){
+                                ite.setText("LIGHTNING SCISSOR");
+                            }else if (player.getTipe()==PulmosisBattle.Paprika){
+                                ite.setText("MAGNA STORM");
+                            }
+                            ite.addActionListener(new Thunder(selected, new Point2D(posisi.IntX()/Utilities.GRIDSIZE,posisi.IntY()/Utilities.GRIDSIZE))); 
+                            menu.add(ite);
+                            if (player.specialtotal<1){
+                                ite.setEnabled(false); 
+                            }
+                        }
+                    }
                }
 
                //TAMBAHKAN FUNGSI HEALING
                if (!((PulmosisBattle)pulE).getStatusEnemy()) {
-                    if (player.getTipe()==PulmosisBattle.Timun){
-                        System.out.println("YA IYALAH");
-                        ite = new JMenuItem("HEALING");
+                    if (player.getTipe()==PulmosisBattle.Timun || player.getTipe()==PulmosisBattle.Stroberi || player.getTipe()==PulmosisBattle.Nanas || player.getTipe()==PulmosisBattle.Ubi || player.getTipe()==PulmosisBattle.Bawang){
+//                        System.out.println("YA IYALAH");
+                        ite = new JMenuItem("");
+                        if (player.getTipe()==PulmosisBattle.Timun || player.getTipe()==PulmosisBattle.Stroberi){
+                            ite.setText("HEALING");
+                        }else if(player.getTipe()==PulmosisBattle.Ubi || player.getTipe()==PulmosisBattle.Nanas){
+                            ite.setText("MEGA HEALING");
+                        }else if(player.getTipe()==PulmosisBattle.Bayam){
+                            ite.setText("COLOSAL LIFE");
+                        }
                         ite.addActionListener(new Healing(selected, new Point2D(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE)));
                         menu.add(ite);
                         if (player.specialtotal<1){
@@ -139,17 +172,18 @@ public class BattleLand extends Unmoveable implements Actionable {
             PulmosisBattle player = (PulmosisBattle) selected;
             int gx = BattleLand.this.getPosition().IntX();
             int gy = BattleLand.this.getPosition().IntY();
-            Object lock = new String("stop");
-            Boolean[] cancel = new Boolean[1];
-            player.makeAttack();
-            player.move(gx, gy, lock,cancel);
-            synchronized(lock){
-                try {
-                    lock.wait();
-                } catch (InterruptedException e){
-                    return;
-                }
-            }
+
+//            Object lock = new String("stop");
+//            Boolean[] cancel = new Boolean[1];
+//            player.makeAttack();
+//            player.move(gx, gy, lock,cancel);
+//            synchronized(lock){
+//                try {
+//                    lock.wait();
+//                } catch (InterruptedException e){
+//                    return;
+//                }
+//            }
 //            System.out.println("HP:"+enemy.getHP());
             
 //            System.out.println("HP:"+enemy.getHP());
@@ -242,6 +276,82 @@ public class BattleLand extends Unmoveable implements Actionable {
             player.resetChargeMeter();
         }
     }
+
+class Thunder extends RunnableListener {
+        Point2D posisi;
+        public Thunder(Selectable selected,Point2D posisi){
+            super(selected);
+            this.posisi = posisi;
+        }
+        public void run() {
+            PulmosisBattle player = (PulmosisBattle) selected;
+            int gx = BattleLand.this.getPosition().IntX();
+            int gy = BattleLand.this.getPosition().IntY();
+
+//            Object lock = new String("stop");
+//            Boolean[] cancel = new Boolean[1];
+//            player.makeAttack();
+//            player.move(gx, gy, lock,cancel);
+//            synchronized(lock){
+//                try {
+//                    lock.wait();
+//                } catch (InterruptedException e){
+//                    return;
+//                }
+//            }
+//            System.out.println("HP:"+enemy.getHP());
+
+//            System.out.println("HP:"+enemy.getHP());
+            Object enemy = map.getTop(posisi.IntX(), posisi.IntY());
+            if (enemy instanceof PulmosisBattle){
+                PulmosisBattle pulEn = (PulmosisBattle)map.getTop(posisi.IntX(), posisi.IntY());
+                if (player.defaultspecialtotal==3){
+                    player.setHP(player.getHP()-20);
+                    pulEn.doThunder();
+                    if (pulEn.getHP()<=0){
+                        map.pop(gx, gy); 
+                    }
+                }
+                if (player.defaultspecialtotal==2){
+                    if (pulEn.getHP()>(pulEn.getMaxHP()*3/4)){
+                        pulEn.setHP(pulEn.getHP()-(pulEn.getMaxHP()/3));
+                    }else{
+                        pulEn.setHP(pulEn.getHP()/2);
+                    }
+                    System.out.println("L SCISSOR");
+                    pulEn.doThunder();
+                }
+                if (player.defaultspecialtotal==1){
+                    int i,j;
+                    for(i=0;i<map.getRow();++i){
+                        for(j=0;j<map.getColumn();++j){
+                            if (map.getTop(i, j) instanceof PulmosisBattle){
+                                pulEn = (PulmosisBattle)map.getTop(i, j);
+                                if (pulEn.getStatusEnemy()){
+                                    if (pulEn.getHP()>(pulEn.getMaxHP()*3/4)){
+                                        pulEn.setHP(pulEn.getHP()-(pulEn.getMaxHP()/3));
+                                    }else{
+                                        pulEn.setHP(pulEn.getHP()/3);
+                                    }
+                                    pulEn.doThunder();
+                                }
+                            }
+                        }
+                    }
+                }
+//                player.doDamage((PulmosisBattle)enemy);
+                if (((PulmosisBattle)enemy).getHP() <= 0) {
+                    map.pop(gx, gy);
+                    player.levelUp(12);
+                }
+                player.specialtotal--;
+            } else {
+                player.miss();
+            }
+            player.resetChargeMeter();
+        }
+    }
+
 
     class Skip extends RunnableListener {
         public Skip(Selectable selected){
