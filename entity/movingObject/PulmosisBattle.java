@@ -627,9 +627,10 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         int col = map.getColumn()*Utilities.GRIDSIZE;
         for(i=0;i<row;i+=Utilities.GRIDSIZE){
             for(j=0;j<col;j+=Utilities.GRIDSIZE){
-                if (isInMap(i, j) && isInRange(xp, yp, attackRange, xdes, ydes)){
+                if (isInMap(i, j) && isInRange(i, j, attackRange, xdes, ydes)){
                     int templength=Math.abs(xdes-i)+Math.abs(ydes-j);
                     if (length<templength){
+                        System.out.println("kemungkinan : " + i + "-" +j);
                         length=templength;
                         mp = new Point2D(i,j);
                     }
@@ -661,12 +662,13 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                 attackAI(en);
                 System.out.println("IN RANGE//ATTACKKKKK!!!!");
                 
-//                if (tipe<=-7 && tipe>=-10){
-//                    Point2D mp = minPoint(this.position().IntX(), this.position().IntY(), ce.IntX(), ce.IntY());
-//                    if (mp!=null){
-//                        this.move(mp.IntX(), mp.IntY(), lock, cancel);
-//                    }
-//                }
+                if (tipe<=-7 && tipe>=-10){
+                    Point2D mp = minPoint(this.position().IntX(), this.position().IntY(), ce.IntX(), ce.IntY());
+                    if (mp!=null){
+                        System.out.println("SAFE POINT : " + mp.IntX() + "-" + mp.IntY());
+                        this.move(mp.IntX(), mp.IntY(), lock, cancel);
+                    }
+                }
                 
                 
             }else{System.out.println("NOT IN ATTACK RANGE");
