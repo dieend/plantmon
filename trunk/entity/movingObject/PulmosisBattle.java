@@ -417,18 +417,18 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == Tomat) {
-            load("picture/pulmo_5_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_5_");
+            load("picture/pulmo_8_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_8_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == Kentang) {
-            load("picture/pulmo_5_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_5_");
+            load("picture/pulmo_10_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_10_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == Kubis) {
-            load("picture/pulmo_5_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_5_");
+            load("picture/pulmo_10_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_10_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == Stroberi) {
@@ -437,8 +437,8 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == Jagung) {
-            load("picture/pulmo_5_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_5_");
+            load("picture/pulmo_7_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_7_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == Bawang) {
@@ -447,38 +447,33 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == Nanas) {
-            load("picture/pulmo_5_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_5_");
+            load("picture/pulmo_10_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_10_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == Ubi) {
-            load("picture/pulmo_5_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_5_");
+            load("picture/pulmo_10_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_10_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == Terong) {
-            load("picture/pulmo_5_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_5_");
+            load("picture/pulmo_10_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_10_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == Labu) {
-            load("picture/pulmo_5_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_5_");
+            load("picture/pulmo_9_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_9_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == Bayam) {
-            load("picture/pulmo_5_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_5_");
+            load("picture/pulmo_10_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_10_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == Wortel) {
-            load("picture/pulmo_5_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_5_");
-            creature.setVelocity(new Point2D(0,0));
-            creature.setFrameDelay(1);
-        } else if (this.tipe == Tomat) {
-            load("picture/pulmo_5_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_5_");
+            load("picture/pulmo_6_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_6_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == peach) {
@@ -498,17 +493,17 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             creature.setFrameDelay(1);
         } else if (this.tipe == cranberry) {
             load("picture/pulmo_17_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_17_");
+            creature.setImageName("picture/pulmo_19_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == blueberry) {
             load("picture/pulmo_16_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_16_");
+            creature.setImageName("picture/pulmo_22_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == barberry) {
             load("picture/pulmo_16_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_16_");
+            creature.setImageName("picture/pulmo_21_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == blacklobak) {
@@ -518,17 +513,17 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             creature.setFrameDelay(1);
         } else if (this.tipe == blackjagung) {
             load("picture/pulmo_16_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_16_");
+            creature.setImageName("picture/pulmo_5_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == blacknanas) {
             load("picture/pulmo_19_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_19_");
+            creature.setImageName("picture/pulmo_3_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         } else if (this.tipe == megabadpumpkin) {
             load("picture/pulmo_16_", 4,1,48,48);
-            creature.setImageName("picture/pulmo_16_");
+            creature.setImageName("picture/pulmo_9_");
             creature.setVelocity(new Point2D(0,0));
             creature.setFrameDelay(1);
         }
