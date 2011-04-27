@@ -18,8 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import plantmon.entity.movingObject.Player;
-import plantmon.entity.movingObject.PulmosisBattle;
-import plantmon.entity.movingObject.PulmosisLand;
 import plantmon.entity.unmoveable.Land;
 import plantmon.entity.unmoveable.Road;
 import plantmon.game.GridMap;

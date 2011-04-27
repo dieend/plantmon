@@ -39,6 +39,7 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
     Object[] pulmos;
     public BattleGurun(int gridRow, int gridColumn, Object[] args){
         super(gridRow, gridColumn);
+        this.pulmos = args;
         ID = BATTLEGURUN;
         init();
         time = new JTextArea();
@@ -52,7 +53,6 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         //add(pane);
         addMouseMotionListener(this);
         active = true;
-        this.pulmos = args;
     }
     private URL getURL(String filename) {
         URL url = null;
@@ -71,7 +71,7 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
         background.load("picture/Gurun Island.png");
-       
+
         PulmosisBattle player = new PulmosisBattle(map,this, g2d,1,false,0);
         player.getCreature().setPosition(new Point2D(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT));
         player.getCreature().setFinalPosition(Utilities.GRIDSIZE + Utilities.GRIDGALAT,Utilities.GRIDSIZE + Utilities.GRIDGALAT);
@@ -82,14 +82,15 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
             for (int j=0; j<map.getColumn(); j++){
                 map.gpush(i, j, new Land(map, this, g2d,i,j));
             }
+            Point2D pos = player.getCreature().position();
+            //map.gpush(1, 1, new Pulmosis(map,this,g2d,1,false));
+            map.push(pos.X(), pos.Y(), player);
+            pos = player2.getCreature().position();
+            //map.gpush(2, 2, new Pulmosis(map,this,g2d,0,true));
+            map.push(pos.X(), pos.Y(), player2);
+            addMouseListener(this);
         }
-        Point2D pos = player.getCreature().position();
-        //map.gpush(1, 1, new Pulmosis(map,this,g2d,1,false));
-        map.push(pos.X(), pos.Y(), player);
-        pos = player2.getCreature().position();
-        //map.gpush(2, 2, new Pulmosis(map,this,g2d,0,true));
-        map.push(pos.X(), pos.Y(), player2);
-        addMouseListener(this);
+        
     }
     @Override
     public void run(){
