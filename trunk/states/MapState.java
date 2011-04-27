@@ -89,7 +89,7 @@ public class MapState extends ParentState implements MouseListener{
                         Game.instance().goTo(ParentState.FARMSTATE,new Object[0]);
                         selectsomething = true;
                     } else if (gx == 5 && gy == 1) {
-                        Game.instance().goTo(ParentState.BATTLEGURUN,new Object[0]);
+                        Game.instance().goTo(ParentState.SELECTPULMOSIS,new Object[0]);
                         selectsomething = true;
                     } else {
                         selectsomething = true;

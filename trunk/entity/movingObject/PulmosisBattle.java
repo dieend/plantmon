@@ -709,6 +709,10 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         return name;
     }
 
+    public void setEnemy(boolean ene) {
+        enemy = ene;
+    }
+
 //    public void delaymove(){
 //        int i,j=0;
 //        if (tipe==peach || tipe==papaya || tipe==kiwifruit){
