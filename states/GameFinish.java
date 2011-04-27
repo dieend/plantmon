@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import plantmon.entity.Time;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.ImageEntity;
 
@@ -93,7 +94,9 @@ public class GameFinish extends ParentState{
             buttonNew.setBounds(245, 300, 150, 20);
             buttonNew.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                    Game.instance().goTo(ParentState.HOME,new Object[0]);
+                        Time t = new Time();
+                        Time.instance().load(t);
+                        Game.instance().goTo(ParentState.HOME,new Object[0]);
                     }
             });
             add(buttonNew);

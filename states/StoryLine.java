@@ -561,7 +561,7 @@ public class StoryLine implements Runnable,Serializable {
             Game.instance().goTo(ParentState.GAMEOVER, null);
         }
 
-        if (pulmosis.size() >= 2 && !isDoneBayam()) {
+        if (pulmosis.size() >= 12 && !isDoneBayam()) {
             Game.instance().seek(ParentState.BAYAMSTATE, null);
         }
         //bayam akan bergabung jika jumlah pulmosis di lahan sudah mencapai 12 dan menjawab 'yes' pada pertanyaannya

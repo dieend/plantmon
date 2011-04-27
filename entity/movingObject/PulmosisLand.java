@@ -1,10 +1,13 @@
 package plantmon.entity.movingObject;
 
+import java.awt.Font;
 import java.awt.Graphics2D;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import plantmon.game.GridMap;
+import plantmon.game.TalkPanel;
 import plantmon.states.Game;
 import plantmon.states.ParentState;
 import plantmon.system.Actionable;
@@ -22,14 +25,22 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
     
     public PulmosisLand (GridMap map, JPanel panel, Graphics2D g2d, int type) {
         super(map,panel,g2d,type,false,0);
+        this.pan = panel;
         this.typePul = type;
-        pan = panel;
         if (type == PulmosisBattle.Kentang) {
             sumWater  = 0;
             watered = false;
         }
     }
     @Override public void drawArea(){}
+
+    @Override
+    public void reinit (GridMap map, Graphics2D g2d, JPanel panel) {
+        super.map = map;
+        super.setGraphic(g2d);
+        super.setPanel(panel);
+        this.pan = panel;
+    }
     
     public JPopupMenu getMenu(Selectable selected){
         if (selected instanceof Player){
@@ -110,6 +121,62 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
             }
             if (tipe == PulmosisBattle.Labu) {
                 Game.instance().seek(ParentState.LABUSTATE,null);
+            } else if (tipe == PulmosisBattle.Lobak) {
+                JLabel label1;
+                JLabel label2;
+                JLabel label3;
+                JPanel panelis;
+                panelis = new TalkPanel();
+                panelis.setLayout(null);
+                label1 = new JLabel();
+                label1.setBounds(0,0,100,100);
+                panelis.add(label1);
+                label2 = new JLabel("Nama : " + Game.instance().getName());
+                label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
+                label2.setBounds(400,7,150,30);
+                panelis.add(label2);
+                label3 = new JLabel ("Hello Guys... My name is Corno..");
+                label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+                label3.setBounds(101,0,450,90);
+                panelis.add(label3);
+                label3 = new JLabel ("I think I have missed to coming to this land.");
+                label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+                label3.setBounds(101,16,450,90);
+                panelis.add(label3);
+                label3 = new JLabel ("But I will do my hard to helping you");
+                label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+                label3.setBounds(101,32,450,90);
+                panelis.add(label3);
+
+                Game.instance().setDialogBox(panelis, pan);
+            } else if (tipe == PulmosisBattle.Timun) {
+                JLabel label1;
+                JLabel label2;
+                JLabel label3;
+                JPanel panelis;
+                panelis = new TalkPanel();
+                panelis.setLayout(null);
+                label1 = new JLabel();
+                label1.setBounds(0,0,100,100);
+                panelis.add(label1);
+                label2 = new JLabel("Nama : " + Game.instance().getName());
+                label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
+                label2.setBounds(400,7,150,30);
+                panelis.add(label2);
+                label3 = new JLabel ("Hello Guys... My name is Corno..");
+                label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+                label3.setBounds(101,0,450,90);
+                panelis.add(label3);
+                label3 = new JLabel ("I think I have missed to coming to this land.");
+                label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+                label3.setBounds(101,16,450,90);
+                panelis.add(label3);
+                label3 = new JLabel ("But I will do my hard to helping you");
+                label3.setFont(new Font("Times New Roman", Font.BOLD, 16));
+                label3.setBounds(101,32,450,90);
+                panelis.add(label3);
+
+                Game.instance().setDialogBox(panelis, pan);
             }
         }
     }
