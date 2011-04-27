@@ -22,6 +22,7 @@ import plantmon.system.Utilities;
 
 public class PulmosisBattle extends MovingObject implements Cancellable,
                                                     Selectable{
+    boolean iscanbeattacked=false;
     int tipe;
     int HP;
     public int level;
@@ -219,8 +220,8 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                     name="blacklobak";
                 }else if (tipe==blackjagung)
                 {
-                    range=level-1;
-                    attackRange=level;
+                    range=level+4;
+                    attackRange=level+4;
                     name="blackjagung";
                 }else if (tipe==blacknanas)
                 {
@@ -228,6 +229,10 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                     attackRange=level-1;
                     name="blacknanas";
                 }
+            }else if (tipe==megabadpumpkin){
+                this.level=levelpb+5;
+                range=level+1;
+                name="megabadpumpkin";
             }
         }
         atk = 0;
@@ -566,6 +571,10 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         return ((gx>=0) && (gx<=map.getRow()) && (gy>=0) && (gy<=map.getColumn()));
     }
 
+    public int minattackrange(int xp,int yp,int xdes,int ydes){
+        return Math.abs(xdes-xp)+Math.abs(ydes-yp);
+    }
+
     public Point2D closestMove(int xp,int yp,int range,int xdes,int ydes){
         Point2D cm=null;
         int length=map.getColumn()*Utilities.GRIDSIZE;
@@ -576,17 +585,35 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         int xf=xp+(range*Utilities.GRIDSIZE);
         int yf=yp+(range*Utilities.GRIDSIZE);
         System.out.println(x0 + "-" + y0 + "  :  " + xf + "-" + yf);
+        iscanbeattacked=false;
         
         for(i=x0;i<=xf;i+=Utilities.GRIDSIZE){
             for(j=y0;j<=yf;j+=Utilities.GRIDSIZE){
                 if (isInMap(i, j) && isInRange(i, j, range, xp, yp)){
-                    System.out.println("qualified : " + i + "," + j);
+//                    System.out.println("qualified : " + i + "," + j);
                     templength=Math.abs(xdes-i)+Math.abs(ydes-j);
+
+                        if (tipe<=-4 && tipe>=-10){
+                            System.out.println("TYPE " + tipe);
+                                if (templength==(attackRange*Utilities.GRIDSIZE)){
+                                    length=templength;
+                                    cm = new Point2D(i,j);
+                                    System.out.println("TEMUKAN MINIMUM : " + cm.IntX() + "," + cm.IntY());
+                                    iscanbeattacked=true;
+                                    System.out.println("Foundmin = true");
+                                    break;
+                                }
+                            }
+
+                    
                     if (length>templength){
                         length=templength;
                         cm = new Point2D(i, j);
                     }
                 }
+            }
+            if (iscanbeattacked){
+                break;
             }
         }
         return cm;
@@ -595,28 +622,65 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     public void nextMove(){
         instantiateALPB();
         if (!alpb.isEmpty()){
+            
             System.out.println("This is it :");
             performALPB();
             Object lock = new String("stop");
             Boolean[] cancel = new Boolean[1];
-            cancel[0] = true;
+            cancel[0] = false;
             PulmosisBattle en=alpb.get(0); 
             
             Point2D ce=closestEn(en);
-
+            
             System.out.println("COOR AWAL :"+ this.position().IntX() + " - " + this.position().IntY());
             System.out.println("COOR AKHIR :"+ ce.IntX() + " - " + ce.IntY());
             System.out.println("RANGE : " + range);
-
-            if (isInRange(this.position().IntX(), this.position().IntY(),range , ce.IntX(), ce.IntY())){
+            
+            if (isInRange(this.position().IntX(), this.position().IntY(),attackRange , ce.IntX(), ce.IntY())){
+//                delaymove();
                 attackAI(en); 
                 System.out.println("IN RANGE//ATTACKKKKK!!!!");
-            }else{System.out.println("NOT IN RANGE");
+            }else{System.out.println("NOT IN ATTACK RANGE");
                 Point2D cm = closestMove(this.position().IntX(), this.position().IntY(), range, ce.IntX(), ce.IntY());
+                System.out.println("ICBATTAK : " +iscanbeattacked);
                 if (cm!=null)
                 {
                     System.out.println("CLOSEST MOVE : " + cm.IntX() + " - " + cm.IntY());
+                    System.out.println("POSISI attacker :" + this.position().IntX() + "-" + this.position().IntY());
+//                    delaymove();
                     this.move(cm.IntX(), cm.IntY(), lock, cancel);
+                    /*
+                    synchronized(lock){
+                        try{
+                            lock.wait();
+                        }catch(InterruptedException ie){
+                        }
+                    }
+                    if(!cancel[0]) {
+                        this.getCreature().setFinalPosition(cm.IntX(), cm.IntY());
+                    }*/
+//                    while (! (cm.IntX()==this.position().IntX() && cm.IntY()==this.position().IntY())){
+//
+//                    }
+//                    System.out.println("MOVING TO ATTACK");
+//                    System.out.println("POSISI attacker :" + this.getCreature().position().IntX() + "-" + this.getCreature().position().IntY());
+//                    System.out.println("POSISI attacked :" + ce.IntX() + "-" + ce.IntY());
+//                    System.out.println("ATKRANGE : " + attackRange);
+//                    if (iscanbeattacked){
+//                        System.out.println("BISA MENYERANG");
+//                        attackAI(en);
+//                        iscanbeattacked=false;
+//                    }else{
+//                        System.out.println("TIDAK BISA MENYERANG");
+//                    }
+                    
+                    if (isInRange(this.position().IntX(), this.position().IntY(), attackRange, ce.IntX(), ce.IntY())){
+                        System.out.println("MOVE ATTACK");
+                        attackAI(en);
+                        System.out.println("IN MOVE//ATTACKKKKK!!!!");
+                    }else{
+                        System.out.println("FAILED MOVE ATTACK");
+                    }
                 }else{
                     System.out.println("HIHI");
                     this.move(cm.IntX(), cm.IntY(), lock, cancel);
@@ -644,4 +708,19 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     public String getName() {
         return name;
     }
+
+//    public void delaymove(){
+//        int i,j=0;
+//        if (tipe==peach || tipe==papaya || tipe==kiwifruit){
+//            for(i=0;i<22000;++i){
+//                j+=2;
+//                System.out.println(j);
+//            }
+//        }else if (tipe==cranberry || tipe==blueberry || tipe==barberry){
+//            for(i=0;i<10000;++i){
+//                j+=2;
+//                System.out.println(j);
+//            }
+//        }
+//    }
 }
