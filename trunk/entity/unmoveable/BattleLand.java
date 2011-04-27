@@ -181,8 +181,37 @@ public class BattleLand extends Unmoveable implements Actionable {
 //            Boolean[] cancel = new Boolean[1];
             if (player.specialtotal>0){
                 Object pbhealed = map.getTop(posisi.IntX() , posisi.IntY());
-                ((PulmosisBattle)pbhealed).setHP(((PulmosisBattle)pbhealed).getMaxHP());
-                ((PulmosisBattle)pbhealed).doHealing();
+                PulmosisBattle pbh = (PulmosisBattle)pbhealed;
+                if (player.defaultspecialtotal==3){
+                    if (pbh.getHP()+20>pbh.getMaxHP()){
+                        pbh.setHP(pbh.getMaxHP());
+                    }else{
+                        pbh.setHP(pbh.getHP()+20);
+                    }
+                    pbh.doHealing();
+                }
+                if (player.defaultspecialtotal==2){
+                    pbh.setHP(pbh.getMaxHP());
+                    pbh.doHealing();
+                }
+                if (player.defaultspecialtotal==1){
+                    int i,j;
+                    for(i=0;i<map.getRow();++i){
+                        for(j=0;j<map.getColumn();++j){
+                            if (map.getTop(i, j) instanceof PulmosisBattle){
+                                PulmosisBattle pulFriend = (PulmosisBattle)map.getTop(i, j);
+                                if (!pulFriend.getStatusEnemy()){
+                                    pulFriend.setHP(pulFriend.getMaxHP());
+                                    pulFriend.doHealing();
+                                }
+                            }
+                        }
+                    }
+                }
+                
+//                ((PulmosisBattle)pbhealed).setHP(((PulmosisBattle)pbhealed).getMaxHP());
+//                ((PulmosisBattle)pbhealed).doHealing();
+
                 player.specialtotal--;
                 System.out.println("HEALED, new HP : " + ((PulmosisBattle)pbhealed).getHP());
             }
