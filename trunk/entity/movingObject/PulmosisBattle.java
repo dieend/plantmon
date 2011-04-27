@@ -35,6 +35,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     int range;
     int missed;
     int healed;
+    int thundered;
     int chargeMeter;
     String name;
     private boolean active;
@@ -50,9 +51,9 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     public static final int Kubis = 3;  //thunderpunch(3)
     public static final int Stroberi = 4;//healing easy(3)
     public static final int Jagung = 5;//speedup easy(3)
-    public static final int Tomat = 6;  //thunderpunch easy(3)
-    public static final int Nanas = 7; //healing easy(3)
-    public static final int Bawang = 8; //speedup advance(3)
+    public static final int Tomat = 6;  //thunderpunch advance(2)
+    public static final int Nanas = 7; //healing advance(2)
+    public static final int Bawang = 8; //speedup advance(2)
     public static final int Labu = 9;   //thunderpunch advance(2)
     public static final int Ubi = 10;  //healing advance(2)
     public static final int Terong = 11;//speedup advance(2)
@@ -116,7 +117,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             if (tipe == Lobak) {
                 level = 3;
                 range = 2;
-                attackRange = 1;
+                attackRange = 3;
                 name = "Lobak";
                 specialtotal=3;
                 defaultspecialtotal=3;
@@ -128,80 +129,93 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                 specialtotal=3;
                 defaultspecialtotal=3;
             } else if (tipe == Kentang) {
-                level = 5;
+                level = 3;
                 range = 3;
-                attackRange = 1;
+                attackRange = 2;
                 name = "Kentang";
                 specialtotal=3;
                 defaultspecialtotal=3;
             } else if (tipe == Kubis) {
-                level = 6;
-                range = 2;
+                level = 3;
+                range = 1;
+                attackRange = 2;
                 name = "Kubis";
                 specialtotal=3;
                 defaultspecialtotal=3;
             } else if (tipe == Stroberi) {
-                level = 8;
-                range = 1;
+                level = 3;
+                range = 5;
+                attackRange = 1;
                 name = "Stroberi";
                 specialtotal=3;
                 defaultspecialtotal=3;
             } else if (tipe == Jagung) {
-                level = 9;
+                level = 3;
                 range = 3;
+                attackRange = 3;
                 name = "Jagung";
                 specialtotal=3;
                 defaultspecialtotal=3;
             } else if (tipe == Tomat) {
-                level = 10;
-                range = 2;
+                level = 4;
+                range = 3;
+                attackRange = 3;
                 name = "Tomat";
-                specialtotal=3;
-                defaultspecialtotal=3;
+                specialtotal=2;
+                defaultspecialtotal=2;
             } else if (tipe == Nanas) {
-                level = 15;
-                range = 2;
+                level = 4;
+                range = 4;
+                attackRange = 2;
                 name = "Nanas";
-                specialtotal=3;
-                defaultspecialtotal=3;
+                specialtotal=2;
+                defaultspecialtotal=2;
             } else if (tipe == Bawang) {
-                level = 19;
-                range = 1;
+                level = 4;
+                range = 2;
+                attackRange = 4;
                 name = "Bawang";
-                specialtotal=3;
+                specialtotal=2;
+                defaultspecialtotal=2;
             } else if (tipe == Labu) {
-                level = 21;
-                range = 1;
+                level = 4;
+                range = 4;
+                attackRange = 3;
                 name = "Labu";
                 specialtotal=2;
                 defaultspecialtotal=2;
             } else if (tipe == Ubi) {
-                level = 22;
-                range = 3;
+                level = 4;
+                range = 5;
+                attackRange = 2;
                 name = "Ubi";
                 specialtotal=2;
                 defaultspecialtotal=2;
             } else if (tipe == Terong) {
-                level = 23;
+                level = 4;
                 range = 2;
+                attackRange = 5;
                 name = "Terong";
                 specialtotal=2;
                 defaultspecialtotal=2;
             } else if (tipe == Paprika) {
-                level = 23;
-                range = 2;
+                level = 5;
+                range = 4;
+                attackRange = 5;
                 name = "Paprika";
                 specialtotal=1;
                 defaultspecialtotal=1;
             } else if (tipe == Bayam) {
-                level = 24;
-                range = 3;
+                level = 5;
+                range = 6;
+                attackRange = 3;
                 name = "Bayam";
                 specialtotal=1;
                 defaultspecialtotal=1;
             } else if (tipe == Wortel) {
-                level = 24;
-                range = 1;
+                level = 5;
+                range = 3;
+                attackRange = 6;
                 name = "Wortel";
                 specialtotal=1;
                 defaultspecialtotal=1;
@@ -210,40 +224,40 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         {
             if (tipe==peach || tipe==papaya || tipe==kiwifruit)
             {
-                this.level=levelpb-1;
+                this.level=levelpb-2;
                 if (tipe==peach)
                 {
-                    range=level-1;
-                    attackRange=level-2;
+                    range=2;
+                    attackRange=3;
                     name="peach";
                 }else if (tipe==papaya)
                 {
-                    range=level-2;
-                    attackRange=level;
+                    range=4;
+                    attackRange=1;
                     name="papaya";
                 }else if (tipe==kiwifruit)
                 {
-                    range=level+1;
-                    attackRange=level-1;
+                    range=1;
+                    attackRange=4;
                     name="kiwifruit";
                 }
             }else  if (tipe==cranberry || tipe==blueberry || tipe==barberry)
             {
-                this.level=levelpb;
+                this.level=levelpb-1;
                 if (tipe==cranberry)
                 {
-                    range=level-1;
-                    attackRange=level-2;
+                    range=3;
+                    attackRange=4;
                     name="cranberry";
                 }else if (tipe==blueberry)
                 {
-                    range=level-2;
-                    attackRange=level;
+                    range=5;
+                    attackRange=1;
                     name="blueberry";
                 }else if (tipe==barberry)
                 {
-                    range=level+1;
-                    attackRange=level-1;
+                    range=1;
+                    attackRange=5;
                     name="barberry";
                 }
             }else if (tipe==blacklobak || tipe==blackjagung || tipe==blacknanas)
@@ -251,23 +265,24 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                 this.level=levelpb;
                 if (tipe==blacklobak)
                 {
-                    range=level+1;
-                    attackRange=level-2;
+                    range=4;
+                    attackRange=4;
                     name="blacklobak";
                 }else if (tipe==blackjagung)
                 {
-                    range=level+1;
-                    attackRange=level+2;
+                    range=6;
+                    attackRange=2;
                     name="blackjagung";
                 }else if (tipe==blacknanas)
                 {
-                    range=level+1;
-                    attackRange=level-1;
+                    range=2;
+                    attackRange=6;
                     name="blacknanas";
                 }
             }else if (tipe==megabadpumpkin){
-                this.level=levelpb+5;
-                range=level+1;
+                this.level=levelpb+1;
+                range=5;
+                attackRange=5;
                 name="megabadpumpkin";
             }
         }
@@ -317,6 +332,32 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             creature.graphics().setColor(oldcolor); 
             
             healed--;
+        }
+        if (thundered > 0){
+            Color oldcolor = creature.graphics().getColor();
+            creature.graphics().setColor(Color.blue);
+            creature.graphics().drawString(""+this.getHP() + "/\\/\\/\\/\\", position().IntX(), position().IntY());
+            creature.graphics().drawString("  /\\/\\/\\/\\", position().IntX(), position().IntY()+5);
+            creature.graphics().drawString("  /\\/\\/\\/\\", position().IntX(), position().IntY()+15);
+            creature.graphics().drawString("  /\\/\\/\\/\\", position().IntX(), position().IntY()+25);
+            creature.graphics().drawString("  /\\/\\/\\/\\", position().IntX(), position().IntY()+35);
+            creature.graphics().setColor(oldcolor);
+            creature.setImage(null);
+            thundered--;
+//            creature.set
+            
+            
+            
+            /*
+            load("picture/pulmo_1_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_1_");
+            creature.setVelocity(new Point2D(0,0));
+            creature.setFrameDelay(1);
+            
+            load("picture/pulmo_1_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_1_");
+            creature.setVelocity(new Point2D(0,0));
+            creature.setFrameDelay(1);*/
         }
         
     }
@@ -513,6 +554,11 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     public void doHealing(){
        healed=100;
     }
+
+    public void doThunder(){
+        thundered=100;
+    }
+    
     public void setDamage (int i) {
         dmg = i;
     }
@@ -899,7 +945,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                map.pop(enemy.position().IntX(), enemy.position().IntY());
                this.levelUp(12);
            }
-//           this.resetChargeMeter();
+           this.resetChargeMeter();
     }
 
     public void performALPB(){
