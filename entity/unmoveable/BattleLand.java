@@ -178,7 +178,8 @@ public class BattleLand extends Unmoveable implements Actionable {
 //            Boolean[] cancel = new Boolean[1];
 
             Object pbhealed = map.getTop(posisi.IntX() , posisi.IntY());
-            ((PulmosisBattle)pbhealed).setHP(1000);
+            ((PulmosisBattle)pbhealed).setHP(((PulmosisBattle)pbhealed).getMaxHP());
+            ((PulmosisBattle)pbhealed).doHealing();
             System.out.println("HEALED, new HP : " + ((PulmosisBattle)pbhealed).getHP());
 
             /*

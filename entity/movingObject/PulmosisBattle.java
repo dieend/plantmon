@@ -34,6 +34,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     int dmg;
     int range;
     int missed;
+    int healed;
     int chargeMeter;
     String name;
     private boolean active;
@@ -279,6 +280,14 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             creature.graphics().drawString("miss", position().IntX(), position().IntY());
             missed--;
         }
+        if (healed > 0){
+            Color oldcolor = creature.graphics().getColor();
+            creature.graphics().setColor(Color.green);
+            creature.graphics().drawString(""+this.getHP(), position().IntX(), position().IntY());
+            creature.graphics().setColor(oldcolor); 
+            
+            healed--;
+        }
         
     }
     
@@ -471,6 +480,9 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         pulmo.setHP(HP);
     }
 
+    public void doHealing(){
+       healed=100;
+    }
     public void setDamage (int i) {
         dmg = i;
     }
