@@ -18,7 +18,7 @@ public class StateFactory{
                 newState = new HomeState(args);
                 break;
             case ParentState.BATTLEGURUN:
-                newState = new BattleGurun(16,16);
+                newState = new BattleGurun(16,16,args);
                 break;
             case ParentState.STORE:
                 newState = new StoreState(args);
@@ -49,6 +49,15 @@ public class StateFactory{
                 break;
             case ParentState.KENTANGSTATE:
                 newState = new KentangState(18,11);
+                break;
+            case ParentState.FINALSTATE:
+                newState = new FinalState(18,11);
+                break;
+            case ParentState.GAMEFINISH:
+                newState = new GameFinish(args);
+                break;
+            case ParentState.SELECTPULMOSIS:
+                newState = new SelectPulmosis(args);
                 break;
         }
 

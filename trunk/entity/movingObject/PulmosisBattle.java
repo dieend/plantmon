@@ -101,6 +101,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     
     public PulmosisBattle(GridMap map, JPanel panel, Graphics2D g2d, int tipe, boolean en,int levelpb) {
         super(map,panel,g2d);
+        this.tipe = tipe;
         init();
         if (!en)
         {
@@ -229,8 +230,6 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                 }
             }
         }
-        
-        this.tipe = tipe;
         atk = 0;
         attacked = 0;
         miss = 0.05;
@@ -300,11 +299,17 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     }
     @Override public void init() {
         //inisiasi semua variable disini.
-
-        load("picture/anim", 4,1,32,32);
-        creature.setImageName("picture/anim");
-        creature.setVelocity(new Point2D(0,0));
-        creature.setFrameDelay(1);
+        if (this.tipe == Lobak) {
+            load("picture/pulmo_1_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_1_");
+            creature.setVelocity(new Point2D(0,0));
+            creature.setFrameDelay(1);
+        } else {
+            load("picture/pulmo_2_", 4,1,48,48);
+            creature.setImageName("picture/pulmo_2_");
+            creature.setVelocity(new Point2D(0,0));
+            creature.setFrameDelay(1);
+        }
     }
     public void move(int gx,int gy,Object lock,Boolean[] cancel){
         move = true;
@@ -634,5 +639,9 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         for(int i=0;i<alpb.size();++i){
             System.out.println(alpb.get(i).position().IntX() + " - " + alpb.get(i).position().IntY());
         }
+    }
+
+    public String getName() {
+        return name;
     }
 }

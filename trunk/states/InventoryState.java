@@ -12,10 +12,12 @@
 package plantmon.states;
 
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import plantmon.entity.Inventory;
 import plantmon.entity.movingObject.Player;
+import plantmon.entity.movingObject.PulmosisLand;
 
 /**
  *
@@ -121,18 +123,11 @@ public class InventoryState extends ParentState {
         jTabbedPane6.addTab("Item", jTabbedPane1); // NOI18N
 
         Pulmosis.setName("Pulmosis"); // NOI18N
-
-        javax.swing.GroupLayout PulmosisLayout = new javax.swing.GroupLayout(Pulmosis);
-        Pulmosis.setLayout(PulmosisLayout);
-        PulmosisLayout.setHorizontalGroup(
-            PulmosisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 635, Short.MAX_VALUE)
-        );
-        PulmosisLayout.setVerticalGroup(
-            PulmosisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 378, Short.MAX_VALUE)
-        );
-
+        Pulmosis.setLayout(new java.awt.GridLayout(15, 4));
+        pulmo = Game.instance().getStory().getPulmosis();
+        for (PulmosisLand p:pulmo) {
+            Pulmosis.add(new JLabel(""+p.getName()));
+        }
         jTabbedPane6.addTab("Pulmosis", Pulmosis); // NOI18N
 
         jLabel1.setText("Money"); // NOI18N
@@ -188,6 +183,7 @@ public class InventoryState extends ParentState {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private Inventory farm;
+    private ArrayList<PulmosisLand> pulmo;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
