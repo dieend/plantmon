@@ -241,8 +241,8 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                     name="blacklobak";
                 }else if (tipe==blackjagung)
                 {
-                    range=level-1;
-                    attackRange=level-1;
+                    range=level+1;
+                    attackRange=level+2;
                     name="blackjagung";
                 }else if (tipe==blacknanas)
                 {
