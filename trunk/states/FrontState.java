@@ -29,7 +29,7 @@ public class FrontState extends ParentState{
         backbuffer = new BufferedImage(640,480, BufferedImage.TYPE_INT_ARGB);
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
-        background.load("picture/Rumah.png");
+        background.load("picture/Splash Screen 1.png");
         play = 30;
         i = 1;
     }
@@ -98,7 +98,7 @@ public class FrontState extends ParentState{
             buttonLoad.setBounds(245, 350, 150, 20);
             buttonLoad.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                    Game.instance().goTo(ParentState.HOME,new Object[0]);
+                        Game.instance().load("tes.txt");
                     }
             });
             add(buttonNew);

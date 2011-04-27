@@ -59,6 +59,18 @@ public class StateFactory{
             case ParentState.SELECTPULMOSIS:
                 newState = new SelectPulmosis(args);
                 break;
+            case ParentState.BATTLEPRAMA:
+                newState = new BattlePrama(16,16,args);
+                break;
+            case ParentState.BATTLESEPTU:
+                newState = new BattleSeptu(16,16,args);
+                break;
+            case ParentState.BATTLENOVAN:
+                newState = new BattleNovan(16,16,args);
+                break;
+            case ParentState.LASTBATTLE:
+                newState = new LastBattle(16,16,args);
+                break;
         }
 
         return newState;

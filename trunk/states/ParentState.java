@@ -38,6 +38,10 @@ public class ParentState extends JPanel implements Runnable{
     public static final int FINALSTATE = 15;
     public static final int GAMEFINISH = 16;
     public static final int SELECTPULMOSIS = 17;
+    public static final int BATTLEPRAMA = 18;
+    public static final int BATTLESEPTU = 19;
+    public static final int BATTLENOVAN = 20;
+    public static final int LASTBATTLE = 21;
     public ParentState(){
     }
 

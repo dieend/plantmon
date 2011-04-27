@@ -24,8 +24,10 @@ public class SelectPulmosis extends ParentState {
     private int count;
     Object [] pulmos;
     PulmosisLand pulmo;
+    Object[] inte;
     public SelectPulmosis(Object[] args) {
         super();
+        inte = args;
         ID = SELECTPULMOSIS;
         initComponents();
         pulmos = new PulmosisLand[3];
@@ -92,16 +94,7 @@ public class SelectPulmosis extends ParentState {
         for (PulmosisLand p:Game.instance().getStory().getPulmosis()) {
             final JButton a = new JButton(""+p.getName());
             this.pulmo = p;
-            a.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                if (count < 3) {
-                    pulmos[count] = pulmo;
-                    count++;
-                    a.setEnabled(false);
-                } else {
-                }
-            }
-        });
+            a.addActionListener(new Click(p,a));
             jPanel1.add(a);
         }
 
@@ -130,15 +123,16 @@ public class SelectPulmosis extends ParentState {
         this.add(jLabel1);
         jLabel1.setBounds(10, 24, 213, 38);
 
-        jButton1.setText("Delete");
+        jButton1.setText("Exit Area");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         this.add(jButton1);
-        jButton1.setBounds(300, 400, 150, 23);
-        
+        jButton1.setBounds(5, 400, 150, 23);
+        jButton1.getAccessibleContext().setAccessibleName("Exit Area");
+
         jButton2.setText("Start Battle");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,15 +141,47 @@ public class SelectPulmosis extends ParentState {
         });
         this.add(jButton2);
         jButton2.setBounds(470, 400, 150, 23);
+        jButton2.setEnabled(false);
         jButton2.getAccessibleContext().setAccessibleName("Start Battle");
     }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        count = 0;
+       Game.instance().goTo(ParentState.MAPSTATE, null);
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        Game.instance().goTo(ParentState.BATTLEGURUN, pulmos);
+        if (((Integer) inte[0]) == 0) {
+            Game.instance().goTo(ParentState.BATTLEGURUN, pulmos);
+        } else if (((Integer) inte[0]) == 1) {
+            Game.instance().goTo(ParentState.BATTLEPRAMA, pulmos);
+        } else if (((Integer) inte[0]) == 2) {
+            Game.instance().goTo(ParentState.BATTLESEPTU, pulmos);
+        } else if (((Integer) inte[0]) == 3) {
+            Game.instance().goTo(ParentState.BATTLENOVAN, pulmos);
+        }
+    }
+
+    class Click implements ActionListener {
+        PulmosisLand pul;
+        JButton but1;
+        public Click(PulmosisLand p, JButton but) {
+            pul = p;
+            but1 = but;
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            if (count < 2) {
+                pulmos[count] =pul;
+                count++;
+                but1.setEnabled(false);
+            } else {
+                pulmos[count] =pul;
+                count++;
+                but1.setEnabled(false);
+                jButton2.setEnabled(true);
+            }
+        }
+        
     }
 
     // Variables declaration - do not modify
@@ -165,20 +191,6 @@ public class SelectPulmosis extends ParentState {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration
-
-    class Click implements ActionListener {
-        PulmosisLand pulmo;
-        public Click (PulmosisLand pul) {
-            this.pulmo = pul;
-        }
-        public void actionPerformed(ActionEvent e) {
-            if (count < 3) {
-                pulmos[count] = pulmo;
-                count++;
-            } else {
-            }
-        }
-    }
 
     public static void main(String args[]) {
         JFrame mainFrame = new JFrame("Plantmon");

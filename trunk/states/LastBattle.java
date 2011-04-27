@@ -7,13 +7,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.*;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import plantmon.entity.Time;
 import plantmon.entity.movingObject.PulmosisBattle;
-import plantmon.entity.movingObject.PulmosisLand;
 import plantmon.entity.unmoveable.BattleLand;
 import plantmon.entity.unmoveable.Land;
 import plantmon.game.GridMap;
@@ -23,7 +22,7 @@ import plantmon.system.Actionable;
 import plantmon.system.Utilities;
 
 
-public class BattleGurun extends ParentState implements MouseListener,MouseMotionListener {
+public class LastBattle extends ParentState implements MouseListener,MouseMotionListener {
     Thread gameloop;
     GridMap map;
     JPopupMenu popup;
@@ -37,7 +36,7 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
     int clickx,clicky,defx,defy;
     boolean dragged;
     Object[] pulmos;
-    public BattleGurun(int gridRow, int gridColumn, Object[] args){
+    public LastBattle(int gridRow, int gridColumn, Object[] args){
         super(gridRow, gridColumn);
         this.pulmos = args;
         ID = BATTLEGURUN;
@@ -86,14 +85,6 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
             //map.gpush(1, 1, new Pulmosis(map,this,g2d,1,false));
             map.push(pos.X(), pos.Y(), player1);
 
-            PulmosisBattle player2 = new PulmosisBattle(map,this, g2d,-8,true,player1.level);
-            player2.getCreature().setPosition(new Point2D(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
-            player2.getCreature().setFinalPosition(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
-
-            pos = player2.getCreature().position();
-            //map.gpush(2, 2, new Pulmosis(map,this,g2d,0,true));
-            map.push(pos.X(), pos.Y(), player2);
-
             PulmosisBattle player3 = new PulmosisBattle(map,this, g2d,((PulmosisBattle) pulmos[1]).getTipe(),false,0);
             player3.getCreature().setPosition(new Point2D(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
             player3.getCreature().setFinalPosition(2*Utilities.GRIDSIZE + Utilities.GRIDGALAT,2*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
@@ -106,7 +97,7 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
             pos=player4.getCreature().position();
             map.push(pos.X(), pos.Y(), player4);
 
-            PulmosisBattle player5 = new PulmosisBattle(map,this, g2d,-2,true,player3.level);
+            PulmosisBattle player5 = new PulmosisBattle(map,this, g2d,-8,true,player3.level);
             player5.getCreature().setPosition(new Point2D(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,10*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
             player5.getCreature().setFinalPosition(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,10*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
 
@@ -114,15 +105,30 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
             //map.gpush(2, 2, new Pulmosis(map,this,g2d,0,true));
             map.push(pos.X(), pos.Y(), player5);
 
+            PulmosisBattle player6 = new PulmosisBattle(map,this, g2d,-4,true,player3.level);
+            player6.getCreature().setPosition(new Point2D(10*Utilities.GRIDSIZE + Utilities.GRIDGALAT,10*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
+            player6.getCreature().setFinalPosition(10*Utilities.GRIDSIZE + Utilities.GRIDGALAT,10*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
+
+            pos = player6.getCreature().position();
+            //map.gpush(2, 2, new Pulmosis(map,this,g2d,0,true));
+            map.push(pos.X(), pos.Y(), player6);
+
+            PulmosisBattle player2 = new PulmosisBattle(map,this, g2d,-10,true,player4.level);
+            player2.getCreature().setPosition(new Point2D(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
+            player2.getCreature().setFinalPosition(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
+
+            pos = player2.getCreature().position();
+            //map.gpush(2, 2, new Pulmosis(map,this,g2d,0,true));
+            map.push(pos.X(), pos.Y(), player2);
+
             addMouseListener(this);
         }
-        
+
     }
     @Override
     public void run(){
         active = true;
         while (active) {
-//            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e){
@@ -134,7 +140,6 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
 
     }
     public void gameUpdate() {
-//        System.out.format("I wonder why won't work\n");
         if ((selected!=null) && !selected.isActive()){
             selectsomething = false;
         }
@@ -142,10 +147,12 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         boolean founden = true;
         int i = 0;
         int j = 0;
+        Time.instance().update();
+        time.setText(Time.instance().getTime());
         Object lock = new String("stop");
         Boolean[] cancel = new Boolean[1];
         cancel[0] = true;
-  
+
         for (i = 0;i < map.getRow() && (found || founden); i++) {
             for (j = 0; j < map.getColumn() && (found || founden); j++) {
                 if (map.getTop(i,j) instanceof PulmosisBattle) {
@@ -165,9 +172,8 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
                 }
             }
         }
-        
+
         if (found) {
-            Game.instance().getStory().setWinBattle(true, 0);
             Game.instance().goTo(ParentState.MAPSTATE,new Object[0]);
         }
         if (founden){
@@ -193,7 +199,6 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         g2d.setColor(Color.GRAY);
     }
     @Override public void paintComponent(Graphics g) {
-//        System.out.println("paintComponent - CobaOpeh");
         updated();
         g.drawImage(backbuffer,startx, starty, this);
     }
@@ -218,12 +223,10 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
      }
    public void mouseClicked(MouseEvent e){
         final MouseEvent tmp = e;
-//        System.out.println("mouseClicked");
         int fx = e.getX()-startx;
         int fy = e.getY()-starty;
         int gx = fx/Utilities.GRIDSIZE;
         int gy = fy/Utilities.GRIDSIZE;
-//        System.out.printf("%d(%d) %d(%d) | %d(%f) %d(%f)",gx/Utilities.GRIDSIZE,gx, gy/Utilities.GRIDSIZE,gy,(int)player.position().X()/Utilities.GRIDSIZE,player.position().X(),(int)player.position().Y()/Utilities.GRIDSIZE,player.position().Y());
         int clicked = e.getButton();
         switch(clicked){
             case MouseEvent.BUTTON1:
@@ -270,7 +273,6 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
                         LRy = FarmState.SCREENHEIGHT-(map.getColumn()*Utilities.GRIDSIZE+150);
                 int newx = defx +((x-clickx));
                 int newy = defy +((y-clicky));
-//                System.out.println("oooo" + newx+" "+ULx+" "+LRx);
                 if ((ULx >= newx && newx >=LRx)&&(ULy >= newy && newy >=LRy)){
                     startx =newx;
                     starty =newy;

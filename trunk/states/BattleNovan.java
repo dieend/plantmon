@@ -7,13 +7,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.*;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import plantmon.entity.Time;
 import plantmon.entity.movingObject.PulmosisBattle;
-import plantmon.entity.movingObject.PulmosisLand;
 import plantmon.entity.unmoveable.BattleLand;
 import plantmon.entity.unmoveable.Land;
 import plantmon.game.GridMap;
@@ -23,7 +22,7 @@ import plantmon.system.Actionable;
 import plantmon.system.Utilities;
 
 
-public class BattleGurun extends ParentState implements MouseListener,MouseMotionListener {
+public class BattleNovan extends ParentState implements MouseListener,MouseMotionListener {
     Thread gameloop;
     GridMap map;
     JPopupMenu popup;
@@ -37,7 +36,7 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
     int clickx,clicky,defx,defy;
     boolean dragged;
     Object[] pulmos;
-    public BattleGurun(int gridRow, int gridColumn, Object[] args){
+    public BattleNovan(int gridRow, int gridColumn, Object[] args){
         super(gridRow, gridColumn);
         this.pulmos = args;
         ID = BATTLEGURUN;
@@ -71,6 +70,8 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
         background.load("picture/Gurun Island.png");
+        Random rand = new Random();
+        int z;
 
         if (pulmos != null) {
             for (int i=0; i<map.getRow();i++){
@@ -86,7 +87,9 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
             //map.gpush(1, 1, new Pulmosis(map,this,g2d,1,false));
             map.push(pos.X(), pos.Y(), player1);
 
-            PulmosisBattle player2 = new PulmosisBattle(map,this, g2d,-8,true,player1.level);
+            z = rand.nextInt(6) + 1;
+            z = -1*z;
+            PulmosisBattle player2 = new PulmosisBattle(map,this, g2d,-6,true,player1.level);
             player2.getCreature().setPosition(new Point2D(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
             player2.getCreature().setFinalPosition(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
 
@@ -106,7 +109,9 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
             pos=player4.getCreature().position();
             map.push(pos.X(), pos.Y(), player4);
 
-            PulmosisBattle player5 = new PulmosisBattle(map,this, g2d,-2,true,player3.level);
+            z = rand.nextInt(6) + 1;
+            z = -1*z;
+            PulmosisBattle player5 = new PulmosisBattle(map,this, g2d,-8,true,player3.level);
             player5.getCreature().setPosition(new Point2D(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,10*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
             player5.getCreature().setFinalPosition(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,10*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
 
@@ -114,9 +119,19 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
             //map.gpush(2, 2, new Pulmosis(map,this,g2d,0,true));
             map.push(pos.X(), pos.Y(), player5);
 
+            z = rand.nextInt(6) + 1;
+            z = -1*z;
+            PulmosisBattle player6 = new PulmosisBattle(map,this, g2d,-10,true,player4.level);
+            player6.getCreature().setPosition(new Point2D(10*Utilities.GRIDSIZE + Utilities.GRIDGALAT,10*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
+            player6.getCreature().setFinalPosition(10*Utilities.GRIDSIZE + Utilities.GRIDGALAT,10*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
+
+            pos = player6.getCreature().position();
+            //map.gpush(2, 2, new Pulmosis(map,this,g2d,0,true));
+            map.push(pos.X(), pos.Y(), player6);
+
             addMouseListener(this);
         }
-        
+
     }
     @Override
     public void run(){
@@ -142,10 +157,12 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         boolean founden = true;
         int i = 0;
         int j = 0;
+        Time.instance().update();
+        time.setText(Time.instance().getTime());
         Object lock = new String("stop");
         Boolean[] cancel = new Boolean[1];
         cancel[0] = true;
-  
+
         for (i = 0;i < map.getRow() && (found || founden); i++) {
             for (j = 0; j < map.getColumn() && (found || founden); j++) {
                 if (map.getTop(i,j) instanceof PulmosisBattle) {
@@ -165,9 +182,8 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
                 }
             }
         }
-        
+
         if (found) {
-            Game.instance().getStory().setWinBattle(true, 0);
             Game.instance().goTo(ParentState.MAPSTATE,new Object[0]);
         }
         if (founden){
