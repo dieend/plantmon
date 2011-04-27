@@ -65,9 +65,22 @@ public class BattleLand extends Unmoveable implements Actionable {
         Object pulE = map.getTop(posisi.IntX()/Utilities.GRIDSIZE, posisi.IntY()/Utilities.GRIDSIZE);
         if (player.position().IntX()==posisi.IntX() && player.position().IntY()==posisi.IntY()){
             ite = new JMenuItem("");
-            if (player.getTipe()==PulmosisBattle.Kentang){
-                ite.setText("Clock Up");
+            if (player.getTipe()==PulmosisBattle.Kentang || player.getTipe()==PulmosisBattle.Jagung || player.getTipe()==PulmosisBattle.Bawang || player.getTipe()==PulmosisBattle.Terong || player.getTipe()==PulmosisBattle.Wortel){
+                if (player.getTipe()==PulmosisBattle.Kentang || player.getTipe()==PulmosisBattle.Jagung){
+                    ite.setText("CLOCK UP");
+                }else if (player.getTipe()==PulmosisBattle.Bawang || player.getTipe()==PulmosisBattle.Terong){
+                    ite.setText("FLASH MOTION");
+                }else if (player.getTipe()==PulmosisBattle.Wortel){
+                    ite.setText("TENZA ZANGETSU"); 
+                }
+                ite.addActionListener(new SpeedUp(selected, new Point2D(posisi.IntX() / Utilities.GRIDSIZE , posisi.IntY() / Utilities.GRIDSIZE)));
                 menu.add(ite);
+                if (player.specialtotal<1){
+                    ite.setEnabled(false); 
+                }
+            }
+            if (player.specialtotal<1){
+                ite.setEnabled(false); 
             }
         }
         if (!player.getStatusEnemy()) {
@@ -353,6 +366,49 @@ class Thunder extends RunnableListener {
     }
 
 
+    class SpeedUp extends RunnableListener {
+        Point2D posisi;
+        public SpeedUp(Selectable selected,Point2D posisi){
+            super(selected);
+            this.posisi = posisi;
+        }
+        public void run() {
+            PulmosisBattle player = (PulmosisBattle) selected;
+            int gx = BattleLand.this.getPosition().IntX();
+            int gy = BattleLand.this.getPosition().IntY();
+
+            if (player.defaultspecialtotal==3){
+                player.tagi=player.getAgi()+3;
+                player.doSpeedup(600);
+            }else if (player.defaultspecialtotal==2){
+                player.tagi=player.getAgi()+5;
+                player.doSpeedup(700);
+            }else if (player.defaultspecialtotal==1){
+                player.tagi=player.getAgi()+8;
+                player.doSpeedup(900);
+            }
+            player.specialtotal--;
+//            Object lock = new String("stop");
+//            Boolean[] cancel = new Boolean[1];
+//            player.makeAttack();
+//            player.move(gx, gy, lock,cancel);
+//            synchronized(lock){
+//                try {
+//                    lock.wait();
+//                } catch (InterruptedException e){
+//                    return;
+//                }
+//            }
+//            System.out.println("HP:"+enemy.getHP());
+
+//            System.out.println("HP:"+enemy.getHP());
+
+            player.resetChargeMeter();
+        }
+    }
+
+
+    
     class Skip extends RunnableListener {
         public Skip(Selectable selected){
             super(selected);
