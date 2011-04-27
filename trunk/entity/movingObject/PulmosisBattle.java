@@ -661,12 +661,12 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                 attackAI(en);
                 System.out.println("IN RANGE//ATTACKKKKK!!!!");
                 
-                if (tipe<=-7 && tipe>=-10){
-                    Point2D mp = minPoint(this.position().IntX(), this.position().IntY(), ce.IntX(), ce.IntY());
-                    if (mp!=null){
-                        this.move(mp.IntX(), mp.IntY(), lock, cancel); 
-                    }
-                }
+//                if (tipe<=-7 && tipe>=-10){
+//                    Point2D mp = minPoint(this.position().IntX(), this.position().IntY(), ce.IntX(), ce.IntY());
+//                    if (mp!=null){
+//                        this.move(mp.IntX(), mp.IntY(), lock, cancel);
+//                    }
+//                }
                 
                 
             }else{System.out.println("NOT IN ATTACK RANGE");
