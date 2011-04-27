@@ -114,7 +114,7 @@ public class BattleLand extends Unmoveable implements Actionable {
 
                //TAMBAHKAN FUNGSI HEALING
                if (!((PulmosisBattle)pulE).getStatusEnemy()) {
-                    if (player.getTipe()==PulmosisBattle.Timun || player.getTipe()==PulmosisBattle.Stroberi || player.getTipe()==PulmosisBattle.Nanas || player.getTipe()==PulmosisBattle.Ubi || player.getTipe()==PulmosisBattle.Bawang){
+                    if (player.getTipe()==PulmosisBattle.Timun || player.getTipe()==PulmosisBattle.Stroberi || player.getTipe()==PulmosisBattle.Nanas || player.getTipe()==PulmosisBattle.Ubi || player.getTipe()==PulmosisBattle.Bawang || player.getTipe()==PulmosisBattle.Bayam){
 //                        System.out.println("YA IYALAH");
                         ite = new JMenuItem("");
                         if (player.getTipe()==PulmosisBattle.Timun || player.getTipe()==PulmosisBattle.Stroberi){
@@ -122,6 +122,7 @@ public class BattleLand extends Unmoveable implements Actionable {
                         }else if(player.getTipe()==PulmosisBattle.Ubi || player.getTipe()==PulmosisBattle.Nanas){
                             ite.setText("MEGA HEALING");
                         }else if(player.getTipe()==PulmosisBattle.Bayam){
+                            System.out.println("INI BAYAM");
                             ite.setText("COLOSAL LIFE");
                         }
                         ite.addActionListener(new Healing(selected, new Point2D(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE)));
