@@ -71,7 +71,17 @@ public class BattleLand extends Unmoveable implements Actionable {
                         ite.addActionListener(new Attack(selected,new Point2D(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE)));
                         menu.add(ite);
                     }
-                }
+               }
+
+               //TAMBAHKAN FUNGSI HEALING
+               if (!((PulmosisBattle)pulE).getStatusEnemy()) {
+                    if (player.getTipe()==PulmosisBattle.Timun){
+                        System.out.println("YA IYALAH");
+                        ite = new JMenuItem("HEALING");
+                        menu.add(ite);
+                    }
+               }
+               //////////////////////////
             }
             if (inDistance(player) && !player.isAlreadyMove()){
                 ite = new JMenuItem("move");
@@ -138,6 +148,44 @@ public class BattleLand extends Unmoveable implements Actionable {
             }
 //            System.out.println("HP:"+enemy.getHP());
             
+//            System.out.println("HP:"+enemy.getHP());
+            Object enemy = map.getTop(posisi.IntX(), posisi.IntY());
+            if (enemy instanceof PulmosisBattle){
+                player.doDamage((PulmosisBattle)enemy);
+                if (((PulmosisBattle)enemy).getHP() <= 0) {
+                    map.pop(gx, gy);
+                    player.levelUp(12);
+                }
+            } else {
+                player.miss();
+            }
+            player.resetChargeMeter();
+        }
+    }
+    
+    class Healing extends RunnableListener {
+        Point2D posisi;
+        public Healing(Selectable selected,Point2D posisi){
+            super(selected);
+            this.posisi = posisi;
+        }
+        public void run() {
+            PulmosisBattle player = (PulmosisBattle) selected;
+            int gx = BattleLand.this.getPosition().IntX();
+            int gy = BattleLand.this.getPosition().IntY();
+            Object lock = new String("stop");
+            Boolean[] cancel = new Boolean[1];
+            player.makeAttack();
+            player.move(gx, gy, lock,cancel);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){
+                    return;
+                }
+            }
+//            System.out.println("HP:"+enemy.getHP());
+
 //            System.out.println("HP:"+enemy.getHP());
             Object enemy = map.getTop(posisi.IntX(), posisi.IntY());
             if (enemy instanceof PulmosisBattle){
