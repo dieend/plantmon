@@ -41,7 +41,7 @@ public class Game implements Serializable{
     transient JPanel dialogBox;
     JTextArea log;
     transient JScrollPane pane;
-    transient private StoryLine story;
+    private StoryLine story;
     String name;
     private static Game stateManager;
     private int weather;
