@@ -62,7 +62,7 @@ public class KentangState extends ParentState implements MouseListener,MouseMoti
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
         setLayout(null);
-
+        Game.instance().playMusic("025-Town03.mid");
         time.setEditable(false);
         time.setBounds(0, 0, 200, 50);
         time.setBackground(Color.ORANGE);
@@ -329,6 +329,7 @@ public void updated(){
                 i++;
                 Game.instance().setDialogBox(boces(i), panel);
             } else if (state == 5) {
+                Game.instance().StopMusic();
                 Game.instance().getStory().setDoneKentang(true);
                 Game.instance().returnTo();
             }

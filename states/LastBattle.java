@@ -35,6 +35,7 @@ public class LastBattle extends ParentState implements MouseListener,MouseMotion
     int clickx,clicky,defx,defy;
     boolean dragged;
     Object[] pulmos;
+    int counta;
     public LastBattle(int gridRow, int gridColumn, Object[] args){
         super(gridRow, gridColumn);
         this.pulmos = args;
@@ -44,6 +45,7 @@ public class LastBattle extends ParentState implements MouseListener,MouseMotion
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
         setLayout(null);
+        counta = 10;
 //        add(new Component() {});
 //        add(new Component() {});
 //        add(new Component() {});
@@ -173,6 +175,9 @@ public class LastBattle extends ParentState implements MouseListener,MouseMotion
         }
 
         if (found) {
+            if (counta > 0) {
+                counta--;
+            }
             Game.instance().goTo(ParentState.MAPSTATE,new Object[0]);
         }
         if (founden){

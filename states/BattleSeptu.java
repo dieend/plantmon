@@ -35,6 +35,7 @@ public class BattleSeptu extends ParentState implements MouseListener,MouseMotio
     int clickx,clicky,defx,defy;
     boolean dragged;
     Object[] pulmos;
+    int counta;
     public BattleSeptu(int gridRow, int gridColumn, Object[] args){
         super(gridRow, gridColumn);
         this.pulmos = args;
@@ -174,9 +175,13 @@ public class BattleSeptu extends ParentState implements MouseListener,MouseMotio
         }
 
         if (found) {
-            Game.instance().StopMusic();
-            Game.instance().getStory().setWinBattle(true, 2);
-            Game.instance().goTo(ParentState.MAPSTATE,new Object[0]);
+            if (counta > 0) {
+                counta--;
+            } else {
+                Game.instance().StopMusic();
+                Game.instance().getStory().setWinBattle(true, 2);
+                Game.instance().goTo(ParentState.MAPSTATE,new Object[0]);
+            }
         }
         if (founden){
             Game.instance().StopMusic();

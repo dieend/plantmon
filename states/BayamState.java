@@ -62,7 +62,7 @@ public class BayamState extends ParentState implements MouseListener,MouseMotion
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
         setLayout(null);
-
+        Game.instance().playMusic("025-Town03.mid");
         time.setEditable(false);
         time.setBounds(0, 0, 200, 50);
         time.setBackground(Color.ORANGE);
@@ -365,8 +365,10 @@ public void updated(){
                 if (!cancel[0]){
                     nanaso.getCreature().setFinalPosition(15*Utilities.GRIDSIZE+5, 4*Utilities.GRIDSIZE+5);
                 }
+                Game.instance().StopMusic();
                 Game.instance().returnTo();
             } else if (state == 5) {
+                Game.instance().StopMusic();
                 Game.instance().getStory().setDoneBayam(true);
                 Game.instance().returnTo();
             }

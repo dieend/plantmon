@@ -37,6 +37,7 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
     int clickx,clicky,defx,defy;
     boolean dragged;
     Object[] pulmos;
+    int counta;
     public BattleGurun(int gridRow, int gridColumn, Object[] args){
         super(gridRow, gridColumn);
         this.pulmos = args;
@@ -47,6 +48,7 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
         setLayout(null);
+        counta = 10;
 //        add(new Component() {});
 //        add(new Component() {});
 //        add(new Component() {});
@@ -168,9 +170,13 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         }
         
         if (found) {
-            Game.instance().StopMusic();
-            Game.instance().getStory().setWinBattle(true, 0);
-            Game.instance().goTo(ParentState.MAPSTATE,new Object[0]);
+            if (counta > 0) {
+                counta--;
+            } else {
+                Game.instance().StopMusic();
+                Game.instance().getStory().setWinBattle(true, 0);
+                Game.instance().goTo(ParentState.MAPSTATE,new Object[0]);
+            }
         }
         if (founden){
             Game.instance().StopMusic();
