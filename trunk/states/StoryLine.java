@@ -59,7 +59,7 @@ public class StoryLine implements Runnable,Serializable {
     private boolean labuDone;
     private Boolean[] winBattle;
     private ArrayList<PulmosisLand> pulmosis;
-    transient final Object lock = new String("exact");
+    final Object lock = new String("exact");
 
     
     public StoryLine () {

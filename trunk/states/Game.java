@@ -41,16 +41,16 @@ public class Game implements Serializable{
     transient JPanel dialogBox;
     JTextArea log;
     transient JScrollPane pane;
-    private StoryLine story;
+    transient private StoryLine story;
     String name;
     private static Game stateManager;
     private int weather;
     public static final int SUNNY = 0;
     public static final int RAINY = 1;
     public static final int STORM = 2;
-    File file;
-    AudioClip sound;
-    private Clip clip;
+    transient File file;
+    transient AudioClip sound;
+    transient private Clip clip;
     public int[][] farmstatus() {
         return farmstatus;
     }
@@ -111,7 +111,7 @@ public class Game implements Serializable{
 //                where = i;
 //            }
 //        }
-        
+
 //        System.out.print(com[0].getName());
 //        System.out.println(" jumlah componnet frame = "+com.length);
 //        if (!found){
@@ -123,6 +123,12 @@ public class Game implements Serializable{
             }
             currentState = StateFactory.createState(IDstate,args);
             if (frame == null){
+                //frame.dispose();
+                frame = new JFrame("Plantmon");
+                frame.setSize(640, 480);
+                frame.setLocationRelativeTo(null);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setVisible(true);
             }
             frame.add(currentState);
 //        }
@@ -243,7 +249,7 @@ public class Game implements Serializable{
                 for (int j=0; j<20; j++){
                     farmstatus[i][j] = Land.NORMAL;
                 }
-            }    
+            }
             for (Iterator<Plant> iter =plants.iterator(); iter.hasNext();){
                 x = ranNum.nextInt(100);
                 Plant p = iter.next();
@@ -315,9 +321,10 @@ public class Game implements Serializable{
             ob.close();
         } catch (IOException ex){
             ex.printStackTrace();
-        } 
+        }
     }
     public void load(String filename){
+        frame.removeAll();
         frame.dispose();
         Game.instance().destroy();
         FileInputStream is = null;
@@ -333,17 +340,17 @@ public class Game implements Serializable{
         }        catch (IOException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JFrame mainFrame = new JFrame();
-        mainFrame.setSize(640, 480);
-        mainFrame.setResizable(false);
-//        //mainFrame.add(p, BorderLayout.CENTER);
-////        JPanel panel = new JPanel();
-////        mainFrame.add(panel);
-//        //mainFrame.pack();
-        mainFrame.setLocationRelativeTo(null);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setVisible(true);
-        stateManager.setFrame(mainFrame);
+//        JFrame mainFrame = new JFrame();
+//        mainFrame.setSize(640, 480);
+//        mainFrame.setResizable(false);
+////        //mainFrame.add(p, BorderLayout.CENTER);
+//////        JPanel panel = new JPanel();
+//////        mainFrame.add(panel);
+////        //mainFrame.pack();
+//        mainFrame.setLocationRelativeTo(null);
+//        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        mainFrame.setVisible(true);
+//        stateManager.setFrame(mainFrame);
         stateManager.dwarfs = new ArrayList<Dwarf>();
         Dwarf dw = new Dwarf(null, null, null, 2, Game.instance().money);
         stateManager.dwarfs.add(dw);
@@ -394,6 +401,7 @@ public class Game implements Serializable{
     }
 
     public void StopMusic () {
+        if (sound != null)
         sound.stop();
     }
 }
