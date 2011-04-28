@@ -6,12 +6,9 @@
 package plantmon.states;
 
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import plantmon.entity.Time;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.ImageEntity;
 
@@ -37,7 +34,7 @@ public class GameFinish extends ParentState{
         backbuffer = new BufferedImage(640,480, BufferedImage.TYPE_INT_ARGB);
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
-        background.load("picture/Rumah.png");
+        background.load("picture/C1.png");
         play = 20;
         i = 1;
     }
@@ -67,7 +64,7 @@ public class GameFinish extends ParentState{
             i++;
         }
         
-        if (i == 3) {
+        if (i == 12) {
             play = 10000000;
         }
     }
@@ -84,22 +81,29 @@ public class GameFinish extends ParentState{
 
     public void slideShow(int i) {
         if (i == 1) {
-            background.load("picture/Rumah.png");
+            background.load("picture/C1.png");
         } else if (i == 2) {
-            background.load("picture/Lahan.png");
+            background.load("picture/C2.png");
         } else if (i == 3) {
-            background.load("picture/LahanDark.png");
-            buttonNew = new JButton("New Game");
-            buttonNew.setLayout(null);
-            buttonNew.setBounds(245, 300, 150, 20);
-            buttonNew.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        Time t = new Time();
-                        Time.instance().load(t);
-                        Game.instance().goTo(ParentState.HOME,new Object[0]);
-                    }
-            });
-            add(buttonNew);
+            background.load("picture/C3.png");
+        } else if (i == 4) {
+            background.load("picture/C4.png");
+        } else if (i == 5) {
+            background.load("picture/C5.png");
+        } else if (i == 6) {
+            background.load("picture/C6.png");
+        } else if (i == 7) {
+            background.load("picture/C7.png");
+        } else if (i == 8) {
+            background.load("picture/C8.png");
+        } else if (i == 9) {
+            background.load("picture/C9.png");
+        } else if (i == 10) {
+            background.load("picture/C10.png");
+        } else if (i == 11) {
+            background.load("picture/C11.png");
+        } else if (i == 12) {
+            Game.instance().goTo(ParentState.FRONTSTATE, null);
         }
     }
 
