@@ -21,7 +21,7 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
     private int sumWater;
     private boolean watered;
     private int typePul;
-    private JPanel pan;
+    transient private JPanel pan;
     
     public PulmosisLand (GridMap map, JPanel panel, Graphics2D g2d, int type) {
         super(map,panel,g2d,type,false,0);
