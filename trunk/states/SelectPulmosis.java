@@ -132,6 +132,9 @@ public class SelectPulmosis extends ParentState {
         this.add(jButton1);
         jButton1.setBounds(5, 400, 150, 23);
         jButton1.getAccessibleContext().setAccessibleName("Exit Area");
+        if(((Integer) inte[0]) == 4) {
+            jButton1.setEnabled(false);
+        }
 
         jButton2.setText("Start Battle");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -158,6 +161,8 @@ public class SelectPulmosis extends ParentState {
             Game.instance().goTo(ParentState.BATTLESEPTU, pulmos);
         } else if (((Integer) inte[0]) == 3) {
             Game.instance().goTo(ParentState.BATTLENOVAN, pulmos);
+        } else if (((Integer) inte[0]) == 4) {
+            Game.instance().goTo(ParentState.LASTBATTLE, pulmos);
         }
     }
 

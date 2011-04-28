@@ -398,7 +398,9 @@ public void updated(){
                 Game.instance().setDialogBox(boces(i), panel);
             } else if (state == 4) {
                 i++;
-                Game.instance().seek(ParentState.BATTLEGURUN, null);
+                Object[] args = new Integer[1];
+                args[0] = 4;
+                Game.instance().seek(ParentState.SELECTPULMOSIS, args);
             } else if (state == 5) {
                 if (Game.instance().getStory().getWinBattle(3)) {
                     i++;
