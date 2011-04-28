@@ -24,7 +24,7 @@ public class Labu extends Plant{
         super(map,panel,g2d,gx,gy);
         setFase(status - 1);
         typeTanaman = 14;
-        season = 2;
+        season = 1;
         happyMeter = 0;
         titikDewasa = 10;
         titikPanen = 15;
