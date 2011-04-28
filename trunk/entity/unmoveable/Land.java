@@ -160,51 +160,51 @@ public class Land extends Unmoveable implements Actionable{
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 } else if (temp.getName().equals("Kubis")) {
-                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    Kubis kentang = new Kubis(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 } else if (temp.getName().equals("Stroberi")) {
-                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    Stroberi kentang = new Stroberi(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 } else if (temp.getName().equals("Jagung")) {
-                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    Jagung kentang = new Jagung(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 } else if (temp.getName().equals("Tomat")) {
-                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    Tomat kentang = new Tomat(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 } else if (temp.getName().equals("Bawang")) {
-                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    Bawang kentang = new Bawang(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 } else if (temp.getName().equals("Nanas")) {
-                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    Nanas kentang = new Nanas(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 } else if (temp.getName().equals("Labu")) {
-                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    Labu kentang = new Labu(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 } else if (temp.getName().equals("Ubi")) {
-                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    Ubi kentang = new Ubi(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 } else if (temp.getName().equals("Wortel")) {
-                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    Wortel kentang = new Wortel(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 } else if (temp.getName().equals("Terong")) {
-                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    Terong kentang = new Terong(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 } else if (temp.getName().equals("Paprika")) {
-                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    Paprika kentang = new Paprika(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 } else if (temp.getName().equals("Bayam")) {
-                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    Bayam kentang = new Bayam(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
                 }

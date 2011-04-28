@@ -1,5 +1,6 @@
 package plantmon.states;
 
+import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,11 +15,7 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -383,20 +380,8 @@ public class Game implements Serializable{
     }
 
     public void playMusic (String filename) {
-        try {
-            URL soundFile = this.getClass().getResource("012-Theme01.mid");
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-             // Get a clip resource.
-             clip = AudioSystem.getClip();
-             clip.open(audioInputStream);
-             clip.loop(Clip.LOOP_CONTINUOUSLY);
-        }catch (UnsupportedAudioFileException e) {
-         e.printStackTrace();
-      } catch (IOException e) {
-         e.printStackTrace();
-      } catch (LineUnavailableException e) {
-         e.printStackTrace();
-      }
+        sound = Applet.newAudioClip(getURL(filename));
+        sound.loop();
     }
 
     private URL getURL(String filename) {
@@ -409,6 +394,6 @@ public class Game implements Serializable{
     }
 
     public void StopMusic () {
-        clip.stop();
+        sound.stop();
     }
 }
