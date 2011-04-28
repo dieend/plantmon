@@ -31,7 +31,7 @@ public class MapState extends ParentState implements MouseListener{
         map = new GridMap(17, 13);
         background = new ImageEntity(this);
         background.load("picture/worldmap.png");
-        
+        Game.instance().playMusic("012-Theme01.mid");
         if (Game.instance().getStory().isDoneKentang() && Game.instance().getStory().getDay() <= 30 && Game.instance().getStory().getSeason() == Time.SPRING) {
             map.gpush(5,1, new Portal(map, this, g2d, 5, 1));
         }
@@ -90,24 +90,29 @@ public class MapState extends ParentState implements MouseListener{
             case MouseEvent.BUTTON1:
                 if (map.getTop(gx, gy) != null ) {
                     if (gx == 6 && gy == 4) {
+                        Game.instance().StopMusic();
                         Game.instance().goTo(ParentState.FARMSTATE,new Object[0]);
                         selectsomething = true;
                     } else if (map.getTop(gx, gy) instanceof Portal && gx == 5 && gy == 1) {
+                        Game.instance().StopMusic();
                         Object[] as= new Integer[1];
                         as[0] = 0;
                         Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
                         selectsomething = true;
                     } else if (map.getTop(gx, gy) instanceof Portal && gx == 2 && gy == 7) {
+                        Game.instance().StopMusic();
                         Object[] as= new Integer[1];
                         as[0] = 1;
                         Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
                         selectsomething = true;
                     } else if (map.getTop(gx, gy) instanceof Portal && gx == 11 && gy == 4) {
+                        Game.instance().StopMusic();
                         Object[] as= new Integer[1];
                         as[0] = 2;
                         Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
                         selectsomething = true;
                     } else if (map.getTop(gx, gy) instanceof Portal && gx == 9 && gy == 7) {
+                        Game.instance().StopMusic();
                         Object[] as= new Integer[1];
                         as[0] = 3;
                         Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
@@ -120,24 +125,29 @@ public class MapState extends ParentState implements MouseListener{
            case MouseEvent.BUTTON3:
                 if (map.getTop(gx, gy) != null ) {
                     if (gx == 6 && gy == 4) {
+                        Game.instance().StopMusic();
                         Game.instance().goTo(ParentState.FARMSTATE,new Object[0]);
                         selectsomething = true;
                     } else if (map.getTop(gx, gy) instanceof Portal && gx == 5 && gy == 1) {
+                        Game.instance().StopMusic();
                         Object[] as= new Integer[1];
                         as[0] = 0;
                         Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
                         selectsomething = true;
                     } else if (map.getTop(gx, gy) instanceof Portal && gx == 2 && gy == 7) {
+                        Game.instance().StopMusic();
                         Object[] as= new Integer[1];
                         as[0] = 1;
                         Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
                         selectsomething = true;
                     } else if (map.getTop(gx, gy) instanceof Portal && gx == 11 && gy == 4) {
+                        Game.instance().StopMusic();
                         Object[] as= new Integer[1];
                         as[0] = 2;
                         Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
                         selectsomething = true;
                     } else if (map.getTop(gx, gy) instanceof Portal && gx == 9 && gy == 7) {
+                        Game.instance().StopMusic();
                         Object[] as= new Integer[1];
                         as[0] = 3;
                         Game.instance().goTo(ParentState.SELECTPULMOSIS,as);
