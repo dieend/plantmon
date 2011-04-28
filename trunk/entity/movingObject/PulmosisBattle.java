@@ -37,6 +37,8 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     int missed;
     int healed;
     int thundered;
+    int specialplus;
+    int antitoxined;
     int speedup;
     int chargeMeter;
     String name;
@@ -370,7 +372,20 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         }else{
             setAgi();
         }
-        
+        if (specialplus > 0){
+            Color oldColor = creature.graphics().getColor();
+            creature.graphics().setColor(Color.gray); 
+            creature.graphics().drawString(name + " SPECIAL SKILL UP + 1 ", position().IntX()-10, position().IntY()+48);
+            specialplus--;
+            creature.graphics().setColor(oldColor); 
+        }
+        if (antitoxined > 0){
+            Color oldColor = creature.graphics().getColor();
+            creature.graphics().setColor(Color.black);
+            creature.graphics().drawString("TIME STOP", 48 , 340 );
+            antitoxined--;
+            creature.graphics().setColor(oldColor); 
+        }
     }
     
     @Override public void drawBounds() {
@@ -697,6 +712,15 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
     public void doSpeedup(int time){
         speedup=time;
     }
+
+    public void doSpecialUp(){
+        specialplus=100;
+    }
+
+    public void doAntiToxined(){
+        antitoxined=100;
+    }
+    
     public void setDamage (int i) {
         dmg = i;
     }
