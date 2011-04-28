@@ -42,7 +42,7 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         this.pulmos = args;
         ID = BATTLEGURUN;
         init();
-        Game.instance().playMusic("001-Battle01");
+        Game.instance().playMusic("001-Battle01.mid");
         time = new JTextArea();
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
