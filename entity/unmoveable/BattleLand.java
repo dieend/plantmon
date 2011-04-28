@@ -4,10 +4,13 @@ import java.awt.Graphics2D;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import plantmon.entity.Inventory;
+import plantmon.entity.Item;
 import plantmon.entity.Unmoveable;
 import plantmon.entity.movingObject.PulmosisBattle;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
+import plantmon.states.Game;
 import plantmon.system.Actionable;
 import plantmon.system.RunnableListener;
 import plantmon.system.Selectable;
@@ -15,6 +18,7 @@ import plantmon.system.Utilities;
 
 public class BattleLand extends Unmoveable implements Actionable {
     Point2D posisi;
+    Inventory inventoryWar;
 
     public BattleLand (int x, int y, GridMap map, JPanel panel, Graphics2D g2d) {
         super(map,panel,g2d);
@@ -131,6 +135,40 @@ public class BattleLand extends Unmoveable implements Actionable {
                             ite.setEnabled(false); 
                         }
                     }
+
+                   {
+                        ite = new JMenuItem("use item");
+                        inventoryWar = Game.instance().getInventory().getWarItem();
+                        menu.add(ite);
+                        if (inventoryWar != null){
+                            menu.addSeparator();
+                            for(i=0;i<inventoryWar.getSize();++i){
+                                ite = new JMenuItem(inventoryWar.getItem(i).getName() + "  " + inventoryWar.getJumItem(inventoryWar.getItem(i)));
+                                ite.addActionListener(new Items(selected, posisi, inventoryWar, inventoryWar.getItem(i).getName()));
+                                menu.add(ite);
+                            }
+                            menu.addSeparator();
+                        }
+                        if (inventoryWar==null || inventoryWar.isEmpty()){
+                            ite.setEnabled(false);
+                        }
+                        
+//                        if (!inventoryWar.isEmpty()) {
+//                            JMenu subSubMenu;
+//                            JMenu subSellWar;
+//                            subSellWar = new JMenu("War Item");
+//                            for (i = 0; i < inventoryWar.getSize(); i++) {
+//                                subSubMenu = new JMenu(inventoryWar.getItem(i).getName()+" (Rp."+inventoryWar.getItem(i).getCostSell()+")");
+//                                subSubMenu.setLayout(null);
+//                                InitComponentSell comp = new InitComponentSell(selected,i,inventoryWar.getItem(i),menu);
+//                                subSubMenu.add(comp);
+//                                subSellWar.add(subSubMenu);
+//                            }
+//                            it.add(subSellWar);
+//                        }else{
+//                        }
+                   }
+
                }
                //////////////////////////
             }
@@ -409,6 +447,161 @@ class Thunder extends RunnableListener {
     }
 
 
+    class Items extends RunnableListener {
+        Point2D posisi;
+        String itemName;
+        Item itm;
+        public Items(Selectable selected,Point2D posisi,Inventory inventoryWard,String itemName){
+            super(selected);
+            this.posisi = posisi;
+            inventoryWar = inventoryWard;
+            this.itemName=itemName;
+        }
+        public void run() {
+            PulmosisBattle player = (PulmosisBattle) selected;
+            int gx = BattleLand.this.getPosition().IntX();
+            int gy = BattleLand.this.getPosition().IntY();
+//            Object lock = new String("stop");
+//            Boolean[] cancel = new Boolean[1];
+
+            int i;
+            if ("Water".equals(this.itemName)){
+
+                if (inventoryWar!=null){
+                    for(i=0;i<inventoryWar.getSize();++i){
+                        if ("Water".equals(inventoryWar.getItem(i).getName())){
+                            itm=inventoryWar.getItem(i);
+                            if (itm!=null && !Game.instance().getInventory().isEmpty()){
+                                Game.instance().getInventory().delete(itm, 1);
+                                if (player.getHP()+20>player.getMaxHP()){
+                                    player.setHP(player.getMaxHP());
+                                }else{
+                                    player.setHP(player.getHP()+20);
+                                }
+                                player.doHealing();
+                            }}
+                    }
+                }
+            }
+
+            if ("Antitoxin".equals(this.itemName)){
+
+                if (inventoryWar!=null){
+                    for(i=0;i<inventoryWar.getSize();++i){
+                        if ("Antitoxin".equals(inventoryWar.getItem(i).getName())){
+                            itm=inventoryWar.getItem(i);
+                            if (itm!=null && !Game.instance().getInventory().isEmpty()){
+                                
+                                Game.instance().getInventory().delete(itm, 1);
+                                
+                                player.doAntiToxined();
+                                for(int j=0;j<500000;++j){
+                                    System.out.println(j);
+                                }
+                            }
+                        }}
+                   }
+            }
+
+            if ("Eye Drop".equals(this.itemName)){
+
+                if (inventoryWar!=null){
+                    for(i=0;i<inventoryWar.getSize();++i){
+                        if ("Eye Drop".equals(inventoryWar.getItem(i).getName())){
+                            itm=inventoryWar.getItem(i);
+                            if (itm!=null && !Game.instance().getInventory().isEmpty()){
+                                
+                                Game.instance().getInventory().delete(itm, 1);
+                                
+                                player.doSpecialUp();
+                                
+                                }
+                            }}
+                    }
+            }
+
+
+            if ("Hot Water".equals(this.itemName)){
+
+                if (inventoryWar!=null){
+                    for(i=0;i<inventoryWar.getSize();++i){
+                        if ("Hot Water".equals(inventoryWar.getItem(i).getName())){
+                            itm=inventoryWar.getItem(i);
+                            if (itm!=null && !Game.instance().getInventory().isEmpty()){
+                                Game.instance().getInventory().delete(itm, 1);
+                                player.setHP(player.getMaxHP());
+                                player.doHealing();
+                                }
+                            }}
+                    }
+                }
+
+//            if (player.specialtotal>0){
+//                Object pbhealed = map.getTop(posisi.IntX() , posisi.IntY());
+//                PulmosisBattle pbh = (PulmosisBattle)pbhealed;
+//                if (player.defaultspecialtotal==3){
+//                    if (pbh.getHP()+20>pbh.getMaxHP()){
+//                        pbh.setHP(pbh.getMaxHP());
+//                    }else{
+//                        pbh.setHP(pbh.getHP()+20);
+//                    }
+//                    pbh.doHealing();
+//                }
+//                if (player.defaultspecialtotal==2){
+//                    pbh.setHP(pbh.getMaxHP());
+//                    pbh.doHealing();
+//                }
+//                if (player.defaultspecialtotal==1){
+//                    int i,j;
+//                    for(i=0;i<map.getRow();++i){
+//                        for(j=0;j<map.getColumn();++j){
+//                            if (map.getTop(i, j) instanceof PulmosisBattle){
+//                                PulmosisBattle pulFriend = (PulmosisBattle)map.getTop(i, j);
+//                                if (!pulFriend.getStatusEnemy()){
+//                                    pulFriend.setHP(pulFriend.getMaxHP());
+//                                    pulFriend.doHealing();
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//
+////                ((PulmosisBattle)pbhealed).setHP(((PulmosisBattle)pbhealed).getMaxHP());
+////                ((PulmosisBattle)pbhealed).doHealing();
+//
+//                player.specialtotal--;
+////                System.out.println("HEALED, new HP : " + ((PulmosisBattle)pbhealed).getHP());
+//            }
+
+            /*
+            player.makeAttack();
+            player.move(gx, gy, lock,cancel);
+            synchronized(lock){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e){
+                    return;
+                }
+            }
+//            System.out.println("HP:"+enemy.getHP());
+
+//            System.out.println("HP:"+enemy.getHP());
+            Object enemy = map.getTop(posisi.IntX(), posisi.IntY());
+            if (enemy instanceof PulmosisBattle){
+                player.doDamage((PulmosisBattle)enemy);
+                if (((PulmosisBattle)enemy).getHP() <= 0) {
+                    map.pop(gx, gy);
+                    player.levelUp(12);
+                }
+            } else {
+                player.miss();
+            }*/
+            player.resetChargeMeter();
+        }
+    }
+
+
+    
     
     class Skip extends RunnableListener {
         public Skip(Selectable selected){
@@ -420,4 +613,6 @@ class Thunder extends RunnableListener {
         }
     }
 
+
+    
 }
