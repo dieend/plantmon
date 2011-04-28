@@ -32,7 +32,7 @@ public class FrontState extends ParentState{
         background = new ImageEntity(this);
         background.load("picture/Splash Screen 1.png");
         play = 30;
-        Utilities.instance().midiPlayUntilTurnedOff("012-Theme01.mid");
+        Game.instance().playMusic("012-Theme01.mid");
         i = 1;
     }
     @Override public void turnOff(){

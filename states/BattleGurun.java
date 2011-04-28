@@ -42,6 +42,7 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         this.pulmos = args;
         ID = BATTLEGURUN;
         init();
+        Game.instance().playMusic("001-Battle01");
         time = new JTextArea();
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
@@ -167,10 +168,12 @@ public class BattleGurun extends ParentState implements MouseListener,MouseMotio
         }
         
         if (found) {
+            Game.instance().StopMusic();
             Game.instance().getStory().setWinBattle(true, 0);
             Game.instance().goTo(ParentState.MAPSTATE,new Object[0]);
         }
         if (founden){
+            Game.instance().StopMusic();
             Game.instance().goTo(ParentState.GAMEOVER,new Object[0]);
         }
 //        Point2D pos = player.getCreature().position();
