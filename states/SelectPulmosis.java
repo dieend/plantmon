@@ -175,7 +175,7 @@ public class SelectPulmosis extends ParentState {
         }
 
         public void actionPerformed(ActionEvent e) {
-            if (count < 2) {
+            if (count < 2) {//ini dia < 2
                 pulmos[count] =pul;
                 count++;
                 but1.setEnabled(false);
