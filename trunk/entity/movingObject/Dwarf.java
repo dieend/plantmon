@@ -50,7 +50,7 @@ public class Dwarf extends MovingObject implements Actionable,
     
     public Dwarf(GridMap map, JPanel panel, Graphics2D g2d,int t,Integer money){
         super(map,panel,g2d);
-        System.out.println(t);
+//        System.out.println(t);
         type=t;
         status=sleep;
         if (t==1)
@@ -58,10 +58,10 @@ public class Dwarf extends MovingObject implements Actionable,
             name="justice";
             //set default position
             defpos = new Point2D(Utilities.GRIDSIZE,4*Utilities.GRIDSIZE);
-            System.out.println("TYPE : " + type);
-            System.out.println("Posisi X : " +defpos.IntX()/Utilities.GRIDSIZE);
-            System.out.println("Posisi X : " +defpos.IntY()/Utilities.GRIDSIZE);
-            System.out.println("TYPE : " + type + " -- " + defpos.IntX()/Utilities.GRIDSIZE + " -- " + defpos.IntY()/Utilities.GRIDSIZE);
+//            System.out.println("TYPE : " + type);
+//            System.out.println("Posisi X : " +defpos.IntX()/Utilities.GRIDSIZE);
+//            System.out.println("Posisi X : " +defpos.IntY()/Utilities.GRIDSIZE);
+//            System.out.println("TYPE : " + type + " -- " + defpos.IntX()/Utilities.GRIDSIZE + " -- " + defpos.IntY()/Utilities.GRIDSIZE);
         }
         else if (t==2)
         {
@@ -75,7 +75,7 @@ public class Dwarf extends MovingObject implements Actionable,
             defpos = new Point2D(Utilities.GRIDSIZE,6*Utilities.GRIDSIZE);
         }
         creature.setPosition(defpos);
-        System.out.println("picture/dwarf"+type+"0");
+//        System.out.println("picture/dwarf"+type+"0");
         init();
     }
     @Override public void drawBounds() {
@@ -126,7 +126,7 @@ public class Dwarf extends MovingObject implements Actionable,
     public void reinit(GridMap map,Graphics2D g2d, JPanel panel){
         super.reinit(map,g2d, panel);
         if (creature.panel()!=null){
-            System.out.println("picture/dwarf"+((type>3)?type-3:type)+"0.png");
+            //System.out.println("picture/dwarf"+((type>3)?type-3:type)+"0.png");
             creature.load("picture/dwarf"+((type>3)?type-3:type)+"0.png",4,1,32,32);
             creature.setImageName("picture/dwarf"+((type>3)?type-3:type));
         }

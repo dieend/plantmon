@@ -2,14 +2,10 @@ package plantmon.entity.unmoveable;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import plantmon.entity.Item;
 import plantmon.entity.Unmoveable;
-import plantmon.entity.item.FoodItem;
 import plantmon.entity.movingObject.Player;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
@@ -402,7 +398,7 @@ public class Plant extends Unmoveable implements Actionable,
     @Override
     public void reinit(GridMap map, JPanel panel, Graphics2D g2d){
         super.reinit(map, panel, g2d);
-        System.out.println(this.getClass().getName());
+//        System.out.println(this.getClass().getName());
         this.setFase(fase);
     }
 }

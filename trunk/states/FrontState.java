@@ -1,9 +1,12 @@
 package plantmon.states;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import plantmon.entity.Time;
@@ -31,6 +34,7 @@ public class FrontState extends ParentState{
         background = new ImageEntity(this);
         background.load("picture/Splash Screen 1.png");
         play = 30;
+        Game.instance().playMusic("012-Theme01.mid");
         i = 1;
     }
 
@@ -88,6 +92,7 @@ public class FrontState extends ParentState{
             buttonNew.setBounds(245, 300, 150, 20);
             buttonNew.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                        Game.instance().StopMusic();
                         Time t = new Time();
                         Time.instance().load(t);
                         Game.instance().goTo(ParentState.HOME,new Object[0]);
@@ -98,6 +103,7 @@ public class FrontState extends ParentState{
             buttonLoad.setBounds(245, 350, 150, 20);
             buttonLoad.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                        Game.instance().StopMusic();
                         Game.instance().load("tes.txt");
                     }
             });

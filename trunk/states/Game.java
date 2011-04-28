@@ -1,16 +1,24 @@
 package plantmon.states;
 
+import java.applet.AudioClip;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -43,6 +51,9 @@ public class Game implements Serializable{
     public static final int SUNNY = 0;
     public static final int RAINY = 1;
     public static final int STORM = 2;
+    File file;
+    AudioClip sound;
+    private Clip clip;
     public int[][] farmstatus() {
         return farmstatus;
     }
@@ -115,7 +126,6 @@ public class Game implements Serializable{
             }
             currentState = StateFactory.createState(IDstate,args);
             if (frame == null){
-                System.out.print("daaaaamn");
             }
             frame.add(currentState);
 //        }
@@ -125,7 +135,6 @@ public class Game implements Serializable{
 //        } else {
 //            System.out.println("fail");
 //        }
-        System.out.println("now in state"+currentState.getID());
         //currentState = where;
         currentState.setVisible(true);
         //states.get(currentState).updateUI();
@@ -195,7 +204,6 @@ public class Game implements Serializable{
         getPlants().remove(plant);
     }
     public void changeDay(){
-        System.out.println("Change Day");
         Integer[] ran = new Integer[100];
         int x;
         for (int i = 0; i <60; i++) {
@@ -372,5 +380,35 @@ public class Game implements Serializable{
 
     public void setPlants(ArrayList<Plant> plants) {
         this.plants = plants;
+    }
+
+    public void playMusic (String filename) {
+        try {
+            URL soundFile = this.getClass().getResource("012-Theme01.mid");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+             // Get a clip resource.
+             clip = AudioSystem.getClip();
+             clip.open(audioInputStream);
+             clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }catch (UnsupportedAudioFileException e) {
+         e.printStackTrace();
+      } catch (IOException e) {
+         e.printStackTrace();
+      } catch (LineUnavailableException e) {
+         e.printStackTrace();
+      }
+    }
+
+    private URL getURL(String filename) {
+        URL url = null;
+            try {
+                url = this.getClass().getResource(filename);
+            }
+        catch (Exception e) { }
+        return url;
+    }
+
+    public void StopMusic () {
+        clip.stop();
     }
 }

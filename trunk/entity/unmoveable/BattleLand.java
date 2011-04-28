@@ -122,7 +122,7 @@ public class BattleLand extends Unmoveable implements Actionable {
                         }else if(player.getTipe()==PulmosisBattle.Ubi || player.getTipe()==PulmosisBattle.Nanas){
                             ite.setText("MEGA HEALING");
                         }else if(player.getTipe()==PulmosisBattle.Bayam){
-                            System.out.println("INI BAYAM");
+//                            System.out.println("INI BAYAM");
                             ite.setText("COLOSAL LIFE");
                         }
                         ite.addActionListener(new Healing(selected, new Point2D(posisi.IntX() / Utilities.GRIDSIZE, posisi.IntY() / Utilities.GRIDSIZE)));
@@ -161,7 +161,7 @@ public class BattleLand extends Unmoveable implements Actionable {
             PulmosisBattle player = (PulmosisBattle) selected;
             int gx = BattleLand.this.getPosition().IntX();
             int gy = BattleLand.this.getPosition().IntY();
-            System.out.format("%d %d\n",gx,gy);
+//            System.out.format("%d %d\n",gx,gy);
             Object lock = new String("stop");
             Boolean[] cancel = new Boolean[1];
             player.move(gx, gy, lock,cancel);
@@ -261,7 +261,7 @@ public class BattleLand extends Unmoveable implements Actionable {
 //                ((PulmosisBattle)pbhealed).doHealing();
 
                 player.specialtotal--;
-                System.out.println("HEALED, new HP : " + ((PulmosisBattle)pbhealed).getHP());
+//                System.out.println("HEALED, new HP : " + ((PulmosisBattle)pbhealed).getHP());
             }
 
             /*
@@ -332,7 +332,7 @@ class Thunder extends RunnableListener {
                     }else{
                         pulEn.setHP(pulEn.getHP()/2);
                     }
-                    System.out.println("L SCISSOR");
+//                    System.out.println("L SCISSOR");
                     pulEn.doThunder();
                 }
                 if (player.defaultspecialtotal==1){

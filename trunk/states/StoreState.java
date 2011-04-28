@@ -103,7 +103,7 @@ public class StoreState extends ParentState implements MouseListener{
         active = true;
         while (active) {
 //            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
-            System.out.print(""+player.position().IntX()/Utilities.GRIDSIZE+" "+player.position().IntY()/Utilities.GRIDSIZE+"\n");
+//            System.out.print(""+player.position().IntX()/Utilities.GRIDSIZE+" "+player.position().IntY()/Utilities.GRIDSIZE+"\n");
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e){
@@ -141,7 +141,7 @@ public class StoreState extends ParentState implements MouseListener{
         JPopupMenu popup;
         switch(clicked){
             case MouseEvent.BUTTON1:
-                System.out.format("aduh %d %d\n",e.getX(),e.getY());
+//                System.out.format("aduh %d %d\n",e.getX(),e.getY());
                 if (map.getTop(gx, gy) != null ) {
                     if (map.getTop(gx, gy) instanceof Selectable) {
                         selected = (Selectable) map.getTop(gx, gy);

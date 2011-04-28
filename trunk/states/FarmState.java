@@ -144,7 +144,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
     @Override
     public void run(){
         story.begin();
-        System.out.print("creating story\n");
+//        System.out.print("creating story\n");
         active = true;
         while (active) {
 //            System.out.format("There are currenty %d Thread running\n",Thread.activeCount());
@@ -230,7 +230,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
                         Game.instance().dialogOn();
                         selectsomething = true;
                     } else if (map.getTop(gx, gy) instanceof Canceller){
-                        System.out.print("fjhfhgf");
+//                        System.out.print("fjhfhgf");
                         popup = ((Canceller)map.getTop(gx,gy)).getMenu();
                         popup.show(tmp.getComponent(),tmp.getX(), tmp.getY());
                     } else {
@@ -271,7 +271,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
 
         @Override public void turnOff () {
             story.turnOff();
-            System.out.print("turn off famrstate");
+//            System.out.print("turn off famrstate");
             super.turnOff();
         }
 
