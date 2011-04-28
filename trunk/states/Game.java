@@ -326,6 +326,7 @@ public class Game implements Serializable{
     public void load(String filename){
         frame.removeAll();
         frame.dispose();
+        frame.setVisible(false);
         Game.instance().destroy();
         FileInputStream is = null;
         ObjectInputStream in = null;
