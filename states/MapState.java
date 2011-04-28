@@ -88,7 +88,6 @@ public class MapState extends ParentState implements MouseListener{
         int gy = fy/Utilities.GRIDSIZE;
         switch(clicked){
             case MouseEvent.BUTTON1:
-                System.out.format("aduh %d %d\n",e.getX(),e.getY());
                 if (map.getTop(gx, gy) != null ) {
                     if (gx == 6 && gy == 4) {
                         Game.instance().goTo(ParentState.FARMSTATE,new Object[0]);
@@ -119,7 +118,6 @@ public class MapState extends ParentState implements MouseListener{
                 } else selectsomething = false;
                 break;
            case MouseEvent.BUTTON3:
-                System.out.format("aduh %d %d\n",e.getX(),e.getY());
                 if (map.getTop(gx, gy) != null ) {
                     if (gx == 6 && gy == 4) {
                         Game.instance().goTo(ParentState.FARMSTATE,new Object[0]);

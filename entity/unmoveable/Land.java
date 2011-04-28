@@ -159,6 +159,54 @@ public class Land extends Unmoveable implements Actionable{
                     Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
                     map.push(gx, gy, kentang);
                     Game.instance().addPlant(kentang);
+                } else if (temp.getName().equals("Kubis")) {
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
+                } else if (temp.getName().equals("Stroberi")) {
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
+                } else if (temp.getName().equals("Jagung")) {
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
+                } else if (temp.getName().equals("Tomat")) {
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
+                } else if (temp.getName().equals("Bawang")) {
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
+                } else if (temp.getName().equals("Nanas")) {
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
+                } else if (temp.getName().equals("Labu")) {
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
+                } else if (temp.getName().equals("Ubi")) {
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
+                } else if (temp.getName().equals("Wortel")) {
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
+                } else if (temp.getName().equals("Terong")) {
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
+                } else if (temp.getName().equals("Paprika")) {
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
+                } else if (temp.getName().equals("Bayam")) {
+                    Kentang kentang = new Kentang(map, panel(),graphics(),gx,gy,status);
+                    map.push(gx, gy, kentang);
+                    Game.instance().addPlant(kentang);
                 }
                 Game.instance().getInventory().delete(temp, 1);
                 Game.instance().log().append("put "+temp.getName()+" at ("+(gx/Utilities.GRIDSIZE)+","+(gy/Utilities.GRIDSIZE)+")\n");
@@ -175,7 +223,7 @@ public class Land extends Unmoveable implements Actionable{
             int gy = (int)Land.this.getPosition().Y();
             //Object lock = new String("plow");
             Object lock = new Object();
-            System.out.println(lock.hashCode());
+//            System.out.println(lock.hashCode());
 
             Boolean[] cancel = new Boolean[1];
             player.move(gx, gy, lock,cancel);

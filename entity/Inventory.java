@@ -51,13 +51,13 @@ public class Inventory implements Serializable{
                 temp = jumlahitem.get(i) + jumlah;
                 jumlahitem.set(i, temp);
                 found = true;
-                System.out.print("Tambah item");
+//                System.out.print("Tambah item");
             } else {
                 i++;
             }
         }
         if (!found) {
-            System.out.print("Tambah item");
+//            System.out.print("Tambah item");
             item.add(i,it);
             jumlahitem.add(i,jumlah);
             size++;

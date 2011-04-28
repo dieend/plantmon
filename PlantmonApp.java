@@ -19,7 +19,7 @@ import plantmon.states.Game;
 public class PlantmonApp{
     //public FarmState p;
     public void init() {
-        System.out.println("startup");
+//        System.out.println("startup");
         // mengeset state = FarmState
         //p = new FarmState(10,10);
         //mainFrame = new JFrame();

@@ -179,28 +179,28 @@ public class AnimatedSprite extends Sprite{
         if ((Math.abs(velocity().Y()/velocity().X())>1.0) && velocity().Y()>0) {
 //                setFaceAngle(0);
             if (getFace() != 0){
-                System.out.println("Hadap bawah");
+//                System.out.println("Hadap bawah");
                 this.setFace(0);
                 load(imageName+"0.png",4,1,width,height);
                 setFrameDelay(5);
             }
         } else if ((Math.abs(velocity().Y()/velocity().X())<1.0) && velocity().X()>0){
             if (getFace() != 3){
-                System.out.println("Hadap kanan");
+//                System.out.println("Hadap kanan");
                 this.setFace(3);
                 load(imageName+"3.png",4,1,width,height);
                 setFrameDelay(5);
             }
         } else if ((Math.abs(velocity().Y()/velocity().X())>1.0) && velocity().Y()<0){
             if (getFace() != 2){
-                System.out.println("Hadap atas");
+//                System.out.println("Hadap atas");
                 this.setFace(2);
                 load(imageName+"2.png",4,1,width,height);
                 setFrameDelay(5);
             }
         } else if ((Math.abs(velocity().Y()/velocity().X())<1.0) && velocity().X()<0){
             if (getFace() != 1){
-                System.out.println("Hadap ke kiri");
+//                System.out.println("Hadap ke kiri");
                 this.setFace(1);
                 load(imageName+"1.png",4,1,width,height);
                 setFrameDelay(5);
@@ -249,12 +249,12 @@ public class AnimatedSprite extends Sprite{
         super.draw();
     }
     public void setArah(Point2D dest){
-        System.out.println(dest.X()+" "+dest.Y()+" "+position().X()+" "+position().Y());
+//        System.out.println(dest.X()+" "+dest.Y()+" "+position().X()+" "+position().Y());
         double vx = Math.sin(Math.atan2(dest.X()-this.position().X(),
                     dest.Y()-this.position().Y()));
         double vy = Math.cos(Math.atan2(dest.X()-this.position().X(),
                 dest.Y()-this.position().Y()));
-        System.out.println(vx + " " + vy + " " + (vy/vx));
+//        System.out.println(vx + " " + vy + " " + (vy/vx));
         if ((Math.abs(vy/vx)>1.0) && vy>0) {
 //                setFaceAngle(0);
             this.setFace(0);

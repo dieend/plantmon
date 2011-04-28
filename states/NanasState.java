@@ -84,7 +84,7 @@ public class NanasState extends ParentState implements MouseListener,MouseMotion
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
         background.load("picture/Lahan.png");
-        System.out.println("ksafjaskhfashfkjahskdas");
+//        System.out.println("ksafjaskhfashfkjahskdas");
                        //0 1 2 3 4 5 6 7 8 9 10
         int[][] what = {{0,0,0,0,0,0,0,0,0,0,0},//0
                         {0,0,0,2,2,2,2,0,0,0,0},//1

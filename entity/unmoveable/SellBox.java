@@ -197,14 +197,14 @@ public class SellBox extends Unmoveable implements Actionable{
                 Game.instance().setMoney(money);
                 Game.instance().getInventory().delete(temp,x);
                 if (temp instanceof WarItem){
-                    System.out.print("waritem");
+//                    System.out.print("waritem");
                 } else if (temp instanceof FarmItem){
-                    System.out.print("farmitem");
+//                    System.out.print("farmitem");
                 } else if (temp instanceof FoodItem){
-                    System.out.print("fooditem");
+//                    System.out.print("fooditem");
                     Game.instance().getStory().setSold(temp.getIDitem()-20, x);
                 } else if (temp instanceof ArmorItem){
-                    System.out.print("armoritem");
+//                    System.out.print("armoritem");
                 }
                 Game.instance().log().append("Sold "+x+" "+temp.getName()+"(s) Rp."+(x*temp.getCostSell())+"\n");
             }

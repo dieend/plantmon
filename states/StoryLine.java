@@ -117,7 +117,6 @@ public class StoryLine implements Runnable,Serializable {
         int i = sold.get(ID);
         i = i + amm;
         sold.set(ID,i);
-        System.out.println("Barang terjual:"+sold.get(ID));
     }
 
     public GridMap getMap() {
@@ -620,7 +619,6 @@ public class StoryLine implements Runnable,Serializable {
                 notifyAll();
             }
         }
-        System.out.print("ending story\n");
     }
 
     public void turnOff () {
@@ -628,7 +626,6 @@ public class StoryLine implements Runnable,Serializable {
         do{
             fail = false;
             try{
-                System.out.print("waiting . . .\n");
                 synchronized(this){
                     wait(10);
                 }
@@ -639,7 +636,6 @@ public class StoryLine implements Runnable,Serializable {
                 }
             }
         }while (fail);
-        System.out.print("end of wait\n");
         active = false;
     }
 

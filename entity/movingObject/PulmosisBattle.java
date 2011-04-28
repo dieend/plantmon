@@ -787,7 +787,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                 en=alpb.get(i);
             }
         }
-        System.out.println("CLOSEST ENEMY :" + ce.IntX() + " - " + ce.IntY());
+//        System.out.println("CLOSEST ENEMY :" + ce.IntX() + " - " + ce.IntY());
         return ce;
     }
 
@@ -816,7 +816,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         int y0=yp-(range*Utilities.GRIDSIZE);
         int xf=xp+(range*Utilities.GRIDSIZE);
         int yf=yp+(range*Utilities.GRIDSIZE);
-        System.out.println(x0 + "-" + y0 + "  :  " + xf + "-" + yf);
+//        System.out.println(x0 + "-" + y0 + "  :  " + xf + "-" + yf);
         iscanbeattacked=false;
         
         for(i=x0;i<=xf;i+=Utilities.GRIDSIZE){
@@ -826,13 +826,13 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                     templength=Math.abs(xdes-i)+Math.abs(ydes-j);
 
                         if (tipe<=-4 && tipe>=-10){
-                            System.out.println("TYPE " + tipe);
+//                            System.out.println("TYPE " + tipe);
                                 if (templength==(attackRange*Utilities.GRIDSIZE)){
                                     length=templength;
                                     cm = new Point2D(i,j);
-                                    System.out.println("TEMUKAN MINIMUM : " + cm.IntX() + "," + cm.IntY());
+//                                    System.out.println("TEMUKAN MINIMUM : " + cm.IntX() + "," + cm.IntY());
                                     iscanbeattacked=true;
-                                    System.out.println("Foundmin = true");
+//                                    System.out.println("Foundmin = true");
                                     break;
                                 }
                             }
@@ -862,7 +862,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
                 if (isInMap(i, j) && isInRange(i, j, attackRange, xdes, ydes)){
                     int templength=Math.abs(xdes-i)+Math.abs(ydes-j);
                     if (length<templength){
-                        System.out.println("kemungkinan : " + i + "-" +j);
+//                        System.out.println("kemungkinan : " + i + "-" +j);
                         length=templength;
                         mp = new Point2D(i,j);
                     }
@@ -885,31 +885,31 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
             
             Point2D ce=closestEn(en);
             
-            System.out.println("COOR AWAL :"+ this.position().IntX() + " - " + this.position().IntY());
-            System.out.println("COOR AKHIR :"+ ce.IntX() + " - " + ce.IntY());
-            System.out.println("RANGE : " + range);
+//            System.out.println("COOR AWAL :"+ this.position().IntX() + " - " + this.position().IntY());
+//            System.out.println("COOR AKHIR :"+ ce.IntX() + " - " + ce.IntY());
+//            System.out.println("RANGE : " + range);
             
             if (isInRange(this.position().IntX(), this.position().IntY(),attackRange , ce.IntX(), ce.IntY())){
 //                delaymove();
                 attackAI(en);
-                System.out.println("IN RANGE//ATTACKKKKK!!!!");
+//                System.out.println("IN RANGE//ATTACKKKKK!!!!");
                 
                 if (tipe<=-7 && tipe>=-10){
                     Point2D mp = minPoint(this.position().IntX(), this.position().IntY(), ce.IntX(), ce.IntY());
                     if (mp!=null){
-                        System.out.println("SAFE POINT : " + mp.IntX() + "-" + mp.IntY());
+//                        System.out.println("SAFE POINT : " + mp.IntX() + "-" + mp.IntY());
                         this.move(mp.IntX(), mp.IntY(), lock, cancel);
                     }
                 }
                 
                 
-            }else{System.out.println("NOT IN ATTACK RANGE");
+            }else{//System.out.println("NOT IN ATTACK RANGE");
                 Point2D cm = closestMove(this.position().IntX(), this.position().IntY(), range, ce.IntX(), ce.IntY());
-                System.out.println("ICBATTAK : " +iscanbeattacked);
+//                System.out.println("ICBATTAK : " +iscanbeattacked);
                 if (cm!=null)
                 {
-                    System.out.println("CLOSEST MOVE : " + cm.IntX() + " - " + cm.IntY());
-                    System.out.println("POSISI attacker :" + this.position().IntX() + "-" + this.position().IntY());
+//                    System.out.println("CLOSEST MOVE : " + cm.IntX() + " - " + cm.IntY());
+//                    System.out.println("POSISI attacker :" + this.position().IntX() + "-" + this.position().IntY());
 //                    delaymove();
                     this.move(cm.IntX(), cm.IntY(), lock, cancel);
                     /*
@@ -938,16 +938,16 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
 //                    }
                     
                     if (isInRange(this.position().IntX(), this.position().IntY(), attackRange, ce.IntX(), ce.IntY())){
-                        System.out.println("MOVE ATTACK");
+//                        System.out.println("MOVE ATTACK");
                         attackAI(en);
-                        System.out.println("IN MOVE//ATTACKKKKK!!!!");
+//                        System.out.println("IN MOVE//ATTACKKKKK!!!!");
                     }else{
-                        System.out.println("FAILED MOVE ATTACK");
+//                        System.out.println("FAILED MOVE ATTACK");
                     }
                 }else{
-                    System.out.println("HIHI");
+//                    System.out.println("HIHI");
                     this.move(cm.IntX(), cm.IntY(), lock, cancel);
-                    System.out.println("HAHA");
+//                    System.out.println("HAHA");
                 }
             }
         }
@@ -964,7 +964,7 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
 
     public void performALPB(){
         for(int i=0;i<alpb.size();++i){
-            System.out.println(alpb.get(i).position().IntX() + " - " + alpb.get(i).position().IntY());
+//            System.out.println(alpb.get(i).position().IntX() + " - " + alpb.get(i).position().IntY());
         }
     }
 

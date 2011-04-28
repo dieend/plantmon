@@ -69,7 +69,6 @@ public abstract class MovingObject implements Drawable, Serializable{
         this.map=map;
         setGraphic(g2d);
         setPanel(panel);
-        System.out.println("action"+this.inAction+" dest"+this.destination.size()+" lock"+this.lock.size()+" position"+this.creature.position().IntX()+this.creature.position().IntY());
     }
     public void load(String filename, int columns, int rows,int width, int height){
         creature.setImageName(filename);
@@ -157,7 +156,6 @@ public abstract class MovingObject implements Drawable, Serializable{
             } else if (route.size()==1){
                 if ((Math.abs(creature.position().X()-creature.finalPosition().X())  <= 1) &&
                     (Math.abs(creature.position().Y()-creature.finalPosition().Y())  <= 1)) {
-                    System.out.print("size == 1");
                     int gx = route.get(0).IntX()*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
                     int gy = route.get(0).IntY()*Utilities.GRIDSIZE+Utilities.GRIDGALAT;
                     creature.setArah(new Point2D(gx,gy));
@@ -197,9 +195,7 @@ public abstract class MovingObject implements Drawable, Serializable{
         {
             for(int j=0;j<c;++j)
             {
-                System.out.print(arr[i][j]);
             }
-            System.out.println();
         }
     }
     
@@ -208,7 +204,7 @@ public abstract class MovingObject implements Drawable, Serializable{
     {
         for(int i=0;i<p.size();++i)
         {
-            System.out.println(p.get(i).IntX() + "," + p.get(i).IntY());
+            //System.out.println(p.get(i).IntX() + "," + p.get(i).IntY());
         }
     }
     /**
