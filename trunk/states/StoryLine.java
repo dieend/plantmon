@@ -410,6 +410,7 @@ public class StoryLine implements Runnable,Serializable {
             for (int i = 3; i <= 5; i++) {
                 if (map.getTop(i, 9) instanceof PulmosisLand) {
                     map.pop(Utilities.GRIDSIZE*i,Utilities.GRIDSIZE*9);
+                    break;
                 }
             }
         }
