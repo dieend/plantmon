@@ -91,7 +91,7 @@ public class BattleNovan extends ParentState implements MouseListener,MouseMotio
 
             z = rand.nextInt(6) + 1;
             z = -1*z;
-            PulmosisBattle player2 = new PulmosisBattle(map,this, g2d,-6,true,player1.level);
+            PulmosisBattle player2 = new PulmosisBattle(map,this, g2d,z,true,player1.level);
             player2.getCreature().setPosition(new Point2D(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
             player2.getCreature().setFinalPosition(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,9*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
 
@@ -113,7 +113,7 @@ public class BattleNovan extends ParentState implements MouseListener,MouseMotio
 
             z = rand.nextInt(6) + 1;
             z = -1*z;
-            PulmosisBattle player5 = new PulmosisBattle(map,this, g2d,-8,true,player3.level);
+            PulmosisBattle player5 = new PulmosisBattle(map,this, g2d,z,true,player3.level);
             player5.getCreature().setPosition(new Point2D(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,10*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
             player5.getCreature().setFinalPosition(9*Utilities.GRIDSIZE + Utilities.GRIDGALAT,10*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
 
@@ -123,7 +123,7 @@ public class BattleNovan extends ParentState implements MouseListener,MouseMotio
 
             z = rand.nextInt(6) + 1;
             z = -1*z;
-            PulmosisBattle player6 = new PulmosisBattle(map,this, g2d,-10,true,player4.level);
+            PulmosisBattle player6 = new PulmosisBattle(map,this, g2d,z,true,player4.level);
             player6.getCreature().setPosition(new Point2D(10*Utilities.GRIDSIZE + Utilities.GRIDGALAT,10*Utilities.GRIDSIZE + Utilities.GRIDGALAT));
             player6.getCreature().setFinalPosition(10*Utilities.GRIDSIZE + Utilities.GRIDGALAT,10*Utilities.GRIDSIZE + Utilities.GRIDGALAT);
 
