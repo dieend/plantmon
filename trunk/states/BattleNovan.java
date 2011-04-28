@@ -35,6 +35,7 @@ public class BattleNovan extends ParentState implements MouseListener,MouseMotio
     int clickx,clicky,defx,defy;
     boolean dragged;
     Object[] pulmos;
+    int counta;
     public BattleNovan(int gridRow, int gridColumn, Object[] args){
         super(gridRow, gridColumn);
         this.pulmos = args;
@@ -51,6 +52,7 @@ public class BattleNovan extends ParentState implements MouseListener,MouseMotio
         //add(pane);
         addMouseMotionListener(this);
         active = true;
+        counta = 10;
     }
     private URL getURL(String filename) {
         URL url = null;
@@ -183,7 +185,11 @@ public class BattleNovan extends ParentState implements MouseListener,MouseMotio
         }
 
         if (found) {
-            Game.instance().goTo(ParentState.MAPSTATE,new Object[0]);
+            if (counta > 0) {
+                i--;
+            } else {
+                Game.instance().goTo(ParentState.MAPSTATE,new Object[0]);
+            }
         }
         if (founden){
             Game.instance().goTo(ParentState.GAMEOVER,new Object[0]);

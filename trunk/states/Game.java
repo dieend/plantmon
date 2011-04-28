@@ -185,6 +185,7 @@ public class Game implements Serializable{
         pause.turnOff();
         frame.remove(pause);
         currentState.setVisible(true);
+        Game.instance().playMusic("019-Field02.mid");
         ((Thread) new Thread(currentState)).start();
     }
     public Inventory getInventory() {
@@ -212,10 +213,10 @@ public class Game implements Serializable{
         for (int i = 0; i <60; i++) {
             ran[i] = SUNNY;
         }
-        for (int i = 60; i <90; i++) {
+        for (int i = 60; i <95; i++) {
             ran[i] = RAINY;
         }
-        for (int i = 90; i <100; i++) {
+        for (int i = 95; i <100; i++) {
             ran[i] = STORM;
         }
         Random ranNum = new Random();
@@ -253,7 +254,7 @@ public class Game implements Serializable{
             for (Iterator<Plant> iter =plants.iterator(); iter.hasNext();){
                 x = ranNum.nextInt(100);
                 Plant p = iter.next();
-                if (x >= 60) {
+                if (x >= 80) {
                     iter.remove();
                 } else {
                    farmstatus[p.getPosition().IntX()/Utilities.GRIDSIZE][p.getPosition().IntY()/Utilities.GRIDSIZE] = Land.PLOWED;

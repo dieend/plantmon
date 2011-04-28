@@ -9,14 +9,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
 import plantmon.system.Actionable;
 import plantmon.system.Selectable;
 import plantmon.entity.*;
+import plantmon.entity.deadItem.Store;
+import plantmon.entity.item.ArmorItem;
+import plantmon.entity.item.FarmItem;
+import plantmon.entity.item.FoodItem;
+import plantmon.entity.item.WarItem;
 import plantmon.game.GridMap;
 import plantmon.game.Point2D;
 import plantmon.game.TalkPanel;
@@ -65,6 +73,7 @@ public class Player extends MovingObject implements Actionable, Cancellable,
     }
 
     @Override public JPopupMenu getMenu(Selectable selected){
+        JMenu subSubMenu;
         if (selected instanceof Player){
             final Player player = (Player) selected;
             JPopupMenu menu = new JPopupMenu();
@@ -78,11 +87,123 @@ public class Player extends MovingObject implements Actionable, Cancellable,
                 }
             });
             menu.add(ite);
+            ite = new JMenu("eat");
+            Inventory inventoryFarm = Game.instance().getInventory().getFarmItem();
+
+            if (!inventoryFarm.isEmpty()) {
+                JMenu subSellFarm;
+                subSellFarm = new JMenu("Farm Item");
+                for (int i = 0; i < inventoryFarm.getSize(); i++) {
+                    subSubMenu = new JMenu(inventoryFarm.getItem(i).getName());
+                    subSubMenu.setLayout(null);
+                    InitComponentSell comp = new InitComponentSell(selected,i,inventoryFarm.getItem(i),menu);
+                    subSubMenu.add(comp);
+                    subSellFarm.add(subSubMenu);
+                }
+                ite.add(subSellFarm);
+            }
+
+            Inventory inventoryFood = Game.instance().getInventory().getFoodItem();
+
+            if (!inventoryFood.isEmpty()) {
+                JMenu subSellFood;
+                subSellFood = new JMenu("Food Item");
+                for (int i = 0; i < inventoryFood.getSize(); i++) {
+                    subSubMenu = new JMenu(inventoryFood.getItem(i).getName());
+                    subSubMenu.setLayout(null);
+                    InitComponentSell comp = new InitComponentSell(selected,i,inventoryFood.getItem(i),menu);
+                    subSubMenu.add(comp);
+                    subSellFood.add(subSubMenu);
+                }
+                ite.add(subSellFood);
+            }
+
+            if (Game.instance().getInventory().isEmpty()) {
+                JMenuItem notFound;
+                notFound = new JMenuItem("No Inventory");
+                notFound.setEnabled(false);
+                ite.add(notFound);
+            }
+            menu.add(ite);
             menu.pack();
             return menu;
         }
         return null;
     }
+
+    class InitComponentSell extends JMenuItem implements ActionListener,Runnable {
+        int x;
+        JTextField text;
+        JButton buttonbes;
+        JButton buttonkec;
+        JButton buttonBuy;
+        JPopupMenu men;
+        Selectable selected;
+        Item temp;
+
+        public InitComponentSell (Selectable selected, int i, Item it, JPopupMenu men) {
+            super("                                                        ");
+            x = 0;
+            this.selected = selected;
+            this.men = men;
+            temp = it;
+            //Total.setBounds(0,0,100,20);
+            setLayout(null);
+            text = new JTextField();
+            text.setBounds(45,0,25, 20);
+            text.setText(""+x);
+            text.setEditable(false);
+            text.setHorizontalAlignment(JTextField.CENTER);
+            buttonbes = new JButton(">");
+            buttonbes.setLayout(null);
+            buttonbes.setBounds(70,0,45,20);
+            buttonbes.addActionListener(this);
+            buttonkec = new JButton("<");
+            buttonkec.setBounds(0,0,45,20);
+            buttonkec.addActionListener(this);
+            buttonBuy = new JButton("eat");
+            buttonBuy.setBounds(115,0,75,20);
+            buttonBuy.addActionListener(this);
+            add(buttonkec);
+            add(text);
+            add(buttonbes);
+            add(buttonBuy);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == buttonbes) {
+                if (x < Game.instance().getInventory().getJumItem(temp)) {
+                    x += 1;
+                }
+                text.setText(""+x);
+            } else if (e.getSource() == buttonkec) {
+                if (x != 0) {
+                    x -= 1;
+                }
+                text.setText(""+x);
+            } else if (e.getSource() == buttonBuy) {
+                Thread T1 = new Thread(this);
+                T1.start();
+                men.setVisible(false);
+            }
+        }
+
+        public void run() {
+            Player player = (Player) selected;
+            buttonbes.setEnabled(false);
+            buttonkec.setEnabled(false);
+            Game.instance().getInventory().delete(temp,x);
+            if (temp instanceof WarItem){
+//                    System.out.print("waritem");
+            } else if (temp instanceof FarmItem){
+//                    System.out.print("farmitem");
+            } else if (temp instanceof FoodItem){
+//                    System.out.print("fooditem");
+                Game.instance().getStory().setSold(temp.getIDitem()-20, x);
+            }
+        }
+    }
+    
     @Override protected void init() {
         //inisiasi semua variable disini.
         type = 0;
