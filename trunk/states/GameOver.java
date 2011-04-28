@@ -29,6 +29,7 @@ public class GameOver extends ParentState{
         setLayout(null);
         ID = GAMEOVER;
         startx = 0;
+        Game.instance().playMusic("005-Defeat01.mid");
         starty = 0;
         backbuffer = new BufferedImage(640,480, BufferedImage.TYPE_INT_ARGB);
         g2d = backbuffer.createGraphics();
@@ -39,6 +40,7 @@ public class GameOver extends ParentState{
         buttonNew.setBounds(245, 300, 150, 20);
         buttonNew.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    Game.instance().StopMusic();
                     Time t = new Time();
                     Time.instance().load(t);
                     Game.instance().goTo(ParentState.HOME,new Object[0]);
@@ -50,6 +52,7 @@ public class GameOver extends ParentState{
         buttonLoad.setBounds(245, 350, 150, 20);
         buttonLoad.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    Game.instance().StopMusic();
                     Game.instance().load("tes.txt");
                 }
         });

@@ -64,7 +64,7 @@ public class NanasState extends ParentState implements MouseListener,MouseMotion
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
         setLayout(null);
-
+        Game.instance().playMusic("025-Town03.mid");
         time.setEditable(false);
         time.setBounds(0, 0, 200, 50);
         time.setBackground(Color.ORANGE);
@@ -433,6 +433,7 @@ public void updated(){
                     turunip.getCreature().setFinalPosition(6*Utilities.GRIDSIZE+5, 0*Utilities.GRIDSIZE+5);
                 }
                 map.pop(6,0);
+                Game.instance().StopMusic();
                 Game.instance().returnTo();
             }
         }

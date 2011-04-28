@@ -62,7 +62,7 @@ public class LabuState extends ParentState implements MouseListener,MouseMotionL
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
         setLayout(null);
-
+        Game.instance().playMusic("025-Town03.mid");
         time.setEditable(false);
         time.setBounds(0, 0, 200, 50);
         time.setBackground(Color.ORANGE);
@@ -544,11 +544,14 @@ public void updated(){
                 i++;
                 Game.instance().setDialogBox(boces(i), panel);
             } else if (state == 10) {
+                Game.instance().StopMusic();
                 Game.instance().getStory().setLabuDone(true);
                 Game.instance().returnTo();
             } else if (state == 11) {
+                Game.instance().StopMusic();
                 Game.instance().returnTo();
             } else if (state == 12) {
+                Game.instance().StopMusic();
                 Game.instance().returnTo();
             }
         }

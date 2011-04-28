@@ -61,7 +61,7 @@ public class TomatState extends ParentState implements MouseListener,MouseMotion
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
         setLayout(null);
-
+        Game.instance().playMusic("025-Town03.mid");
         time.setEditable(false);
         time.setBounds(0, 0, 200, 50);
         time.setBackground(Color.ORANGE);
@@ -360,10 +360,12 @@ public void updated(){
                 Game.instance().setDialogBox(boces(i), panel);
             } else if (state == 5) {
                 setDragged(true);
+                Game.instance().StopMusic();
                 Game.instance().getStory().isTomatDapat(true);
                 Game.instance().returnTo();
             } else if (state == 6) {
                 setDragged(false);
+                Game.instance().StopMusic();
                 Game.instance().getStory().isTomatDapat(false);
                 Game.instance().returnTo();
             } else {
