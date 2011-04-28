@@ -24,7 +24,7 @@ public class Bayam extends Plant{
         super(map,panel,g2d,gx,gy);
         setFase(status - 1);
         typeTanaman = 15;
-        season = 3;
+        season = 2;
         happyMeter = 0;
         titikDewasa = 3;
         titikPanen = 6;

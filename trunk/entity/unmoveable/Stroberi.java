@@ -24,7 +24,7 @@ public class Stroberi extends Plant{
         super(map,panel,g2d,gx,gy);
         setFase(status - 1);
         typeTanaman = 13;
-        season = 1;
+        season = 0;
         happyMeter = 0;
         titikDewasa = 2;
         titikPanen = 8;
