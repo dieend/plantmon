@@ -391,9 +391,9 @@ public class PulmosisBattle extends MovingObject implements Cancellable,
         label1 = new JLabel(image1);
         label1.setBounds(0,0,100,100);
         panel.add(label1);
-        label2 = new JLabel("Name : " + name);
+        label2 = new JLabel("Nama : " + name);
         label2.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        label2.setBounds(120,0,150,30);
+        label2.setBounds(400,7,150,30);
         panel.add(label2);
 
         return panel;

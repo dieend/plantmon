@@ -39,7 +39,7 @@ public class HomeState extends ParentState implements MouseListener{
     GridMap map;
     JTextArea time;
     Player player;
-        int startx;
+    int startx;
     int starty;
     int clickx,clicky,defx,defy;
     boolean dragged;
