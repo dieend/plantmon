@@ -119,8 +119,10 @@ public class Utilities {
         music.get(filename).stop();
     }
     public void midiOff(String filename){
-        music_active.put(filename,Boolean.FALSE);
-        midi.get(filename).stop();
+        if (midi.get(filename) != null) {
+            music_active.put(filename,Boolean.FALSE);
+            midi.get(filename).stop();
+        }
     }
     class PlayMusic implements Runnable{
         String filename;

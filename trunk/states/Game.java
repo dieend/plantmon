@@ -388,10 +388,8 @@ public class Game implements Serializable{
     }
 
     public void playMusic (String filename) {
-        if (sound == null) {
-            sound = Applet.newAudioClip(getURL(filename));
-            sound.loop();
-        }
+        sound = Applet.newAudioClip(getURL(filename));
+        sound.loop();
     }
 
     private URL getURL(String filename) {
