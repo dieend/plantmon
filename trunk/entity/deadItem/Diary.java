@@ -83,6 +83,7 @@ public class Diary extends Unmoveable implements Actionable {
             }
             if (!cancel[0]){
                 map.popCancel(gx, gy);
+                Game.instance().StopMusic();
                 Game.instance().load("tes.txt");
             }
         }

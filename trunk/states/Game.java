@@ -208,6 +208,7 @@ public class Game implements Serializable{
         getPlants().remove(plant);
     }
     public void changeDay(){
+        Game.instance().StopMusic();
         Integer[] ran = new Integer[100];
         int x;
         for (int i = 0; i <60; i++) {
