@@ -1,5 +1,4 @@
 package plantmon.states;
-
 import javax.swing.JPopupMenu;
 import java.awt.*;
 import java.awt.event.MouseEvent;
