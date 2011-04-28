@@ -105,6 +105,7 @@ public class Portal extends Unmoveable implements Actionable{
                 }
             }
             if (!cancel[0]){
+                Game.instance().StopMusic();
                 map.popCancel(gx, gy);
                 Game.instance().goTo(where, new Object[0]);
             }

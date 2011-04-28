@@ -53,6 +53,8 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setPreferredSize(new Dimension(640, 480));
         setLayout(null);
+        //Game.instance().StopMusic();
+        Game.instance().playMusic("019-Field02.mid");
         
 //        add(new Component() {});
 //        add(new Component() {});
@@ -272,6 +274,7 @@ public class FarmState extends ParentState implements MouseListener,MouseMotionL
         @Override public void turnOff () {
             story.turnOff();
 //            System.out.print("turn off famrstate");
+            Game.instance().StopMusic();
             super.turnOff();
         }
 

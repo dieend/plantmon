@@ -100,6 +100,7 @@ public class HomeState extends ParentState implements MouseListener{
         selected = player;
         selectsomething = true;
         add(time);
+        Game.instance().playMusic("026-Town04.mid");
     }
         @Override
     public void run(){

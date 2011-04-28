@@ -72,6 +72,8 @@ public class StoreState extends ParentState implements MouseListener{
         g2d = backbuffer.createGraphics();
         background = new ImageEntity(this);
         background.load("picture/market.png");
+        //Game.instance().StopMusic();
+        Game.instance().playMusic("028-Town06.mid");
         player =  new Player(map, this, g2d);
         player.getCreature().setPosition(new Point2D(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE));
         player.getCreature().setFinalPosition(5*Utilities.GRIDSIZE,5*Utilities.GRIDSIZE);
