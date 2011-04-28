@@ -37,9 +37,7 @@ public class PulmosisLand extends PulmosisBattle implements Cancellable,
 
     @Override
     public void reinit (GridMap map, Graphics2D g2d, JPanel panel) {
-        super.map = map;
-        super.setGraphic(g2d);
-        super.setPanel(panel);
+        super.reinit(map, g2d, panel);
         this.pan = panel;
     }
     
